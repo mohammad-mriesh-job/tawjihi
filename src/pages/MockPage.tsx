@@ -30,6 +30,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import MathText from '../components/MathText';
+import SolutionView from '../components/SolutionView';
 import { getPaper, setInfo, setOfPaper, unitOfLesson } from '../data/mocks';
 import type { MockPaper, MockQuestion } from '../data/types';
 import { raw } from '../lib/storage';
@@ -621,9 +622,7 @@ function SolutionBox({ q, chosen }: { q: MockQuestion; chosen: number | null | u
         <Chip size="small" variant="outlined" label={`الصحيح: (${SHEET_LETTERS[q.answer]}) ↔ ${PAPER_LETTERS[q.answer]})`} />
         {q.pattern && <Chip size="small" variant="outlined" label={q.pattern} />}
       </Stack>
-      <MathText component="div" sx={{ fontSize: 15.5 }}>
-        {q.solution}
-      </MathText>
+      <SolutionView q={q} letters={PAPER_LETTERS} chosen={chosen} />
     </Box>
   );
 }

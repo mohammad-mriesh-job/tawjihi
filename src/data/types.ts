@@ -3,6 +3,20 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 /**
  * Text fields support inline math between $...$ and display math between $$...$$ (KaTeX).
  */
+/** Teaching-style worked solution shown when reviewing a question. */
+export interface Explanation {
+  /** how to recognise the method from the wording of the question */
+  idea: string;
+  /** numbered steps, each with its reason */
+  steps: string[];
+  /** a faster exam technique (substituting options, elimination), when one genuinely exists */
+  quick?: string;
+  /** why each option is wrong, indexed like `options` (null for the correct one) */
+  wrong: (string | null)[];
+  /** a warning or habit for the exam */
+  tip?: string;
+}
+
 export interface Question {
   id: string;
   lesson: string;
@@ -12,6 +26,8 @@ export interface Question {
   /** index of the correct option in `options` */
   answer: 0 | 1 | 2 | 3;
   solution: string;
+  /** detailed explanation; when present it replaces `solution` in the review */
+  explain?: Explanation;
   /** optional figure (path under public/, e.g. "fig/u3e1q5.svg") shown under the question text */
   figure?: string;
 }

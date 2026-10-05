@@ -33,6 +33,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import MathText from '../components/MathText';
+import SolutionView from '../components/SolutionView';
 import { getExam, minutesFor, questionById, units } from '../data';
 import type { ExamDescriptor } from '../data';
 import type { Question } from '../data/types';
@@ -532,13 +533,8 @@ function Review({ exam, result, onRetry }: { exam: ExamDescriptor; result: Resul
                   />
                 ))}
               </Stack>
-              <Box sx={{ mt: 2, p: 2, borderRadius: 2, bgcolor: 'rgba(29,78,137,0.05)' }}>
-                <Typography variant="subtitle2" color="primary" sx={{ mb: 0.5 }}>
-                  الحل
-                </Typography>
-                <MathText component="div" sx={{ fontSize: 16 }}>
-                  {q.solution}
-                </MathText>
+              <Box sx={{ mt: 2 }}>
+                <SolutionView q={q} order={s.optionOrder[k]} letters={LETTERS} chosen={chosen} />
               </Box>
             </Paper>
           );

@@ -38,7 +38,29 @@ const unit: Unit = {
             "$\\sec x$"
           ],
           "answer": 0,
-          "solution": "$\\sec x-\\cos x=\\dfrac{1-\\cos^2x}{\\cos x}=\\dfrac{\\sin^2x}{\\cos x}$\nبالقسمة على $\\tan x=\\dfrac{\\sin x}{\\cos x}$: $\\dfrac{\\sin^2x}{\\cos x}\\cdot\\dfrac{\\cos x}{\\sin x}=\\sin x$"
+          "solution": "$\\sec x-\\cos x=\\dfrac{1-\\cos^2x}{\\cos x}=\\dfrac{\\sin^2x}{\\cos x}$\nبالقسمة على $\\tan x=\\dfrac{\\sin x}{\\cos x}$: $\\dfrac{\\sin^2x}{\\cos x}\\cdot\\dfrac{\\cos x}{\\sin x}=\\sin x$",
+          "explain": {
+            "idea": "تبسيط مقدار مثلثي ← نحوّل كل الاقترانات إلى $\\sin$ و $\\cos$ ، ثم نستعمل متطابقة فيثاغورس.",
+            "steps": [
+              "## التحويل إلى sin و cos",
+              "$\\sec x=\\dfrac{1}{\\cos x}$ و $\\tan x=\\dfrac{\\sin x}{\\cos x}$",
+              "## تبسيط البسط",
+              "$\\sec x-\\cos x=\\dfrac{1}{\\cos x}-\\cos x$ ، ولتوحيد المقام نكتب $\\cos x=\\dfrac{\\cos^2x}{\\cos x}$",
+              "$\\dfrac{1}{\\cos x}-\\dfrac{\\cos^2x}{\\cos x}=\\dfrac{1-\\cos^2x}{\\cos x}$",
+              "من متطابقة فيثاغورس $\\sin^2x+\\cos^2x=1$ نحصل على $1-\\cos^2x=\\sin^2x$ ، فالبسط يصبح $\\dfrac{\\sin^2x}{\\cos x}$",
+              "## القسمة على tan x",
+              "القسمة على كسر تعني الضرب في مقلوبه: $\\dfrac{\\sin^2x}{\\cos x}\\div\\dfrac{\\sin x}{\\cos x}=\\dfrac{\\sin^2x}{\\cos x}\\times\\dfrac{\\cos x}{\\sin x}$",
+              "نختصر $\\cos x$ مع $\\cos x$ ، ونختصر $\\sin x$ مع أحد عاملَي $\\sin^2x=\\sin x\\cdot\\sin x$ ، فيبقى $\\sin x$"
+            ],
+            "quick": "عوّضي زاوية خاصة مثل $x=\\frac{\\pi}{3}$: $\\sec\\frac{\\pi}{3}=2$ ، $\\cos\\frac{\\pi}{3}=\\frac12$ ، $\\tan\\frac{\\pi}{3}=\\sqrt3$. المقدار يساوي $\\dfrac{2-\\frac12}{\\sqrt3}=\\dfrac{\\sqrt3}{2}$ ، وهو $\\sin\\frac{\\pi}{3}$ ✔.",
+            "wrong": [
+              null,
+              "عند $x=\\frac{\\pi}{3}$ المقدار $\\frac{\\sqrt3}{2}$ ، بينما $\\cos\\frac{\\pi}{3}=\\frac12$.",
+              "عند $x=\\frac{\\pi}{3}$ المقدار $\\frac{\\sqrt3}{2}$ ، بينما $\\tan\\frac{\\pi}{3}=\\sqrt3$.",
+              "عند $x=\\frac{\\pi}{3}$ المقدار $\\frac{\\sqrt3}{2}$ ، بينما $\\sec\\frac{\\pi}{3}=2$."
+            ],
+            "tip": "طريقة تعويض زاوية خاصة تصلح لكل أسئلة «أيّ الآتية مكافئ»، لكن تجنّبي زاوية تجعل بديلين متساويين (مثل $\\frac{\\pi}{4}$ إذا كان في البدائل $\\sin$ و $\\cos$)."
+          }
         },
         {
           "id": "u2e1q2",
@@ -52,7 +74,29 @@ const unit: Unit = {
             "$\\cos x$"
           ],
           "answer": 0,
-          "solution": "$\\cos\\left(x-\\frac{\\pi}{3}\\right)=\\cos x\\cos\\frac{\\pi}{3}+\\sin x\\sin\\frac{\\pi}{3}=\\frac12\\cos x+\\frac{\\sqrt3}{2}\\sin x$\nبطرح $\\frac12\\cos x$ يبقى $\\frac{\\sqrt3}{2}\\sin x$"
+          "solution": "$\\cos\\left(x-\\frac{\\pi}{3}\\right)=\\cos x\\cos\\frac{\\pi}{3}+\\sin x\\sin\\frac{\\pi}{3}=\\frac12\\cos x+\\frac{\\sqrt3}{2}\\sin x$\nبطرح $\\frac12\\cos x$ يبقى $\\frac{\\sqrt3}{2}\\sin x$",
+          "explain": {
+            "idea": "في المقدار $\\cos$ لفرق زاويتين ← نفكّه بقانون جيب تمام الفرق، ثم نعوّض قيم الزاوية الخاصة $\\frac{\\pi}{3}$ ونجمع الحدود المتشابهة.",
+            "steps": [
+              "## فكّ القوس",
+              "قانون جيب تمام الفرق: $\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B$ ، وهنا $A=x$ و $B=\\frac{\\pi}{3}$",
+              "$\\cos\\left(x-\\frac{\\pi}{3}\\right)=\\cos x\\cos\\frac{\\pi}{3}+\\sin x\\sin\\frac{\\pi}{3}$",
+              "## قيم الزاوية الخاصة",
+              "$\\frac{\\pi}{3}$ هي $60^\\circ$ ، و $\\cos\\frac{\\pi}{3}=\\frac12$ و $\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$",
+              "$\\cos\\left(x-\\frac{\\pi}{3}\\right)=\\frac12\\cos x+\\frac{\\sqrt3}{2}\\sin x$",
+              "## الطرح",
+              "المقدار المطلوب: $\\frac12\\cos x+\\frac{\\sqrt3}{2}\\sin x-\\frac12\\cos x$",
+              "الحدّان $\\frac12\\cos x$ و $-\\frac12\\cos x$ يحذف أحدهما الآخر، فيبقى $\\frac{\\sqrt3}{2}\\sin x$"
+            ],
+            "quick": "عوّضي $x=\\frac{\\pi}{2}$: المقدار يساوي $\\cos\\frac{\\pi}{6}-0=\\frac{\\sqrt3}{2}$ ، والبديل الصحيح $\\frac{\\sqrt3}{2}\\sin\\frac{\\pi}{2}=\\frac{\\sqrt3}{2}$ ✔ ، أما البدائل الأخرى فتعطي $\\frac12$ و $0$ و $0$.",
+            "wrong": [
+              null,
+              "خلط بين قيمتي الزاوية $\\frac{\\pi}{3}$: $\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$ وليس $\\frac12$.",
+              "الحدّان اللذان فيهما $\\cos x$ يُحذفان، فيبقى $\\sin x$ فقط.",
+              "الحدّ $\\frac12\\cos x$ يُطرح بالكامل ولا يبقى $\\cos x$."
+            ],
+            "tip": "احفظي: $\\cos\\frac{\\pi}{3}=\\frac12$ و $\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$ ، والعكس للزاوية $\\frac{\\pi}{6}$."
+          }
         },
         {
           "id": "u2e1q3",
@@ -66,7 +110,42 @@ const unit: Unit = {
             "$-\\frac{56}{65}$"
           ],
           "answer": 0,
-          "solution": "$A$ في الربع الثاني: $\\cos A=-\\frac{12}{13}$ ، و $B$ في الربع الثالث: $\\sin B=-\\frac45$\n$\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B=\\left(-\\frac{12}{13}\\right)\\left(-\\frac35\\right)+\\frac{5}{13}\\left(-\\frac45\\right)=\\frac{36}{65}-\\frac{20}{65}=\\frac{16}{65}$"
+          "solution": "$A$ في الربع الثاني: $\\cos A=-\\frac{12}{13}$ ، و $B$ في الربع الثالث: $\\sin B=-\\frac45$\n$\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B=\\left(-\\frac{12}{13}\\right)\\left(-\\frac35\\right)+\\frac{5}{13}\\left(-\\frac45\\right)=\\frac{36}{65}-\\frac{20}{65}=\\frac{16}{65}$",
+          "explain": {
+            "idea": "قانون $\\cos(A-B)$ يحتاج النسب الأربع: معطى $\\sin A$ و $\\cos B$ ، فنجد $\\cos A$ و $\\sin B$ من متطابقة فيثاغورس، ونحدّد إشارة كل منهما من ربع الزاوية.",
+            "steps": [
+              "## أولًا: تحديد ربع كل زاوية",
+              "حدود الأرباع: الأول بين $0$ و $\\frac{\\pi}{2}$ ، الثاني بين $\\frac{\\pi}{2}$ و $\\pi$ ، الثالث بين $\\pi$ و $\\frac{3\\pi}{2}$ ، الرابع بين $\\frac{3\\pi}{2}$ و $2\\pi$",
+              "المعطى $\\frac{\\pi}{2}<A<\\pi$ ، أي أن $A$ أكبر من $\\frac{\\pi}{2}$ وأصغر من $\\pi$ ، وهذه بالضبط حدود الربع الثاني، إذن $A$ في الربع الثاني",
+              "المعطى $\\pi<B<\\frac{3\\pi}{2}$ ، وهذه حدود الربع الثالث، إذن $B$ في الربع الثالث",
+              "## ثانيًا: إشارات النسب في هذين الربعين",
+              "قاعدة الإشارات: في الربع الأول كل النسب موجبة، في الثاني $\\sin$ فقط موجب، في الثالث $\\tan$ فقط موجب، في الرابع $\\cos$ فقط موجب (وتأخذ $\\csc,\\ \\sec,\\ \\cot$ إشارة مقلوباتها)",
+              "في الربع الثاني: $\\sin$ موجب و $\\cos$ سالب (السبب: على دائرة الوحدة $\\cos$ هو الإحداثي $x$ و $\\sin$ هو الإحداثي $y$ ، ففي الربع الثاني النقطة يسار المحور الرأسي ($x$ سالب) وفوق المحور الأفقي ($y$ موجب))",
+              "في الربع الثالث: $\\sin$ سالب و $\\cos$ سالب (النقطة يسار المحور الرأسي وأسفل المحور الأفقي)",
+              "## ثالثًا: القانون وما ينقصنا",
+              "$\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B$",
+              "المعطى: $\\sin A=\\frac{5}{13}$ و $\\cos B=-\\frac35$ ، والناقص: $\\cos A$ و $\\sin B$",
+              "## رابعًا: إيجاد cos A",
+              "من متطابقة فيثاغورس $\\sin^2A+\\cos^2A=1$: $\\cos^2A=1-\\sin^2A=1-\\left(\\frac{5}{13}\\right)^2=1-\\frac{25}{169}=\\frac{169-25}{169}=\\frac{144}{169}$",
+              "بأخذ الجذر: $\\cos A=\\pm\\sqrt{\\frac{144}{169}}=\\pm\\frac{12}{13}$",
+              "$A$ في الربع الثاني حيث $\\cos$ سالب، إذن $\\cos A=-\\frac{12}{13}$",
+              "## خامسًا: إيجاد sin B",
+              "$\\sin^2B=1-\\cos^2B=1-\\left(-\\frac35\\right)^2=1-\\frac{9}{25}=\\frac{16}{25}$",
+              "بأخذ الجذر: $\\sin B=\\pm\\frac45$ ، و $B$ في الربع الثالث حيث $\\sin$ سالب، إذن $\\sin B=-\\frac45$",
+              "## سادسًا: التعويض في القانون",
+              "$\\cos(A-B)=\\left(-\\frac{12}{13}\\right)\\left(-\\frac35\\right)+\\left(\\frac{5}{13}\\right)\\left(-\\frac45\\right)$",
+              "الحدّ الأول: سالب × سالب = موجب: $\\frac{12\\times3}{13\\times5}=\\frac{36}{65}$",
+              "الحدّ الثاني: موجب × سالب = سالب: $-\\frac{5\\times4}{13\\times5}=-\\frac{20}{65}$",
+              "$\\cos(A-B)=\\frac{36}{65}-\\frac{20}{65}=\\frac{16}{65}$"
+            ],
+            "wrong": [
+              null,
+              "تنتج من نسيان أن $\\sin B$ سالبة في الربع الثالث، أو من استعمال قانون $\\cos(A+B)$ بدل $\\cos(A-B)$: $\\frac{36}{65}+\\frac{20}{65}$.",
+              "تنتج من أخذ $\\cos A$ و $\\sin B$ موجبتين (نسيان إشارات الربعين): $-\\frac{36}{65}+\\frac{20}{65}$.",
+              "تنتج من أخذ $\\cos A=+\\frac{12}{13}$؛ لكن جيب التمام سالب في الربع الثاني."
+            ],
+            "tip": "إشارات الأرباع: الأول كلها موجبة، الثاني $\\sin$ فقط موجب، الثالث $\\tan$ فقط موجب، الرابع $\\cos$ فقط موجب."
+          }
         },
         {
           "id": "u2e1q4",
@@ -80,7 +159,28 @@ const unit: Unit = {
             "$\\cos(-x)=\\cos x$"
           ],
           "answer": 0,
-          "solution": "الاقتران $\\sec x$ زوجي مثل $\\cos x$ ، أي $\\sec(-x)=\\dfrac{1}{\\cos(-x)}=\\dfrac{1}{\\cos x}=\\sec x$ ، فالمعادلة $\\sec(-x)=-\\sec x$ ليست متطابقة.\nأما البقية فمتطابقات: $\\sin$ فردي، $\\cos$ زوجي، و $\\tan\\left(\\frac{\\pi}{2}-x\\right)=\\cot x$"
+          "solution": "الاقتران $\\sec x$ زوجي مثل $\\cos x$ ، أي $\\sec(-x)=\\dfrac{1}{\\cos(-x)}=\\dfrac{1}{\\cos x}=\\sec x$ ، فالمعادلة $\\sec(-x)=-\\sec x$ ليست متطابقة.\nأما البقية فمتطابقات: $\\sin$ فردي، $\\cos$ زوجي، و $\\tan\\left(\\frac{\\pi}{2}-x\\right)=\\cot x$",
+          "explain": {
+            "idea": "السؤال عن الاقترانات الزوجية والفردية: الزوجي يحقق $f(-x)=f(x)$ ، والفردي يحقق $f(-x)=-f(x)$. المطلوب المعادلة التي **ليست** متطابقة (أي غير صحيحة لكل $x$).",
+            "steps": [
+              "## التعريف",
+              "$\\cos$ و $\\sec$ زوجيان: $\\cos(-x)=\\cos x$",
+              "$\\sin$ و $\\csc$ و $\\tan$ و $\\cot$ فردية: $\\sin(-x)=-\\sin x$",
+              "## فحص sec",
+              "$\\sec x=\\dfrac{1}{\\cos x}$ ، إذن $\\sec(-x)=\\dfrac{1}{\\cos(-x)}$",
+              "ولأن $\\cos$ زوجي فإن $\\cos(-x)=\\cos x$ ، إذن $\\sec(-x)=\\dfrac{1}{\\cos x}=\\sec x$",
+              "فالصحيح هو $\\sec(-x)=\\sec x$ ، والمعادلة $\\sec(-x)=-\\sec x$ ليست متطابقة",
+              "## تحقّق عددي",
+              "عند $x=0$: الطرف الأيسر $\\sec0=1$ ، والطرف الأيمن $-\\sec0=-1$ ، والطرفان مختلفان"
+            ],
+            "wrong": [
+              null,
+              "متطابقة صحيحة: $\\sin$ فردي.",
+              "متطابقة صحيحة: نسب الزاويتين المتتامتين ($\\tan$ زاوية يساوي $\\cot$ متمّمتها).",
+              "متطابقة صحيحة: $\\cos$ زوجي."
+            ],
+            "tip": "في أسئلة «ليست متطابقة» يكفي إيجاد قيمة واحدة لـ $x$ لا تحقّق المعادلة."
+          }
         },
         {
           "id": "u2e1q5",
@@ -94,7 +194,29 @@ const unit: Unit = {
             "$\\frac{2}{5}$"
           ],
           "answer": 0,
-          "solution": "من مثلث قائم: المقابل $2$ والمجاور $1$ والوتر $\\sqrt5$ ، فيكون $\\sin\\theta=\\frac{2}{\\sqrt5}$ و $\\cos\\theta=\\frac{1}{\\sqrt5}$\n$\\sin2\\theta=2\\sin\\theta\\cos\\theta=2\\cdot\\frac{2}{\\sqrt5}\\cdot\\frac{1}{\\sqrt5}=\\frac45$"
+          "solution": "من مثلث قائم: المقابل $2$ والمجاور $1$ والوتر $\\sqrt5$ ، فيكون $\\sin\\theta=\\frac{2}{\\sqrt5}$ و $\\cos\\theta=\\frac{1}{\\sqrt5}$\n$\\sin2\\theta=2\\sin\\theta\\cos\\theta=2\\cdot\\frac{2}{\\sqrt5}\\cdot\\frac{1}{\\sqrt5}=\\frac45$",
+          "explain": {
+            "idea": "معطى $\\tan\\theta$ ومطلوب $\\sin2\\theta$ ← نرسم مثلثًا قائمًا لإيجاد $\\sin\\theta$ و $\\cos\\theta$ ، ثم نطبّق قانون ضعف الزاوية.",
+            "steps": [
+              "## رسم المثلث",
+              "$\\theta$ حادة، فنستعمل مثلثًا قائمًا. $\\tan\\theta$ = المقابل ÷ المجاور، و $\\tan\\theta=2=\\frac21$ ، فنأخذ المقابل $2$ والمجاور $1$",
+              "الوتر بنظرية فيثاغورس: $\\sqrt{2^2+1^2}=\\sqrt{4+1}=\\sqrt5$",
+              "## النسبتان",
+              "$\\sin\\theta$ = المقابل ÷ الوتر، أي $\\sin\\theta=\\frac{2}{\\sqrt5}$",
+              "$\\cos\\theta$ = المجاور ÷ الوتر، أي $\\cos\\theta=\\frac{1}{\\sqrt5}$",
+              "كلتاهما موجبة لأن $\\theta$ حادة (الربع الأول)",
+              "## قانون ضعف الزاوية",
+              "$\\sin2\\theta=2\\sin\\theta\\cos\\theta=2\\times\\frac{2}{\\sqrt5}\\times\\frac{1}{\\sqrt5}$",
+              "$\\sqrt5\\times\\sqrt5=5$ ، إذن $\\sin2\\theta=\\frac{2\\times2\\times1}{5}=\\frac45$"
+            ],
+            "quick": "قانون مباشر من $\\tan$: $\\sin2\\theta=\\dfrac{2\\tan\\theta}{1+\\tan^2\\theta}=\\dfrac{4}{1+4}=\\dfrac45$.",
+            "wrong": [
+              null,
+              "هذه القيمة المطلقة لـ $\\cos2\\theta$؛ فـ $\\cos2\\theta=\\frac15-\\frac45=-\\frac35$.",
+              "هذه قيمة $\\cos2\\theta$ وليس $\\sin2\\theta$.",
+              "نسيان الضرب في $2$: $\\sin\\theta\\cos\\theta=\\frac25$ ، و $\\sin2\\theta$ ضعف ذلك."
+            ]
+          }
         },
         {
           "id": "u2e1q6",
@@ -108,7 +230,29 @@ const unit: Unit = {
             "$\\sqrt{2}$"
           ],
           "answer": 0,
-          "solution": "$8\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8}=4\\sin\\frac{\\pi}{4}$ ، فيصبح المقدار $4\\sin\\frac{\\pi}{4}\\cos\\frac{\\pi}{4}=2\\sin\\frac{\\pi}{2}=2$"
+          "solution": "$8\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8}=4\\sin\\frac{\\pi}{4}$ ، فيصبح المقدار $4\\sin\\frac{\\pi}{4}\\cos\\frac{\\pi}{4}=2\\sin\\frac{\\pi}{2}=2$",
+          "explain": {
+            "idea": "حاصل ضرب $\\sin$ و $\\cos$ للزاوية نفسها ← نستعمل $2\\sin\\theta\\cos\\theta=\\sin2\\theta$ ، ونكرّرها مرتين.",
+            "steps": [
+              "## القانون",
+              "$\\sin2\\theta=2\\sin\\theta\\cos\\theta$ ، أي أن $2\\sin\\theta\\cos\\theta$ يمكن استبدالها بـ $\\sin2\\theta$",
+              "## المرة الأولى",
+              "نكتب $8=4\\times2$: $8\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8}=4\\left(2\\sin\\frac{\\pi}{8}\\cos\\frac{\\pi}{8}\\right)=4\\sin\\left(2\\times\\frac{\\pi}{8}\\right)=4\\sin\\frac{\\pi}{4}$",
+              "المقدار أصبح: $4\\sin\\frac{\\pi}{4}\\cos\\frac{\\pi}{4}$",
+              "## المرة الثانية",
+              "نكتب $4=2\\times2$: $4\\sin\\frac{\\pi}{4}\\cos\\frac{\\pi}{4}=2\\left(2\\sin\\frac{\\pi}{4}\\cos\\frac{\\pi}{4}\\right)=2\\sin\\left(2\\times\\frac{\\pi}{4}\\right)=2\\sin\\frac{\\pi}{2}$",
+              "$\\sin\\frac{\\pi}{2}=1$ ، إذن الناتج $2\\times1=2$",
+              "## تحقّق",
+              "$\\sin\\frac{\\pi}{4}=\\cos\\frac{\\pi}{4}=\\frac{\\sqrt2}{2}$ ، و $4\\times\\frac{\\sqrt2}{2}\\times\\frac{\\sqrt2}{2}=4\\times\\frac24=2$ ✔"
+            ],
+            "wrong": [
+              null,
+              "الحساب الصحيح: $4\\sin\\frac{\\pi}{4}\\cos\\frac{\\pi}{4}=4\\times\\frac{\\sqrt2}{2}\\times\\frac{\\sqrt2}{2}=2$ وليس $4$.",
+              "كل استعمال لضعف الزاوية يستهلك عامل $2$ واحدًا فقط: $8\\to4\\to2$ ، فالناتج $2\\sin\\frac{\\pi}{2}=2$.",
+              "$\\sqrt2$ تساوي $2\\sin\\frac{\\pi}{4}$ ، لكن بقي عامل $\\cos\\frac{\\pi}{4}$ يجب ضربه أيضًا."
+            ],
+            "tip": "عند كل تطبيق لـ $2\\sin\\theta\\cos\\theta=\\sin2\\theta$ خذي $2$ من المعامل وضاعفي الزاوية."
+          }
         },
         {
           "id": "u2e1q7",
@@ -122,7 +266,31 @@ const unit: Unit = {
             "$-\\frac{\\sqrt{10}}{4}$"
           ],
           "answer": 0,
-          "solution": "$\\frac{3\\pi}{4}<\\frac{\\theta}{2}<\\pi$ ، أي $\\frac{\\theta}{2}$ في الربع الثاني فالجيب موجب\n$\\sin\\frac{\\theta}{2}=\\sqrt{\\dfrac{1-\\cos\\theta}{2}}=\\sqrt{\\dfrac{1-\\frac14}{2}}=\\sqrt{\\dfrac38}=\\dfrac{\\sqrt6}{4}$"
+          "solution": "$\\frac{3\\pi}{4}<\\frac{\\theta}{2}<\\pi$ ، أي $\\frac{\\theta}{2}$ في الربع الثاني فالجيب موجب\n$\\sin\\frac{\\theta}{2}=\\sqrt{\\dfrac{1-\\cos\\theta}{2}}=\\sqrt{\\dfrac{1-\\frac14}{2}}=\\sqrt{\\dfrac38}=\\dfrac{\\sqrt6}{4}$",
+          "explain": {
+            "idea": "مطلوب نسبة نصف الزاوية ← قانون نصف الزاوية فيه $\\pm$ ، والإشارة تُحدَّد من ربع $\\frac{\\theta}{2}$ (وليس ربع $\\theta$).",
+            "steps": [
+              "## أولًا: ربع نصف الزاوية",
+              "المعطى $\\frac{3\\pi}{2}<\\theta<2\\pi$ ، نقسم الأطراف الثلاثة على $2$: $\\frac{3\\pi}{4}<\\frac{\\theta}{2}<\\pi$",
+              "الفترة من $\\frac{3\\pi}{4}$ إلى $\\pi$ تقع داخل الربع الثاني (الذي يمتد من $\\frac{\\pi}{2}$ إلى $\\pi$)",
+              "في الربع الثاني $\\sin$ موجب، فنأخذ الإشارة $+$",
+              "## ثانيًا: القانون",
+              "متطابقة نصف الزاوية: $\\sin\\frac{\\theta}{2}=\\pm\\sqrt{\\dfrac{1-\\cos\\theta}{2}}$",
+              "## ثالثًا: الحساب",
+              "$1-\\cos\\theta=1-\\frac14=\\frac44-\\frac14=\\frac34$",
+              "نقسم على $2$: $\\frac34\\div2=\\frac34\\times\\frac12=\\frac38$",
+              "$\\sqrt{\\frac38}=\\frac{\\sqrt3}{\\sqrt8}=\\frac{\\sqrt3}{2\\sqrt2}$ (لأن $\\sqrt8=\\sqrt{4\\times2}=2\\sqrt2$)",
+              "نتخلّص من الجذر في المقام بضرب البسط والمقام في $\\sqrt2$: $\\frac{\\sqrt3\\times\\sqrt2}{2\\sqrt2\\times\\sqrt2}=\\frac{\\sqrt6}{2\\times2}=\\frac{\\sqrt6}{4}$",
+              "إذن $\\sin\\frac{\\theta}{2}=+\\frac{\\sqrt6}{4}$"
+            ],
+            "wrong": [
+              null,
+              "الإشارة خطأ: $\\frac{\\theta}{2}$ في الربع الثاني لا الرابع، والجيب فيه موجب.",
+              "هذا من قانون $\\cos\\frac{\\theta}{2}$ الذي فيه $1+\\cos\\theta$: $\\sqrt{\\frac{5/4}{2}}=\\frac{\\sqrt{10}}{4}$.",
+              "خطآن معًا: القانون الذي فيه $1+\\cos\\theta$ والإشارة السالبة."
+            ],
+            "tip": "الربع يُحدَّد لـ $\\frac{\\theta}{2}$: اقسمي حدود فترة $\\theta$ على $2$ أولًا."
+          }
         },
         {
           "id": "u2e1q8",
@@ -136,7 +304,28 @@ const unit: Unit = {
             "$\\frac{\\sqrt{3}}{2}$"
           ],
           "answer": 0,
-          "solution": "$\\sin A-\\sin B=2\\cos\\dfrac{A+B}{2}\\sin\\dfrac{A-B}{2}$\n$\\sin75^\\circ-\\sin15^\\circ=2\\cos45^\\circ\\sin30^\\circ=2\\cdot\\frac{\\sqrt2}{2}\\cdot\\frac12=\\frac{\\sqrt2}{2}$"
+          "solution": "$\\sin A-\\sin B=2\\cos\\dfrac{A+B}{2}\\sin\\dfrac{A-B}{2}$\n$\\sin75^\\circ-\\sin15^\\circ=2\\cos45^\\circ\\sin30^\\circ=2\\cdot\\frac{\\sqrt2}{2}\\cdot\\frac12=\\frac{\\sqrt2}{2}$",
+          "explain": {
+            "idea": "فرق بين جيبين لزاويتين غير خاصتين ← متطابقة تحويل الفرق إلى ضرب تعطينا نصف مجموعهما ونصف فرقهما، وهما زاويتان خاصتان.",
+            "steps": [
+              "## المتطابقة",
+              "$75^\\circ$ و $15^\\circ$ ليستا من الزوايا الخاصة، لذلك نستعمل: $\\sin A-\\sin B=2\\cos\\dfrac{A+B}{2}\\sin\\dfrac{A-B}{2}$",
+              "## حساب الزاويتين الجديدتين",
+              "$\\dfrac{A+B}{2}=\\dfrac{75^\\circ+15^\\circ}{2}=\\dfrac{90^\\circ}{2}=45^\\circ$",
+              "$\\dfrac{A-B}{2}=\\dfrac{75^\\circ-15^\\circ}{2}=\\dfrac{60^\\circ}{2}=30^\\circ$",
+              "## التعويض",
+              "$\\sin75^\\circ-\\sin15^\\circ=2\\cos45^\\circ\\sin30^\\circ$",
+              "قيم الزوايا الخاصة: $\\cos45^\\circ=\\frac{\\sqrt2}{2}$ و $\\sin30^\\circ=\\frac12$",
+              "$2\\cos45^\\circ\\sin30^\\circ=2\\times\\frac{\\sqrt2}{2}\\times\\frac12=\\frac{\\sqrt2}{2}$"
+            ],
+            "wrong": [
+              null,
+              "هذا $\\sin75^\\circ+\\sin15^\\circ=2\\sin45^\\circ\\cos30^\\circ=\\frac{\\sqrt6}{2}$ (قانون المجموع لا الفرق).",
+              "هذا $\\sin30^\\circ$ وحده؛ نسيتِ العامل $2\\cos45^\\circ=\\sqrt2$.",
+              "هذا $\\sin(75^\\circ-15^\\circ)=\\sin60^\\circ$ ، لكن $\\sin A-\\sin B\\ne\\sin(A-B)$."
+            ],
+            "tip": "عندما تري مجموعًا أو فرقًا لنسبتين بزاويتين غير خاصتين، فكّري في التحويل إلى ضرب."
+          }
         },
         {
           "id": "u2e1q9",
@@ -150,7 +339,31 @@ const unit: Unit = {
             "$x=\\frac{\\pi}{6},\\ x=\\frac{5\\pi}{6}$"
           ],
           "answer": 0,
-          "solution": "بالتحليل: $(2\\sin x-1)(\\sin x+1)=0$\n$\\sin x=\\frac12 \\Rightarrow x=\\frac{\\pi}{6},\\ \\frac{5\\pi}{6}$ ، أو $\\sin x=-1 \\Rightarrow x=\\frac{3\\pi}{2}$"
+          "solution": "بالتحليل: $(2\\sin x-1)(\\sin x+1)=0$\n$\\sin x=\\frac12 \\Rightarrow x=\\frac{\\pi}{6},\\ \\frac{5\\pi}{6}$ ، أو $\\sin x=-1 \\Rightarrow x=\\frac{3\\pi}{2}$",
+          "explain": {
+            "idea": "معادلة تربيعية في $\\sin x$ ← نعاملها كمعادلة تربيعية عادية في متغيّر جديد، نحلّلها، ثم نحلّ كل معادلة بسيطة في الفترة.",
+            "steps": [
+              "## تحويلها إلى تربيعية",
+              "نضع $y=\\sin x$ ، فتصبح المعادلة $2y^2+y-1=0$",
+              "نحلّل: نضرب معامل $y^2$ في الحدّ الثابت $2\\times(-1)=-2$ ، ونبحث عن عددين حاصل ضربهما $-2$ ومجموعهما $1$: هما $2$ و $-1$",
+              "$2y^2+2y-y-1=2y(y+1)-1(y+1)=(2y-1)(y+1)$",
+              "نرجع إلى $\\sin x$: $(2\\sin x-1)(\\sin x+1)=0$",
+              "## العامل الأول",
+              "$2\\sin x-1=0 \\Rightarrow \\sin x=\\frac12$ ، والزاوية المرجعية $\\frac{\\pi}{6}$ لأن $\\sin\\frac{\\pi}{6}=\\frac12$",
+              "$\\sin$ موجب في الربعين الأول والثاني: في الأول $x=\\frac{\\pi}{6}$ ، وفي الثاني $x=\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}$",
+              "## العامل الثاني",
+              "$\\sin x+1=0 \\Rightarrow \\sin x=-1$ ، وهذا يحدث عند أسفل نقطة في دائرة الوحدة: $x=\\frac{3\\pi}{2}$",
+              "## النتيجة",
+              "مجموعة الحل: $\\left\\{\\frac{\\pi}{6},\\ \\frac{5\\pi}{6},\\ \\frac{3\\pi}{2}\\right\\}$"
+            ],
+            "wrong": [
+              null,
+              "هذه حلول $\\sin x=1$ و $\\sin x=-\\frac12$ (إشارات معكوسة في التحليل).",
+              "$\\sin\\frac{\\pi}{2}=1$ وليس $-1$؛ حلّ $\\sin x=-1$ هو $\\frac{3\\pi}{2}$.",
+              "نقص الحل $\\frac{3\\pi}{2}$ الناتج من العامل $\\sin x+1=0$."
+            ],
+            "tip": "كل عامل يعطي حلولًا؛ لا تتوقّفي بعد العامل الأول."
+          }
         },
         {
           "id": "u2e1q10",
@@ -164,7 +377,28 @@ const unit: Unit = {
             "$x=\\frac{\\pi}{6}$"
           ],
           "answer": 0,
-          "solution": "بما أن $0\\le x<\\pi$ فإن $0\\le 2x<2\\pi$\n$\\tan2x=\\sqrt3 \\Rightarrow 2x=\\frac{\\pi}{3}$ أو $2x=\\frac{\\pi}{3}+\\pi=\\frac{4\\pi}{3}$\nإذن $x=\\frac{\\pi}{6}$ أو $x=\\frac{2\\pi}{3}$"
+          "solution": "بما أن $0\\le x<\\pi$ فإن $0\\le 2x<2\\pi$\n$\\tan2x=\\sqrt3 \\Rightarrow 2x=\\frac{\\pi}{3}$ أو $2x=\\frac{\\pi}{3}+\\pi=\\frac{4\\pi}{3}$\nإذن $x=\\frac{\\pi}{6}$ أو $x=\\frac{2\\pi}{3}$",
+          "explain": {
+            "idea": "معادلة بزاوية مضاعفة $2x$ ← نحسب مدى $2x$ أولًا (بمضاعفة الفترة)، نجد كل قيم $2x$ ، ثم نقسم على $2$.",
+            "steps": [
+              "## مدى الزاوية المضاعفة",
+              "المجهول داخل $\\tan$ هو $2x$. المعطى $0\\le x<\\pi$ ، نضرب الأطراف في $2$: $0\\le2x<2\\pi$",
+              "## حلّ المعادلة بدلالة 2x",
+              "$\\tan2x=\\sqrt3$ ، والزاوية المرجعية $\\frac{\\pi}{3}$ لأن $\\tan\\frac{\\pi}{3}=\\sqrt3$",
+              "$\\sqrt3$ موجب، و $\\tan$ موجب في الربعين الأول والثالث:",
+              "في الربع الأول: $2x=\\frac{\\pi}{3}$ ، وفي الربع الثالث: $2x=\\pi+\\frac{\\pi}{3}=\\frac{4\\pi}{3}$ (وكلاهما داخل $[0,2\\pi)$)",
+              "## إيجاد x",
+              "نقسم على $2$: $x=\\frac{\\pi}{6}$ أو $x=\\frac{4\\pi}{6}=\\frac{2\\pi}{3}$",
+              "كلاهما داخل الفترة $[0,\\pi)$ ✔"
+            ],
+            "wrong": [
+              null,
+              "$\\frac{7\\pi}{6}$ خارج الفترة $[0,\\pi)$؛ أُضيف $\\pi$ إلى $x$ بدل إضافته إلى $2x$.",
+              "هذه قيم $2x$ وليست قيم $x$؛ يجب القسمة على $2$.",
+              "نقص حلّ: مدى $2x$ هو $[0,2\\pi)$ وفيه قيمتان لـ $2x$."
+            ],
+            "tip": "مع الزاوية المضاعفة: ضاعفي الفترة، حلّي، ثم اقسمي — وإلّا ستفقدين حلولًا."
+          }
         },
         {
           "id": "u2e1q11",
@@ -178,7 +412,32 @@ const unit: Unit = {
             "$x=0,\\ x=\\frac{\\pi}{3},\\ x=\\frac{5\\pi}{3}$"
           ],
           "answer": 0,
-          "solution": "نعوّض $\\cos2x=2\\cos^2x-1$: $2\\cos^2x-1=-\\cos x \\Rightarrow 2\\cos^2x+\\cos x-1=0$\nبالتحليل: $(2\\cos x-1)(\\cos x+1)=0$\n$\\cos x=\\frac12 \\Rightarrow x=\\frac{\\pi}{3},\\ \\frac{5\\pi}{3}$ ، أو $\\cos x=-1 \\Rightarrow x=\\pi$"
+          "solution": "نعوّض $\\cos2x=2\\cos^2x-1$: $2\\cos^2x-1=-\\cos x \\Rightarrow 2\\cos^2x+\\cos x-1=0$\nبالتحليل: $(2\\cos x-1)(\\cos x+1)=0$\n$\\cos x=\\frac12 \\Rightarrow x=\\frac{\\pi}{3},\\ \\frac{5\\pi}{3}$ ، أو $\\cos x=-1 \\Rightarrow x=\\pi$",
+          "explain": {
+            "idea": "في المعادلة $\\cos2x$ و $\\cos x$ ← نكتب $\\cos2x$ بالصيغة التي فيها $\\cos x$ فقط، فنحصل على معادلة تربيعية في $\\cos x$.",
+            "steps": [
+              "## اختيار صيغة cos 2x",
+              "صيغ $\\cos2x$ الثلاث: $\\cos^2x-\\sin^2x$ و $2\\cos^2x-1$ و $1-2\\sin^2x$",
+              "نختار $2\\cos^2x-1$ لأن الطرف الآخر فيه $\\cos x$ ، فتصبح المعادلة كلها بدلالة $\\cos x$",
+              "## المعادلة التربيعية",
+              "$2\\cos^2x-1=-\\cos x$ ، ننقل $-\\cos x$ إلى اليسار: $2\\cos^2x+\\cos x-1=0$",
+              "مثل $2y^2+y-1=(2y-1)(y+1)$: $(2\\cos x-1)(\\cos x+1)=0$",
+              "## الحالة الأولى",
+              "$2\\cos x-1=0 \\Rightarrow \\cos x=\\frac12$ ، الزاوية المرجعية $\\frac{\\pi}{3}$ لأن $\\cos\\frac{\\pi}{3}=\\frac12$",
+              "$\\cos$ موجب في الربعين الأول والرابع: $x=\\frac{\\pi}{3}$ و $x=2\\pi-\\frac{\\pi}{3}=\\frac{5\\pi}{3}$",
+              "## الحالة الثانية",
+              "$\\cos x+1=0 \\Rightarrow \\cos x=-1$ ، وهذا عند أقصى يسار دائرة الوحدة: $x=\\pi$",
+              "## النتيجة",
+              "الفترة $(0,2\\pi)$ مفتوحة (لا تشمل $0$ ولا $2\\pi$)، والحلول الثلاثة داخلها: $\\frac{\\pi}{3},\\ \\pi,\\ \\frac{5\\pi}{3}$"
+            ],
+            "wrong": [
+              null,
+              "نقص الحل $x=\\pi$ الناتج من $\\cos x=-1$.",
+              "هذه حلول $\\cos x=-\\frac12$ و $\\cos x=-1$ ، والصحيح $\\cos x=+\\frac12$.",
+              "$0$ ليست في الفترة المفتوحة $(0,2\\pi)$ ولا تحقّق المعادلة ($\\cos0=1$ و $-\\cos0=-1$) ، كما نقص الحل $\\pi$."
+            ],
+            "tip": "اختاري صيغة $\\cos2x$ التي تجعل المعادلة بنسبة واحدة: هنا $2\\cos^2x-1$ لأن في الطرف الآخر $\\cos x$."
+          }
         },
         {
           "id": "u2e1q12",
@@ -192,7 +451,30 @@ const unit: Unit = {
             "$-\\frac{5\\pi}{6}$"
           ],
           "answer": 0,
-          "solution": "$\\cos x=-\\frac{\\sqrt3}{2}$ ، فالحل العام: $x=\\frac{5\\pi}{6}+2n\\pi$ أو $x=\\frac{7\\pi}{6}+2n\\pi$\n$\\frac{17\\pi}{6}=\\frac{5\\pi}{6}+2\\pi$ ✔ ، $\\frac{19\\pi}{6}=\\frac{7\\pi}{6}+2\\pi$ ✔ ، $-\\frac{5\\pi}{6}=\\frac{7\\pi}{6}-2\\pi$ ✔\nأما $\\frac{13\\pi}{6}=\\frac{\\pi}{6}+2\\pi$ فجيب تمامها $\\frac{\\sqrt3}{2}$ ، إذن ليست حلًّا."
+          "solution": "$\\cos x=-\\frac{\\sqrt3}{2}$ ، فالحل العام: $x=\\frac{5\\pi}{6}+2n\\pi$ أو $x=\\frac{7\\pi}{6}+2n\\pi$\n$\\frac{17\\pi}{6}=\\frac{5\\pi}{6}+2\\pi$ ✔ ، $\\frac{19\\pi}{6}=\\frac{7\\pi}{6}+2\\pi$ ✔ ، $-\\frac{5\\pi}{6}=\\frac{7\\pi}{6}-2\\pi$ ✔\nأما $\\frac{13\\pi}{6}=\\frac{\\pi}{6}+2\\pi$ فجيب تمامها $\\frac{\\sqrt3}{2}$ ، إذن ليست حلًّا.",
+          "explain": {
+            "idea": "المطلوب الزاوية التي **ليست** حلًّا ← نجد الحلّين في دورة واحدة، ثم نُرجع كل بديل إلى الفترة $[0,2\\pi)$ بإضافة أو طرح $2\\pi$ ونقارن.",
+            "steps": [
+              "## الحلول في دورة واحدة",
+              "$2\\cos x+\\sqrt3=0 \\Rightarrow \\cos x=-\\frac{\\sqrt3}{2}$",
+              "الزاوية المرجعية $\\frac{\\pi}{6}$ لأن $\\cos\\frac{\\pi}{6}=\\frac{\\sqrt3}{2}$",
+              "القيمة سالبة، و $\\cos$ سالب في الربعين الثاني والثالث: $x=\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}$ و $x=\\pi+\\frac{\\pi}{6}=\\frac{7\\pi}{6}$",
+              "## الحلّ العام",
+              "$\\cos$ يتكرّر كل $2\\pi$ ، فكل الحلول: $\\frac{5\\pi}{6}+2n\\pi$ أو $\\frac{7\\pi}{6}+2n\\pi$ حيث $n$ عدد صحيح",
+              "## فحص البدائل",
+              "$2\\pi=\\frac{12\\pi}{6}$. نطرح $\\frac{12\\pi}{6}$ من البدائل الأكبر من $2\\pi$:",
+              "$\\frac{13\\pi}{6}-\\frac{12\\pi}{6}=\\frac{\\pi}{6}$ ، و $\\frac{17\\pi}{6}-\\frac{12\\pi}{6}=\\frac{5\\pi}{6}$ ✔ ، و $\\frac{19\\pi}{6}-\\frac{12\\pi}{6}=\\frac{7\\pi}{6}$ ✔",
+              "ونضيف $\\frac{12\\pi}{6}$ إلى البديل السالب: $-\\frac{5\\pi}{6}+\\frac{12\\pi}{6}=\\frac{7\\pi}{6}$ ✔",
+              "$\\frac{\\pi}{6}$ ليست من الحلّين، ($\\cos\\frac{\\pi}{6}$ موجب)، إذن $\\frac{13\\pi}{6}$ ليست حلًّا"
+            ],
+            "wrong": [
+              null,
+              "$\\frac{17\\pi}{6}=\\frac{5\\pi}{6}+2\\pi$ ، فهي حل.",
+              "$\\frac{19\\pi}{6}=\\frac{7\\pi}{6}+2\\pi$ ، فهي حل.",
+              "$-\\frac{5\\pi}{6}=\\frac{7\\pi}{6}-2\\pi$ ، فهي حل."
+            ],
+            "tip": "أضيفي أو اطرحي $2\\pi$ (أي $\\frac{12\\pi}{6}$) حتى تقع الزاوية بين $0$ و $2\\pi$ ، ثم قارني."
+          }
         }
       ]
     },
@@ -212,7 +494,24 @@ const unit: Unit = {
             "$\\sec^{2}x$"
           ],
           "answer": 0,
-          "solution": "$1-\\sin^2x=\\cos^2x$ ، و $1+\\tan^2x=\\sec^2x$ ، إذن المقدار $=\\cos^2x\\cdot\\dfrac{1}{\\cos^2x}=1$"
+          "solution": "$1-\\sin^2x=\\cos^2x$ ، و $1+\\tan^2x=\\sec^2x$ ، إذن المقدار $=\\cos^2x\\cdot\\dfrac{1}{\\cos^2x}=1$",
+          "explain": {
+            "idea": "كل قوس مقدار معروف من متطابقات فيثاغورس ← نستبدل كل قوس، ثم نختصر.",
+            "steps": [
+              "## القوس الأول",
+              "من $\\sin^2x+\\cos^2x=1$ نطرح $\\sin^2x$ من الطرفين: $1-\\sin^2x=\\cos^2x$",
+              "## القوس الثاني",
+              "متطابقة فيثاغورس الثانية: $1+\\tan^2x=\\sec^2x$ ، و $\\sec^2x=\\dfrac{1}{\\cos^2x}$",
+              "## الضرب",
+              "$(1-\\sin^2x)(1+\\tan^2x)=\\cos^2x\\times\\dfrac{1}{\\cos^2x}$ ، والعدد مضروبًا في مقلوبه يساوي $1$"
+            ],
+            "wrong": [
+              null,
+              "هذا القوس الأول وحده؛ ضربه في القوس الثاني $\\sec^2x$ يعطي $1$.",
+              "عند $x=\\frac{\\pi}{4}$: المقدار $\\frac12\\times2=1$ ، بينما $\\sin^2\\frac{\\pi}{4}=\\frac12$.",
+              "هذا القوس الثاني وحده؛ ضربه في القوس الأول $\\cos^2x$ يعطي $1$."
+            ]
+          }
         },
         {
           "id": "u2e2q2",
@@ -226,7 +525,25 @@ const unit: Unit = {
             "$1$"
           ],
           "answer": 0,
-          "solution": "المقدار على صورة $\\cos(A-B)$: $\\cos(80^\\circ-20^\\circ)=\\cos60^\\circ=\\frac12$"
+          "solution": "المقدار على صورة $\\cos(A-B)$: $\\cos(80^\\circ-20^\\circ)=\\cos60^\\circ=\\frac12$",
+          "explain": {
+            "idea": "المقدار على صورة أحد قوانين المجموع والفرق ← نتعرّف عليه ونكتبه كنسبة واحدة لزاوية خاصة.",
+            "steps": [
+              "## التعرّف على القانون",
+              "قانون جيب تمام الفرق: $\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B$",
+              "المقدار $\\cos80^\\circ\\cos20^\\circ+\\sin80^\\circ\\sin20^\\circ$ يطابق الطرف الأيمن تمامًا مع $A=80^\\circ$ و $B=20^\\circ$",
+              "## الحساب",
+              "$\\cos(80^\\circ-20^\\circ)=\\cos60^\\circ$",
+              "$\\cos60^\\circ=\\frac12$ (من قيم الزوايا الخاصة)"
+            ],
+            "wrong": [
+              null,
+              "هذا $\\sin60^\\circ$ (أو $\\cos30^\\circ$) ، والصيغة تعطي $\\cos60^\\circ=\\frac12$.",
+              "$60^\\circ$ في الربع الأول، فجيب تمامها موجب.",
+              "هذا $\\cos0^\\circ$؛ الزاوية الناتجة $80^\\circ-20^\\circ=60^\\circ$."
+            ],
+            "tip": "$\\cos\\cos+\\sin\\sin$ ← $\\cos$ للفرق ، $\\cos\\cos-\\sin\\sin$ ← $\\cos$ للمجموع."
+          }
         },
         {
           "id": "u2e2q3",
@@ -240,7 +557,26 @@ const unit: Unit = {
             "$2$"
           ],
           "answer": 0,
-          "solution": "$\\tan\\left(\\frac{\\pi}{4}-x\\right)=\\dfrac{\\tan\\frac{\\pi}{4}-\\tan x}{1+\\tan\\frac{\\pi}{4}\\tan x}=\\dfrac{1-3}{1+3}=-\\dfrac12$"
+          "solution": "$\\tan\\left(\\frac{\\pi}{4}-x\\right)=\\dfrac{\\tan\\frac{\\pi}{4}-\\tan x}{1+\\tan\\frac{\\pi}{4}\\tan x}=\\dfrac{1-3}{1+3}=-\\dfrac12$",
+          "explain": {
+            "idea": "$\\tan$ لفرق زاويتين إحداهما خاصة ($\\frac{\\pi}{4}$) ← قانون ظل الفرق، مع $\\tan\\frac{\\pi}{4}=1$.",
+            "steps": [
+              "## القانون",
+              "$\\tan(A-B)=\\dfrac{\\tan A-\\tan B}{1+\\tan A\\tan B}$ ، وهنا $A=\\frac{\\pi}{4}$ و $B=x$",
+              "$\\tan\\frac{\\pi}{4}=1$ (زاوية $45^\\circ$)، و $\\tan x=3$ (معطى)",
+              "## التعويض",
+              "البسط: $\\tan\\frac{\\pi}{4}-\\tan x=1-3=-2$",
+              "المقام: $1+\\tan\\frac{\\pi}{4}\\tan x=1+1\\times3=4$",
+              "$\\tan\\left(\\frac{\\pi}{4}-x\\right)=\\frac{-2}{4}=-\\frac12$"
+            ],
+            "wrong": [
+              null,
+              "خطأ إشارة في البسط: $1-3=-2$.",
+              "هذا $\\tan\\left(\\frac{\\pi}{4}+x\\right)=\\frac{1+3}{1-3}$؛ إشارتا القانون معكوستان.",
+              "$2$ ليست الناتج: البسط $-2$ والمقام $4$."
+            ],
+            "tip": "في $\\tan(A-B)$: البسط بإشارة $-$ والمقام بإشارة $+$ (عكس بعضهما)."
+          }
         },
         {
           "id": "u2e2q4",
@@ -254,7 +590,26 @@ const unit: Unit = {
             "$\\frac{\\pi}{2}$"
           ],
           "answer": 0,
-          "solution": "$\\tan(A+B)=\\dfrac{\\frac12+\\frac13}{1-\\frac12\\cdot\\frac13}=\\dfrac{\\frac56}{\\frac56}=1$\nوبما أن $0<A+B<\\pi$ و $\\tan(A+B)>0$ فإن $A+B=\\frac{\\pi}{4}$"
+          "solution": "$\\tan(A+B)=\\dfrac{\\frac12+\\frac13}{1-\\frac12\\cdot\\frac13}=\\dfrac{\\frac56}{\\frac56}=1$\nوبما أن $0<A+B<\\pi$ و $\\tan(A+B)>0$ فإن $A+B=\\frac{\\pi}{4}$",
+          "explain": {
+            "idea": "مطلوب الزاوية $A+B$ نفسها ← نحسب $\\tan(A+B)$ بقانون ظل المجموع، ثم نجد الزاوية التي لها هذا الظل في المدى الممكن.",
+            "steps": [
+              "## قانون ظل المجموع",
+              "$\\tan(A+B)=\\dfrac{\\tan A+\\tan B}{1-\\tan A\\tan B}$",
+              "البسط: $\\frac12+\\frac13=\\frac36+\\frac26=\\frac56$",
+              "المقام: $1-\\frac12\\times\\frac13=1-\\frac16=\\frac56$",
+              "$\\tan(A+B)=\\frac{5/6}{5/6}=1$",
+              "## إيجاد الزاوية",
+              "$A$ و $B$ حادّتان، أي كل منهما بين $0$ و $\\frac{\\pi}{2}$ ، فمجموعهما بين $0$ و $\\pi$",
+              "الزوايا التي ظلّها $1$ هي $\\frac{\\pi}{4}$ و $\\frac{5\\pi}{4}$ ، والوحيدة بين $0$ و $\\pi$ هي $\\frac{\\pi}{4}$ ، إذن $A+B=\\frac{\\pi}{4}$"
+            ],
+            "wrong": [
+              null,
+              "$\\tan\\frac{\\pi}{3}=\\sqrt3\\ne1$.",
+              "$\\tan\\frac{\\pi}{6}=\\frac{1}{\\sqrt3}\\ne1$.",
+              "$\\tan\\frac{\\pi}{2}$ غير معرّف، بينما $\\tan(A+B)=1$."
+            ]
+          }
         },
         {
           "id": "u2e2q5",
@@ -268,7 +623,27 @@ const unit: Unit = {
             "$2\\tan x$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{2\\sin x\\cos x}{1+(2\\cos^2x-1)}=\\dfrac{2\\sin x\\cos x}{2\\cos^2x}=\\dfrac{\\sin x}{\\cos x}=\\tan x$"
+          "solution": "$\\dfrac{2\\sin x\\cos x}{1+(2\\cos^2x-1)}=\\dfrac{2\\sin x\\cos x}{2\\cos^2x}=\\dfrac{\\sin x}{\\cos x}=\\tan x$",
+          "explain": {
+            "idea": "في البسط $\\sin2x$ وفي المقام $1+\\cos2x$ ← نفكّ $\\sin2x$ ، ونختار صيغة $\\cos2x$ التي تحذف العدد $1$.",
+            "steps": [
+              "## البسط",
+              "$\\sin2x=2\\sin x\\cos x$",
+              "## المقام",
+              "صيغ $\\cos2x$: نختار $2\\cos^2x-1$ لأنها تحتوي على $-1$ الذي يحذف العدد $1$",
+              "$1+\\cos2x=1+(2\\cos^2x-1)=2\\cos^2x$",
+              "## القسمة",
+              "$\\dfrac{2\\sin x\\cos x}{2\\cos^2x}$ ، نختصر $2$ مع $2$ ، ونختصر $\\cos x$ مع أحد عاملَي $\\cos^2x$",
+              "$\\dfrac{\\sin x}{\\cos x}=\\tan x$"
+            ],
+            "quick": "عوّضي $x=\\frac{\\pi}{3}$: $\\dfrac{\\sin\\frac{2\\pi}{3}}{1+\\cos\\frac{2\\pi}{3}}=\\dfrac{\\frac{\\sqrt3}{2}}{\\frac12}=\\sqrt3=\\tan\\frac{\\pi}{3}$ ✔.",
+            "wrong": [
+              null,
+              "تنتج من استعمال $1+\\cos2x=2\\sin^2x$ خطأً؛ الصحيح $1+\\cos2x=2\\cos^2x$ و $1-\\cos2x=2\\sin^2x$.",
+              "عند $x=\\frac{\\pi}{3}$ المقدار $\\sqrt3$ ، بينما $\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$.",
+              "العدد $2$ يُختصر من البسط والمقام: $\\frac{2\\sin x\\cos x}{2\\cos^2x}$."
+            ]
+          }
         },
         {
           "id": "u2e2q6",
@@ -282,7 +657,24 @@ const unit: Unit = {
             "$\\frac{7}{9}$"
           ],
           "answer": 0,
-          "solution": "$\\cos2\\theta=1-2\\sin^2\\theta=1-2\\cdot\\frac49=\\frac19$ (لا نحتاج إلى معرفة الربع)"
+          "solution": "$\\cos2\\theta=1-2\\sin^2\\theta=1-2\\cdot\\frac49=\\frac19$ (لا نحتاج إلى معرفة الربع)",
+          "explain": {
+            "idea": "معطى $\\sin\\theta$ ومطلوب $\\cos2\\theta$ ← نختار صيغة $\\cos2\\theta$ التي فيها $\\sin\\theta$ فقط.",
+            "steps": [
+              "## اختيار الصيغة",
+              "صيغ $\\cos2\\theta$ الثلاث: $\\cos^2\\theta-\\sin^2\\theta$ و $2\\cos^2\\theta-1$ و $1-2\\sin^2\\theta$ ، ونختار $1-2\\sin^2\\theta$ لأن المعطى $\\sin\\theta$",
+              "## الحساب",
+              "$\\sin^2\\theta=\\left(-\\frac23\\right)^2=\\frac49$ (التربيع يجعل الناتج موجبًا، لذلك لا نحتاج إلى معرفة الربع)",
+              "$\\cos2\\theta=1-2\\times\\frac49=1-\\frac89=\\frac99-\\frac89=\\frac19$"
+            ],
+            "wrong": [
+              null,
+              "خطأ إشارة: $1-\\frac89=+\\frac19$.",
+              "هذا $\\cos^2\\theta=1-\\frac49=\\frac59$ ، وليس $\\cos2\\theta$.",
+              "الصيغة تضرب $\\sin^2\\theta$ في $2$: $1-2\\times\\frac49=\\frac19$."
+            ],
+            "tip": "اختاري صيغة $\\cos2\\theta$ التي فيها النسبة المعطاة: معطى $\\sin$ ← $1-2\\sin^2\\theta$ ، معطى $\\cos$ ← $2\\cos^2\\theta-1$."
+          }
         },
         {
           "id": "u2e2q7",
@@ -296,7 +688,29 @@ const unit: Unit = {
             "$\\frac{1+2\\cos 2x+\\cos 4x}{8}$"
           ],
           "answer": 0,
-          "solution": "$\\cos^4x=\\left(\\dfrac{1+\\cos2x}{2}\\right)^2=\\dfrac{1+2\\cos2x+\\cos^22x}{4}$\nو $\\cos^22x=\\dfrac{1+\\cos4x}{2}$ ، إذن $\\cos^4x=\\dfrac{2+4\\cos2x+1+\\cos4x}{8}=\\dfrac{3+4\\cos2x+\\cos4x}{8}$"
+          "solution": "$\\cos^4x=\\left(\\dfrac{1+\\cos2x}{2}\\right)^2=\\dfrac{1+2\\cos2x+\\cos^22x}{4}$\nو $\\cos^22x=\\dfrac{1+\\cos4x}{2}$ ، إذن $\\cos^4x=\\dfrac{2+4\\cos2x+1+\\cos4x}{8}=\\dfrac{3+4\\cos2x+\\cos4x}{8}$",
+          "explain": {
+            "idea": "تقليص القوة يحوّل المربّع إلى زاوية مضاعفة: $\\cos^2x=\\dfrac{1+\\cos2x}{2}$ ، وللقوة الرابعة نطبّقه مرتين.",
+            "steps": [
+              "## المرة الأولى",
+              "$\\cos^4x=(\\cos^2x)^2$ ، ونعوّض $\\cos^2x=\\dfrac{1+\\cos2x}{2}$",
+              "$\\cos^4x=\\left(\\dfrac{1+\\cos2x}{2}\\right)^2=\\dfrac{(1+\\cos2x)^2}{4}$",
+              "نفكّ المربّع $(a+b)^2=a^2+2ab+b^2$: $(1+\\cos2x)^2=1+2\\cos2x+\\cos^22x$",
+              "## المرة الثانية",
+              "في البسط $\\cos^22x$ ، نطبّق تقليص القوة عليه (الزاوية تتضاعف من $2x$ إلى $4x$): $\\cos^22x=\\dfrac{1+\\cos4x}{2}$",
+              "نعوّض: $\\cos^4x=\\dfrac{1+2\\cos2x+\\frac{1+\\cos4x}{2}}{4}$",
+              "## التبسيط",
+              "نضرب البسط والمقام في $2$ للتخلّص من الكسر الداخلي: $\\cos^4x=\\dfrac{2+4\\cos2x+1+\\cos4x}{8}$",
+              "نجمع الأعداد $2+1=3$: $\\cos^4x=\\dfrac{3+4\\cos2x+\\cos4x}{8}$"
+            ],
+            "quick": "عوّضي $x=0$: $\\cos^40=1$ ، والبديل الوحيد الذي يعطي $1$ هو $\\frac{3+4+1}{8}$.",
+            "wrong": [
+              null,
+              "المقام النهائي $8$ لا $4$؛ عند $x=0$ يعطي هذا البديل $2$ بدل $1$.",
+              "هذا $\\sin^4x$ (فيه $1-\\cos2x$) ، وعند $x=0$ يعطي $0$.",
+              "عند $x=0$ يعطي $\\frac48$ بدل $1$؛ الحدّ الثابت الصحيح $3$ لأن $\\cos^22x$ أعطت $\\frac12$ إضافية."
+            ]
+          }
         },
         {
           "id": "u2e2q8",
@@ -310,7 +724,26 @@ const unit: Unit = {
             "$1+\\sqrt{3}$"
           ],
           "answer": 0,
-          "solution": "$2\\sin A\\cos B=\\sin(A+B)+\\sin(A-B)$\n$=\\sin\\frac{6\\pi}{12}+\\sin\\frac{4\\pi}{12}=\\sin\\frac{\\pi}{2}+\\sin\\frac{\\pi}{3}=1+\\frac{\\sqrt3}{2}$"
+          "solution": "$2\\sin A\\cos B=\\sin(A+B)+\\sin(A-B)$\n$=\\sin\\frac{6\\pi}{12}+\\sin\\frac{4\\pi}{12}=\\sin\\frac{\\pi}{2}+\\sin\\frac{\\pi}{3}=1+\\frac{\\sqrt3}{2}$",
+          "explain": {
+            "idea": "حاصل ضرب $\\sin$ في $\\cos$ لزاويتين مختلفتين غير خاصتين ← نحوّله إلى مجموع، فتظهر زوايا خاصة.",
+            "steps": [
+              "## المتطابقة",
+              "تحويل الضرب إلى مجموع: $2\\sin A\\cos B=\\sin(A+B)+\\sin(A-B)$",
+              "## الزاويتان الجديدتان",
+              "$A+B=\\frac{5\\pi}{12}+\\frac{\\pi}{12}=\\frac{6\\pi}{12}=\\frac{\\pi}{2}$",
+              "$A-B=\\frac{5\\pi}{12}-\\frac{\\pi}{12}=\\frac{4\\pi}{12}=\\frac{\\pi}{3}$",
+              "## التعويض",
+              "$2\\sin\\frac{5\\pi}{12}\\cos\\frac{\\pi}{12}=\\sin\\frac{\\pi}{2}+\\sin\\frac{\\pi}{3}$",
+              "$\\sin\\frac{\\pi}{2}=1$ و $\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$ ، إذن الناتج $1+\\frac{\\sqrt3}{2}$"
+            ],
+            "wrong": [
+              null,
+              "الحدّان يُجمعان في هذه الصيغة: $\\sin(A+B)+\\sin(A-B)$.",
+              "نسيان الحدّ $\\sin(A+B)=\\sin\\frac{\\pi}{2}=1$.",
+              "$\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$ وليس $\\sqrt3$."
+            ]
+          }
         },
         {
           "id": "u2e2q9",
@@ -324,7 +757,25 @@ const unit: Unit = {
             "$x=\\frac{3\\pi}{2}$"
           ],
           "answer": 0,
-          "solution": "بالتحليل: $(\\cos x+3)(\\cos x-1)=0$\n$\\cos x=-3$ مرفوض (لأن $-1\\le\\cos x\\le1$) ، و $\\cos x=1 \\Rightarrow x=0$"
+          "solution": "بالتحليل: $(\\cos x+3)(\\cos x-1)=0$\n$\\cos x=-3$ مرفوض (لأن $-1\\le\\cos x\\le1$) ، و $\\cos x=1 \\Rightarrow x=0$",
+          "explain": {
+            "idea": "معادلة تربيعية في $\\cos x$ ← نحلّلها، ونرفض أيّ قيمة لـ $\\cos x$ خارج المدى $[-1,1]$.",
+            "steps": [
+              "## التحليل",
+              "نضع $y=\\cos x$: $y^2+2y-3=0$ ، عددان حاصل ضربهما $-3$ ومجموعهما $2$: هما $3$ و $-1$",
+              "$(\\cos x+3)(\\cos x-1)=0$",
+              "## فحص الحالتين",
+              "$\\cos x+3=0 \\Rightarrow \\cos x=-3$: مرفوض، لأن قيم $\\cos$ دائمًا بين $-1$ و $1$",
+              "$\\cos x-1=0 \\Rightarrow \\cos x=1$ ، وهذا عند أقصى يمين دائرة الوحدة: $x=0$ (و $2\\pi$ غير داخلة في الفترة $[0,2\\pi)$)"
+            ],
+            "wrong": [
+              null,
+              "$\\cos\\pi=-1$ ، والتعويض: $1-2-3=-4\\ne0$.",
+              "$\\cos\\frac{\\pi}{2}=0$ ، والتعويض: $0+0-3=-3\\ne0$.",
+              "$\\cos\\frac{3\\pi}{2}=0$ ، والتعويض: $0+0-3=-3\\ne0$."
+            ],
+            "tip": "قيم $\\sin x$ و $\\cos x$ دائمًا بين $-1$ و $1$؛ ارفضي ما سواها."
+          }
         },
         {
           "id": "u2e2q10",
@@ -338,7 +789,27 @@ const unit: Unit = {
             "$x=\\frac{\\pi}{6},\\ x=\\frac{5\\pi}{6}$"
           ],
           "answer": 0,
-          "solution": "$\\tan^2x=\\frac13 \\Rightarrow \\tan x=\\pm\\frac{1}{\\sqrt3}$\nفي الفترة $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$: $\\tan x=-\\frac{1}{\\sqrt3} \\Rightarrow x=\\frac{5\\pi}{6}$ ، و $\\tan x=\\frac{1}{\\sqrt3} \\Rightarrow x=\\frac{7\\pi}{6}$"
+          "solution": "$\\tan^2x=\\frac13 \\Rightarrow \\tan x=\\pm\\frac{1}{\\sqrt3}$\nفي الفترة $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$: $\\tan x=-\\frac{1}{\\sqrt3} \\Rightarrow x=\\frac{5\\pi}{6}$ ، و $\\tan x=\\frac{1}{\\sqrt3} \\Rightarrow x=\\frac{7\\pi}{6}$",
+          "explain": {
+            "idea": "$\\tan^2x$ يعطي قيمتين لـ $\\tan x$ (موجبة وسالبة)، ثم نأخذ من كلٍّ الحلّ الذي في الفترة المعطاة فقط.",
+            "steps": [
+              "## قيم tan x",
+              "$3\\tan^2x-1=0 \\Rightarrow \\tan^2x=\\frac13 \\Rightarrow \\tan x=\\pm\\sqrt{\\frac13}=\\pm\\frac{1}{\\sqrt3}$",
+              "الزاوية المرجعية $\\frac{\\pi}{6}$ لأن $\\tan\\frac{\\pi}{6}=\\frac{1}{\\sqrt3}$",
+              "## الفترة المعطاة",
+              "الفترة $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$ تشمل الربع الثاني (من $\\frac{\\pi}{2}$ إلى $\\pi$) والربع الثالث (من $\\pi$ إلى $\\frac{3\\pi}{2}$)",
+              "## الحلول",
+              "في الربع الثاني $\\tan$ سالب، فيه حلّ $\\tan x=-\\frac{1}{\\sqrt3}$: $x=\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}$",
+              "في الربع الثالث $\\tan$ موجب، فيه حلّ $\\tan x=\\frac{1}{\\sqrt3}$: $x=\\pi+\\frac{\\pi}{6}=\\frac{7\\pi}{6}$"
+            ],
+            "wrong": [
+              null,
+              "$\\frac{\\pi}{6}$ خارج الفترة $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$.",
+              "$\\frac{11\\pi}{6}$ خارج الفترة $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$.",
+              "$\\frac{\\pi}{6}$ خارج الفترة؛ هذه حلول $\\tan^2x=\\frac13$ في $[0,\\pi)$."
+            ],
+            "tip": "عند أخذ الجذر لا تنسي $\\pm$ ، ثم فلتري الحلول حسب الفترة."
+          }
         },
         {
           "id": "u2e2q11",
@@ -352,7 +823,29 @@ const unit: Unit = {
             "$x=\\frac{3\\pi}{4},\\ x=\\frac{3\\pi}{2},\\ x=\\frac{7\\pi}{4}$"
           ],
           "answer": 0,
-          "solution": "بإخراج العامل المشترك: $\\cos x(2\\sin x+\\sqrt2)=0$\n$\\cos x=0 \\Rightarrow x=\\frac{3\\pi}{2}$ (في الفترة) ، أو $\\sin x=-\\frac{\\sqrt2}{2} \\Rightarrow x=\\frac{5\\pi}{4},\\ \\frac{7\\pi}{4}$\nتنبيه: لا نقسم على $\\cos x$ حتى لا نفقد الحل $\\frac{3\\pi}{2}$"
+          "solution": "بإخراج العامل المشترك: $\\cos x(2\\sin x+\\sqrt2)=0$\n$\\cos x=0 \\Rightarrow x=\\frac{3\\pi}{2}$ (في الفترة) ، أو $\\sin x=-\\frac{\\sqrt2}{2} \\Rightarrow x=\\frac{5\\pi}{4},\\ \\frac{7\\pi}{4}$\nتنبيه: لا نقسم على $\\cos x$ حتى لا نفقد الحل $\\frac{3\\pi}{2}$",
+          "explain": {
+            "idea": "$\\cos x$ موجود في الحدّين ← نُخرجه عاملًا مشتركًا (ولا نقسم عليه، لأن القسمة تُضيع حلول $\\cos x=0$).",
+            "steps": [
+              "## إخراج العامل المشترك",
+              "$2\\sin x\\cos x+\\sqrt2\\cos x=\\cos x(2\\sin x+\\sqrt2)=0$",
+              "حاصل الضرب صفر، إذن $\\cos x=0$ أو $2\\sin x+\\sqrt2=0$",
+              "## الحالة الأولى",
+              "$\\cos x=0$ عند $x=\\frac{\\pi}{2}$ و $x=\\frac{3\\pi}{2}$ ، والفترة $(\\pi,2\\pi)$ تحوي $\\frac{3\\pi}{2}$ فقط",
+              "## الحالة الثانية",
+              "$2\\sin x+\\sqrt2=0 \\Rightarrow \\sin x=-\\frac{\\sqrt2}{2}$ ، والزاوية المرجعية $\\frac{\\pi}{4}$",
+              "القيمة سالبة، و $\\sin$ سالب في الربعين الثالث والرابع: $x=\\pi+\\frac{\\pi}{4}=\\frac{5\\pi}{4}$ و $x=2\\pi-\\frac{\\pi}{4}=\\frac{7\\pi}{4}$ ، وكلاهما في $(\\pi,2\\pi)$",
+              "## النتيجة",
+              "الحلول: $\\frac{5\\pi}{4},\\ \\frac{3\\pi}{2},\\ \\frac{7\\pi}{4}$"
+            ],
+            "wrong": [
+              null,
+              "القسمة على $\\cos x$ أضاعت الحل $\\frac{3\\pi}{2}$.",
+              "$\\frac{\\pi}{2}$ خارج الفترة $(\\pi,2\\pi)$.",
+              "$\\frac{3\\pi}{4}$ خارج الفترة، كما أن $\\sin\\frac{3\\pi}{4}$ موجبة."
+            ],
+            "tip": "لا تقسمي طرفي معادلة على مقدار فيه المتغيّر؛ أخرجيه عاملًا مشتركًا."
+          }
         },
         {
           "id": "u2e2q12",
@@ -366,7 +859,26 @@ const unit: Unit = {
             "$x=\\frac{\\pi}{4},\\ x=\\frac{5\\pi}{4}$"
           ],
           "answer": 0,
-          "solution": "بالقسمة على $\\cos\\frac{x}{2}$: $\\tan\\frac{x}{2}=1$ ، وبما أن $0\\le\\frac{x}{2}<\\pi$ فإن $\\frac{x}{2}=\\frac{\\pi}{4}$ فقط\nإذن $x=\\frac{\\pi}{2}$ ($\\frac{5\\pi}{2}$ خارج الفترة)"
+          "solution": "بالقسمة على $\\cos\\frac{x}{2}$: $\\tan\\frac{x}{2}=1$ ، وبما أن $0\\le\\frac{x}{2}<\\pi$ فإن $\\frac{x}{2}=\\frac{\\pi}{4}$ فقط\nإذن $x=\\frac{\\pi}{2}$ ($\\frac{5\\pi}{2}$ خارج الفترة)",
+          "explain": {
+            "idea": "$\\sin$ يساوي $\\cos$ للزاوية نفسها ← نقسم على $\\cos\\frac{x}{2}$ فنحصل على $\\tan\\frac{x}{2}=1$ ، ونحسب مدى $\\frac{x}{2}$ من الفترة.",
+            "steps": [
+              "## التحويل إلى tan",
+              "نقسم الطرفين على $\\cos\\frac{x}{2}$ (ليس صفرًا هنا، لأنه لو كان صفرًا لكان $\\sin\\frac{x}{2}=\\pm1$ فلا يتساويان): $\\tan\\frac{x}{2}=1$",
+              "## مدى نصف الزاوية",
+              "المعطى $0\\le x<2\\pi$ ، نقسم على $2$: $0\\le\\frac{x}{2}<\\pi$",
+              "## الحلّ",
+              "$\\tan$ يساوي $1$ عند $\\frac{\\pi}{4}$ (الربع الأول) و $\\frac{5\\pi}{4}$ (الربع الثالث)، والمدى $[0,\\pi)$ يحوي $\\frac{\\pi}{4}$ فقط",
+              "$\\frac{x}{2}=\\frac{\\pi}{4} \\Rightarrow x=2\\times\\frac{\\pi}{4}=\\frac{\\pi}{2}$"
+            ],
+            "wrong": [
+              null,
+              "$\\frac{5\\pi}{2}$ أكبر من $2\\pi$ ، فهي خارج الفترة.",
+              "$\\frac{\\pi}{4}$ قيمة $\\frac{x}{2}$ وليست قيمة $x$.",
+              "هذه حلول $\\tan x=1$ وليس $\\tan\\frac{x}{2}=1$."
+            ],
+            "tip": "مع نصف الزاوية: انصفي الفترة، حلّي لـ $\\frac{x}{2}$ ، ثم اضربي في $2$."
+          }
         }
       ]
     },
@@ -386,7 +898,26 @@ const unit: Unit = {
             "$\\frac{3}{5}$"
           ],
           "answer": 0,
-          "solution": "$\\cot\\theta=\\frac34 \\Rightarrow \\tan\\theta=\\frac43$ ، ومن مثلث قائم أضلاعه $3,\\ 4,\\ 5$: $|\\sin\\theta|=\\frac45$\n$\\theta$ في الربع الثالث فالجيب سالب: $\\sin\\theta=-\\frac45$"
+          "solution": "$\\cot\\theta=\\frac34 \\Rightarrow \\tan\\theta=\\frac43$ ، ومن مثلث قائم أضلاعه $3,\\ 4,\\ 5$: $|\\sin\\theta|=\\frac45$\n$\\theta$ في الربع الثالث فالجيب سالب: $\\sin\\theta=-\\frac45$",
+          "explain": {
+            "idea": "معطى $\\cot\\theta$ والفترة ← نحدّد الربع وإشارة $\\sin$ فيه، ثم نرسم مثلثًا قائمًا لإيجاد مقدار $\\sin\\theta$.",
+            "steps": [
+              "## الربع والإشارة",
+              "حدود الأرباع: الأول بين $0$ و $\\frac{\\pi}{2}$ ، الثاني بين $\\frac{\\pi}{2}$ و $\\pi$ ، الثالث بين $\\pi$ و $\\frac{3\\pi}{2}$ ، الرابع بين $\\frac{3\\pi}{2}$ و $2\\pi$",
+              "$\\pi<\\theta<\\frac{3\\pi}{2}$ هي حدود الربع الثالث، وفيه $\\sin$ سالب و $\\cos$ سالب، أما $\\tan$ و $\\cot$ فموجبان",
+              "## المثلث",
+              "$\\cot\\theta$ = المجاور ÷ المقابل، و $\\cot\\theta=\\frac34$ ، فنأخذ المجاور $3$ والمقابل $4$",
+              "الوتر: $\\sqrt{3^2+4^2}=\\sqrt{9+16}=\\sqrt{25}=5$",
+              "## النتيجة",
+              "$\\sin\\theta$ = المقابل ÷ الوتر، فمقداره $\\frac45$ ، ومع الإشارة السالبة للربع الثالث: $\\sin\\theta=-\\frac45$"
+            ],
+            "wrong": [
+              null,
+              "في الربع الثالث الجيب سالب.",
+              "هذه قيمة $\\cos\\theta$؛ في $\\cot$ المجاور $3$ والمقابل $4$.",
+              "خطآن: هذه قيمة $|\\cos\\theta|$ والإشارة موجبة."
+            ]
+          }
         },
         {
           "id": "u2e3q2",
@@ -400,7 +931,27 @@ const unit: Unit = {
             "$\\sqrt{3}\\cos x$"
           ],
           "answer": 0,
-          "solution": "بفك المقدارين: $\\left(\\cos x\\cos\\frac{\\pi}{6}-\\sin x\\sin\\frac{\\pi}{6}\\right)-\\left(\\cos x\\cos\\frac{\\pi}{6}+\\sin x\\sin\\frac{\\pi}{6}\\right)$\n$=-2\\sin x\\sin\\frac{\\pi}{6}=-2\\cdot\\frac12\\sin x=-\\sin x$"
+          "solution": "بفك المقدارين: $\\left(\\cos x\\cos\\frac{\\pi}{6}-\\sin x\\sin\\frac{\\pi}{6}\\right)-\\left(\\cos x\\cos\\frac{\\pi}{6}+\\sin x\\sin\\frac{\\pi}{6}\\right)$\n$=-2\\sin x\\sin\\frac{\\pi}{6}=-2\\cdot\\frac12\\sin x=-\\sin x$",
+          "explain": {
+            "idea": "$\\cos$ لمجموع ولفرق الزاويتين نفسيهما ← نفكّ كلًّا منهما بقانونه، فتُحذف حدود $\\cos x\\cos\\frac{\\pi}{6}$ عند الطرح.",
+            "steps": [
+              "## فكّ القوسين",
+              "$\\cos(A+B)=\\cos A\\cos B-\\sin A\\sin B$ و $\\cos(A-B)=\\cos A\\cos B+\\sin A\\sin B$",
+              "$\\cos\\left(x+\\frac{\\pi}{6}\\right)=\\cos x\\cos\\frac{\\pi}{6}-\\sin x\\sin\\frac{\\pi}{6}$",
+              "$\\cos\\left(x-\\frac{\\pi}{6}\\right)=\\cos x\\cos\\frac{\\pi}{6}+\\sin x\\sin\\frac{\\pi}{6}$",
+              "## الطرح",
+              "عند طرح الثاني من الأول: الحدّ $\\cos x\\cos\\frac{\\pi}{6}$ يُطرح من نفسه فيصبح صفرًا",
+              "ويبقى: $-\\sin x\\sin\\frac{\\pi}{6}-\\sin x\\sin\\frac{\\pi}{6}=-2\\sin x\\sin\\frac{\\pi}{6}$",
+              "$\\sin\\frac{\\pi}{6}=\\frac12$ ، إذن الناتج $-2\\times\\frac12\\times\\sin x=-\\sin x$"
+            ],
+            "quick": "عوّضي $x=\\frac{\\pi}{2}$: $\\cos\\frac{2\\pi}{3}-\\cos\\frac{\\pi}{3}=-\\frac12-\\frac12=-1=-\\sin\\frac{\\pi}{2}$ ✔.",
+            "wrong": [
+              null,
+              "خطأ إشارة: الطرح يعطي $-2\\sin x\\sin\\frac{\\pi}{6}$.",
+              "$\\sin\\frac{\\pi}{6}=\\frac12$ وليس $\\frac{\\sqrt3}{2}$.",
+              "حدود $\\cos x\\cos\\frac{\\pi}{6}$ تُحذف عند الطرح ولا تُجمع."
+            ]
+          }
         },
         {
           "id": "u2e3q3",
@@ -414,7 +965,25 @@ const unit: Unit = {
             "$\\sec^{2}x$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{\\sec^2x}{\\csc^2x}=\\dfrac{1/\\cos^2x}{1/\\sin^2x}=\\dfrac{\\sin^2x}{\\cos^2x}=\\tan^2x$"
+          "solution": "$\\dfrac{\\sec^2x}{\\csc^2x}=\\dfrac{1/\\cos^2x}{1/\\sin^2x}=\\dfrac{\\sin^2x}{\\cos^2x}=\\tan^2x$",
+          "explain": {
+            "idea": "البسط والمقام متطابقتا فيثاغورس ← نستبدلهما، ثم نحوّل إلى $\\sin$ و $\\cos$.",
+            "steps": [
+              "## الاستبدال",
+              "البسط: $1+\\tan^2x=\\sec^2x=\\dfrac{1}{\\cos^2x}$",
+              "المقام: $1+\\cot^2x=\\csc^2x=\\dfrac{1}{\\sin^2x}$",
+              "## القسمة",
+              "$\\dfrac{\\frac{1}{\\cos^2x}}{\\frac{1}{\\sin^2x}}=\\dfrac{1}{\\cos^2x}\\times\\dfrac{\\sin^2x}{1}=\\dfrac{\\sin^2x}{\\cos^2x}$",
+              "$\\dfrac{\\sin^2x}{\\cos^2x}=\\left(\\dfrac{\\sin x}{\\cos x}\\right)^2=\\tan^2x$"
+            ],
+            "quick": "عوّضي $x=\\frac{\\pi}{3}$: $\\dfrac{1+3}{1+\\frac13}=3=\\tan^2\\frac{\\pi}{3}$ ✔.",
+            "wrong": [
+              null,
+              "قلب الكسر: $\\dfrac{\\sec^2x}{\\csc^2x}=\\dfrac{\\sin^2x}{\\cos^2x}$ وليس العكس. (عند $\\frac{\\pi}{3}$: $\\cot^2=\\frac13$)",
+              "عند $x=\\frac{\\pi}{3}$ المقدار $3$ لا $1$.",
+              "هذا البسط وحده؛ عند $x=\\frac{\\pi}{3}$: $\\sec^2=4$."
+            ]
+          }
         },
         {
           "id": "u2e3q4",
@@ -428,7 +997,28 @@ const unit: Unit = {
             "$\\sin^{2}\\alpha-\\cos^{2}\\beta$"
           ],
           "answer": 0,
-          "solution": "$(\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta)(\\sin\\alpha\\cos\\beta-\\cos\\alpha\\sin\\beta)=\\sin^2\\alpha\\cos^2\\beta-\\cos^2\\alpha\\sin^2\\beta$\n$=\\sin^2\\alpha(1-\\sin^2\\beta)-(1-\\sin^2\\alpha)\\sin^2\\beta=\\sin^2\\alpha-\\sin^2\\beta$\n(لاحظ أن الخيار $\\cos^2\\alpha-\\cos^2\\beta$ يساوي $\\sin^2\\beta-\\sin^2\\alpha$ أي سالب الإجابة)"
+          "solution": "$(\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta)(\\sin\\alpha\\cos\\beta-\\cos\\alpha\\sin\\beta)=\\sin^2\\alpha\\cos^2\\beta-\\cos^2\\alpha\\sin^2\\beta$\n$=\\sin^2\\alpha(1-\\sin^2\\beta)-(1-\\sin^2\\alpha)\\sin^2\\beta=\\sin^2\\alpha-\\sin^2\\beta$\n(لاحظ أن الخيار $\\cos^2\\alpha-\\cos^2\\beta$ يساوي $\\sin^2\\beta-\\sin^2\\alpha$ أي سالب الإجابة)",
+          "explain": {
+            "idea": "حاصل ضرب $\\sin$ لمجموع و$\\sin$ لفرق ← نفكّ كلًّا منهما، فنحصل على صورة $(a+b)(a-b)$ التي تساوي $a^2-b^2$ ، ثم نحوّل كل شيء إلى $\\sin$.",
+            "steps": [
+              "## فكّ القوسين",
+              "$\\sin(\\alpha+\\beta)=\\sin\\alpha\\cos\\beta+\\cos\\alpha\\sin\\beta$ و $\\sin(\\alpha-\\beta)=\\sin\\alpha\\cos\\beta-\\cos\\alpha\\sin\\beta$",
+              "حاصل ضربهما على صورة $(a+b)(a-b)$ حيث $a=\\sin\\alpha\\cos\\beta$ و $b=\\cos\\alpha\\sin\\beta$",
+              "## فرق المربعين",
+              "$(a+b)(a-b)=a^2-b^2$: $\\sin(\\alpha+\\beta)\\sin(\\alpha-\\beta)=\\sin^2\\alpha\\cos^2\\beta-\\cos^2\\alpha\\sin^2\\beta$",
+              "## التحويل إلى sin",
+              "نعوّض $\\cos^2\\beta=1-\\sin^2\\beta$ و $\\cos^2\\alpha=1-\\sin^2\\alpha$ ، فيصبح المقدار: $\\sin^2\\alpha(1-\\sin^2\\beta)-(1-\\sin^2\\alpha)\\sin^2\\beta$",
+              "نفكّ الأقواس: $\\sin^2\\alpha-\\sin^2\\alpha\\sin^2\\beta-\\sin^2\\beta+\\sin^2\\alpha\\sin^2\\beta$",
+              "الحدّان $-\\sin^2\\alpha\\sin^2\\beta$ و $+\\sin^2\\alpha\\sin^2\\beta$ يحذف أحدهما الآخر، فيبقى $\\sin^2\\alpha-\\sin^2\\beta$"
+            ],
+            "quick": "عوّضي $\\alpha=\\frac{\\pi}{2}$ و $\\beta=\\frac{\\pi}{6}$: $\\sin\\frac{2\\pi}{3}\\sin\\frac{\\pi}{3}=\\frac34$ ، والبديل الصحيح $1-\\frac14=\\frac34$ ✔.",
+            "wrong": [
+              null,
+              "الإشارة بين الحدّين سالبة (فرق مربعين). عند القيم السابقة يعطي $\\frac54$.",
+              "$\\cos^2\\alpha-\\cos^2\\beta=\\sin^2\\beta-\\sin^2\\alpha$ ، أي سالب الإجابة الصحيحة.",
+              "عند $\\alpha=\\frac{\\pi}{2}$ و $\\beta=\\frac{\\pi}{6}$ يعطي $1-\\frac34=\\frac14$ بدل $\\frac34$."
+            ]
+          }
         },
         {
           "id": "u2e3q5",
@@ -442,7 +1032,27 @@ const unit: Unit = {
             "$\\cos 12x$"
           ],
           "answer": 0,
-          "solution": "من متطابقة نصف الزاوية: $\\dfrac{1+\\cos6x}{2}=\\cos^23x$ ، فالمقدار $=|\\cos3x|$\nوبما أن $0<3x<\\frac{\\pi}{2}$ فإن $\\cos3x>0$ ، إذن المقدار $=\\cos3x$"
+          "solution": "من متطابقة نصف الزاوية: $\\dfrac{1+\\cos6x}{2}=\\cos^23x$ ، فالمقدار $=|\\cos3x|$\nوبما أن $0<3x<\\frac{\\pi}{2}$ فإن $\\cos3x>0$ ، إذن المقدار $=\\cos3x$",
+          "explain": {
+            "idea": "المقدار تحت الجذر هو صيغة تقليص القوة لـ $\\cos^2$ ، ثم الجذر يعطي قيمة مطلقة نحدّد إشارتها من مدى $x$.",
+            "steps": [
+              "## المتطابقة",
+              "تقليص القوة: $\\cos^2\\theta=\\dfrac{1+\\cos2\\theta}{2}$",
+              "في السؤال $\\cos6x$ مكان $\\cos2\\theta$ ، أي $2\\theta=6x$ فيكون $\\theta=3x$: $\\dfrac{1+\\cos6x}{2}=\\cos^23x$",
+              "## الجذر",
+              "$\\sqrt{\\cos^23x}=|\\cos3x|$ (الجذر التربيعي لمربّع أيّ عدد هو قيمته المطلقة)",
+              "## الإشارة",
+              "المعطى $0<x<\\frac{\\pi}{6}$ ، نضرب في $3$: $0<3x<\\frac{\\pi}{2}$ ، أي $3x$ في الربع الأول حيث $\\cos$ موجب",
+              "القيمة المطلقة لعدد موجب هي العدد نفسه، إذن المقدار يساوي $\\cos3x$"
+            ],
+            "wrong": [
+              null,
+              "الزاوية تُنصَّف: $\\frac{1+\\cos2\\theta}{2}=\\cos^2\\theta$ ، فـ $6x$ تصبح $3x$.",
+              "$\\sin^2$ تأتي من $\\frac{1-\\cos2\\theta}{2}$ (إشارة سالبة)، وهنا الإشارة موجبة.",
+              "الزاوية تُنصَّف ولا تُضاعَف."
+            ],
+            "tip": "$\\sqrt{a^2}=|a|$؛ لذلك يُعطى مدى $x$ لتحديد الإشارة."
+          }
         },
         {
           "id": "u2e3q6",
@@ -456,7 +1066,30 @@ const unit: Unit = {
             "$-\\frac{7}{24}$"
           ],
           "answer": 0,
-          "solution": "$\\theta$ في الربع الرابع: $\\sin\\theta=-\\frac45$ ، $\\tan\\theta=-\\frac43$\n$\\tan2\\theta=\\dfrac{2\\tan\\theta}{1-\\tan^2\\theta}=\\dfrac{-\\frac83}{1-\\frac{16}{9}}=\\dfrac{-\\frac83}{-\\frac79}=\\dfrac{24}{7}$"
+          "solution": "$\\theta$ في الربع الرابع: $\\sin\\theta=-\\frac45$ ، $\\tan\\theta=-\\frac43$\n$\\tan2\\theta=\\dfrac{2\\tan\\theta}{1-\\tan^2\\theta}=\\dfrac{-\\frac83}{1-\\frac{16}{9}}=\\dfrac{-\\frac83}{-\\frac79}=\\dfrac{24}{7}$",
+          "explain": {
+            "idea": "مطلوب $\\tan2\\theta$ ← نجد $\\tan\\theta$ بإشارته الصحيحة من الربع، ثم نطبّق قانون ظل ضعف الزاوية.",
+            "steps": [
+              "## الربع",
+              "$\\frac{3\\pi}{2}<\\theta<2\\pi$ هي حدود الربع الرابع، وفيه $\\cos$ موجب و $\\sin$ سالب و $\\tan$ سالب",
+              "## إيجاد tan θ",
+              "$\\cos\\theta$ = المجاور ÷ الوتر، و $\\cos\\theta=\\frac35$ ، فالمجاور $3$ والوتر $5$",
+              "المقابل بنظرية فيثاغورس: $\\sqrt{5^2-3^2}=\\sqrt{25-9}=\\sqrt{16}=4$",
+              "$\\tan\\theta$ = المقابل ÷ المجاور، فمقداره $\\frac43$ ، ومع إشارة الربع الرابع السالبة: $\\tan\\theta=-\\frac43$",
+              "## قانون ظل ضعف الزاوية",
+              "$\\tan2\\theta=\\dfrac{2\\tan\\theta}{1-\\tan^2\\theta}$",
+              "البسط: $2\\times\\left(-\\frac43\\right)=-\\frac83$",
+              "المقام: $1-\\left(-\\frac43\\right)^2=1-\\frac{16}{9}=\\frac99-\\frac{16}{9}=-\\frac79$",
+              "$\\tan2\\theta=\\dfrac{-\\frac83}{-\\frac79}=\\frac83\\times\\frac97=\\frac{72}{21}=\\frac{24}{7}$ (سالب ÷ سالب = موجب)"
+            ],
+            "wrong": [
+              null,
+              "تنتج من أخذ $\\tan\\theta=+\\frac43$ (نسيان أن الظل سالب في الربع الرابع).",
+              "هذا مقلوب الإجابة، أي $\\cot2\\theta$.",
+              "البسط والمقام كلاهما سالب، فالناتج موجب، كما أن الكسر مقلوب."
+            ],
+            "tip": "إشارة $\\tan2\\theta$ قد تختلف عن إشارة $\\tan\\theta$؛ احسبيها ولا تخمّنيها."
+          }
         },
         {
           "id": "u2e3q7",
@@ -470,7 +1103,28 @@ const unit: Unit = {
             "$\\cos^{3}x-3\\cos x$"
           ],
           "answer": 0,
-          "solution": "$\\cos3x=\\cos(2x+x)=\\cos2x\\cos x-\\sin2x\\sin x$\n$=(2\\cos^2x-1)\\cos x-2\\sin^2x\\cos x=(2\\cos^2x-1)\\cos x-2(1-\\cos^2x)\\cos x=4\\cos^3x-3\\cos x$"
+          "solution": "$\\cos3x=\\cos(2x+x)=\\cos2x\\cos x-\\sin2x\\sin x$\n$=(2\\cos^2x-1)\\cos x-2\\sin^2x\\cos x=(2\\cos^2x-1)\\cos x-2(1-\\cos^2x)\\cos x=4\\cos^3x-3\\cos x$",
+          "explain": {
+            "idea": "$\\cos3x$ ← نكتب $3x=2x+x$ ونطبّق قانون جيب تمام المجموع، ثم نحوّل كل شيء إلى $\\cos x$.",
+            "steps": [
+              "## قانون المجموع",
+              "$\\cos3x=\\cos(2x+x)=\\cos2x\\cos x-\\sin2x\\sin x$",
+              "## التعويض بقوانين ضعف الزاوية",
+              "نعوّض $\\cos2x=2\\cos^2x-1$ (الصيغة التي فيها $\\cos$) و $\\sin2x=2\\sin x\\cos x$:",
+              "$\\cos3x=(2\\cos^2x-1)\\cos x-(2\\sin x\\cos x)\\sin x=(2\\cos^2x-1)\\cos x-2\\sin^2x\\cos x$",
+              "## التحويل إلى cos",
+              "نعوّض $\\sin^2x=1-\\cos^2x$: $\\cos3x=(2\\cos^2x-1)\\cos x-2(1-\\cos^2x)\\cos x$",
+              "نفكّ الأقواس: $\\cos3x=2\\cos^3x-\\cos x-2\\cos x+2\\cos^3x$",
+              "نجمع الحدود المتشابهة: $2\\cos^3x+2\\cos^3x=4\\cos^3x$ و $-\\cos x-2\\cos x=-3\\cos x$ ، إذن $\\cos3x=4\\cos^3x-3\\cos x$"
+            ],
+            "quick": "عوّضي $x=0$: $\\cos0=1$ ، والبديل الصحيح $4-3=1$ ✔ ، والبدائل الأخرى تعطي $-1$ و $7$ و $-2$.",
+            "wrong": [
+              null,
+              "هذه صورة $\\sin3x=3\\sin x-4\\sin^3x$ مع تبديل الاقتران؛ عند $x=0$ تعطي $-1$.",
+              "عند $x=0$ يعطي $7$ بدل $1$.",
+              "عند $x=0$ يعطي $-2$ بدل $1$."
+            ]
+          }
         },
         {
           "id": "u2e3q8",
@@ -484,7 +1138,26 @@ const unit: Unit = {
             "$\\frac{\\sqrt{3}}{2}$"
           ],
           "answer": 0,
-          "solution": "$\\cos A+\\cos B=2\\cos\\dfrac{A+B}{2}\\cos\\dfrac{A-B}{2}$\n$=2\\cos60^\\circ\\cos45^\\circ=2\\cdot\\frac12\\cdot\\frac{\\sqrt2}{2}=\\frac{\\sqrt2}{2}$"
+          "solution": "$\\cos A+\\cos B=2\\cos\\dfrac{A+B}{2}\\cos\\dfrac{A-B}{2}$\n$=2\\cos60^\\circ\\cos45^\\circ=2\\cdot\\frac12\\cdot\\frac{\\sqrt2}{2}=\\frac{\\sqrt2}{2}$",
+          "explain": {
+            "idea": "مجموع جيبي تمام لزاويتين غير خاصتين ← نحوّله إلى ضرب، فتظهر زوايا خاصة.",
+            "steps": [
+              "## المتطابقة",
+              "$\\cos A+\\cos B=2\\cos\\dfrac{A+B}{2}\\cos\\dfrac{A-B}{2}$",
+              "## الزاويتان الجديدتان",
+              "$\\dfrac{A+B}{2}=\\dfrac{105^\\circ+15^\\circ}{2}=\\dfrac{120^\\circ}{2}=60^\\circ$",
+              "$\\dfrac{A-B}{2}=\\dfrac{105^\\circ-15^\\circ}{2}=\\dfrac{90^\\circ}{2}=45^\\circ$",
+              "## التعويض",
+              "$\\cos105^\\circ+\\cos15^\\circ=2\\cos60^\\circ\\cos45^\\circ$ ، و $\\cos60^\\circ=\\frac12$ ، $\\cos45^\\circ=\\frac{\\sqrt2}{2}$",
+              "$2\\cos60^\\circ\\cos45^\\circ=2\\times\\frac12\\times\\frac{\\sqrt2}{2}=\\frac{\\sqrt2}{2}$"
+            ],
+            "wrong": [
+              null,
+              "هذا $2\\cos45^\\circ\\cos30^\\circ$؛ الزاويتان الصحيحتان $60^\\circ$ و $45^\\circ$.",
+              "$60^\\circ$ و $45^\\circ$ في الربع الأول، فالناتج موجب.",
+              "الحساب الصحيح: $2\\times\\frac12\\times\\frac{\\sqrt2}{2}=\\frac{\\sqrt2}{2}$."
+            ]
+          }
         },
         {
           "id": "u2e3q9",
@@ -498,7 +1171,27 @@ const unit: Unit = {
             "$x=\\frac{\\pi}{6}$"
           ],
           "answer": 0,
-          "solution": "$\\cos^2x=\\frac34 \\Rightarrow \\cos x=\\pm\\frac{\\sqrt3}{2}$\nفي $[0,\\pi]$: $\\cos x=\\frac{\\sqrt3}{2} \\Rightarrow x=\\frac{\\pi}{6}$ ، و $\\cos x=-\\frac{\\sqrt3}{2} \\Rightarrow x=\\frac{5\\pi}{6}$"
+          "solution": "$\\cos^2x=\\frac34 \\Rightarrow \\cos x=\\pm\\frac{\\sqrt3}{2}$\nفي $[0,\\pi]$: $\\cos x=\\frac{\\sqrt3}{2} \\Rightarrow x=\\frac{\\pi}{6}$ ، و $\\cos x=-\\frac{\\sqrt3}{2} \\Rightarrow x=\\frac{5\\pi}{6}$",
+          "explain": {
+            "idea": "$\\cos^2x$ يساوي عددًا ← نأخذ الجذر بإشارتيه ($\\pm$)، ونحلّ كل حالة في الفترة $[0,\\pi]$ فقط (الربعان الأول والثاني).",
+            "steps": [
+              "## قيم cos x",
+              "$4\\cos^2x-3=0 \\Rightarrow 4\\cos^2x=3 \\Rightarrow \\cos^2x=\\frac34$",
+              "بأخذ الجذر للطرفين مع $\\pm$: $\\cos x=\\pm\\sqrt{\\frac34}=\\pm\\frac{\\sqrt3}{2}$",
+              "الزاوية المرجعية $\\frac{\\pi}{6}$ لأن $\\cos\\frac{\\pi}{6}=\\frac{\\sqrt3}{2}$",
+              "## الحلول في الفترة",
+              "الفترة $[0,\\pi]$ هي الربعان الأول والثاني",
+              "$\\cos x=\\frac{\\sqrt3}{2}$ (موجب) يقع في الربع الأول: $x=\\frac{\\pi}{6}$",
+              "$\\cos x=-\\frac{\\sqrt3}{2}$ (سالب) يقع في الربع الثاني: $x=\\pi-\\frac{\\pi}{6}=\\frac{5\\pi}{6}$"
+            ],
+            "wrong": [
+              null,
+              "$\\frac{11\\pi}{6}$ خارج الفترة $[0,\\pi]$.",
+              "هذه حلول $\\cos x=\\pm\\frac12$؛ $\\cos\\frac{\\pi}{3}=\\frac12$ لا $\\frac{\\sqrt3}{2}$.",
+              "نقص الحل الناتج من القيمة السالبة $\\cos x=-\\frac{\\sqrt3}{2}$."
+            ],
+            "tip": "$\\cos^2x=k$ ← لا تنسي الجذر الموجب والجذر السالب."
+          }
         },
         {
           "id": "u2e3q10",
@@ -512,7 +1205,28 @@ const unit: Unit = {
             "$6$"
           ],
           "answer": 0,
-          "solution": "$2\\sin x\\cos x+\\cos x=0 \\Rightarrow \\cos x(2\\sin x+1)=0$\n$\\cos x=0 \\Rightarrow x=\\frac{\\pi}{2},\\ \\frac{3\\pi}{2}$ ، و $\\sin x=-\\frac12 \\Rightarrow x=\\frac{7\\pi}{6},\\ \\frac{11\\pi}{6}$ ، إذن $4$ حلول."
+          "solution": "$2\\sin x\\cos x+\\cos x=0 \\Rightarrow \\cos x(2\\sin x+1)=0$\n$\\cos x=0 \\Rightarrow x=\\frac{\\pi}{2},\\ \\frac{3\\pi}{2}$ ، و $\\sin x=-\\frac12 \\Rightarrow x=\\frac{7\\pi}{6},\\ \\frac{11\\pi}{6}$ ، إذن $4$ حلول.",
+          "explain": {
+            "idea": "$\\sin2x$ و $\\cos x$ في المعادلة ← نفكّ $\\sin2x$ فيظهر $\\cos x$ عاملًا مشتركًا (لا نقسم عليه)، ثم نعدّ الحلول.",
+            "steps": [
+              "## التحليل",
+              "$\\sin2x=2\\sin x\\cos x$ ، فتصبح المعادلة: $2\\sin x\\cos x=-\\cos x$",
+              "ننقل الكل لطرف واحد: $2\\sin x\\cos x+\\cos x=0$ ، ونُخرج $\\cos x$: $\\cos x(2\\sin x+1)=0$",
+              "## الحالة الأولى",
+              "$\\cos x=0$: $x=\\frac{\\pi}{2}$ و $x=\\frac{3\\pi}{2}$ (حلّان)",
+              "## الحالة الثانية",
+              "$2\\sin x+1=0 \\Rightarrow \\sin x=-\\frac12$ ، الزاوية المرجعية $\\frac{\\pi}{6}$ ، و $\\sin$ سالب في الربعين الثالث والرابع:",
+              "$x=\\pi+\\frac{\\pi}{6}=\\frac{7\\pi}{6}$ و $x=2\\pi-\\frac{\\pi}{6}=\\frac{11\\pi}{6}$ (حلّان)",
+              "## العدد",
+              "المجموع: $2+2=4$ حلول"
+            ],
+            "wrong": [
+              null,
+              "القسمة على $\\cos x$ تُضيع حلّي $\\cos x=0$.",
+              "الحلول أربعة: اثنان من $\\cos x=0$ واثنان من $\\sin x=-\\frac12$.",
+              "في الفترة $[0,2\\pi)$ لكل معادلة بسيطة حلّان فقط، فالمجموع $4$."
+            ]
+          }
         },
         {
           "id": "u2e3q11",
@@ -526,7 +1240,28 @@ const unit: Unit = {
             "$x=\\frac{3\\pi}{4},\\ x=\\frac{7\\pi}{4}$"
           ],
           "answer": 0,
-          "solution": "نعوّض $\\sec^2x=1+\\tan^2x$: $\\tan^2x-2\\tan x+1=0 \\Rightarrow (\\tan x-1)^2=0 \\Rightarrow \\tan x=1$\n$x=\\frac{\\pi}{4}$ أو $x=\\frac{5\\pi}{4}$"
+          "solution": "نعوّض $\\sec^2x=1+\\tan^2x$: $\\tan^2x-2\\tan x+1=0 \\Rightarrow (\\tan x-1)^2=0 \\Rightarrow \\tan x=1$\n$x=\\frac{\\pi}{4}$ أو $x=\\frac{5\\pi}{4}$",
+          "explain": {
+            "idea": "$\\sec^2x$ و $\\tan x$ معًا ← نعوّض $\\sec^2x=1+\\tan^2x$ فنحصل على معادلة تربيعية في $\\tan x$.",
+            "steps": [
+              "## التعويض",
+              "متطابقة فيثاغورس: $\\sec^2x=1+\\tan^2x$ ، فتصبح المعادلة: $1+\\tan^2x-2\\tan x=0$",
+              "نرتّب: $\\tan^2x-2\\tan x+1=0$",
+              "## التحليل",
+              "هذا مربّع كامل على صورة $a^2-2a+1=(a-1)^2$: $(\\tan x-1)^2=0$",
+              "$\\tan x-1=0 \\Rightarrow \\tan x=1$",
+              "## الحلول",
+              "الزاوية المرجعية $\\frac{\\pi}{4}$ ، و $\\tan$ موجب في الربعين الأول والثالث:",
+              "$x=\\frac{\\pi}{4}$ و $x=\\pi+\\frac{\\pi}{4}=\\frac{5\\pi}{4}$"
+            ],
+            "wrong": [
+              null,
+              "نقص الحل في الربع الثالث $\\frac{5\\pi}{4}$؛ $\\tan$ موجب هناك أيضًا.",
+              "$\\tan\\frac{3\\pi}{4}=-1$ ، فهي ليست حلًّا.",
+              "هذه حلول $\\tan x=-1$."
+            ],
+            "tip": "حلول $\\tan$ تتكرّر كل $\\pi$ (وليس كل $2\\pi$)."
+          }
         },
         {
           "id": "u2e3q12",
@@ -540,7 +1275,24 @@ const unit: Unit = {
             "$2\\pi$"
           ],
           "answer": 0,
-          "solution": "$\\sin x=\\frac{\\sqrt3}{2} \\Rightarrow x=\\frac{\\pi}{3}$ أو $x=\\frac{2\\pi}{3}$ ، ومجموعهما $\\pi$"
+          "solution": "$\\sin x=\\frac{\\sqrt3}{2} \\Rightarrow x=\\frac{\\pi}{3}$ أو $x=\\frac{2\\pi}{3}$ ، ومجموعهما $\\pi$",
+          "explain": {
+            "idea": "المطلوب **مجموع** الحلول ← نجد كل الحلول في الفترة ثم نجمعها.",
+            "steps": [
+              "## الحلول",
+              "$2\\sin x=\\sqrt3 \\Rightarrow \\sin x=\\frac{\\sqrt3}{2}$ ، الزاوية المرجعية $\\frac{\\pi}{3}$ لأن $\\sin\\frac{\\pi}{3}=\\frac{\\sqrt3}{2}$",
+              "القيمة موجبة، و $\\sin$ موجب في الربعين الأول والثاني: $x=\\frac{\\pi}{3}$ و $x=\\pi-\\frac{\\pi}{3}=\\frac{2\\pi}{3}$",
+              "## المجموع",
+              "$\\frac{\\pi}{3}+\\frac{2\\pi}{3}=\\frac{3\\pi}{3}=\\pi$"
+            ],
+            "wrong": [
+              null,
+              "هذا الحل الثاني وحده، والمطلوب مجموع الحلّين.",
+              "$\\frac{4\\pi}{3}$ في الربع الثالث حيث $\\sin$ سالب، فلا تدخل في المجموع.",
+              "الحلّان $\\frac{\\pi}{3}$ و $\\frac{2\\pi}{3}$ ، ومجموعهما $\\pi$ لا $2\\pi$."
+            ],
+            "tip": "حلّا $\\sin x=k$ (حيث $0<k<1$) في $[0,2\\pi)$ مجموعهما دائمًا $\\pi$ لأنهما متماثلان حول $\\frac{\\pi}{2}$."
+          }
         }
       ]
     }
