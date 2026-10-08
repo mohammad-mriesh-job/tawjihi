@@ -1,6 +1,6 @@
 """Teaching explanations for unit 1 (attached by build() in qb.py).
 wrong: {original option index: reason}; option 0 is the correct one as written in u1.py."""
-from qb import E
+from explain_common import E
 
 EXPLAIN = {
 # ============================================================ الاختبار الأول

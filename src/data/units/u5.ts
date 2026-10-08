@@ -50,7 +50,26 @@ const unit: Unit = {
             "$2xe^{x}-3\\ln|x|+\\tan x+C$"
           ],
           "answer": 0,
-          "solution": "$\\displaystyle\\int e^x\\,dx=e^x$ ، $\\displaystyle\\int\\frac1x\\,dx=\\ln|x|$ ، $\\displaystyle\\int\\sec^2x\\,dx=\\tan x$\nإذن الناتج $2e^x-3\\ln|x|+\\tan x+C$"
+          "solution": "$\\displaystyle\\int e^x\\,dx=e^x$ ، $\\displaystyle\\int\\frac1x\\,dx=\\ln|x|$ ، $\\displaystyle\\int\\sec^2x\\,dx=\\tan x$\nإذن الناتج $2e^x-3\\ln|x|+\\tan x+C$",
+          "explain": {
+            "idea": "تكامل مجموع ← نكامل كل حدّ وحده بقاعدته المعروفة.",
+            "steps": [
+              "## القواعد",
+              "$\\displaystyle\\int e^x\\,dx=e^x$ ، $\\displaystyle\\int\\frac1x\\,dx=\\ln|x|$ ، $\\displaystyle\\int\\sec^2x\\,dx=\\tan x$ (لأن مشتقة $\\tan x$ هي $\\sec^2x$)",
+              "## حدًّا حدًّا",
+              "$\\displaystyle\\int2e^x\\,dx=2e^x$",
+              "$\\displaystyle\\int-\\frac3x\\,dx=-3\\ln|x|$",
+              "$\\displaystyle\\int\\sec^2x\\,dx=\\tan x$",
+              "الناتج: $2e^x-3\\ln|x|+\\tan x+C$"
+            ],
+            "wrong": [
+              null,
+              "تكامل $\\frac1x$ هو $\\ln|x|$؛ قاعدة القوة لا تصلح عند الأس $-1$ ، و $\\frac{3}{x^2}$ ناتج اشتقاق لا تكامل.",
+              "$\\displaystyle\\int\\sec^2x\\,dx=+\\tan x$.",
+              "$\\displaystyle\\int e^x\\,dx=e^x$ دون ضرب في $x$."
+            ],
+            "tip": "للتحقّق من أيّ تكامل غير محدود: اشتقّي الناتج، فيجب أن يعطي المقدار الذي داخل التكامل."
+          }
         },
         {
           "id": "u5e1q2",
@@ -64,7 +83,27 @@ const unit: Unit = {
             "$\\sqrt{15}$"
           ],
           "answer": 0,
-          "solution": "$\\displaystyle\\int_0^{\\ln a}4e^{2x}dx=\\big[2e^{2x}\\big]_0^{\\ln a}=2e^{2\\ln a}-2=2a^2-2$\n$2a^2-2=30 \\Rightarrow a^2=16 \\Rightarrow a=4$ (لأن $a>0$)"
+          "solution": "$\\displaystyle\\int_0^{\\ln a}4e^{2x}dx=\\big[2e^{2x}\\big]_0^{\\ln a}=2e^{2\\ln a}-2=2a^2-2$\n$2a^2-2=30 \\Rightarrow a^2=16 \\Rightarrow a=4$ (لأن $a>0$)",
+          "explain": {
+            "idea": "تكامل محدود فيه ثابت مجهول في الحدّ العلوي ← نكامل، نعوّض الحدّين، ونحلّ المعادلة الناتجة.",
+            "steps": [
+              "## الاقتران الأصلي",
+              "$\\displaystyle\\int e^{kx}\\,dx=\\frac{e^{kx}}{k}$ و $\\displaystyle\\int\\cos kx\\,dx=\\frac{\\sin kx}{k}$ و $\\displaystyle\\int\\sin kx\\,dx=-\\frac{\\cos kx}{k}$ (نقسم على معامل $x$)",
+              "$\\displaystyle\\int4e^{2x}\\,dx=4\\times\\frac{e^{2x}}{2}=2e^{2x}$",
+              "## التعويض بالحدّين",
+              "$\\big[2e^{2x}\\big]_0^{\\ln a}=2e^{2\\ln a}-2e^0$",
+              "$e^{2\\ln a}=e^{\\ln a^2}=a^2$ و $e^0=1$ ، إذن الناتج $2a^2-2$",
+              "## حلّ المعادلة",
+              "$2a^2-2=30 \\Rightarrow 2a^2=32 \\Rightarrow a^2=16 \\Rightarrow a=\\pm4$",
+              "المعطى $a>0$ ، إذن $a=4$"
+            ],
+            "wrong": [
+              null,
+              "تحقّقي: $2(2)^2-2=6\\neq30$.",
+              "$16$ هي قيمة $a^2$ لا $a$.",
+              "تنتج من نسيان الحدّ السفلي $2e^0=2$: $2a^2=30$."
+            ]
+          }
         },
         {
           "id": "u5e1q3",
@@ -78,7 +117,24 @@ const unit: Unit = {
             "$f(x)=6x^{2}+e^{-x}+3$"
           ],
           "answer": 0,
-          "solution": "$f(x)=\\displaystyle\\int(6x-e^{-x})dx=3x^2+e^{-x}+C$\n$f(0)=4 \\Rightarrow 0+1+C=4 \\Rightarrow C=3$"
+          "solution": "$f(x)=\\displaystyle\\int(6x-e^{-x})dx=3x^2+e^{-x}+C$\n$f(0)=4 \\Rightarrow 0+1+C=4 \\Rightarrow C=3$",
+          "explain": {
+            "idea": "معطى المشتقة ← نكامل لنحصل على $f$ مع ثابت، ثم النقطة تحدّد الثابت (انتبهي: $e^0=1$).",
+            "steps": [
+              "## التكامل",
+              "$\\displaystyle\\int6x\\,dx=3x^2$",
+              "$\\displaystyle\\int-e^{-x}\\,dx=-\\frac{e^{-x}}{-1}=e^{-x}$ (نقسم على معامل $x$ وهو $-1$)",
+              "$f(x)=3x^2+e^{-x}+C$",
+              "## الثابت",
+              "$f(0)=0+e^0+C=1+C=4$ ، إذن $C=3$"
+            ],
+            "wrong": [
+              null,
+              "إشارة $e^{-x}$: اشتقاق $-e^{-x}$ يعطي $+e^{-x}$ لا $-e^{-x}$.",
+              "$C\\neq4$ لأن $e^0=1$ ليس صفرًا: $f(0)=1+4=5$.",
+              "نُسيت القسمة على الأس الجديد: $\\int6x\\,dx=3x^2$."
+            ]
+          }
         },
         {
           "id": "u5e1q4",
@@ -92,7 +148,24 @@ const unit: Unit = {
             "$\\frac{x^{3}}{3}e^{x^{3}}+C$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=x^3 \\Rightarrow du=3x^2dx$: $\\displaystyle\\frac13\\int e^u\\,du=\\frac13e^{x^3}+C$"
+          "solution": "بالتعويض $u=x^3 \\Rightarrow du=3x^2dx$: $\\displaystyle\\frac13\\int e^u\\,du=\\frac13e^{x^3}+C$",
+          "explain": {
+            "idea": "في الأس $x^3$ ، ومشتقته $3x^2$ موجودة تقريبًا (لدينا $x^2$) ← تعويض $u=x^3$.",
+            "steps": [
+              "خطوات التكامل بالتعويض: نختار $u$ (غالبًا ما داخل القوس أو الجذر أو الأس، بحيث تظهر مشتقته في التكامل)، نحسب $du$ ، نحوّل التكامل كله إلى $u$ ، نكامل، ثم نرجع إلى $x$",
+              "$u=x^3$ ، $du=3x^2\\,dx$ ، إذن $x^2\\,dx=\\frac13du$",
+              "$\\displaystyle\\int e^{x^3}\\,x^2\\,dx=\\frac13\\int e^u\\,du=\\frac13e^u+C$",
+              "$\\frac13e^{x^3}+C$",
+              "## تحقّق",
+              "$\\left(\\frac13e^{x^3}\\right)'=\\frac13e^{x^3}\\times3x^2=x^2e^{x^3}$ ✔"
+            ],
+            "wrong": [
+              null,
+              "الضرب في $3$ للاشتقاق؛ في التكامل نقسم: $x^2dx=\\frac13du$.",
+              "نُسي العامل $\\frac13$؛ اشتقاق $e^{x^3}$ يعطي $3x^2e^{x^3}$.",
+              "لا يجوز تكامل كل عامل وحده ثم ضربهما."
+            ]
+          }
         },
         {
           "id": "u5e1q5",
@@ -106,7 +179,24 @@ const unit: Unit = {
             "$\\frac{2}{3}x(x-1)^{\\frac{3}{2}}+C$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=x-1 \\Rightarrow x=u+1$ ، $dx=du$:\n$\\displaystyle\\int(u+1)\\sqrt u\\,du=\\int\\left(u^{\\frac32}+u^{\\frac12}\\right)du=\\frac25u^{\\frac52}+\\frac23u^{\\frac32}+C$\n$=\\frac25(x-1)^{\\frac52}+\\frac23(x-1)^{\\frac32}+C$"
+          "solution": "بالتعويض $u=x-1 \\Rightarrow x=u+1$ ، $dx=du$:\n$\\displaystyle\\int(u+1)\\sqrt u\\,du=\\int\\left(u^{\\frac32}+u^{\\frac12}\\right)du=\\frac25u^{\\frac52}+\\frac23u^{\\frac32}+C$\n$=\\frac25(x-1)^{\\frac52}+\\frac23(x-1)^{\\frac32}+C$",
+          "explain": {
+            "idea": "جذر لمقدار خطي و $x$ خارجه ← $u=x-1$ ، ونكتب $x=u+1$ ، فيصبح التكامل قوى لـ $u$.",
+            "steps": [
+              "خطوات التكامل بالتعويض: نختار $u$ (غالبًا ما داخل القوس أو الجذر أو الأس، بحيث تظهر مشتقته في التكامل)، نحسب $du$ ، نحوّل التكامل كله إلى $u$ ، نكامل، ثم نرجع إلى $x$",
+              "$u=x-1$ ، $x=u+1$ ، $dx=du$",
+              "$\\displaystyle\\int(u+1)\\sqrt u\\,du=\\int\\left(u^{\\frac32}+u^{\\frac12}\\right)du$ (لأن $u\\cdot u^{\\frac12}=u^{\\frac32}$)",
+              "قاعدة القوة في التكامل: $\\displaystyle\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}+C$ (نزيد الأس واحدًا ونقسم على الأس الجديد)، بشرط $n\\neq-1$",
+              "$\\dfrac{u^{\\frac52}}{\\frac52}+\\dfrac{u^{\\frac32}}{\\frac32}=\\frac25u^{\\frac52}+\\frac23u^{\\frac32}$",
+              "نرجع إلى $x$: $\\frac25(x-1)^{\\frac52}+\\frac23(x-1)^{\\frac32}+C$"
+            ],
+            "wrong": [
+              null,
+              "$x=u+1$ (لا $u-1$)، فالحدّان يُجمعان.",
+              "لا يجوز تكامل $x$ و $\\sqrt{x-1}$ كلًّا وحده ثم ضربهما.",
+              "اشتقاق هذا البديل يعطي حدودًا إضافية؛ $x$ ليس ثابتًا لنُخرجه."
+            ]
+          }
         },
         {
           "id": "u5e1q6",
@@ -120,7 +210,22 @@ const unit: Unit = {
             "$5\\ln|(x-1)(x+2)|+C$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{5x+4}{(x-1)(x+2)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+2}$ ، عند $x=1$: $9=3A \\Rightarrow A=3$ ، عند $x=-2$: $-6=-3B \\Rightarrow B=2$\nإذن التكامل $=3\\ln|x-1|+2\\ln|x+2|+C$"
+          "solution": "$\\dfrac{5x+4}{(x-1)(x+2)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+2}$ ، عند $x=1$: $9=3A \\Rightarrow A=3$ ، عند $x=-2$: $-6=-3B \\Rightarrow B=2$\nإذن التكامل $=3\\ln|x-1|+2\\ln|x+2|+C$",
+          "explain": {
+            "idea": "الكسور الجزئية: نحلّل المقام، نكتب كسرًا لكل عامل، نضرب في المقام، ونعوّض بأصفار العوامل لإيجاد الثوابت؛ وتكامل $\\frac{A}{x-a}$ هو $A\\ln|x-a|$.",
+            "steps": [
+              "$\\dfrac{5x+4}{(x-1)(x+2)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+2}$ ، و $5x+4=A(x+2)+B(x-1)$",
+              "$x=1$: $9=3A$ ، إذن $A=3$",
+              "$x=-2$: $-6=-3B$ ، إذن $B=2$",
+              "$\\displaystyle\\int\\left(\\frac{3}{x-1}+\\frac{2}{x+2}\\right)dx=3\\ln|x-1|+2\\ln|x+2|+C$"
+            ],
+            "wrong": [
+              null,
+              "الثابتان مبدّلان: $A=3$ فوق $(x-1)$.",
+              "من $-6=-3B$ تكون $B=+2$.",
+              "$\\ln|(x-1)(x+2)|$ يحتاج بسطًا يساوي مشتقة المقام $2x+1$ ، و $5x+4$ ليس مضاعفًا لها."
+            ]
+          }
         },
         {
           "id": "u5e1q7",
@@ -134,7 +239,27 @@ const unit: Unit = {
             "$1+\\ln 6$"
           ],
           "answer": 0,
-          "solution": "الكسر غير فعلي: $\\dfrac{x^2+1}{x^2-1}=1+\\dfrac{2}{x^2-1}=1+\\dfrac{1}{x-1}-\\dfrac{1}{x+1}$\n$\\big[x+\\ln|x-1|-\\ln|x+1|\\big]_2^3=(3+\\ln2-\\ln4)-(2+0-\\ln3)=1+\\ln\\dfrac{2\\cdot3}{4}=1+\\ln\\dfrac32$"
+          "solution": "الكسر غير فعلي: $\\dfrac{x^2+1}{x^2-1}=1+\\dfrac{2}{x^2-1}=1+\\dfrac{1}{x-1}-\\dfrac{1}{x+1}$\n$\\big[x+\\ln|x-1|-\\ln|x+1|\\big]_2^3=(3+\\ln2-\\ln4)-(2+0-\\ln3)=1+\\ln\\dfrac{2\\cdot3}{4}=1+\\ln\\dfrac32$",
+          "explain": {
+            "idea": "درجة البسط تساوي درجة المقام (كسر غير فعلي) ← نقسم أولًا، ثم نجزّئ الباقي.",
+            "steps": [
+              "## أولًا: القسمة",
+              "$x^2+1=(x^2-1)+2$ ، إذن $\\dfrac{x^2+1}{x^2-1}=1+\\dfrac{2}{x^2-1}$",
+              "## ثانيًا: التجزئة",
+              "$\\dfrac{2}{(x-1)(x+1)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+1}$ ، و $2=A(x+1)+B(x-1)$",
+              "$x=1$: $A=1$ ، و $x=-1$: $B=-1$",
+              "## ثالثًا: التكامل والحدود",
+              "$\\big[x+\\ln|x-1|-\\ln|x+1|\\big]_2^3$",
+              "عند $3$: $3+\\ln2-\\ln4$ ، وعند $2$: $2+0-\\ln3$",
+              "الفرق: $1+\\ln2-\\ln4+\\ln3=1+\\ln\\dfrac{2\\times3}{4}=1+\\ln\\dfrac32$"
+            ],
+            "wrong": [
+              null,
+              "الحدّ اللوغاريتمي مقلوب؛ تحقّقي من الطرح: $\\ln2+\\ln3-\\ln4=\\ln\\frac32$.",
+              "نُسي الحدّ $1$ الناتج من القسمة ($\\int_2^31\\,dx=1$).",
+              "نُسي الحدّ $-\\ln4$."
+            ]
+          }
         },
         {
           "id": "u5e1q8",
@@ -148,7 +273,23 @@ const unit: Unit = {
             "$\\frac{x^{2}}{6}e^{3x}+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء: $u=x$ ، $dv=e^{3x}dx \\Rightarrow v=\\frac13e^{3x}$\n$\\displaystyle\\frac{x}{3}e^{3x}-\\int\\frac13e^{3x}dx=\\frac{x}{3}e^{3x}-\\frac19e^{3x}+C$"
+          "solution": "بالأجزاء: $u=x$ ، $dv=e^{3x}dx \\Rightarrow v=\\frac13e^{3x}$\n$\\displaystyle\\frac{x}{3}e^{3x}-\\int\\frac13e^{3x}dx=\\frac{x}{3}e^{3x}-\\frac19e^{3x}+C$",
+          "explain": {
+            "idea": "$x$ × أسّي ← بالأجزاء، مع $u=x$ (يصبح $1$ بالاشتقاق).",
+            "steps": [
+              "التكامل بالأجزاء: $\\displaystyle\\int u\\,dv=uv-\\int v\\,du$ ، ونختار $u$ الحدّ الذي يصبح أبسط بالاشتقاق ($\\ln x$ أولًا، ثم كثير الحدود، ثم المثلثي أو الأسّي)",
+              "$u=x$ ، $du=dx$ ، $dv=e^{3x}\\,dx$ ، $v=\\frac13e^{3x}$",
+              "$\\dfrac x3e^{3x}-\\displaystyle\\int\\frac13e^{3x}\\,dx$",
+              "$\\displaystyle\\int\\frac13e^{3x}\\,dx=\\frac13\\times\\frac13e^{3x}=\\frac19e^{3x}$",
+              "الناتج: $\\dfrac x3e^{3x}-\\dfrac19e^{3x}+C$"
+            ],
+            "wrong": [
+              null,
+              "تكامل $\\frac13e^{3x}$ يقسم على $3$ مرة أخرى: $\\frac19$.",
+              "عند التكامل نقسم على $3$ لا نضرب.",
+              "لا يجوز تكامل العاملين كلًّا وحده."
+            ]
+          }
         },
         {
           "id": "u5e1q9",
@@ -162,7 +303,23 @@ const unit: Unit = {
             "$\\frac{x^{2}}{2}\\tan x+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء: $u=x$ ، $dv=\\sec^2x\\,dx \\Rightarrow v=\\tan x$\n$\\displaystyle x\\tan x-\\int\\tan x\\,dx=x\\tan x-(-\\ln|\\cos x|)+C=x\\tan x+\\ln|\\cos x|+C$"
+          "solution": "بالأجزاء: $u=x$ ، $dv=\\sec^2x\\,dx \\Rightarrow v=\\tan x$\n$\\displaystyle x\\tan x-\\int\\tan x\\,dx=x\\tan x-(-\\ln|\\cos x|)+C=x\\tan x+\\ln|\\cos x|+C$",
+          "explain": {
+            "idea": "$x$ × $\\sec^2x$ ← بالأجزاء: $u=x$ ، و $dv=\\sec^2x\\,dx$ لأن تكامله معروف ($\\tan x$).",
+            "steps": [
+              "التكامل بالأجزاء: $\\displaystyle\\int u\\,dv=uv-\\int v\\,du$ ، ونختار $u$ الحدّ الذي يصبح أبسط بالاشتقاق ($\\ln x$ أولًا، ثم كثير الحدود، ثم المثلثي أو الأسّي)",
+              "$u=x$ ، $du=dx$ ، $v=\\tan x$",
+              "$x\\tan x-\\displaystyle\\int\\tan x\\,dx$",
+              "$\\displaystyle\\int\\tan x\\,dx=\\int\\frac{\\sin x}{\\cos x}\\,dx=-\\ln|\\cos x|$ (البسط سالب مشتقة المقام)",
+              "$x\\tan x-(-\\ln|\\cos x|)=x\\tan x+\\ln|\\cos x|+C$"
+            ],
+            "wrong": [
+              null,
+              "ناقص في ناقص: $-(-\\ln|\\cos x|)=+\\ln|\\cos x|$.",
+              "$\\ln|\\sin x|$ هو تكامل $\\cot x$ لا $\\tan x$.",
+              "لا يجوز تكامل العاملين كلًّا وحده."
+            ]
+          }
         },
         {
           "id": "u5e1q10",
@@ -177,6 +334,21 @@ const unit: Unit = {
           ],
           "answer": 0,
           "solution": "المنطقة تحت محور $x$ بين نقطتي التقاطع $x=0$ و $x=4$ ، فالمساحة $=\\left|\\displaystyle\\int_0^4(x^2-4x)dx\\right|$\n$=\\left|\\left[\\frac{x^3}{3}-2x^2\\right]_0^4\\right|=\\left|\\frac{64}{3}-32\\right|=\\frac{32}{3}$ (المساحة لا تكون سالبة)",
+          "explain": {
+            "idea": "المنطقة تحت المحور $x$ ← التكامل سالب، والمساحة قيمته المطلقة.",
+            "steps": [
+              "تقاطع المنحنى مع المحور: $x^2-4x=x(x-4)=0$ ، أي $x=0$ و $x=4$",
+              "بين $0$ و $4$ المنحنى تحت المحور (مثلًا $f(2)=-4$)",
+              "$\\displaystyle\\int_0^4(x^2-4x)\\,dx=\\left[\\frac{x^3}{3}-2x^2\\right]_0^4=\\frac{64}{3}-32=-\\frac{32}{3}$",
+              "المساحة: $\\left|-\\frac{32}{3}\\right|=\\frac{32}{3}$"
+            ],
+            "wrong": [
+              null,
+              "المساحة لا تكون سالبة؛ نأخذ القيمة المطلقة.",
+              "تحقّقي: $\\frac{64}{3}-32=-\\frac{32}{3}$.",
+              "نُسي الحدّ $-2x^2$ (أي $-32$)."
+            ]
+          },
           "figure": "fig/u5e1q10.svg"
         },
         {
@@ -191,7 +363,20 @@ const unit: Unit = {
             "$\\pi^{2}$"
           ],
           "answer": 0,
-          "solution": "$V=\\pi\\displaystyle\\int_0^{\\pi/2}\\left(\\sqrt{\\cos x}\\right)^2dx=\\pi\\int_0^{\\pi/2}\\cos x\\,dx=\\pi\\big[\\sin x\\big]_0^{\\pi/2}=\\pi(1-0)=\\pi$"
+          "solution": "$V=\\pi\\displaystyle\\int_0^{\\pi/2}\\left(\\sqrt{\\cos x}\\right)^2dx=\\pi\\int_0^{\\pi/2}\\cos x\\,dx=\\pi\\big[\\sin x\\big]_0^{\\pi/2}=\\pi(1-0)=\\pi$",
+          "explain": {
+            "idea": "الحجم الدوراني حول المحور $x$: $V=\\pi\\displaystyle\\int_a^b f(x)^2\\,dx$ ، وبين منحنيين (طريقة الحلقات): $V=\\pi\\displaystyle\\int_a^b\\left(R^2-r^2\\right)dx$ حيث $R$ البعيد عن المحور و $r$ القريب. تربيع الجذر يزيله، فيبقى $\\cos x$.",
+            "steps": [
+              "$V=\\pi\\displaystyle\\int_0^{\\pi/2}\\left(\\sqrt{\\cos x}\\right)^2dx=\\pi\\int_0^{\\pi/2}\\cos x\\,dx$",
+              "$\\pi\\big[\\sin x\\big]_0^{\\pi/2}=\\pi(1-0)=\\pi$"
+            ],
+            "wrong": [
+              null,
+              "تحقّقي: $\\int_0^{\\pi/2}\\cos x\\,dx=1$ ، فالحجم $\\pi$.",
+              "تحقّقي: $\\sin\\frac{\\pi}{2}=1$ لا $\\frac12$.",
+              "$\\pi$ مضروبة مرة واحدة فقط."
+            ]
+          }
         },
         {
           "id": "u5e1q12",
@@ -205,7 +390,24 @@ const unit: Unit = {
             "$y=1-\\frac{x^{2}}{2}$"
           ],
           "answer": 0,
-          "solution": "بفصل المتغيرات: $\\dfrac{dy}{y^2}=x\\,dx \\Rightarrow -\\dfrac1y=\\dfrac{x^2}{2}+C$\n$y(0)=1 \\Rightarrow -1=C$ ، إذن $-\\dfrac1y=\\dfrac{x^2}{2}-1=\\dfrac{x^2-2}{2} \\Rightarrow y=\\dfrac{2}{2-x^2}$"
+          "solution": "بفصل المتغيرات: $\\dfrac{dy}{y^2}=x\\,dx \\Rightarrow -\\dfrac1y=\\dfrac{x^2}{2}+C$\n$y(0)=1 \\Rightarrow -1=C$ ، إذن $-\\dfrac1y=\\dfrac{x^2}{2}-1=\\dfrac{x^2-2}{2} \\Rightarrow y=\\dfrac{2}{2-x^2}$",
+          "explain": {
+            "idea": "فصل المتغيرات، ثم الشرط الأوّلي، ثم نعزل $y$.",
+            "steps": [
+              "المعادلة التفاضلية القابلة للفصل: نضع كل ما فيه $y$ مع $dy$ في طرف، وكل ما فيه $x$ مع $dx$ في الطرف الآخر، ثم نكامل الطرفين ونضيف ثابتًا واحدًا",
+              "$\\dfrac{dy}{y^2}=x\\,dx$",
+              "$\\displaystyle\\int y^{-2}\\,dy=-y^{-1}=-\\frac1y$ ، و $\\displaystyle\\int x\\,dx=\\frac{x^2}{2}$",
+              "$-\\dfrac1y=\\dfrac{x^2}{2}+C$",
+              "$y(0)=1$: $-1=0+C$ ، إذن $C=-1$",
+              "$-\\dfrac1y=\\dfrac{x^2}{2}-1=\\dfrac{x^2-2}{2}$ ، نقلب الطرفين ونضرب في $-1$: $y=\\dfrac{2}{2-x^2}$"
+            ],
+            "wrong": [
+              null,
+              "الإشارة في المقام معكوسة؛ تحقّقي: اشتقاق $\\frac{2}{2+x^2}$ سالب، بينما $xy^2$ موجبة لـ $x>0$.",
+              "تحقّقي: $y=\\frac{1}{1-x^2}$ مشتقته $\\frac{2x}{(1-x^2)^2}$ ، و $xy^2=\\frac{x}{(1-x^2)^2}$.",
+              "اشتقاق $1-\\frac{x^2}{2}$ يعطي $-x$ لا $xy^2$."
+            ]
+          }
         }
       ]
     },
@@ -225,7 +427,23 @@ const unit: Unit = {
             "$-\\csc x+2x+C$"
           ],
           "answer": 0,
-          "solution": "$\\cot^2x=\\csc^2x-1$ ، إذن $\\displaystyle\\int(\\csc^2x-1+3)dx=\\int(\\csc^2x+2)dx=-\\cot x+2x+C$"
+          "solution": "$\\cot^2x=\\csc^2x-1$ ، إذن $\\displaystyle\\int(\\csc^2x-1+3)dx=\\int(\\csc^2x+2)dx=-\\cot x+2x+C$",
+          "explain": {
+            "idea": "لا نكامل $\\cot^2x$ مباشرة ← نحوّله بمتطابقة فيثاغورس: $\\cot^2x=\\csc^2x-1$.",
+            "steps": [
+              "من $1+\\cot^2x=\\csc^2x$: $\\cot^2x=\\csc^2x-1$",
+              "$\\cot^2x+3=\\csc^2x-1+3=\\csc^2x+2$",
+              "$\\displaystyle\\int\\csc^2x\\,dx=-\\cot x$ (لأن مشتقة $\\cot x$ هي $-\\csc^2x$)",
+              "$\\displaystyle\\int2\\,dx=2x$",
+              "الناتج: $-\\cot x+2x+C$"
+            ],
+            "wrong": [
+              null,
+              "نُسي $-1$ من المتطابقة: $-1+3=2$.",
+              "تكامل $\\csc^2x$ هو $-\\cot x$.",
+              "$-\\csc x$ ليس تكامل $\\csc^2x$."
+            ]
+          }
         },
         {
           "id": "u5e2q2",
@@ -239,7 +457,22 @@ const unit: Unit = {
             "$\\frac{3^{2x+1}}{(\\ln 3)^{2}}+C$"
           ],
           "answer": 0,
-          "solution": "$\\displaystyle\\int a^{kx+b}dx=\\frac{a^{kx+b}}{k\\ln a}+C$ ، إذن الناتج $\\dfrac{3^{2x+1}}{2\\ln3}+C$"
+          "solution": "$\\displaystyle\\int a^{kx+b}dx=\\frac{a^{kx+b}}{k\\ln a}+C$ ، إذن الناتج $\\dfrac{3^{2x+1}}{2\\ln3}+C$",
+          "explain": {
+            "idea": "أسّي أساسه $3$ والأس خطي $2x+1$ ← نقسم على $\\ln3$ وعلى معامل $x$ وهو $2$.",
+            "steps": [
+              "اشتقاق $3^{2x+1}$ بالسلسلة: $3^{2x+1}\\ln3\\times2$",
+              "التكامل عكسه: $\\displaystyle\\int3^{2x+1}\\,dx=\\frac{3^{2x+1}}{2\\ln3}+C$",
+              "## تحقّق",
+              "$\\left(\\dfrac{3^{2x+1}}{2\\ln3}\\right)'=\\dfrac{3^{2x+1}\\times2\\ln3}{2\\ln3}=3^{2x+1}$ ✔"
+            ],
+            "wrong": [
+              null,
+              "نُسيت القسمة على معامل $x$ وهو $2$.",
+              "هذه مشتقة $3^{2x+1}$ لا تكاملها.",
+              "نقسم على $\\ln3$ مرة واحدة فقط."
+            ]
+          }
         },
         {
           "id": "u5e2q3",
@@ -253,7 +486,26 @@ const unit: Unit = {
             "$3$"
           ],
           "answer": 0,
-          "solution": "$v(t)=(t-1)(t-3)$ موجبة في $(0,1)$ وسالبة في $(1,3)$\n$\\displaystyle\\int_0^1v\\,dt=\\left[\\frac{t^3}{3}-2t^2+3t\\right]_0^1=\\frac43$ ، $\\displaystyle\\int_1^3v\\,dt=0-\\frac43=-\\frac43$\nالمسافة $=\\frac43+\\left|-\\frac43\\right|=\\frac83\\ \\text{m}$ (لاحظ أن الإزاحة $=0$)"
+          "solution": "$v(t)=(t-1)(t-3)$ موجبة في $(0,1)$ وسالبة في $(1,3)$\n$\\displaystyle\\int_0^1v\\,dt=\\left[\\frac{t^3}{3}-2t^2+3t\\right]_0^1=\\frac43$ ، $\\displaystyle\\int_1^3v\\,dt=0-\\frac43=-\\frac43$\nالمسافة $=\\frac43+\\left|-\\frac43\\right|=\\frac83\\ \\text{m}$ (لاحظ أن الإزاحة $=0$)",
+          "explain": {
+            "idea": "الإزاحة هي $\\displaystyle\\int v\\,dt$ ، أما المسافة الكلية فهي $\\displaystyle\\int|v|\\,dt$: نقسم الفترة عند أصفار $v$ ونجمع القيم المطلقة.",
+            "steps": [
+              "## إشارة السرعة",
+              "$v(t)=t^2-4t+3=(t-1)(t-3)$ ، وأصفارها $1$ و $3$",
+              "$v(0.5)>0$ و $v(2)=-1<0$: موجبة في $(0,1)$ وسالبة في $(1,3)$",
+              "## كل جزء",
+              "الاقتران الأصلي: $\\frac{t^3}{3}-2t^2+3t$",
+              "$[0,1]$: $\\frac13-2+3=\\frac43$",
+              "$[1,3]$: $(9-18+9)-\\frac43=-\\frac43$ ، والمسافة $\\frac43$",
+              "المسافة الكلية: $\\frac43+\\frac43=\\frac83\\ \\text{m}$"
+            ],
+            "wrong": [
+              null,
+              "$0$ هي الإزاحة (الجسيم عاد إلى موقعه).",
+              "هذه مسافة جزء واحد فقط.",
+              "تحقّقي: كل جزء مسافته $\\frac43$."
+            ]
+          }
         },
         {
           "id": "u5e2q4",
@@ -267,7 +519,22 @@ const unit: Unit = {
             "$-\\frac{2}{(1+\\sin x)^{3}}+C$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=1+\\sin x \\Rightarrow du=\\cos x\\,dx$: $\\displaystyle\\int u^{-2}du=-u^{-1}+C=-\\frac{1}{1+\\sin x}+C$"
+          "solution": "بالتعويض $u=1+\\sin x \\Rightarrow du=\\cos x\\,dx$: $\\displaystyle\\int u^{-2}du=-u^{-1}+C=-\\frac{1}{1+\\sin x}+C$",
+          "explain": {
+            "idea": "$\\cos x$ مشتقة ما داخل القوس ← تعويض $u=1+\\sin x$.",
+            "steps": [
+              "خطوات التكامل بالتعويض: نختار $u$ (غالبًا ما داخل القوس أو الجذر أو الأس، بحيث تظهر مشتقته في التكامل)، نحسب $du$ ، نحوّل التكامل كله إلى $u$ ، نكامل، ثم نرجع إلى $x$",
+              "$u=1+\\sin x$ ، $du=\\cos x\\,dx$",
+              "$\\displaystyle\\int u^{-2}\\,du=\\frac{u^{-1}}{-1}=-\\frac1u+C$",
+              "$-\\dfrac{1}{1+\\sin x}+C$"
+            ],
+            "wrong": [
+              null,
+              "القسمة على الأس الجديد $-1$ تعطي إشارة سالبة.",
+              "$\\ln$ لتكامل $u^{-1}$ ، والقوة هنا $-2$.",
+              "الأس يُرفع واحدًا ($-1$) لا يُخفض."
+            ]
+          }
         },
         {
           "id": "u5e2q5",
@@ -281,7 +548,23 @@ const unit: Unit = {
             "$\\frac{1}{2}$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=\\cos x \\Rightarrow du=-\\sin x\\,dx$ ، أو بملاحظة أن $\\dfrac{\\sin x}{\\cos^2x}=\\sec x\\tan x$:\n$\\big[\\sec x\\big]_0^{\\pi/3}=\\sec\\frac{\\pi}{3}-\\sec0=2-1=1$"
+          "solution": "بالتعويض $u=\\cos x \\Rightarrow du=-\\sin x\\,dx$ ، أو بملاحظة أن $\\dfrac{\\sin x}{\\cos^2x}=\\sec x\\tan x$:\n$\\big[\\sec x\\big]_0^{\\pi/3}=\\sec\\frac{\\pi}{3}-\\sec0=2-1=1$",
+          "explain": {
+            "idea": "$\\dfrac{\\sin x}{\\cos^2x}=\\dfrac{1}{\\cos x}\\cdot\\dfrac{\\sin x}{\\cos x}=\\sec x\\tan x$ ، وتكامله $\\sec x$.",
+            "steps": [
+              "$\\dfrac{\\sin x}{\\cos^2x}=\\sec x\\tan x$ ، و $(\\sec x)'=\\sec x\\tan x$",
+              "التكامل المحدود: نجد الاقتران الأصلي $F$ ، ثم $\\displaystyle\\int_a^bf(x)\\,dx=F(b)-F(a)$",
+              "$\\big[\\sec x\\big]_0^{\\pi/3}=\\sec\\frac{\\pi}{3}-\\sec0=\\dfrac{1}{1/2}-1=2-1=1$",
+              "## طريقة أخرى بالتعويض",
+              "$u=\\cos x$ ، $du=-\\sin x\\,dx$: $\\displaystyle-\\int u^{-2}\\,du=\\frac1u=\\sec x$ ✔"
+            ],
+            "wrong": [
+              null,
+              "نُسي طرح $\\sec0=1$.",
+              "خطأ إشارة؛ $\\sec$ يزداد من $1$ إلى $2$ فالتكامل موجب.",
+              "$\\frac12$ هي $\\cos\\frac{\\pi}{3}$ لا $\\sec\\frac{\\pi}{3}$."
+            ]
+          }
         },
         {
           "id": "u5e2q6",
@@ -295,7 +578,22 @@ const unit: Unit = {
             "$\\frac{3}{2}\\ln|x^{2}-1|+C$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{3x+1}{(x-1)(x+1)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+1}$ ، عند $x=1$: $4=2A \\Rightarrow A=2$ ، عند $x=-1$: $-2=-2B \\Rightarrow B=1$"
+          "solution": "$\\dfrac{3x+1}{(x-1)(x+1)}=\\dfrac{A}{x-1}+\\dfrac{B}{x+1}$ ، عند $x=1$: $4=2A \\Rightarrow A=2$ ، عند $x=-1$: $-2=-2B \\Rightarrow B=1$",
+          "explain": {
+            "idea": "الكسور الجزئية: نحلّل المقام، نكتب كسرًا لكل عامل، نضرب في المقام، ونعوّض بأصفار العوامل لإيجاد الثوابت؛ وتكامل $\\frac{A}{x-a}$ هو $A\\ln|x-a|$.",
+            "steps": [
+              "$x^2-1=(x-1)(x+1)$ ، و $3x+1=A(x+1)+B(x-1)$",
+              "$x=1$: $4=2A$ ، إذن $A=2$",
+              "$x=-1$: $-2=-2B$ ، إذن $B=1$",
+              "$2\\ln|x-1|+\\ln|x+1|+C$"
+            ],
+            "wrong": [
+              null,
+              "الثابتان مبدّلان.",
+              "من $-2=-2B$ تكون $B=+1$.",
+              "اشتقاق $\\frac32\\ln|x^2-1|$ يعطي $\\frac{3x}{x^2-1}$ لا $\\frac{3x+1}{x^2-1}$."
+            ]
+          }
         },
         {
           "id": "u5e2q7",
@@ -309,7 +607,24 @@ const unit: Unit = {
             "$2\\ln|x|+\\frac{1}{2}\\ln(x^{2}+3)+C$"
           ],
           "answer": 0,
-          "solution": "$x^3+3x=x(x^2+3)$ ، و $2x^2+3=A(x^2+3)+(Bx+C)x$: عند $x=0$: $A=1$ ، ثم $B=1$ ، $C=0$\n$\\displaystyle\\int\\left(\\frac1x+\\frac{x}{x^2+3}\\right)dx=\\ln|x|+\\frac12\\ln(x^2+3)+C$"
+          "solution": "$x^3+3x=x(x^2+3)$ ، و $2x^2+3=A(x^2+3)+(Bx+C)x$: عند $x=0$: $A=1$ ، ثم $B=1$ ، $C=0$\n$\\displaystyle\\int\\left(\\frac1x+\\frac{x}{x^2+3}\\right)dx=\\ln|x|+\\frac12\\ln(x^2+3)+C$",
+          "explain": {
+            "idea": "المقام $x(x^2+3)$: عامل خطي وتربيعي لا يتحلّل ← فوق التربيعي $Bx+C$ ، وتكامله $\\ln$ بعد ملاحظة المشتقة.",
+            "steps": [
+              "$2x^2+3=A(x^2+3)+(Bx+C)x$",
+              "$x=0$: $3=3A$ ، إذن $A=1$",
+              "معامل $x^2$: $2=A+B$ ، إذن $B=1$ ؛ معامل $x$: $C=0$",
+              "$\\displaystyle\\int\\left(\\frac1x+\\frac{x}{x^2+3}\\right)dx$",
+              "$\\displaystyle\\int\\frac{x}{x^2+3}\\,dx=\\frac12\\int\\frac{2x}{x^2+3}\\,dx=\\frac12\\ln(x^2+3)$ (البسط نصف مشتقة المقام)",
+              "الناتج: $\\ln|x|+\\frac12\\ln(x^2+3)+C$"
+            ],
+            "wrong": [
+              null,
+              "نُسي العامل $\\frac12$: البسط $x$ نصف مشتقة المقام $2x$.",
+              "$B=+1$ ، فالحدّ الثاني موجب.",
+              "$A=1$ (من $3=3A$) لا $2$."
+            ]
+          }
         },
         {
           "id": "u5e2q8",
@@ -323,7 +638,21 @@ const unit: Unit = {
             "$2x\\ln(2x)-x+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء: $u=\\ln(2x) \\Rightarrow du=\\frac1xdx$ ، $dv=dx \\Rightarrow v=x$\n$\\displaystyle x\\ln(2x)-\\int x\\cdot\\frac1x\\,dx=x\\ln(2x)-x+C$"
+          "solution": "بالأجزاء: $u=\\ln(2x) \\Rightarrow du=\\frac1xdx$ ، $dv=dx \\Rightarrow v=x$\n$\\displaystyle x\\ln(2x)-\\int x\\cdot\\frac1x\\,dx=x\\ln(2x)-x+C$",
+          "explain": {
+            "idea": "$\\ln$ وحده ← بالأجزاء مع $u=\\ln(2x)$ و $dv=dx$.",
+            "steps": [
+              "التكامل بالأجزاء: $\\displaystyle\\int u\\,dv=uv-\\int v\\,du$ ، ونختار $u$ الحدّ الذي يصبح أبسط بالاشتقاق ($\\ln x$ أولًا، ثم كثير الحدود، ثم المثلثي أو الأسّي)",
+              "$u=\\ln(2x)$ ، $du=\\dfrac{2}{2x}dx=\\dfrac1xdx$ ، $dv=dx$ ، $v=x$",
+              "$x\\ln(2x)-\\displaystyle\\int x\\cdot\\frac1x\\,dx=x\\ln(2x)-\\int1\\,dx=x\\ln(2x)-x+C$"
+            ],
+            "wrong": [
+              null,
+              "$du=\\frac{2}{2x}dx=\\frac1xdx$ ، فالحدّ الثاني $-x$ لا $-2x$.",
+              "هذه قريبة من مشتقة $\\ln(2x)$ لا تكامله.",
+              "$v=x$ لا $2x$."
+            ]
+          }
         },
         {
           "id": "u5e2q9",
@@ -337,7 +666,25 @@ const unit: Unit = {
             "$-x^{2}\\sin x+2x\\cos x-2\\sin x+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء مرتين (أو بالجدول): $u=x^2$ ، $dv=\\cos x\\,dx$\n$\\displaystyle\\int x^2\\cos x\\,dx=x^2\\sin x-\\int2x\\sin x\\,dx=x^2\\sin x-\\left(-2x\\cos x+2\\sin x\\right)$\n$=x^2\\sin x+2x\\cos x-2\\sin x+C$"
+          "solution": "بالأجزاء مرتين (أو بالجدول): $u=x^2$ ، $dv=\\cos x\\,dx$\n$\\displaystyle\\int x^2\\cos x\\,dx=x^2\\sin x-\\int2x\\sin x\\,dx=x^2\\sin x-\\left(-2x\\cos x+2\\sin x\\right)$\n$=x^2\\sin x+2x\\cos x-2\\sin x+C$",
+          "explain": {
+            "idea": "$x^2$ × مثلثي ← بالأجزاء مرتين؛ كل مرة تُخفض قوة $x$.",
+            "steps": [
+              "## المرة الأولى",
+              "$u=x^2$ ، $dv=\\cos x\\,dx$ ، $v=\\sin x$: $x^2\\sin x-\\displaystyle\\int2x\\sin x\\,dx$",
+              "## المرة الثانية",
+              "$u=2x$ ، $dv=\\sin x\\,dx$ ، $v=-\\cos x$: $\\displaystyle\\int2x\\sin x\\,dx=-2x\\cos x+\\int2\\cos x\\,dx=-2x\\cos x+2\\sin x$",
+              "## التجميع",
+              "$x^2\\sin x-(-2x\\cos x+2\\sin x)=x^2\\sin x+2x\\cos x-2\\sin x+C$"
+            ],
+            "wrong": [
+              null,
+              "الطرح يقلب إشارتي القوس: $-(-2x\\cos x)=+2x\\cos x$ ، و $-(+2\\sin x)=-2\\sin x$.",
+              "الحدّ الأخير $-2\\sin x$.",
+              "الحدّ الأول $uv=x^2\\sin x$ موجب."
+            ],
+            "tip": "للتحقّق من أيّ تكامل غير محدود: اشتقّي الناتج، فيجب أن يعطي المقدار الذي داخل التكامل."
+          }
         },
         {
           "id": "u5e2q10",
@@ -351,7 +698,23 @@ const unit: Unit = {
             "$\\frac{64}{3}$"
           ],
           "answer": 0,
-          "solution": "نقاط التقاطع: $x^2-3=2x \\Rightarrow x^2-2x-3=0 \\Rightarrow x=-1,\\ x=3$ ، وفي $(-1,3)$ يكون $2x\\ge x^2-3$\n$\\displaystyle A=\\int_{-1}^{3}(2x-x^2+3)dx=\\left[x^2-\\frac{x^3}{3}+3x\\right]_{-1}^{3}=9-\\left(-\\frac53\\right)=\\frac{32}{3}$"
+          "solution": "نقاط التقاطع: $x^2-3=2x \\Rightarrow x^2-2x-3=0 \\Rightarrow x=-1,\\ x=3$ ، وفي $(-1,3)$ يكون $2x\\ge x^2-3$\n$\\displaystyle A=\\int_{-1}^{3}(2x-x^2+3)dx=\\left[x^2-\\frac{x^3}{3}+3x\\right]_{-1}^{3}=9-\\left(-\\frac53\\right)=\\frac{32}{3}$",
+          "explain": {
+            "idea": "المساحة بين منحنيين: نجد نقاط التقاطع (حدود التكامل)، نحدّد المنحنى الأعلى بتجربة نقطة بينهما، ثم نكامل (الأعلى − الأسفل).",
+            "steps": [
+              "التقاطع: $x^2-3=2x \\Rightarrow x^2-2x-3=0 \\Rightarrow (x-3)(x+1)=0$ ، أي $x=-1$ و $x=3$",
+              "نجرّب $x=0$: $f(0)=0$ و $g(0)=-3$ ، فالمستقيم $2x$ هو الأعلى",
+              "$\\displaystyle\\int_{-1}^3(2x-x^2+3)\\,dx=\\left[x^2-\\frac{x^3}{3}+3x\\right]_{-1}^3$",
+              "عند $3$: $9-9+9=9$ ، وعند $-1$: $1+\\frac13-3=-\\frac53$",
+              "المساحة: $9-\\left(-\\frac53\\right)=\\frac{32}{3}$"
+            ],
+            "wrong": [
+              null,
+              "نصف الناتج؛ تحقّقي من الحدّ السفلي.",
+              "$9$ هي القيمة عند الحدّ العلوي فقط.",
+              "ضعف الناتج."
+            ]
+          }
         },
         {
           "id": "u5e2q11",
@@ -365,7 +728,21 @@ const unit: Unit = {
             "$\\frac{\\pi}{12}$"
           ],
           "answer": 0,
-          "solution": "نقاط التقاطع: $\\sqrt x=x \\Rightarrow x=0,\\ x=1$ ، وفي $(0,1)$ يكون $\\sqrt x>x$ (المنحنى الخارجي $\\sqrt x$)\n$\\displaystyle V=\\pi\\int_0^1\\left((\\sqrt x)^2-x^2\\right)dx=\\pi\\int_0^1(x-x^2)dx=\\pi\\left(\\frac12-\\frac13\\right)=\\frac{\\pi}{6}$"
+          "solution": "نقاط التقاطع: $\\sqrt x=x \\Rightarrow x=0,\\ x=1$ ، وفي $(0,1)$ يكون $\\sqrt x>x$ (المنحنى الخارجي $\\sqrt x$)\n$\\displaystyle V=\\pi\\int_0^1\\left((\\sqrt x)^2-x^2\\right)dx=\\pi\\int_0^1(x-x^2)dx=\\pi\\left(\\frac12-\\frac13\\right)=\\frac{\\pi}{6}$",
+          "explain": {
+            "idea": "الحجم الدوراني حول المحور $x$: $V=\\pi\\displaystyle\\int_a^b f(x)^2\\,dx$ ، وبين منحنيين (طريقة الحلقات): $V=\\pi\\displaystyle\\int_a^b\\left(R^2-r^2\\right)dx$ حيث $R$ البعيد عن المحور و $r$ القريب.",
+            "steps": [
+              "التقاطع: $\\sqrt x=x$ عند $x=0$ و $x=1$",
+              "في $(0,1)$: $\\sqrt x>x$ (مثلًا $\\sqrt{0.25}=0.5>0.25$) ، فـ $R=\\sqrt x$ و $r=x$",
+              "$V=\\pi\\displaystyle\\int_0^1(x-x^2)\\,dx=\\pi\\left[\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_0^1=\\pi\\left(\\frac12-\\frac13\\right)=\\frac{\\pi}{6}$"
+            ],
+            "wrong": [
+              null,
+              "هذا $\\pi\\int_0^1x^2\\,dx$ (الحجم الداخلي وحده).",
+              "هذا $\\pi\\int_0^1x\\,dx$ (الحجم الخارجي وحده).",
+              "تحقّقي: $\\frac12-\\frac13=\\frac16$."
+            ]
+          }
         },
         {
           "id": "u5e2q12",
@@ -379,7 +756,23 @@ const unit: Unit = {
             "$12800$"
           ],
           "answer": 0,
-          "solution": "الحل العام: $P=P_0e^{kt}=200e^{kt}$ ، و $P(3)=1600 \\Rightarrow e^{3k}=8 \\Rightarrow e^{k}=2$\nإذن $P(t)=200\\cdot2^t$ ، و $P(5)=200(32)=6400$"
+          "solution": "الحل العام: $P=P_0e^{kt}=200e^{kt}$ ، و $P(3)=1600 \\Rightarrow e^{3k}=8 \\Rightarrow e^{k}=2$\nإذن $P(t)=200\\cdot2^t$ ، و $P(5)=200(32)=6400$",
+          "explain": {
+            "idea": "$\\frac{dP}{dt}=kP$ حلّها نمو أسّي: $P=P_0e^{kt}$ ، ومن المعلومة الثانية نجد $e^k$.",
+            "steps": [
+              "المعادلة التفاضلية القابلة للفصل: نضع كل ما فيه $y$ مع $dy$ في طرف، وكل ما فيه $x$ مع $dx$ في الطرف الآخر، ثم نكامل الطرفين ونضيف ثابتًا واحدًا",
+              "$\\dfrac{dP}{P}=k\\,dt \\Rightarrow \\ln P=kt+C \\Rightarrow P=P_0e^{kt}$ ، و $P_0=200$",
+              "$P(3)=200e^{3k}=1600 \\Rightarrow e^{3k}=8=2^3 \\Rightarrow e^k=2$",
+              "$P(t)=200\\cdot2^t$ (العدد يتضاعف كل ساعة)",
+              "$P(5)=200\\times32=6400$"
+            ],
+            "wrong": [
+              null,
+              "هذا $200\\times2^4$ (بعد $4$ ساعات).",
+              "النمو أسّي لا خطّي.",
+              "هذا $200\\times2^6$."
+            ]
+          }
         }
       ]
     },
@@ -399,7 +792,21 @@ const unit: Unit = {
             "$1$"
           ],
           "answer": 0,
-          "solution": "$\\displaystyle\\int_1^e\\left(1+\\frac1x\\right)dx=\\big[x+\\ln x\\big]_1^e=(e+1)-(1+0)=e$"
+          "solution": "$\\displaystyle\\int_1^e\\left(1+\\frac1x\\right)dx=\\big[x+\\ln x\\big]_1^e=(e+1)-(1+0)=e$",
+          "explain": {
+            "idea": "نقسم البسط على $x$ حدًّا حدًّا، فيصبح التكامل سهلًا.",
+            "steps": [
+              "$\\dfrac{x+1}{x}=1+\\dfrac1x$",
+              "$\\displaystyle\\int\\left(1+\\frac1x\\right)dx=x+\\ln x$",
+              "$\\big[x+\\ln x\\big]_1^e=(e+\\ln e)-(1+\\ln1)=(e+1)-(1+0)=e$"
+            ],
+            "wrong": [
+              null,
+              "نُسي الحدّ $\\ln x$ (قيمته $1$).",
+              "نُسي طرح قيمة الحدّ السفلي $1$.",
+              "هذا $\\int_1^e\\frac1x\\,dx$ فقط."
+            ]
+          }
         },
         {
           "id": "u5e3q2",
@@ -413,7 +820,22 @@ const unit: Unit = {
             "$1$"
           ],
           "answer": 0,
-          "solution": "$\\cos^2x=\\dfrac{1+\\cos2x}{2}$ ، إذن $\\displaystyle\\int_0^{\\pi/2}\\frac{1+\\cos2x}{2}dx=\\left[\\frac x2+\\frac{\\sin2x}{4}\\right]_0^{\\pi/2}=\\frac{\\pi}{4}$\n$a\\pi=\\dfrac{\\pi}{4} \\Rightarrow a=\\dfrac14$"
+          "solution": "$\\cos^2x=\\dfrac{1+\\cos2x}{2}$ ، إذن $\\displaystyle\\int_0^{\\pi/2}\\frac{1+\\cos2x}{2}dx=\\left[\\frac x2+\\frac{\\sin2x}{4}\\right]_0^{\\pi/2}=\\frac{\\pi}{4}$\n$a\\pi=\\dfrac{\\pi}{4} \\Rightarrow a=\\dfrac14$",
+          "explain": {
+            "idea": "تقليص القوة: $\\cos^2x=\\frac{1+\\cos2x}{2}$.",
+            "steps": [
+              "$\\displaystyle\\int_0^{\\pi/2}\\frac{1+\\cos2x}{2}\\,dx=\\left[\\frac x2+\\frac{\\sin2x}{4}\\right]_0^{\\pi/2}$",
+              "عند $\\frac{\\pi}{2}$: $\\frac{\\pi}{4}+\\frac{\\sin\\pi}{4}=\\frac{\\pi}{4}$ ، وعند $0$: $0$",
+              "$a\\pi=\\frac{\\pi}{4}$ ، إذن $a=\\frac14$"
+            ],
+            "quick": "متوسط $\\cos^2$ على هذه الفترة $\\frac12$ ، والطول $\\frac{\\pi}{2}$ ، فالتكامل $\\frac{\\pi}{4}$.",
+            "wrong": [
+              null,
+              "نُسيت القسمة على $2$ في المتطابقة.",
+              "$\\cos^2x\\ge0$ ، فالتكامل موجب.",
+              "التكامل $\\frac{\\pi}{4}$ لا $\\pi$."
+            ]
+          }
         },
         {
           "id": "u5e3q3",
@@ -427,7 +849,22 @@ const unit: Unit = {
             "$48\\ \\text{m}$"
           ],
           "answer": 0,
-          "solution": "$s(5)=s(0)+\\displaystyle\\int_0^5v(t)dt=0+\\int_0^2 3t^2dt+\\int_2^5 12\\,dt$\n$=\\big[t^3\\big]_0^2+12(5-2)=8+36=44\\ \\text{m}$"
+          "solution": "$s(5)=s(0)+\\displaystyle\\int_0^5v(t)dt=0+\\int_0^2 3t^2dt+\\int_2^5 12\\,dt$\n$=\\big[t^3\\big]_0^2+12(5-2)=8+36=44\\ \\text{m}$",
+          "explain": {
+            "idea": "الموقع = الموقع الابتدائي + تكامل السرعة، والسرعة متعددة القاعدة ← نقسم عند $t=2$.",
+            "steps": [
+              "$s(5)=0+\\displaystyle\\int_0^2 3t^2\\,dt+\\int_2^5 12\\,dt$",
+              "$\\big[t^3\\big]_0^2=8$",
+              "$\\displaystyle\\int_2^5 12\\,dt=12\\times(5-2)=36$",
+              "$s(5)=8+36=44\\ \\text{m}$"
+            ],
+            "wrong": [
+              null,
+              "هذا الجزء الثاني فقط.",
+              "$75$ هي قيمة $3t^2$ عند $t=5$ ، لكن بعد $t=2$ السرعة ثابتة $12$.",
+              "تحقّقي: $8+36=44$."
+            ]
+          }
         },
         {
           "id": "u5e3q4",
@@ -441,7 +878,20 @@ const unit: Unit = {
             "$x+\\ln 3+C$"
           ],
           "answer": 0,
-          "solution": "البسط مشتقة المقام: $\\displaystyle\\int\\frac{f'(x)}{f(x)}dx=\\ln|f(x)|+C=\\ln(e^x+3)+C$ (لأن $e^x+3>0$)"
+          "solution": "البسط مشتقة المقام: $\\displaystyle\\int\\frac{f'(x)}{f(x)}dx=\\ln|f(x)|+C=\\ln(e^x+3)+C$ (لأن $e^x+3>0$)",
+          "explain": {
+            "idea": "إذا كان البسط مشتقة المقام: $\\displaystyle\\int\\frac{g'(x)}{g(x)}\\,dx=\\ln|g(x)|+C$. هنا $(e^x+3)'=e^x$ هو البسط.",
+            "steps": [
+              "$g(x)=e^x+3$ ، $g'(x)=e^x$",
+              "$\\displaystyle\\int\\frac{e^x}{e^x+3}\\,dx=\\ln(e^x+3)+C$ (لا قيمة مطلقة لأن $e^x+3>0$)"
+            ],
+            "wrong": [
+              null,
+              "لا يُضرب في $e^x$؛ البسط استُعمل كمشتقة.",
+              "هذا ليس تكاملًا؛ اشتقاقه سالب.",
+              "لا يجوز تقسيم الكسر على حدود المقام."
+            ]
+          }
         },
         {
           "id": "u5e3q5",
@@ -455,7 +905,21 @@ const unit: Unit = {
             "$-\\frac{1}{2}\\ln(1+\\cos^{2}x)+C$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=1+\\cos^2x \\Rightarrow du=-2\\sin x\\cos x\\,dx=-\\sin2x\\,dx$\n$\\displaystyle\\int\\frac{-du}{u}=-\\ln|u|+C=-\\ln(1+\\cos^2x)+C$"
+          "solution": "بالتعويض $u=1+\\cos^2x \\Rightarrow du=-2\\sin x\\cos x\\,dx=-\\sin2x\\,dx$\n$\\displaystyle\\int\\frac{-du}{u}=-\\ln|u|+C=-\\ln(1+\\cos^2x)+C$",
+          "explain": {
+            "idea": "$\\sin2x$ قريب من مشتقة $1+\\cos^2x$ ← تعويض، وانتبهي للإشارة.",
+            "steps": [
+              "$u=1+\\cos^2x$ ، $du=2\\cos x(-\\sin x)\\,dx=-\\sin2x\\,dx$",
+              "$\\displaystyle\\int\\frac{\\sin2x}{1+\\cos^2x}\\,dx=\\int\\frac{-du}{u}=-\\ln|u|+C$",
+              "$-\\ln(1+\\cos^2x)+C$"
+            ],
+            "wrong": [
+              null,
+              "مشتقة $\\cos^2x$ سالبة: $-\\sin2x$.",
+              "$du=-\\sin2x\\,dx$ تمامًا، فلا عامل $2$ إضافي.",
+              "لا قسمة على $2$: $2\\sin x\\cos x=\\sin2x$."
+            ]
+          }
         },
         {
           "id": "u5e3q6",
@@ -469,7 +933,23 @@ const unit: Unit = {
             "$4\\ln 2+\\ln 3$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{2x-1}{(x-1)(x-2)}=\\dfrac{-1}{x-1}+\\dfrac{3}{x-2}$ (عند $x=1$: $A=-1$ ، عند $x=2$: $B=3$)\n$\\big[-\\ln|x-1|+3\\ln|x-2|\\big]_3^4=(-\\ln3+3\\ln2)-(-\\ln2+0)=4\\ln2-\\ln3=\\ln\\dfrac{16}{3}$"
+          "solution": "$\\dfrac{2x-1}{(x-1)(x-2)}=\\dfrac{-1}{x-1}+\\dfrac{3}{x-2}$ (عند $x=1$: $A=-1$ ، عند $x=2$: $B=3$)\n$\\big[-\\ln|x-1|+3\\ln|x-2|\\big]_3^4=(-\\ln3+3\\ln2)-(-\\ln2+0)=4\\ln2-\\ln3=\\ln\\dfrac{16}{3}$",
+          "explain": {
+            "idea": "الكسور الجزئية: نحلّل المقام، نكتب كسرًا لكل عامل، نضرب في المقام، ونعوّض بأصفار العوامل لإيجاد الثوابت؛ وتكامل $\\frac{A}{x-a}$ هو $A\\ln|x-a|$ ، ثم نعوّض الحدّين ونجمع اللوغاريتمات.",
+            "steps": [
+              "$2x-1=A(x-2)+B(x-1)$",
+              "$x=1$: $1=-A$ ، إذن $A=-1$ ؛ $x=2$: $3=B$",
+              "$\\big[-\\ln|x-1|+3\\ln|x-2|\\big]_3^4$",
+              "عند $4$: $-\\ln3+3\\ln2$ ، وعند $3$: $-\\ln2+0$",
+              "الفرق: $-\\ln3+3\\ln2+\\ln2=4\\ln2-\\ln3=\\ln\\dfrac{16}{3}$"
+            ],
+            "wrong": [
+              null,
+              "مقلوب الناتج (إشارة معكوسة).",
+              "نُسي $-\\ln3$.",
+              "$\\ln3$ يُطرح."
+            ]
+          }
         },
         {
           "id": "u5e3q7",
@@ -483,7 +963,22 @@ const unit: Unit = {
             "$\\frac{x^{4}}{4}\\ln|x^{2}-1|+C$"
           ],
           "answer": 0,
-          "solution": "الكسر غير فعلي: $x^3=x(x^2-1)+x$ ، إذن $\\dfrac{x^3}{x^2-1}=x+\\dfrac{x}{x^2-1}=x+\\dfrac{1/2}{x-1}+\\dfrac{1/2}{x+1}$\n$\\displaystyle\\int=\\frac{x^2}{2}+\\frac12\\ln|x-1|+\\frac12\\ln|x+1|+C=\\frac{x^2}{2}+\\frac12\\ln|x^2-1|+C$"
+          "solution": "الكسر غير فعلي: $x^3=x(x^2-1)+x$ ، إذن $\\dfrac{x^3}{x^2-1}=x+\\dfrac{x}{x^2-1}=x+\\dfrac{1/2}{x-1}+\\dfrac{1/2}{x+1}$\n$\\displaystyle\\int=\\frac{x^2}{2}+\\frac12\\ln|x-1|+\\frac12\\ln|x+1|+C=\\frac{x^2}{2}+\\frac12\\ln|x^2-1|+C$",
+          "explain": {
+            "idea": "كسر غير فعلي ← نقسم: $x^3=x(x^2-1)+x$ ، ثم الباقي بسطه نصف مشتقة مقامه.",
+            "steps": [
+              "$\\dfrac{x^3}{x^2-1}=x+\\dfrac{x}{x^2-1}$",
+              "$\\displaystyle\\int x\\,dx=\\frac{x^2}{2}$",
+              "$\\displaystyle\\int\\frac{x}{x^2-1}\\,dx=\\frac12\\ln|x^2-1|$",
+              "الناتج: $\\dfrac{x^2}{2}+\\dfrac12\\ln|x^2-1|+C$"
+            ],
+            "wrong": [
+              null,
+              "نُسي العامل $\\frac12$.",
+              "الباقي $+x$ ، فالحدّ موجب.",
+              "هذا ليس تكاملًا صحيحًا؛ اشتقاقه لا يعطي المقدار."
+            ]
+          }
         },
         {
           "id": "u5e3q8",
@@ -497,7 +992,23 @@ const unit: Unit = {
             "$\\frac{x^{2}}{2}\\sin 2x+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء: $u=x$ ، $dv=\\cos2x\\,dx \\Rightarrow v=\\frac12\\sin2x$\n$\\displaystyle\\frac x2\\sin2x-\\int\\frac12\\sin2x\\,dx=\\frac x2\\sin2x+\\frac14\\cos2x+C$"
+          "solution": "بالأجزاء: $u=x$ ، $dv=\\cos2x\\,dx \\Rightarrow v=\\frac12\\sin2x$\n$\\displaystyle\\frac x2\\sin2x-\\int\\frac12\\sin2x\\,dx=\\frac x2\\sin2x+\\frac14\\cos2x+C$",
+          "explain": {
+            "idea": "$x$ × مثلثي ← بالأجزاء مع $u=x$.",
+            "steps": [
+              "التكامل بالأجزاء: $\\displaystyle\\int u\\,dv=uv-\\int v\\,du$ ، ونختار $u$ الحدّ الذي يصبح أبسط بالاشتقاق ($\\ln x$ أولًا، ثم كثير الحدود، ثم المثلثي أو الأسّي)",
+              "$u=x$ ، $dv=\\cos2x\\,dx$ ، $v=\\frac12\\sin2x$",
+              "$\\dfrac x2\\sin2x-\\displaystyle\\int\\frac12\\sin2x\\,dx$",
+              "$\\displaystyle\\int\\frac12\\sin2x\\,dx=\\frac12\\times\\left(-\\frac{\\cos2x}{2}\\right)=-\\frac14\\cos2x$",
+              "$\\dfrac x2\\sin2x-\\left(-\\dfrac14\\cos2x\\right)=\\dfrac x2\\sin2x+\\dfrac14\\cos2x+C$"
+            ],
+            "wrong": [
+              null,
+              "تكامل $\\sin$ سالب، وناقص في ناقص موجب.",
+              "عند التكامل نقسم على $2$ لا نضرب.",
+              "لا يجوز تكامل العاملين كلًّا وحده."
+            ]
+          }
         },
         {
           "id": "u5e3q9",
@@ -511,7 +1022,23 @@ const unit: Unit = {
             "$\\frac{e^{2}+1}{2}$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء: $u=\\ln x$ ، $dv=x\\,dx$: $\\displaystyle\\int x\\ln x\\,dx=\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}$\n$\\left[\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}\\right]_1^e=\\left(\\frac{e^2}{2}-\\frac{e^2}{4}\\right)-\\left(0-\\frac14\\right)=\\dfrac{e^2+1}{4}$"
+          "solution": "بالأجزاء: $u=\\ln x$ ، $dv=x\\,dx$: $\\displaystyle\\int x\\ln x\\,dx=\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}$\n$\\left[\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}\\right]_1^e=\\left(\\frac{e^2}{2}-\\frac{e^2}{4}\\right)-\\left(0-\\frac14\\right)=\\dfrac{e^2+1}{4}$",
+          "explain": {
+            "idea": "$x\\ln x$ ← بالأجزاء مع $u=\\ln x$ (لأنه يصبح أبسط بالاشتقاق).",
+            "steps": [
+              "التكامل بالأجزاء: $\\displaystyle\\int u\\,dv=uv-\\int v\\,du$ ، ونختار $u$ الحدّ الذي يصبح أبسط بالاشتقاق ($\\ln x$ أولًا، ثم كثير الحدود، ثم المثلثي أو الأسّي)",
+              "$u=\\ln x$ ، $du=\\frac1xdx$ ، $dv=x\\,dx$ ، $v=\\frac{x^2}{2}$",
+              "$\\dfrac{x^2}{2}\\ln x-\\displaystyle\\int\\frac{x^2}{2}\\cdot\\frac1x\\,dx=\\frac{x^2}{2}\\ln x-\\frac{x^2}{4}$",
+              "عند $e$: $\\frac{e^2}{2}-\\frac{e^2}{4}=\\frac{e^2}{4}$ ، وعند $1$: $0-\\frac14$",
+              "$\\frac{e^2}{4}+\\frac14=\\dfrac{e^2+1}{4}$"
+            ],
+            "wrong": [
+              null,
+              "قيمة الحدّ السفلي $-\\frac14$ تُطرح فتصبح $+\\frac14$.",
+              "نُسي الحدّ السفلي.",
+              "$\\int\\frac x2\\,dx=\\frac{x^2}{4}$ ، والمقام $4$."
+            ]
+          }
         },
         {
           "id": "u5e3q10",
@@ -526,6 +1053,22 @@ const unit: Unit = {
           ],
           "answer": 0,
           "solution": "المسافة الكلية = مجموع المساحات (كلها موجبة) بين المنحنى ومحور $t$:\n$[0,2]$: مثلث $=\\frac12(2)(4)=4$ ، $[2,4]$: مستطيل $=8$ ، $[4,5]$: مثلث $=2$ ، $[5,6]$: مثلث تحت المحور $=2$ ، $[6,8]$: مثلث تحت المحور $=4$\nالمسافة $=4+8+2+2+4=20\\ \\text{m}$ (أما الإزاحة فهي $4+8+2-2-4=8\\ \\text{m}$)",
+          "explain": {
+            "idea": "المسافة = مجموع المساحات بين منحنى السرعة ومحور $t$ ، **كلها موجبة**.",
+            "steps": [
+              "$[0,2]$: مثلث فوق المحور $\\frac12\\times2\\times4=4$",
+              "$[2,4]$: مستطيل $2\\times4=8$",
+              "$[4,5]$: مثلث $\\frac12\\times1\\times4=2$",
+              "$[5,6]$: مثلث تحت المحور مساحته $2$ ، و $[6,8]$: مثلث تحت المحور مساحته $4$",
+              "المسافة: $4+8+2+2+4=20\\ \\text{m}$ (أما الإزاحة $14-6=8$)"
+            ],
+            "wrong": [
+              null,
+              "$8$ هي الإزاحة.",
+              "تحقّقي: المساحات فوق $14$ وتحت $6$ ، ومجموعهما $20$.",
+              "تحقّقي من مجموع المساحات."
+            ]
+          },
           "figure": "fig/u5e3q10.svg"
         },
         {
@@ -540,7 +1083,20 @@ const unit: Unit = {
             "$e^{6}$"
           ],
           "answer": 0,
-          "solution": "$\\displaystyle\\int_1^a\\frac6x\\,dx=\\big[6\\ln x\\big]_1^a=6\\ln a=12 \\Rightarrow \\ln a=2 \\Rightarrow a=e^2$"
+          "solution": "$\\displaystyle\\int_1^a\\frac6x\\,dx=\\big[6\\ln x\\big]_1^a=6\\ln a=12 \\Rightarrow \\ln a=2 \\Rightarrow a=e^2$",
+          "explain": {
+            "idea": "المساحة = التكامل (المنحنى موجب) ← معادلة في $\\ln a$.",
+            "steps": [
+              "$\\displaystyle\\int_1^a\\frac6x\\,dx=\\big[6\\ln x\\big]_1^a=6\\ln a-0$",
+              "$6\\ln a=12 \\Rightarrow \\ln a=2 \\Rightarrow a=e^2$"
+            ],
+            "wrong": [
+              null,
+              "تحقّقي: $6\\ln e=6\\neq12$.",
+              "تحقّقي: $6\\ln e^3=18\\neq12$.",
+              "تحقّقي: $6\\ln e^6=36\\neq12$."
+            ]
+          }
         },
         {
           "id": "u5e3q12",
@@ -554,7 +1110,23 @@ const unit: Unit = {
             "$y=\\ln(2e^{x})-x$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{dy}{dx}=\\dfrac{e^x}{e^y} \\Rightarrow e^y\\,dy=e^x\\,dx \\Rightarrow e^y=e^x+C$\n$y(0)=\\ln2 \\Rightarrow 2=1+C \\Rightarrow C=1$ ، إذن $e^y=e^x+1 \\Rightarrow y=\\ln(e^x+1)$"
+          "solution": "$\\dfrac{dy}{dx}=\\dfrac{e^x}{e^y} \\Rightarrow e^y\\,dy=e^x\\,dx \\Rightarrow e^y=e^x+C$\n$y(0)=\\ln2 \\Rightarrow 2=1+C \\Rightarrow C=1$ ، إذن $e^y=e^x+1 \\Rightarrow y=\\ln(e^x+1)$",
+          "explain": {
+            "idea": "$e^{x-y}=\\dfrac{e^x}{e^y}$ ← نفصل المتغيرات، ونستعمل الشرط.",
+            "steps": [
+              "المعادلة التفاضلية القابلة للفصل: نضع كل ما فيه $y$ مع $dy$ في طرف، وكل ما فيه $x$ مع $dx$ في الطرف الآخر، ثم نكامل الطرفين ونضيف ثابتًا واحدًا",
+              "$\\dfrac{dy}{dx}=\\dfrac{e^x}{e^y} \\Rightarrow e^y\\,dy=e^x\\,dx$",
+              "$e^y=e^x+C$",
+              "$y(0)=\\ln2$: $e^{\\ln2}=e^0+C$ ، أي $2=1+C$ ، إذن $C=1$",
+              "$e^y=e^x+1 \\Rightarrow y=\\ln(e^x+1)$"
+            ],
+            "wrong": [
+              null,
+              "$C=1$ لا $2$ لأن $e^0=1$.",
+              "تحقّقي: $y'=1$ ، و $e^{x-y}=e^{-\\ln2}=\\frac12\\neq1$.",
+              "هذا يساوي $\\ln2$ ثابتًا، فمشتقته صفر لا $e^{x-y}$."
+            ]
+          }
         }
       ]
     },
@@ -574,7 +1146,22 @@ const unit: Unit = {
             "$\\frac{2}{3}x^{\\frac{3}{2}}-2\\sqrt{x}+C$"
           ],
           "answer": 0,
-          "solution": "$\\displaystyle\\int\\left(x^{\\frac12}+x^{-\\frac12}\\right)dx=\\frac{x^{\\frac32}}{\\frac32}+\\frac{x^{\\frac12}}{\\frac12}+C=\\frac23x^{\\frac32}+2\\sqrt x+C$"
+          "solution": "$\\displaystyle\\int\\left(x^{\\frac12}+x^{-\\frac12}\\right)dx=\\frac{x^{\\frac32}}{\\frac32}+\\frac{x^{\\frac12}}{\\frac12}+C=\\frac23x^{\\frac32}+2\\sqrt x+C$",
+          "explain": {
+            "idea": "نكتب الجذرين كقوى: $\\sqrt x=x^{\\frac12}$ و $\\frac{1}{\\sqrt x}=x^{-\\frac12}$ ، ثم قاعدة القوة.",
+            "steps": [
+              "قاعدة القوة في التكامل: $\\displaystyle\\int x^n\\,dx=\\frac{x^{n+1}}{n+1}+C$ (نزيد الأس واحدًا ونقسم على الأس الجديد)، بشرط $n\\neq-1$",
+              "$\\displaystyle\\int x^{\\frac12}\\,dx=\\frac{x^{\\frac32}}{\\frac32}=\\frac23x^{\\frac32}$",
+              "$\\displaystyle\\int x^{-\\frac12}\\,dx=\\frac{x^{\\frac12}}{\\frac12}=2\\sqrt x$",
+              "الناتج: $\\frac23x^{\\frac32}+2\\sqrt x+C$"
+            ],
+            "wrong": [
+              null,
+              "القسمة على $\\frac32$ تعني الضرب في $\\frac23$.",
+              "القسمة على $\\frac12$ تعني الضرب في $2$.",
+              "الحدّ الثاني موجب."
+            ]
+          }
         },
         {
           "id": "u5e4q2",
@@ -588,7 +1175,20 @@ const unit: Unit = {
             "$\\frac{(\\sin x+\\cos x)^{3}}{3}+C$"
           ],
           "answer": 0,
-          "solution": "$(\\sin x+\\cos x)^2=\\sin^2x+2\\sin x\\cos x+\\cos^2x=1+\\sin2x$\n$\\displaystyle\\int(1+\\sin2x)dx=x-\\frac12\\cos2x+C$"
+          "solution": "$(\\sin x+\\cos x)^2=\\sin^2x+2\\sin x\\cos x+\\cos^2x=1+\\sin2x$\n$\\displaystyle\\int(1+\\sin2x)dx=x-\\frac12\\cos2x+C$",
+          "explain": {
+            "idea": "نفكّ المربّع، فيظهر $\\sin^2+\\cos^2=1$ و $2\\sin x\\cos x=\\sin2x$.",
+            "steps": [
+              "$(\\sin x+\\cos x)^2=\\sin^2x+2\\sin x\\cos x+\\cos^2x=1+\\sin2x$",
+              "$\\displaystyle\\int(1+\\sin2x)\\,dx=x-\\frac12\\cos2x+C$"
+            ],
+            "wrong": [
+              null,
+              "تكامل $\\sin2x$ سالب: $-\\frac12\\cos2x$.",
+              "نقسم على معامل $x$ وهو $2$.",
+              "قاعدة القوة لا تصلح لقوس داخله ليس $x$ وحده."
+            ]
+          }
         },
         {
           "id": "u5e4q3",
@@ -602,7 +1202,20 @@ const unit: Unit = {
             "$e^{2x}-x+C$"
           ],
           "answer": 0,
-          "solution": "نقسم كل حد على $e^x$: $\\dfrac{e^{2x}-1}{e^x}=e^x-e^{-x}$\n$\\displaystyle\\int(e^x-e^{-x})dx=e^x+e^{-x}+C$"
+          "solution": "نقسم كل حد على $e^x$: $\\dfrac{e^{2x}-1}{e^x}=e^x-e^{-x}$\n$\\displaystyle\\int(e^x-e^{-x})dx=e^x+e^{-x}+C$",
+          "explain": {
+            "idea": "نقسم كل حدّ في البسط على $e^x$.",
+            "steps": [
+              "$\\dfrac{e^{2x}}{e^x}=e^x$ ، $\\dfrac{1}{e^x}=e^{-x}$",
+              "$\\displaystyle\\int(e^x-e^{-x})\\,dx=e^x-(-e^{-x})=e^x+e^{-x}+C$"
+            ],
+            "wrong": [
+              null,
+              "$\\int-e^{-x}\\,dx=+e^{-x}$.",
+              "$\\frac{1}{e^x}=e^{-x}$ وليس $1$.",
+              "$\\frac{e^{2x}}{e^x}=e^x$."
+            ]
+          }
         },
         {
           "id": "u5e4q4",
@@ -616,7 +1229,21 @@ const unit: Unit = {
             "$\\frac{(\\ln x)^{4}}{4x}+C$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=\\ln x \\Rightarrow du=\\frac1xdx$: $\\displaystyle\\int u^3du=\\frac{u^4}{4}+C=\\frac{(\\ln x)^4}{4}+C$"
+          "solution": "بالتعويض $u=\\ln x \\Rightarrow du=\\frac1xdx$: $\\displaystyle\\int u^3du=\\frac{u^4}{4}+C=\\frac{(\\ln x)^4}{4}+C$",
+          "explain": {
+            "idea": "$\\frac1x$ مشتقة $\\ln x$ ← تعويض $u=\\ln x$.",
+            "steps": [
+              "خطوات التكامل بالتعويض: نختار $u$ (غالبًا ما داخل القوس أو الجذر أو الأس، بحيث تظهر مشتقته في التكامل)، نحسب $du$ ، نحوّل التكامل كله إلى $u$ ، نكامل، ثم نرجع إلى $x$",
+              "$u=\\ln x$ ، $du=\\frac1xdx$",
+              "$\\displaystyle\\int u^3\\,du=\\frac{u^4}{4}+C=\\frac{(\\ln x)^4}{4}+C$"
+            ],
+            "wrong": [
+              null,
+              "نُسيت القسمة على الأس الجديد $4$.",
+              "هذا اشتقاق لا تكامل.",
+              "$\\frac1x$ استُعمل في $du$ ، فلا يبقى."
+            ]
+          }
         },
         {
           "id": "u5e4q5",
@@ -630,7 +1257,23 @@ const unit: Unit = {
             "$\\frac{x^{4}}{4}\\cdot\\frac{2}{3}(x^{2}+1)^{\\frac{3}{2}}+C$"
           ],
           "answer": 0,
-          "solution": "بالتعويض $u=x^2+1 \\Rightarrow du=2x\\,dx$ ، و $x^2=u-1$:\n$\\displaystyle\\int x^2\\sqrt{x^2+1}\\cdot x\\,dx=\\frac12\\int(u-1)\\sqrt u\\,du=\\frac12\\left(\\frac25u^{\\frac52}-\\frac23u^{\\frac32}\\right)+C$\n$=\\frac15(x^2+1)^{\\frac52}-\\frac13(x^2+1)^{\\frac32}+C$"
+          "solution": "بالتعويض $u=x^2+1 \\Rightarrow du=2x\\,dx$ ، و $x^2=u-1$:\n$\\displaystyle\\int x^2\\sqrt{x^2+1}\\cdot x\\,dx=\\frac12\\int(u-1)\\sqrt u\\,du=\\frac12\\left(\\frac25u^{\\frac52}-\\frac23u^{\\frac32}\\right)+C$\n$=\\frac15(x^2+1)^{\\frac52}-\\frac13(x^2+1)^{\\frac32}+C$",
+          "explain": {
+            "idea": "$x^3=x^2\\cdot x$ ، و $x\\,dx$ تأتي من $du$ ← $u=x^2+1$ ، و $x^2=u-1$.",
+            "steps": [
+              "خطوات التكامل بالتعويض: نختار $u$ (غالبًا ما داخل القوس أو الجذر أو الأس، بحيث تظهر مشتقته في التكامل)، نحسب $du$ ، نحوّل التكامل كله إلى $u$ ، نكامل، ثم نرجع إلى $x$",
+              "$u=x^2+1$ ، $du=2x\\,dx$ ، $x\\,dx=\\frac12du$ ، $x^2=u-1$",
+              "$\\displaystyle\\int x^2\\sqrt{x^2+1}\\,x\\,dx=\\frac12\\int(u-1)u^{\\frac12}\\,du=\\frac12\\int\\left(u^{\\frac32}-u^{\\frac12}\\right)du$",
+              "$\\frac12\\left(\\frac25u^{\\frac52}-\\frac23u^{\\frac32}\\right)=\\frac15u^{\\frac52}-\\frac13u^{\\frac32}$",
+              "$\\frac15(x^2+1)^{\\frac52}-\\frac13(x^2+1)^{\\frac32}+C$"
+            ],
+            "wrong": [
+              null,
+              "$x^2=u-1$ ، فالحدّ الثاني سالب.",
+              "نُسي العامل $\\frac12$ من $x\\,dx=\\frac12du$.",
+              "لا يجوز تكامل العاملين كلًّا وحده."
+            ]
+          }
         },
         {
           "id": "u5e4q6",
@@ -644,7 +1287,22 @@ const unit: Unit = {
             "$\\ln|x^{2}-4x|+C$"
           ],
           "answer": 0,
-          "solution": "$\\dfrac{4}{x(x-4)}=\\dfrac{A}{x}+\\dfrac{B}{x-4}$ ، عند $x=0$: $4=-4A \\Rightarrow A=-1$ ، عند $x=4$: $4=4B \\Rightarrow B=1$\nالتكامل $=-\\ln|x|+\\ln|x-4|+C$"
+          "solution": "$\\dfrac{4}{x(x-4)}=\\dfrac{A}{x}+\\dfrac{B}{x-4}$ ، عند $x=0$: $4=-4A \\Rightarrow A=-1$ ، عند $x=4$: $4=4B \\Rightarrow B=1$\nالتكامل $=-\\ln|x|+\\ln|x-4|+C$",
+          "explain": {
+            "idea": "الكسور الجزئية: نحلّل المقام، نكتب كسرًا لكل عامل، نضرب في المقام، ونعوّض بأصفار العوامل لإيجاد الثوابت؛ وتكامل $\\frac{A}{x-a}$ هو $A\\ln|x-a|$.",
+            "steps": [
+              "$x^2-4x=x(x-4)$ ، و $4=A(x-4)+Bx$",
+              "$x=0$: $4=-4A$ ، إذن $A=-1$",
+              "$x=4$: $4=4B$ ، إذن $B=1$",
+              "$-\\ln|x|+\\ln|x-4|+C=\\ln|x-4|-\\ln|x|+C$"
+            ],
+            "wrong": [
+              null,
+              "الإشارتان معكوستان: $A=-1$.",
+              "الثابتان $\\pm1$ لا $\\pm4$.",
+              "اشتقاق $\\ln|x^2-4x|$ يعطي $\\frac{2x-4}{x^2-4x}$ لا $\\frac{4}{x^2-4x}$."
+            ]
+          }
         },
         {
           "id": "u5e4q7",
@@ -658,7 +1316,22 @@ const unit: Unit = {
             "$\\ln\\frac{4}{3}$"
           ],
           "answer": 0,
-          "solution": "$x^2+3x+2=(x+1)(x+2)$ ، و $\\dfrac{x+3}{(x+1)(x+2)}=\\dfrac{2}{x+1}-\\dfrac{1}{x+2}$\n$\\big[2\\ln|x+1|-\\ln|x+2|\\big]_0^1=(2\\ln2-\\ln3)-(0-\\ln2)=3\\ln2-\\ln3=\\ln\\dfrac83$"
+          "solution": "$x^2+3x+2=(x+1)(x+2)$ ، و $\\dfrac{x+3}{(x+1)(x+2)}=\\dfrac{2}{x+1}-\\dfrac{1}{x+2}$\n$\\big[2\\ln|x+1|-\\ln|x+2|\\big]_0^1=(2\\ln2-\\ln3)-(0-\\ln2)=3\\ln2-\\ln3=\\ln\\dfrac83$",
+          "explain": {
+            "idea": "الكسور الجزئية: نحلّل المقام، نكتب كسرًا لكل عامل، نضرب في المقام، ونعوّض بأصفار العوامل لإيجاد الثوابت؛ وتكامل $\\frac{A}{x-a}$ هو $A\\ln|x-a|$ ، ثم الحدود.",
+            "steps": [
+              "$x^2+3x+2=(x+1)(x+2)$ ، و $x+3=A(x+2)+B(x+1)$",
+              "$x=-1$: $2=A$ ؛ $x=-2$: $1=-B$ ، إذن $B=-1$",
+              "$\\big[2\\ln|x+1|-\\ln|x+2|\\big]_0^1=(2\\ln2-\\ln3)-(0-\\ln2)$",
+              "$3\\ln2-\\ln3=\\ln\\dfrac{8}{3}$"
+            ],
+            "wrong": [
+              null,
+              "مقلوب الناتج.",
+              "نُسي $-\\ln3$ وقيمة الحدّ السفلي.",
+              "نُسيت قيمة الحدّ السفلي ($+\\ln2$)."
+            ]
+          }
         },
         {
           "id": "u5e4q8",
@@ -672,7 +1345,22 @@ const unit: Unit = {
             "$\\frac{x^{3}}{3}e^{x}+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء مرتين: $\\displaystyle\\int x^2e^xdx=x^2e^x-\\int2xe^xdx=x^2e^x-(2xe^x-2e^x)$\n$=e^x(x^2-2x+2)+C$"
+          "solution": "بالأجزاء مرتين: $\\displaystyle\\int x^2e^xdx=x^2e^x-\\int2xe^xdx=x^2e^x-(2xe^x-2e^x)$\n$=e^x(x^2-2x+2)+C$",
+          "explain": {
+            "idea": "$x^2e^x$ ← بالأجزاء مرتين.",
+            "steps": [
+              "المرة الأولى: $u=x^2$ ، $v=e^x$: $x^2e^x-\\displaystyle\\int2xe^x\\,dx$",
+              "المرة الثانية: $\\displaystyle\\int2xe^x\\,dx=2xe^x-2e^x$",
+              "$x^2e^x-2xe^x+2e^x=e^x(x^2-2x+2)+C$"
+            ],
+            "wrong": [
+              null,
+              "إشارة $2x$: الحدّ $-2xe^x$.",
+              "الحدّ الأخير $+2e^x$.",
+              "لا يجوز تكامل العاملين كلًّا وحده."
+            ],
+            "tip": "للتحقّق من أيّ تكامل غير محدود: اشتقّي الناتج، فيجب أن يعطي المقدار الذي داخل التكامل."
+          }
         },
         {
           "id": "u5e4q9",
@@ -686,7 +1374,23 @@ const unit: Unit = {
             "$\\frac{e^{2x}}{5}(\\cos x+2\\sin x)+C$"
           ],
           "answer": 0,
-          "solution": "بالأجزاء مرتين (تكامل دوري): نفرض $I=\\displaystyle\\int e^{2x}\\cos x\\,dx$\n$I=e^{2x}\\sin x-\\displaystyle\\int2e^{2x}\\sin x\\,dx=e^{2x}\\sin x-2\\left(-e^{2x}\\cos x+\\int2e^{2x}\\cos x\\,dx\\right)$\n$I=e^{2x}\\sin x+2e^{2x}\\cos x-4I \\Rightarrow 5I=e^{2x}(2\\cos x+\\sin x)$"
+          "solution": "بالأجزاء مرتين (تكامل دوري): نفرض $I=\\displaystyle\\int e^{2x}\\cos x\\,dx$\n$I=e^{2x}\\sin x-\\displaystyle\\int2e^{2x}\\sin x\\,dx=e^{2x}\\sin x-2\\left(-e^{2x}\\cos x+\\int2e^{2x}\\cos x\\,dx\\right)$\n$I=e^{2x}\\sin x+2e^{2x}\\cos x-4I \\Rightarrow 5I=e^{2x}(2\\cos x+\\sin x)$",
+          "explain": {
+            "idea": "أسّي × مثلثي ← بالأجزاء مرتين فيعود التكامل الأصلي $I$ ، ونحلّ معادلة.",
+            "steps": [
+              "$I=\\displaystyle\\int e^{2x}\\cos x\\,dx$",
+              "المرة الأولى ($u=e^{2x}$ ، $v=\\sin x$): $I=e^{2x}\\sin x-\\displaystyle\\int2e^{2x}\\sin x\\,dx$",
+              "المرة الثانية ($u=2e^{2x}$ ، $v=-\\cos x$): $\\displaystyle\\int2e^{2x}\\sin x\\,dx=-2e^{2x}\\cos x+4I$",
+              "$I=e^{2x}\\sin x+2e^{2x}\\cos x-4I$ ، فـ $5I=e^{2x}(2\\cos x+\\sin x)$",
+              "$I=\\dfrac{e^{2x}}{5}(2\\cos x+\\sin x)+C$"
+            ],
+            "wrong": [
+              null,
+              "إشارة $\\sin x$ موجبة.",
+              "$1+4=5$ لا $3$.",
+              "المعاملان مبدّلان."
+            ]
+          }
         },
         {
           "id": "u5e4q10",
@@ -701,6 +1405,22 @@ const unit: Unit = {
           ],
           "answer": 0,
           "solution": "نقاط التقاطع: $6-x^2=x+4 \\Rightarrow x^2+x-2=0 \\Rightarrow x=-2,\\ x=1$\n$\\displaystyle A=\\int_{-2}^{1}\\big((6-x^2)-(x+4)\\big)dx=\\int_{-2}^{1}(2-x-x^2)dx=\\left[2x-\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_{-2}^{1}=\\frac76+\\frac{10}{3}=\\frac92$",
+          "explain": {
+            "idea": "المساحة بين منحنيين: نجد نقاط التقاطع (حدود التكامل)، نحدّد المنحنى الأعلى بتجربة نقطة بينهما، ثم نكامل (الأعلى − الأسفل).",
+            "steps": [
+              "التقاطع: $6-x^2=x+4 \\Rightarrow x^2+x-2=0 \\Rightarrow x=-2,\\ x=1$",
+              "عند $x=0$: $6>4$ ، فالقطع المكافئ هو الأعلى",
+              "$\\displaystyle\\int_{-2}^1(2-x-x^2)\\,dx=\\left[2x-\\frac{x^2}{2}-\\frac{x^3}{3}\\right]_{-2}^1$",
+              "عند $1$: $2-\\frac12-\\frac13=\\frac76$ ، وعند $-2$: $-4-2+\\frac83=-\\frac{10}{3}$",
+              "المساحة: $\\frac76+\\frac{10}{3}=\\frac{27}{6}=\\frac92$"
+            ],
+            "wrong": [
+              null,
+              "ضعف الناتج.",
+              "هذه قيمة الحدّ العلوي فقط.",
+              "هذه قيمة الحدّ السفلي فقط."
+            ]
+          },
           "figure": "fig/u5e4q10.svg"
         },
         {
@@ -716,6 +1436,22 @@ const unit: Unit = {
           ],
           "answer": 0,
           "solution": "نقاط التقاطع: $5-x^2=x+3 \\Rightarrow x=-2,\\ x=1$ ، وفي الفترة يكون $5-x^2\\ge x+3\\ge0$ (طريقة الحلقات)\n$\\displaystyle V=\\pi\\int_{-2}^{1}\\left((5-x^2)^2-(x+3)^2\\right)dx=\\pi\\int_{-2}^{1}(x^4-11x^2-6x+16)dx$\n$=\\pi\\left[\\frac{x^5}{5}-\\frac{11x^3}{3}-3x^2+16x\\right]_{-2}^{1}=\\pi\\left(\\frac{143}{15}+\\frac{316}{15}\\right)=\\frac{153\\pi}{5}$",
+          "explain": {
+            "idea": "الحجم الدوراني حول المحور $x$: $V=\\pi\\displaystyle\\int_a^b f(x)^2\\,dx$ ، وبين منحنيين (طريقة الحلقات): $V=\\pi\\displaystyle\\int_a^b\\left(R^2-r^2\\right)dx$ حيث $R$ البعيد عن المحور و $r$ القريب.",
+            "steps": [
+              "التقاطع: $5-x^2=x+3 \\Rightarrow x=-2,\\ x=1$ ، وفيها $5-x^2\\ge x+3\\ge0$",
+              "$R=5-x^2$ ، $r=x+3$",
+              "$R^2-r^2=(25-10x^2+x^4)-(x^2+6x+9)=x^4-11x^2-6x+16$",
+              "$\\left[\\frac{x^5}{5}-\\frac{11x^3}{3}-3x^2+16x\\right]_{-2}^1=\\frac{143}{15}-\\left(-\\frac{316}{15}\\right)=\\frac{459}{15}=\\frac{153}{5}$",
+              "$V=\\frac{153\\pi}{5}$"
+            ],
+            "wrong": [
+              null,
+              "هذا $\\pi\\times$ المساحة.",
+              "تحقّقي: $R^2-r^2$ لا $(R-r)^2$.",
+              "تحقّقي من التعويض بالحدّين."
+            ]
+          },
           "figure": "fig/u5e4q11.svg"
         },
         {
@@ -730,7 +1466,23 @@ const unit: Unit = {
             "$y=x^{2}+x+3$"
           ],
           "answer": 0,
-          "solution": "بفصل المتغيرات: $2y\\,dy=(2x+1)dx \\Rightarrow y^2=x^2+x+C$\n$y(0)=3 \\Rightarrow 9=C$ ، إذن $y^2=x^2+x+9$"
+          "solution": "بفصل المتغيرات: $2y\\,dy=(2x+1)dx \\Rightarrow y^2=x^2+x+C$\n$y(0)=3 \\Rightarrow 9=C$ ، إذن $y^2=x^2+x+9$",
+          "explain": {
+            "idea": "فصل المتغيرات، ثم الشرط الأوّلي.",
+            "steps": [
+              "المعادلة التفاضلية القابلة للفصل: نضع كل ما فيه $y$ مع $dy$ في طرف، وكل ما فيه $x$ مع $dx$ في الطرف الآخر، ثم نكامل الطرفين ونضيف ثابتًا واحدًا",
+              "$2y\\,dy=(2x+1)\\,dx$",
+              "$y^2=x^2+x+C$",
+              "$y(0)=3$: $9=C$",
+              "$y^2=x^2+x+9$"
+            ],
+            "wrong": [
+              null,
+              "$y(0)=3$ يعني $y^2=9$ ، فـ $C=9$.",
+              "$\\int2x\\,dx=x^2$.",
+              "$\\int2y\\,dy=y^2$ لا $y$."
+            ]
+          }
         }
       ]
     }
