@@ -22,7 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-question-bank/__pycache__/
+__pycache__/
 
 .idea
 .venv/
