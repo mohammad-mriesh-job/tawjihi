@@ -8,7 +8,7 @@ Generators live in their unit folders (src/semesters/semester-N/unit-M/uM.py, ..
 All question-bank folders share one import namespace (explain files import each other across units),
 so every .py file name under src/ must be unique.
 """
-import os, runpy, subprocess, sys
+import os, re, runpy, subprocess, sys
 from glob import glob
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -27,7 +27,12 @@ def modules():
 
 
 def generators(mods):
-    return [n for n in mods if os.path.dirname(mods[n]) != HERE and not n.startswith('explain_')]
+    """Semester modules that write a data file (call build/build_mock); the rest (explain_*, helpers,
+    paper lists) are imported by them."""
+    def builds(path):
+        with open(path, encoding='utf-8') as f_:
+            return re.search(r'^\s*build(_mock)?\(', f_.read(), re.M) is not None
+    return [n for n in mods if os.path.dirname(mods[n]) != HERE and builds(mods[n])]
 
 
 def run_one(path, mods):
