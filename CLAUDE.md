@@ -45,6 +45,9 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
   appended after existing ones; never insert, reorder or remove a published paper**, and never change a published
   question's options — a saved attempt stores the chosen option index. Before committing, confirm the old papers in
   the generated `sN.ts` are byte-identical to the previous commit.
+- If a published paper must be rewritten anyway (done once: semester-1 papers 6–10 on 2026-10-15), add it to
+  `REVISION` in `src/global/lib/mockStore.ts` (or bump its number) so saved sessions/results of the old questions are
+  not replayed against the new ones.
 - Do not modify published papers when asked to improve "new" ones (the user's explicit rule: e.g. restyle semester-1
   papers 6–10 only, never 1–5).
 - Every `.py` file name under `src/` must be unique (explanation files import each other across units; `run.py`
@@ -54,10 +57,14 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
 
 Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or editing any item. In short:
 
-1. **Start from the ministry, not from the textbook exercise.** The blueprint is the 2026 paper (items 1–25 =
-   semester 1: unit 1 → 1–3, unit 2 → 4–8, unit 3 → 9–18, unit 4 → 19–25). Our 30-item semester-1 mocks scale
-   this to 4 · 6 · 12 · 8 in the same order. Each new paper should cover (almost) every 2026 item pattern with a
-   *different structure*, not just new numbers, plus a few other lessons of the 2008 book.
+1. **Start from a specific ministry item, not from the textbook exercise.** Every new item is a *sibling* of one
+   named official item: same skill, same stem structure, same kind of function and numbers, same difficulty and
+   option grid — only the function and numbers change. Write the model in a comment above the `Q(...)`
+   (e.g. `# 2026 #13: log base a of (c + ln x), f'(e); options = e vs 1/e x ln(a^n)`); ANALYSIS.md section 9
+   lists the mapping for papers 6–10. Restyling options alone is NOT modelling (that was tried for papers 6–10
+   and rejected). The blueprint is the 2026 paper (items 1–25 = semester 1: unit 1 → 1–3, unit 2 → 4–8, unit 3 →
+   9–18, unit 4 → 19–25); our 30-item semester-1 mocks scale this to 4 · 6 · 12 · 8 in the same order, cover
+   every 2026 pattern, and take the remaining slots from 2023–2025 and the 2026 repeaters paper.
 2. **Stay inside the 2008 curriculum.** Lesson ids are in each `uN.py` `meta`. Extrema, monotonicity, concavity,
    optimisation, limits/continuity appear in 2023–2025 papers but are NOT in the 2008 semester-1 units.
 3. **Phrase like the ministry**: `إذا كان: …، فإنّ … هو/هي:` · `أيُّ الآتية …؟` · `حلول المعادلة … في الفترة … هي:`;
@@ -69,7 +76,7 @@ Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or 
    All four options must look like the same answer.
 5. **Regions in the complex plane**: options = centre sign × which boundary is strict; give the figure at least one
    dashed boundary so strictness matters. Encode every option as a predicate (`disk`, `outside`, `sector`,
-   `nearer`, `closer`, `both` in `s1_papers_6_10.py`); `region_truth` checks the options differ from the shaded
+   `nearer`, `closer`, `bisector`, `both` in `s1_papers_6_10.py`); `region_truth` checks the options differ from the shaded
    region inside the plane and on its boundary, and the figure is shaded from the correct predicate.
 6. **Figures where the ministry uses them**: two piecewise-linear graphs on a grid, the graph of f or f′, an applied
    diagram for related rates (tank, ladder, kite, camera…), points in the complex plane, the shaded region.
@@ -80,7 +87,10 @@ Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or 
 8. **Verify** — every item goes through `qb.verify` (truth computed independently matches only the correct option,
    each option's LaTeX parses to its value, stem formulas parse to the expression the truth came from). Use
    `IndexQ` + a property for interval/region answers; `manual=` only when nothing can be computed (avoid).
-9. **Check before handing over**: generator passes; KaTeX renders every formula; look at every new figure (render
+   Parser pitfalls: `\log` parses as `ln` (write a base-10 `log` stem as plain text, not through `F`), and
+   `2x\ln 10` loses the `x` (write `2x\cdot\ln 10`).
+9. **Check before handing over**: generator passes; no repeated formula *or repeated context with new numbers* across
+   papers and unit banks; KaTeX renders every formula; look at every new figure (render
    the SVG to PNG and view it); no formula/value duplicates the earlier mocks or the unit banks; answer key of each
    new paper stays balanced (8·8·7·7); old papers byte-identical; `npm run lint && npm run build`; drive a paper in
    a headless browser (start → submit → review) to see figures and explanations.
