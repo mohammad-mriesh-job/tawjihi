@@ -2485,7 +2485,7 @@ const unit: Unit = {
             "steps": [
               "## أولًا: حدود المنطقة",
               "المنطقة تبدأ من المحور $y$ أي $x=0$ ، وتنتهي حيث يقطع المنحنى المحور $x$: $4-2^x=0 \\Rightarrow 2^x=4=2^2 \\Rightarrow x=2$",
-              "المنحنى فوق المحور في $[0,2]$ ، فالمساحة يساوي $\\displaystyle\\int_0^2\\left(4-2^x\\right)dx$",
+              "المنحنى فوق المحور في $[0,2]$ ، فالمساحة تساوي $\\displaystyle\\int_0^2\\left(4-2^x\\right)dx$",
               "## ثانيًا: التكامل",
               "$\\displaystyle\\int4\\,dx=4x$ ، و $\\displaystyle\\int2^x\\,dx=\\frac{2^x}{\\ln2}$",
               "## ثالثًا: الحدود",
@@ -2699,7 +2699,7 @@ const unit: Unit = {
           "answer": 0,
           "solution": "الإزاحة $=\\displaystyle\\int_0^{4\\pi/3}4\\sin\\frac t2\\,dt=\\left[-8\\cos\\frac t2\\right]_0^{4\\pi/3}=-8\\left(-\\frac12\\right)+8=12$",
           "explain": {
-            "idea": "الإزاحة يساوي $\\displaystyle\\int v\\,dt$ (دون قيمة مطلقة) ← نكامل ونعوّض الحدّين.",
+            "idea": "الإزاحة تساوي $\\displaystyle\\int v\\,dt$ (دون قيمة مطلقة) ← نكامل ونعوّض الحدّين.",
             "steps": [
               "## أولًا: الاقتران الأصلي",
               "$\\displaystyle\\int4\\sin\\frac t2\\,dt=4\\times\\frac{-\\cos\\frac t2}{\\frac12}=-8\\cos\\frac t2$ (القسمة على $\\frac12$ ضرب في $2$)",
@@ -3321,7 +3321,7 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\displaystyle\\int_2^a\\frac{2}{x-1}dx=2\\big[\\ln(x-1)\\big]_2^a=2\\ln(a-1)-2\\ln1=2\\ln(a-1)$\n$2\\ln(a-1)=4 \\Rightarrow \\ln(a-1)=2 \\Rightarrow a=e^2+1$",
           "explain": {
-            "idea": "المساحة المظلّلة يساوي $\\displaystyle\\int_2^a f(x)\\,dx$ ، نساويها بـ $4$ ونحلّ المعادلة اللوغاريتمية.",
+            "idea": "المساحة المظلّلة تساوي $\\displaystyle\\int_2^a f(x)\\,dx$ ، نساويها بـ $4$ ونحلّ المعادلة اللوغاريتمية.",
             "steps": [
               "## أولًا: التكامل",
               "$\\displaystyle\\int\\frac{2}{x-1}\\,dx=2\\ln|x-1|$",
@@ -3965,7 +3965,7 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$u=t^2+1 \\Rightarrow du=2t\\,dt$: $\\displaystyle\\int_0^2\\frac{-4t}{t^2+1}dt=\\big[-2\\ln(t^2+1)\\big]_0^2=-2\\ln5$",
           "explain": {
-            "idea": "الإزاحة يساوي $\\displaystyle\\int v\\,dt$ ، والبسط مضاعف لمشتقة المقام ← تعويض $u=t^2+1$ (أو قاعدة $\\ln$).",
+            "idea": "الإزاحة تساوي $\\displaystyle\\int v\\,dt$ ، والبسط مضاعف لمشتقة المقام ← تعويض $u=t^2+1$ (أو قاعدة $\\ln$).",
             "steps": [
               "## أولًا: التعويض",
               "$u=t^2+1 \\Rightarrow du=2t\\,dt \\Rightarrow t\\,dt=\\frac12du$",

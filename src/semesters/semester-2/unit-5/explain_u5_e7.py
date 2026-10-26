@@ -66,7 +66,7 @@ EXPLAIN = {
     },
 ),
 'u5e7q4': E(
-    idea=r"الإزاحة يساوي $\displaystyle\int v\,dt$ (دون قيمة مطلقة) ← نكامل ونعوّض الحدّين.",
+    idea=r"الإزاحة تساوي $\displaystyle\int v\,dt$ (دون قيمة مطلقة) ← نكامل ونعوّض الحدّين.",
     steps=[
         "## أولًا: الاقتران الأصلي",
         r"$\displaystyle\int4\sin\frac t2\,dt=4\times\frac{-\cos\frac t2}{\frac12}=-8\cos\frac t2$ (القسمة على $\frac12$ ضرب في $2$)",

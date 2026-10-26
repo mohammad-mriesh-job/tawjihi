@@ -77,7 +77,7 @@ EXPLAIN = {
     },
 ),
 'u5e10q5': E(
-    idea=r"الإزاحة يساوي $\displaystyle\int v\,dt$ ، والبسط مضاعف لمشتقة المقام ← تعويض $u=t^2+1$ (أو قاعدة $\ln$).",
+    idea=r"الإزاحة تساوي $\displaystyle\int v\,dt$ ، والبسط مضاعف لمشتقة المقام ← تعويض $u=t^2+1$ (أو قاعدة $\ln$).",
     steps=[
         "## أولًا: التعويض",
         r"$u=t^2+1 \Rightarrow du=2t\,dt \Rightarrow t\,dt=\frac12du$",

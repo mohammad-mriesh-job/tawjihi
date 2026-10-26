@@ -196,7 +196,7 @@ EXPLAIN = {
     steps=[
         "## أولًا: حدود المنطقة",
         r"المنطقة تبدأ من المحور $y$ أي $x=0$ ، وتنتهي حيث يقطع المنحنى المحور $x$: $4-2^x=0 \Rightarrow 2^x=4=2^2 \Rightarrow x=2$",
-        r"المنحنى فوق المحور في $[0,2]$ ، فالمساحة يساوي $\displaystyle\int_0^2\left(4-2^x\right)dx$",
+        r"المنحنى فوق المحور في $[0,2]$ ، فالمساحة تساوي $\displaystyle\int_0^2\left(4-2^x\right)dx$",
         "## ثانيًا: التكامل",
         r"$\displaystyle\int4\,dx=4x$ ، و $\displaystyle\int2^x\,dx=\frac{2^x}{\ln2}$",
         "## ثالثًا: الحدود",
