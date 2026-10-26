@@ -267,10 +267,10 @@ function Running({ exam, session, onChange, onFinish }: {
         <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'minmax(0, 1fr) 260px' }, alignItems: 'start' }}>
           <Paper variant="outlined" sx={{ p: { xs: 2, sm: 3 } }}>
             <Stack direction="row" sx={{ alignItems: 'center', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+              {/* no lesson or difficulty while solving: recognising the method is part of the exam */}
               <Typography variant="h6">
                 السؤال {i + 1} من {questions.length}
               </Typography>
-              <Chip size="small" variant="outlined" label={lessonTitle.get(q.lesson) ?? ''} />
               <Box sx={{ flexGrow: 1 }} />
               <Button
                 size="small"
@@ -415,6 +415,12 @@ function Review({ exam, result, onRetry }: { exam: ExamDescriptor; result: Resul
     if (s.answers[k] === q.answer) r.c++;
     byLesson.set(q.lesson, r);
   });
+  const byLevel = (['easy', 'medium', 'hard'] as const)
+    .map((d) => {
+      const ks = questions.map((q, k) => (q.difficulty === d ? k : -1)).filter((k) => k >= 0);
+      return { d, t: ks.length, c: ks.filter((k) => s.answers[k] === questions[k].answer).length };
+    })
+    .filter((r) => r.t);
 
   const verdict =
     pct >= 85 ? 'ممتاز! مستواك جاهز للامتحان في هذه المادة 🌟' :
@@ -486,6 +492,20 @@ function Review({ exam, result, onRetry }: { exam: ExamDescriptor; result: Resul
           </TableBody>
         </Table>
       </Paper>
+
+      <Stack direction="row" sx={{ alignItems: 'center', mb: 3, gap: 1, flexWrap: 'wrap' }}>
+        <Typography variant="subtitle2" sx={{ ml: 0.5 }}>
+          حسب مستوى السؤال:
+        </Typography>
+        {byLevel.map((r) => (
+          <Chip
+            key={r.d}
+            variant="outlined"
+            color={r.c * 2 >= r.t ? 'success' : 'error'}
+            label={`${LEVEL[r.d]}: ${r.c} من ${r.t}`}
+          />
+        ))}
+      </Stack>
 
       <Stack direction="row" sx={{ alignItems: 'center', mb: 2, gap: 2, flexWrap: 'wrap' }}>
         <Typography variant="h5">مراجعة الأسئلة والحلول</Typography>

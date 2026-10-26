@@ -158,3 +158,106 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 
 **الصحة:** الفحوص الثلاثة نفسها لكل الأسئلة الـ150 (كلها آليًّا، ولا يوجد سؤال يدوي)، والمعادلات التفاضلية تُفحص بالتعويض في المعادلة
 والشرط الأوّلي، وجميع الصيغ تُعرض في KaTeX دون أخطاء.
+
+## الشرح المفصّل في كل الوحدات والنماذج (تشرين الأول 2026)
+
+أُعيدت كتابة الشرح بعد التسليم بالطريقة المعتادة البسيطة في الوحدات 3 و4 و5 و6 و7 وفي نماذج الفصل الأول 6–10، وأُكملت الأسئلة التي كان شرحها قصيرًا في باقي النماذج: «ماذا يطلب السؤال؟» ثم مراحل معنونة، وكل خطوة حسابية مكتوبة (التعويض بالقيم، توحيد المقامات، الإشارات حسب الربع، $e^0=1$ و $\ln1=0$…)، وتحقّق بالاشتقاق أو بالتعويض حيث يفيد. متوسط الخطوات المرقّمة لكل سؤال: الوحدة 3: 6.3 · الوحدة 4: 5.3 · الوحدة 5: 6.0 · الوحدة 6: 4.4 (مع مراحل معنونة) · الوحدة 7: 5.5 · نماذج الفصل الأول: 4.8 · نماذج الفصل الثاني: 4.7، ولا يوجد سؤال بخطوتين أو أقل. لم يتغيّر أيّ سؤال أو بديل أو ترتيب (فُحصت بيانات الأسئلة في كل ملف مولّد مقابل الإصدار السابق)، وجميع الصيغ تُعرض في KaTeX دون أخطاء.
+
+## الوحدة 5 (التكامل) — الاختبارات 5–10
+
+**الشكل:** 12 فقرة في كل اختبار بترتيب فقرات التكامل في ورقة 2026 (الفقرات 26–37): تكامل اقترانات خاصة والحركة، ثم التعويض،
+ثم الكسور الجزئية، ثم الأجزاء، ثم المساحات والحجوم، ثم المعادلات التفاضلية. أصبح للوحدة 10 اختبارات (120 سؤالًا).
+
+**طريقة الكتابة:** كل فقرة «أخت» لفقرة وزارية مسمّاة (المصدر مكتوب في تعليق فوق كل `Q(...)` في
+`src/semesters/semester-2/unit-5/u5_exams_5_10.py`): المهارة وبنية النصّ ونوع الاقتران والصعوبة نفسها، وتتغيّر الأرقام والاقتران،
+والبدائل شبكة 2×2 من خطأين شائعين (إشارة، نسيان معامل السلسلة، الضرب بدل القسمة، الإزاحة بدل المسافة، نسيان الحدّ السفلي…)
+أو قائمة قيم من النوع نفسه. النماذج المستعملة: 2026 — 17، 2025 — 10، 2024 — 10، 2024 التكميلي — 9، 2023 — 9،
+2023 التكميلي — 9، 2026 المعيدون — 8، 2025 التكميلي — 7. سياقان جديدان (سعر قطعة، أعداد الأسماك) لم يُستعملا في أي بنك آخر،
+ولا تتكرّر أي صيغة من نصوص الأسئلة مع الاختبارات 1–4 أو نماذج الفصل الثاني.
+
+**الصعوبة:** 16 سهلًا · 41 متوسطًا · 15 صعبًا.
+
+**الشرح:** كل أسئلة الوحدة الـ120 (القديمة والجديدة) لها شرح مفصّل بالطريقة المعتادة في الكتاب: مراحل معنونة، وكل خطوة حسابية
+مكتوبة (التعويض بالحدود، توحيد المقامات، قيم $e^0$ و $\ln1$…)، وتحقّق بالاشتقاق أو بالتعويض، وسبب خطأ كل بديل باسم الخطأ الذي
+بُني منه. «الطريقة الأسرع» تظهر فقط حين توجد طريقة حقيقية أقصر.
+
+**العرض:** أثناء الحلّ لا يظهر اسم الدرس ولا مستوى الصعوبة (ولا توزيع الصعوبة في صفحة الوحدة)؛ يظهران في المراجعة بعد التسليم
+مع جدول النتيجة حسب الدرس وحسب مستوى السؤال.
+
+**الصحة:** الفحوص الثلاثة لكل الأسئلة الـ72 الجديدة آليًّا (لا سؤال يدوي)، وجميع صيغ الوحدة (3398 صيغة) تُعرض في KaTeX دون أخطاء،
+وأسئلة الاختبارات 1–4 لم تتغيّر (تغيّر شرحها فقط).
+
+| الفقرة | النموذج الوزاري · شبكة البدائل |
+|---|---|
+| u5e5q1 | 2026 #26: integral of cot(x/2); options = ln\|sin\| vs -ln\|cos\| x coefficient 2 vs 1/2 |
+| u5e5q2 | 2026 #27: a^(linear) divided by ln a; options = exponent (extra 1/2 or not) x ln a vs (ln a)^2 |
+| u5e5q3 | 2026 #28: integral of sin^2 over an interval = a pi; options = +-1/2, +-1/4 (power reduction, missing 1/2) |
+| u5e5q4 | 2026 #29: dy/dx = e^(kx) - e^(-x), curve through (0, c); options = sign of the e^(-x) term x sign of the constant |
+| u5e5q5 | 2026 #30: v = k sin(t), total distance over several arches; options = distance, displacement, arch-count and chain slips |
+| u5e5q6 | 2026 #31: x^n (1 + c/x)^n simplifies to (x + c)^n; options = (x+c)^(n+1)/(n+1), (x+c)^n/n, term-by-term slips |
+| u5e5q7 | 2026 #32: sin^2(kx)/cos^4(kx) = tan^2 sec^2; options = sign x cot vs csc (the cot/csc version) |
+| u5e5q8 | 2026 #33: (x^2 + a)/(x^3 + bx) = A/x + Bx/(x^2 + b); options = sign of A x the 1/2 from the ln(x^2 + b) term |
+| u5e5q9 | 2026 #34: sec^2(sqrt x) by substitution then parts; options = signs of the two terms (csc^2 version) |
+| u5e5q10 | 2024s #8 / 2026 #35: shaded area under k/(x + c) equals a logarithm -> k; options = ratio of logs vs of numbers x inverted |
+| u5e5q11 | 2026 #36: volume of the region under a root of (x times exponential); options = sign of 1 x the parts sign slip |
+| u5e5q12 | 2026 #37: dy/dx = 1/(trig^2 x . trig^2 y); options = 1/2 vs 1/4 sin 2y x its sign |
+| u5e6q1 | 2026r #2: Pythagorean quotient whose denominator is 1; options = sign of the trig term x sign of x |
+| u5e6q2 | 2026r #1: k e^(mx) + a^(nx); options = coefficient of e (divided vs multiplied) x chain factor in a^(nx) |
+| u5e6q3 | 2025 #4: integral from a to 2a of (x + c)/x equals a logarithm -> a; options = coefficient of ln dropped x [x] read as 2a |
+| u5e6q4 | 2024 #5: f'(x) = (p e^x + q)^2 and f(0) -> f; options = 1/2 kept in e^(2x) x the constant integrated to a multiple of x |
+| u5e6q5 | 2026r #5: v = k trig(t/n), total distance on an interval where v changes sign once |
+| u5e6q6 | 2026r #9 / 2024s #10: definite integral of x times a root of (x + c); options = sign x (x = u - c vs u + c) |
+| u5e6q7 | 2026r #10 / 2024 #7: odd power of sin times a power of cos; options = signs of the two terms |
+| u5e6q8 | 2026r #7 / 2025s #10: (px + q)/(x^2 - cx); options = constants swapped x sign of the second |
+| u5e6q9 | 2024 #10: ln of a root of x by parts; options = sign of the x term x the 1/n factor on it |
+| u5e6q10 | 2025 #3: area under c - a^x in the first quadrant (figure); options = divide vs multiply by ln a x lower limit kept |
+| u5e6q11 | 2026 #36: volume about the x-axis of an exponential on [0, ln c]; options = square kept, 1/2 kept, lower limit kept |
+| u5e6q12 | 2026r #12: dy/dx = y times a polynomial, through a point; options = 1/2 kept x sign of the constant |
+| u5e7q1 | 2024s #2: 1/(sin^2 cos^2) through the double angle; options = sign x tan vs cot |
+| u5e7q2 | 2025s #1: k root(x) - a^(-x); options = power-rule coefficient (divide vs multiply) x sign of the a^(-x) term |
+| u5e7q3 | 2024s #5 / 2023 #4: definite integral of \|linear\| across its zero; options = no absolute value, one triangle, missing 1/2 |
+| u5e7q4 | 2024 #6: displacement for v = k trig(t/n); options = sign x chain factor (multiplied instead of divided) |
+| u5e7q5 | 2025 #8: price rate p'(x) = k x / root(x^2 + c) and one price -> P(x); options = coefficient (1/2 slip) x sign of the constant |
+| u5e7q6 | 2025 #6: root(a x^2 - x^4) on a negative interval (\|x\| = -x); options = sign (\|x\| = x slip) x the missing 1/2 |
+| u5e7q7 | 2025 #2: improper fraction over a linear factor; options = quotient term halved or not x sign of the ln term |
+| u5e7q8 | 2023 #9: k x^n ln x by parts; options = power of x in the first term x sign of the second |
+| u5e7q9 | 2023 #10: k x trig(kx) by parts; options = sign of the first term x sign of the second |
+| u5e7q10 | 2025s #3: area under x(x - c)^2 between its zeros (figure); options = expansion slips |
+| u5e7q11 | 2026 #36 family (washers, figure): volume between a line and a parabola; options = squared difference, pi x area, x^2 not squared |
+| u5e7q12 | 2025 #12: dy/dx = ((linear) trig y)^2 / (linear), through a point; options = tan vs -cot x sign of the constant |
+| u5e8q1 | 2025 #1: a quotient that collapses with sum-to-product; options = sign x sin vs cos |
+| u5e8q2 | 2024 #1: a^(-x) plus a trig function of -x; options = sign of each term |
+| u5e8q3 | 2025s #2: \|linear\| / (its negative) on an interval where the sign is fixed; options = sign x answering the integrand value |
+| u5e8q4 | 2024s #6: population changing at k e^(rt), initial count -> P(t); options = decimal slip in k/r x constant adjusted or not |
+| u5e8q5 | 2024s #7: position after a time for v = k sin(t/n), given the start; options = start added or not x chain slip |
+| u5e8q6 | 2025 #7: e^(nx) times a power of (1 - c e^(-x)) becomes e^x (e^x - c)^k; options = which bracket x sign |
+| u5e8q7 | 2024s #9: f'/f^n with a trig inner function; options = sign x 1/(n-1) vs (n-1) |
+| u5e8q8 | 2025 #10: 1/(x^2 (x - c)) with a repeated factor; options = sign of the logs x sign of 1/x |
+| u5e8q9 | 2023s #11: integral of x f'(x) from given values by parts; options = subtract vs add the integral x f(b) vs b f(b) |
+| u5e8q10 | 2026 #35 / 2026r #6: shaded area under c/(x - h) from a fixed line to a equals k -> a (figure); options = coefficient x shift |
+| u5e8q11 | 2026 #36: volume of a squared trig function on a special interval; options = pi kept x tan of the right angle |
+| u5e8q12 | 2025s #12: x dy/dx = (power of y)(linear), through (1, 1); options = sign of the y side x sign of the constant |
+| u5e9q1 | 2023 #2: 1/trig^2(kx) plus a constant; options = tan vs -cot x the constant integrated to cx or left as c |
+| u5e9q2 | 2023 #1: integral of (a^c)^x on [0, 1]; options = lower limit subtracted or not x the factor c in the denominator |
+| u5e9q3 | 2023s #4: definite integral of a piecewise function across its break; options = one piece only, chain slip |
+| u5e9q4 | 2023 #5: f' a quotient by a power of x, and f(1) -> f; options = power rule (divided or not) x sign of the 1/x term |
+| u5e9q5 | 2025s #7: position from v = c - (linear)^2 and the initial position; options = start added or not x chain slip |
+| u5e9q6 | 2023s #7: (linear) times a cube root of a quadratic whose derivative is a multiple of it; options = sign x cube vs fourth root |
+| u5e9q7 | 2023s #8: a power of a trig function times sin 2x; options = sign x the 2 of sin 2x |
+| u5e9q8 | 2024 #9: c/((x - p)(x + q)); options = difference vs sum of logs, ln of the product |
+| u5e9q9 | 2023 #11: definite integral of x a^x by parts; options = sign of the second term x lower limit kept |
+| u5e9q10 | 2024 #12 / 2023 #12: velocity-time graph, start given -> final position; options = displacement vs distance x start added or not |
+| u5e9q11 | 2026 #36: volume of the root of a trig function; options = sign (ln cos) x ln root 2 vs ln 2 |
+| u5e9q12 | 2024 #13: dy/dx = e^(px + y) through the origin; options = 1/p kept x sign |
+| u5e10q1 | 2023s #2: trig of (c - kx); options = sign x divide vs multiply by k |
+| u5e10q2 | 2024s #1: integral of (1/a)^(linear); options = sign (ln of 1/a) x chain factor |
+| u5e10q3 | 2024 #3: integral of 1/(a + x/k) from 0 to ma, a > 0; options = factor k kept x limits reversed |
+| u5e10q4 | 2023s #5: f' = e^x -+ e^(-x) and a point -> f; options = sign of e^(-x) x the constant (e^0 = 1) |
+| u5e10q5 | 2023 #6: displacement for v = k t/(t^2 + c); options = sign x the 1/2 from du = 2t dt |
+| u5e10q6 | 2024 #8: definite integral of k x (1 - x)^n by substitution; options = sign (limits) x (x = 1 - u vs 1 + u) |
+| u5e10q7 | 2024s #11: (px + q)/(cx - x^2); options = sign of the second log, ln of the denominator |
+| u5e10q8 | 2025s #5: improper fraction integrated into a given form -> a constant; options = quotient coefficient slips |
+| u5e10q9 | 2023s #9 family: definite integral of x trig x by parts; options = sign of the second term, lower limit |
+| u5e10q10 | 2023s #12: velocity-time graph starting above the axis, start given -> final position |
+| u5e10q11 | 2025 #3 family (figure): area between a parabola and a line; options = intersection sign slip x integral of x slip |
+| u5e10q12 | 2023s #13: dy/dx = trig + x e^(x^2) with an initial value; options = sign of ln\|cos x\| x the constant (e^0 = 1) |

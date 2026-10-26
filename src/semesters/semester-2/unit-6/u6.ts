@@ -42,7 +42,7 @@ const unit: Unit = {
           "explain": {
             "idea": "مقدار متجه بين نقطتين ← نجد المتجه أولًا (النهاية − البداية)، ثم نحسب مقداره بالجذر.",
             "steps": [
-              "## أولًا: المتجه AB",
+              "## أولًا: المتجه",
               "المتجه من النقطة $A$ إلى النقطة $B$: $\\overrightarrow{AB}=B-A$ (إحداثيات النهاية ناقص إحداثيات البداية)",
               "$\\overrightarrow{AB}=\\langle -3-3,\\ 1-(-2),\\ 4-2\\rangle=\\langle -6,\\ 3,\\ 2\\rangle$",
               "## ثانيًا: المقدار",
@@ -71,17 +71,18 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{AB}=\\overrightarrow{BD} \\Rightarrow B-A=D-B \\Rightarrow D=2B-A$\n$D=\\langle 8-1,\\,-2-2,\\,4+3\\rangle=\\langle 7,\\,-4,\\,7\\rangle$ (أي أن $B$ منتصف $\\overline{AD}$)",
           "explain": {
-            "idea": "$\\overrightarrow{AB}=\\overrightarrow{BD}$ يعني أن الانتقال من $B$ إلى $D$ مثل الانتقال من $A$ إلى $B$ تمامًا، فتكون $B$ منتصف $\\overline{AD}$.",
+            "idea": "$\\overrightarrow{AB}=\\overrightarrow{BD}$ يعني أن $B$ منتصف $\\overline{AD}$ ← نكتب المعادلة بمتجهات الموقع ونعزل $D$.",
             "steps": [
-              "## أولًا: كتابة المعادلة",
+              "## أولًا: ترجمة الشرط",
               "المتجه من النقطة $A$ إلى النقطة $B$: $\\overrightarrow{AB}=B-A$ (إحداثيات النهاية ناقص إحداثيات البداية)",
-              "$\\overrightarrow{AB}=B-A$ و $\\overrightarrow{BD}=D-B$",
-              "$B-A=D-B$ ، ننقل $B$ إلى الطرف الأيسر: $D=2B-A$",
+              "$\\overrightarrow{AB}=B-A$ و $\\overrightarrow{BD}=D-B$ ، والشرط: $B-A=D-B$",
+              "نعزل $D$: $D=2B-A$",
               "## ثانيًا: الحساب",
               "$2B=\\langle 8,\\ -2,\\ 4\\rangle$",
-              "$D=\\langle 8-1,\\ -2-2,\\ 4-(-3)\\rangle=\\langle 7,\\ -4,\\ 7\\rangle$"
+              "$D=\\langle 8-1,\\ -2-2,\\ 4-(-3)\\rangle=\\langle 7,\\ -4,\\ 7\\rangle$",
+              "## تحقّق",
+              "منتصف $A(1,2,-3)$ و $D(7,-4,7)$ هو $(4,-1,2)$ ، وهو $B$ ✔"
             ],
-            "quick": "تحقّقي أن $B$ منتصف $\\overline{AD}$: $\\left(\\frac{1+7}{2},\\frac{2-4}{2},\\frac{-3+7}{2}\\right)=(4,-1,2)=B$ ✔",
             "wrong": [
               null,
               "الإشارات معكوسة؛ هذا $A-2B$ لا $2B-A$.",
@@ -104,15 +105,16 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{AC}=\\langle \\alpha-1,\\,1,\\,5\\rangle$ ، و $(\\alpha-1)^2+1+25=30 \\Rightarrow (\\alpha-1)^2=4$\n$\\alpha-1=\\pm2 \\Rightarrow \\alpha=3$ أو $\\alpha=-1$ ، وبما أن $\\alpha>0$ فإن $\\alpha=3$",
           "explain": {
-            "idea": "مقدار متجه فيه ثابت مجهول ← نكتب المتجه، ونساوي **مربّع** مقداره بمربّع القيمة المعطاة (للتخلّص من الجذر)، ثم نطبّق الشرط.",
+            "idea": "المقدار معطى ← نكتب $\\overrightarrow{AC}$ بدلالة $\\alpha$ ، نساوي مقداره بـ $\\sqrt{30}$ ، ونحلّ.",
             "steps": [
               "## أولًا: المتجه",
               "$\\overrightarrow{AC}=C-A=\\langle \\alpha-1,\\ 3-2,\\ 2-(-3)\\rangle=\\langle \\alpha-1,\\ 1,\\ 5\\rangle$",
               "## ثانيًا: المعادلة",
-              "$|\\overrightarrow{AC}|^2=(\\sqrt{30})^2=30$",
-              "$(\\alpha-1)^2+1+25=30$ ، إذن $(\\alpha-1)^2=4$",
-              "## ثالثًا: الحلّ والشرط",
-              "$\\alpha-1=2$ أو $\\alpha-1=-2$ ، أي $\\alpha=3$ أو $\\alpha=-1$",
+              "مقدار المتجه $\\langle a,b,c\\rangle$ هو $\\sqrt{a^2+b^2+c^2}$",
+              "$\\sqrt{(\\alpha-1)^2+1+25}=\\sqrt{30}$ ، نربّع الطرفين: $(\\alpha-1)^2+26=30$",
+              "$(\\alpha-1)^2=4 \\Rightarrow \\alpha-1=\\pm2$",
+              "$\\alpha=3$ أو $\\alpha=-1$",
+              "## ثالثًا: الشرط",
               "المعطى $\\alpha>0$ ، إذن $\\alpha=3$"
             ],
             "wrong": [
@@ -137,12 +139,14 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$|\\vec{\\mathbf{v}}|=\\sqrt{36+4+9}=7$ ، ومتجه الوحدة $\\dfrac{\\vec{\\mathbf{v}}}{|\\vec{\\mathbf{v}}|}=\\left\\langle \\frac67,\\,-\\frac27,\\,\\frac37\\right\\rangle$",
           "explain": {
-            "idea": "متجه الوحدة = المتجه مقسومًا على مقداره، فيبقى الاتجاه نفسه ويصبح الطول $1$.",
+            "idea": "متجه الوحدة في اتجاه $\\vec{\\mathbf{v}}$ هو $\\dfrac{\\vec{\\mathbf{v}}}{|\\vec{\\mathbf{v}}|}$ (نقسم كل مركبة على المقدار)، ومقداره دائمًا $1$.",
             "steps": [
-              "متجه الوحدة في اتجاه $\\vec{\\mathbf{v}}$ هو $\\dfrac{\\vec{\\mathbf{v}}}{|\\vec{\\mathbf{v}}|}$ (نقسم كل مركبة على المقدار)، ومقداره دائمًا $1$",
+              "## أولًا: المقدار",
               "$|\\vec{\\mathbf{v}}|=\\sqrt{6^2+(-2)^2+3^2}=\\sqrt{36+4+9}=\\sqrt{49}=7$",
+              "## ثانيًا: القسمة",
               "$\\dfrac{\\vec{\\mathbf{v}}}{7}=\\left\\langle \\frac67,\\ -\\frac27,\\ \\frac37\\right\\rangle$",
-              "تحقّق: $\\frac{36}{49}+\\frac{4}{49}+\\frac{9}{49}=1$ ✔"
+              "## تحقّق",
+              "$\\sqrt{\\frac{36}{49}+\\frac{4}{49}+\\frac{9}{49}}=\\sqrt{\\frac{49}{49}}=1$ ✔"
             ],
             "wrong": [
               null,
@@ -169,11 +173,12 @@ const unit: Unit = {
             "idea": "نصل إلى $M$ من $O$ عبر $A$: $\\overrightarrow{OM}=\\overrightarrow{OA}+\\overrightarrow{AM}$ ، و $\\overrightarrow{AM}$ جزء من $\\overrightarrow{AB}$ حسب النسبة.",
             "steps": [
               "## أولًا: المتجه AB",
-              "$\\overrightarrow{AB}=\\overrightarrow{OB}-\\overrightarrow{OA}=3\\vec{\\mathbf{b}}-2\\vec{\\mathbf{a}}$",
-              "## ثانيًا: النسبة",
-              "$AM:MB=1:2$ يعني أن $\\overline{AB}$ مقسوم إلى $1+2=3$ أجزاء متساوية، و $AM$ جزء واحد منها، فـ $\\overrightarrow{AM}=\\frac13\\overrightarrow{AB}$",
-              "## ثالثًا: المسار من O إلى M",
-              "$\\overrightarrow{OM}=2\\vec{\\mathbf{a}}+\\frac13(3\\vec{\\mathbf{b}}-2\\vec{\\mathbf{a}})=2\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}}-\\frac23\\vec{\\mathbf{a}}$",
+              "$\\overrightarrow{AB}=\\overrightarrow{AO}+\\overrightarrow{OB}=-\\overrightarrow{OA}+\\overrightarrow{OB}=3\\vec{\\mathbf{b}}-2\\vec{\\mathbf{a}}$",
+              "## ثانيًا: الجزء AM",
+              "$AM:MB=1:2$ يعني أن $\\overline{AB}$ مقسوم إلى $1+2=3$ أجزاء، و $AM$ جزء واحد منها",
+              "$\\overrightarrow{AM}=\\frac13\\overrightarrow{AB}=\\frac13(3\\vec{\\mathbf{b}}-2\\vec{\\mathbf{a}})=\\vec{\\mathbf{b}}-\\frac23\\vec{\\mathbf{a}}$",
+              "## ثالثًا: الجمع",
+              "$\\overrightarrow{OM}=\\overrightarrow{OA}+\\overrightarrow{AM}=2\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}}-\\frac23\\vec{\\mathbf{a}}$",
               "$2-\\frac23=\\frac43$ ، إذن $\\overrightarrow{OM}=\\frac43\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}}$"
             ],
             "wrong": [
@@ -199,11 +204,13 @@ const unit: Unit = {
           "answer": 0,
           "solution": "معادلة المستقيم: $\\vec{\\mathbf{r}}=\\vec{\\mathbf{r}}_0+t\\vec{\\mathbf{v}}$ ، حيث $\\vec{\\mathbf{r}}_0=\\langle 4,1,-2\\rangle$ متجه موقع نقطة عليه، و $\\vec{\\mathbf{v}}=\\langle 2,-3,1\\rangle$ متجه اتجاهه.",
           "explain": {
-            "idea": "معادلة مستقيم ← نحتاج نقطة عليه (الحدّ الثابت) ومتجه اتجاهه (المضروب في $t$).",
+            "idea": "المعادلة المتجهة للمستقيم: $\\vec{\\mathbf{r}}=\\vec{\\mathbf{r}}_0+t\\vec{\\mathbf{v}}$ ، حيث $\\vec{\\mathbf{r}}_0$ متجه موقع نقطة على المستقيم، و $\\vec{\\mathbf{v}}$ متجه اتجاهه.",
             "steps": [
-              "المعادلة المتجهة للمستقيم: $\\vec{\\mathbf{r}}=\\vec{\\mathbf{r}}_0+t\\vec{\\mathbf{v}}$ ، حيث $\\vec{\\mathbf{r}}_0$ متجه موقع نقطة على المستقيم، و $\\vec{\\mathbf{v}}$ متجه اتجاهه",
-              "متجه الموقع $4\\hat i+\\hat j-2\\hat k$ يعني النقطة $\\langle 4,1,-2\\rangle$ (معاملات $\\hat i,\\hat j,\\hat k$ بالترتيب)",
-              "المستقيم يوازي $\\vec{\\mathbf{v}}$ ، فمتجه اتجاهه $\\langle 2,-3,1\\rangle$",
+              "## أولًا: النقطة",
+              "متجه موقع $A$: $4\\hat{i}+\\hat{j}-2\\hat{k}=\\langle 4,\\ 1,\\ -2\\rangle$ (معامل $\\hat i$ هو $x$ ، و $\\hat j$ هو $y$ ، و $\\hat k$ هو $z$)",
+              "## ثانيًا: الاتجاه",
+              "$\\vec{\\mathbf{v}}=2\\hat{i}-3\\hat{j}+\\hat{k}=\\langle 2,\\ -3,\\ 1\\rangle$",
+              "## ثالثًا: المعادلة",
               "$\\vec{\\mathbf{r}}=\\langle 4,1,-2\\rangle+t\\langle 2,-3,1\\rangle$"
             ],
             "wrong": [
@@ -228,10 +235,13 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$z=3-t=-1 \\Rightarrow t=4$ ، فتكون النقطة $(1+8,\\ -2+4,\\ -1)=(9,\\,2,\\,-1)$",
           "explain": {
-            "idea": "نقطة على المستقيم ← نكتب إحداثياتها العامة بدلالة $t$ ، ونستعمل المعلومة المعطاة لإيجاد $t$ ، ثم نعوّض في باقي الإحداثيات. هنا نعرف $z$ ، فنجد $t$ منها.",
+            "idea": "نقطة على المستقيم ← نكتب إحداثياتها العامة بدلالة $t$ ، ونستعمل المعلومة المعطاة لإيجاد $t$ ، ثم نعوّض في باقي الإحداثيات.",
             "steps": [
-              "نقاط المستقيم: $(1+2t,\\ -2+t,\\ 3-t)$",
-              "$z=-1$: $3-t=-1$ ، إذن $t=4$",
+              "## أولًا: الإحداثيات العامة",
+              "$x=1+2t$ ، $y=-2+t$ ، $z=3-t$",
+              "## ثانيًا: إيجاد t",
+              "$z=-1$: $3-t=-1 \\Rightarrow t=4$",
+              "## ثالثًا: باقي الإحداثيات",
               "$x=1+2(4)=9$ ، $y=-2+4=2$",
               "النقطة $(9,\\ 2,\\ -1)$"
             ],
@@ -257,22 +267,25 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\langle -4,2,-6\\rangle=-2\\langle 2,-1,3\\rangle$ ، فمتجها الاتجاه متوازيان، والمستقيمان إمّا متوازيان أو منطبقان.\nالمتجه بين النقطتين $(1,1,0)$ و $(3,0,4)$ هو $\\langle 2,-1,4\\rangle$ ، وهو لا يوازي $\\langle 2,-1,3\\rangle$ ، فالنقطة $(3,0,4)$ لا تقع على $\\vec{\\mathbf{r}}_1$\nإذن المستقيمان متوازيان.",
           "explain": {
-            "idea": "نفحص التوازي من متجهي الاتجاه أولًا، ثم نختبر نقطة من أحد المستقيمين على الآخر لنميّز بين التوازي والانطباق.",
+            "idea": "العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات).",
             "steps": [
-              "العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات)",
-              "## أولًا: التوازي",
-              "$\\langle -4,2,-6\\rangle=-2\\langle 2,-1,3\\rangle$ ، فالاتجاهان متوازيان، والمستقيمان متوازيان أو منطبقان",
-              "## ثانيًا: اختبار نقطة",
-              "هل $(3,0,4)$ (من $\\vec{\\mathbf{r}}_2$) على $\\vec{\\mathbf{r}}_1$؟ من $x$: $1+2t=3$ ، إذن $t=1$",
-              "عند $t=1$: $y=1-1=0$ ✔ ، لكن $z=0+3=3\\neq4$ ✘",
-              "النقطة ليست على $\\vec{\\mathbf{r}}_1$ ، فلا نقطة مشتركة: المستقيمان متوازيان (غير منطبقين)"
+              "## أولًا: متجها الاتجاه",
+              "$\\langle -4,2,-6\\rangle=-2\\langle 2,-1,3\\rangle$ ، فهما متوازيان",
+              "إذن المستقيمان إمّا متوازيان أو منطبقان",
+              "## ثانيًا: هل توجد نقطة مشتركة؟",
+              "نختبر النقطة $(3,0,4)$ من $\\vec{\\mathbf{r}}_2$ على $\\vec{\\mathbf{r}}_1$: $1+2t=3 \\Rightarrow t=1$",
+              "عند $t=1$: $y=1-1=0$ ✔ لكن $z=0+3=3\\neq4$ ✗",
+              "النقطة ليست على $\\vec{\\mathbf{r}}_1$ ، فلا انطباق",
+              "## النتيجة",
+              "المستقيمان متوازيان"
             ],
             "wrong": [
               null,
               "المتقاطعان اتجاهاهما غير متوازيين، وهنا الاتجاهان متوازيان.",
               "المتخالفان اتجاهاهما غير متوازيين.",
               "المنطبقان يشتركان في كل النقاط، لكن $(3,0,4)$ ليست على $\\vec{\\mathbf{r}}_1$."
-            ]
+            ],
+            "tip": "الحالات الأربع: متوازيان (اتجاهان متوازيان ولا نقطة مشتركة)، منطبقان (اتجاهان متوازيان ونقطة مشتركة)، متقاطعان (اتجاهان غير متوازيين ونقطة مشتركة)، متخالفان (اتجاهان غير متوازيين ولا نقطة مشتركة)"
           }
         },
         {
@@ -289,24 +302,24 @@ const unit: Unit = {
           "answer": 0,
           "solution": "نساوي الإحداثيات: $2+t=7+3s$ ، $1+2t=4-s$ ، $-t=2s$\nمن الثالثة: $t=-2s$ ، وبالتعويض في الأولى: $2-2s=7+3s \\Rightarrow s=-1,\\ t=2$\nتحقق في الثانية: $1+4=5=4+1$ ✔ ، ونقطة التقاطع $\\langle 2,1,0\\rangle+2\\langle 1,2,-1\\rangle=(4,\\,5,\\,-2)$",
           "explain": {
-            "idea": "نقطة التقاطع تحقّق المعادلتين معًا ← نساوي الإحداثيات الثلاثة، نحلّ معادلتين، ونتحقّق في الثالثة.",
+            "idea": "نقطة التقاطع تحقّق المعادلتين ← نساوي الإحداثيات الثلاثة، نحلّ معادلتين، ونتحقّق في الثالثة.",
             "steps": [
               "## أولًا: المعادلات",
               "$x$: $2+t=7+3s$ ، $y$: $1+2t=4-s$ ، $z$: $-t=2s$",
               "## ثانيًا: الحلّ",
-              "من $z$: $t=-2s$",
-              "نعوّض في $x$: $2-2s=7+3s$ ، أي $-5=5s$ ، إذن $s=-1$ و $t=2$",
-              "تحقّق في $y$: $1+2(2)=5$ و $4-(-1)=5$ ✔",
-              "## ثالثًا: النقطة",
-              "نعوّض $t=2$ في $\\vec{\\mathbf{r}}_1$: $(2+2,\\ 1+4,\\ 0-2)=(4,5,-2)$"
+              "من معادلة $z$: $t=-2s$",
+              "نعوّض في معادلة $x$: $2-2s=7+3s \\Rightarrow -5s=5 \\Rightarrow s=-1$ ، و $t=2$",
+              "## ثالثًا: التحقّق في المعادلة الباقية",
+              "معادلة $y$: $1+2(2)=5$ و $4-(-1)=5$ ✔",
+              "## رابعًا: النقطة",
+              "$\\langle 2,1,0\\rangle+2\\langle 1,2,-1\\rangle=\\langle 4,\\ 5,\\ -2\\rangle$ ، أي $(4,\\,5,\\,-2)$"
             ],
             "wrong": [
               null,
               "هذه نقطة على $\\vec{\\mathbf{r}}_2$ ($s=0$) لكنها ليست على $\\vec{\\mathbf{r}}_1$.",
               "هذه نقطة على $\\vec{\\mathbf{r}}_1$ ($t=1$) لكنها ليست على $\\vec{\\mathbf{r}}_2$.",
               "هذه نقطة على $\\vec{\\mathbf{r}}_2$ ($s=-2$) لكنها ليست على $\\vec{\\mathbf{r}}_1$."
-            ],
-            "tip": "نقطة التقاطع يجب أن تقع على المستقيمين؛ أغلب البدائل الخاطئة نقاط على مستقيم واحد فقط."
+            ]
           }
         },
         {
@@ -326,8 +339,8 @@ const unit: Unit = {
             "idea": "التعامد ⟺ الضرب القياسي صفر.",
             "steps": [
               "الضرب القياسي: $\\langle a_1,a_2,a_3\\rangle\\cdot\\langle b_1,b_2,b_3\\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|\\cos\\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا",
-              "$\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=3(1)+(-1)(4)+2k=3-4+2k=2k-1$",
-              "$2k-1=0$ ، إذن $k=\\frac12$"
+              "$\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=3(1)+(-1)(4)+2(k)=3-4+2k=-1+2k$",
+              "$-1+2k=0 \\Rightarrow 2k=1 \\Rightarrow k=\\frac12$"
             ],
             "wrong": [
               null,
@@ -351,15 +364,17 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\vec{\\mathbf{a}}-\\vec{\\mathbf{b}}=\\langle 1,2,-3\\rangle$ ، $\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}}=\\langle 3,0,1\\rangle$\nالضرب القياسي $=3+0-3=0$ ، إذن الزاوية $\\frac{\\pi}{2}$\n(ملاحظة: $(\\vec{\\mathbf{a}}-\\vec{\\mathbf{b}})\\cdot(\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}})=|\\vec{\\mathbf{a}}|^2-|\\vec{\\mathbf{b}}|^2=6-6=0$)",
           "explain": {
-            "idea": "نحسب المتجهين، ثم ضربهما القياسي؛ إذا كان صفرًا فالزاوية قائمة دون حاجة لحساب المقادير.",
+            "idea": "نحسب المتجهين، ثم ضربهما القياسي؛ فإن كان صفرًا فالزاوية قائمة.",
             "steps": [
-              "$\\vec{\\mathbf{a}}-\\vec{\\mathbf{b}}=\\langle 2-1,\\ 1+1,\\ -1-2\\rangle=\\langle 1,2,-3\\rangle$",
-              "$\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}}=\\langle 3,0,1\\rangle$",
-              "الضرب القياسي: $1(3)+2(0)+(-3)(1)=3+0-3=0$",
-              "$\\cos\\theta=0$ ، إذن $\\theta=\\frac{\\pi}{2}$",
-              "## ملاحظة",
-              "$(\\vec{\\mathbf{a}}-\\vec{\\mathbf{b}})\\cdot(\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}})=|\\vec{\\mathbf{a}}|^2-|\\vec{\\mathbf{b}}|^2=6-6=0$ ، لأن للمتجهين المقدار نفسه"
+              "## أولًا: المتجهان",
+              "$\\vec{\\mathbf{a}}-\\vec{\\mathbf{b}}=\\langle 2-1,\\ 1+1,\\ -1-2\\rangle=\\langle 1,\\ 2,\\ -3\\rangle$",
+              "$\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}}=\\langle 3,\\ 0,\\ 1\\rangle$",
+              "## ثانيًا: الضرب القياسي",
+              "$1(3)+2(0)+(-3)(1)=3+0-3=0$",
+              "## ثالثًا: الزاوية",
+              "$\\cos\\theta=0 \\Rightarrow \\theta=\\frac{\\pi}{2}$"
             ],
+            "quick": "$(\\vec{\\mathbf{a}}-\\vec{\\mathbf{b}})\\cdot(\\vec{\\mathbf{a}}+\\vec{\\mathbf{b}})=|\\vec{\\mathbf{a}}|^2-|\\vec{\\mathbf{b}}|^2=6-6=0$ مباشرة.",
             "wrong": [
               null,
               "$\\cos\\frac{\\pi}{3}=\\frac12$ ، لكن الضرب القياسي صفر فجيب التمام صفر.",
@@ -382,14 +397,16 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{BA}\\cdot\\overrightarrow{BC}=8-4-4=0$ ، إذن الزاوية $B$ قائمة\n$|\\overrightarrow{BA}|=3$ ، $|\\overrightarrow{BC}|=\\sqrt{16+16+4}=6$ ، والمساحة $=\\frac12(3)(6)=9$",
           "explain": {
-            "idea": "نحسب الضرب القياسي للضلعين الخارجين من $B$: إذا كان صفرًا فالزاوية $B$ قائمة، والمساحة $\\frac12$ × حاصل ضرب الضلعين.",
+            "idea": "المتجهان يبدآن من الرأس $B$ ← نحسب الزاوية بينهما بالضرب القياسي، فإن كانت قائمة فالمساحة نصف حاصل ضرب الضلعين.",
             "steps": [
-              "## أولًا: هل الزاوية قائمة؟",
-              "$\\overrightarrow{BA}\\cdot\\overrightarrow{BC}=2(4)+(-1)(4)+2(-2)=8-4-4=0$ ، فالزاوية $B$ قائمة",
-              "## ثانيًا: الضلعان",
-              "$|\\overrightarrow{BA}|=\\sqrt{4+1+4}=3$ ، $|\\overrightarrow{BC}|=\\sqrt{16+16+4}=6$",
+              "## أولًا: الزاوية B",
+              "$\\overrightarrow{BA}\\cdot\\overrightarrow{BC}=2(4)+(-1)(4)+2(-2)=8-4-4=0$",
+              "الضرب القياسي صفر، فالزاوية $B$ قائمة",
+              "## ثانيًا: طولا الضلعين",
+              "$|\\overrightarrow{BA}|=\\sqrt{4+1+4}=3$",
+              "$|\\overrightarrow{BC}|=\\sqrt{16+16+4}=\\sqrt{36}=6$",
               "## ثالثًا: المساحة",
-              "مساحة المثلث القائم نصف حاصل ضرب ضلعي القائمة: $\\frac12\\times3\\times6=9$"
+              "مساحة المثلث القائم يساوي $\\frac12\\times$ الضلعين القائمين يساوي $\\frac12(3)(6)=9$"
             ],
             "wrong": [
               null,
@@ -419,11 +436,14 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$3\\vec{\\mathbf{v}}=\\langle 3,-6,12\\rangle$ ، $2\\vec{\\mathbf{w}}=\\langle 6,0,-2\\rangle$ ، الفرق $\\langle -3,\\,-6,\\,14\\rangle$",
           "explain": {
-            "idea": "ضرب متجه في عدد يضرب كل مركبة، والطرح مركبة مركبة.",
+            "idea": "الضرب في عدد ثم الطرح يتمّان مركبة مركبة.",
             "steps": [
+              "## الضرب في عدد",
               "$3\\vec{\\mathbf{v}}=\\langle 3,\\ -6,\\ 12\\rangle$",
               "$2\\vec{\\mathbf{w}}=\\langle 6,\\ 0,\\ -2\\rangle$",
-              "$3\\vec{\\mathbf{v}}-2\\vec{\\mathbf{w}}=\\langle 3-6,\\ -6-0,\\ 12-(-2)\\rangle=\\langle -3,\\ -6,\\ 14\\rangle$"
+              "## الطرح مركبة مركبة",
+              "الأولى: $3-6=-3$ ، الثانية: $-6-0=-6$ ، الثالثة: $12-(-2)=14$",
+              "$3\\vec{\\mathbf{v}}-2\\vec{\\mathbf{w}}=\\langle -3,\\ -6,\\ 14\\rangle$"
             ],
             "wrong": [
               null,
@@ -447,13 +467,15 @@ const unit: Unit = {
           "answer": 0,
           "solution": "المتجهان متوازيان: $\\vec{\\mathbf{u}}=k\\vec{\\mathbf{v}}$ ، من المركبة الثانية: $6=-4k \\Rightarrow k=-\\frac32$\n$a=-\\frac32(2)=-3$ ، و $-3=-\\frac32b \\Rightarrow b=2$ ، إذن $a+b=-1$",
           "explain": {
-            "idea": "التوازي ⟺ أحد المتجهين مضاعف للآخر. نجد المضاعف $k$ من مركبة معلومة في المتجهين.",
+            "idea": "المتجهان متوازيان إذا كان أحدهما مضاعفًا للآخر: $\\vec{\\mathbf{u}}=k\\vec{\\mathbf{v}}$ لعدد حقيقي $k$. نجد $k$ من المركبة المعلومة في المتجهين، ثم نستعمله في المركبتين الأخريين.",
             "steps": [
-              "المتجهان متوازيان إذا كان أحدهما مضاعفًا للآخر: $\\vec{\\mathbf{u}}=k\\vec{\\mathbf{v}}$ لعدد حقيقي $k$",
-              "$\\langle a,6,-3\\rangle=k\\langle 2,-4,b\\rangle$",
-              "المركبة الثانية معلومة في الاثنين: $6=-4k$ ، إذن $k=-\\frac32$",
-              "الأولى: $a=-\\frac32\\times2=-3$",
-              "الثالثة: $-3=-\\frac32b$ ، إذن $b=2$",
+              "## أولًا: إيجاد k",
+              "$\\vec{\\mathbf{u}}=k\\vec{\\mathbf{v}}$: $\\langle a,\\ 6,\\ -3\\rangle=\\langle 2k,\\ -4k,\\ bk\\rangle$",
+              "المركبة الثانية معلومة في الطرفين: $6=-4k \\Rightarrow k=-\\frac32$",
+              "## ثانيًا: a و b",
+              "الأولى: $a=2k=2\\left(-\\frac32\\right)=-3$",
+              "الثالثة: $-3=bk=-\\frac32b \\Rightarrow b=2$",
+              "## ثالثًا: المجموع",
               "$a+b=-3+2=-1$"
             ],
             "wrong": [
@@ -478,12 +500,13 @@ const unit: Unit = {
           "answer": 0,
           "solution": "تقع النقاط على استقامة واحدة إذا توازى $\\overrightarrow{AB}$ و $\\overrightarrow{AC}$: $\\overrightarrow{AB}=\\frac23\\overrightarrow{AC}$ (من المركبتين الأولى والثالثة)\n$a-1=\\frac23(6)=4 \\Rightarrow a=5$",
           "explain": {
-            "idea": "ثلاث نقاط على استقامة واحدة ⟺ $\\overrightarrow{AB}$ و $\\overrightarrow{AC}$ متوازيان (ويشتركان في $A$).",
+            "idea": "تقع ثلاث نقاط على استقامة واحدة إذا كان المتجهان المنطلقان من إحداها إلى الأخريين متوازيين (أحدهما مضاعف للآخر).",
             "steps": [
-              "المتجهان متوازيان إذا كان أحدهما مضاعفًا للآخر: $\\vec{\\mathbf{u}}=k\\vec{\\mathbf{v}}$ لعدد حقيقي $k$",
-              "$\\langle 2,\\ a-1,\\ 4\\rangle=k\\langle 3,6,6\\rangle$",
-              "الأولى: $2=3k$ ، إذن $k=\\frac23$ ، والثالثة تؤكّد: $\\frac23\\times6=4$ ✔",
-              "الثانية: $a-1=\\frac23\\times6=4$ ، إذن $a=5$"
+              "## أولًا: النسبة من المركبتين المعلومتين",
+              "$\\overrightarrow{AB}=k\\overrightarrow{AC}$: الأولى $2=3k \\Rightarrow k=\\frac23$ ، والثالثة $4=6k \\Rightarrow k=\\frac23$ ✔",
+              "## ثانيًا: المركبة الثانية",
+              "$a-1=k\\times6=\\frac23\\times6=4$",
+              "$a=5$"
             ],
             "wrong": [
               null,
@@ -507,16 +530,16 @@ const unit: Unit = {
           "answer": 0,
           "solution": "من الشكل: $P(4,0,0)$ على المحور $x$ ، و $V(0,6,3)$ (فوق $R(0,6,0)$ بارتفاع $3$)\nمنتصف $\\overline{PV}$: $\\left(\\dfrac{4+0}{2},\\ \\dfrac{0+6}{2},\\ \\dfrac{0+3}{2}\\right)=\\left(2,\\,3,\\,\\frac32\\right)$",
           "explain": {
-            "idea": "إحداثيات الرأس $U$ تعطي أبعاد متوازي المستطيلات، ومنها إحداثيات $P$ و $V$ ، ثم المنتصف.",
+            "idea": "نقرأ إحداثيات الرأسين من متوازي المستطيلات (أبعاده من $U$)، ثم نحسب المنتصف.",
             "steps": [
               "## أولًا: الأبعاد",
-              "$U(4,6,3)$: الطول على $x$ يساوي $4$ ، وعلى $y$ يساوي $6$ ، وعلى $z$ يساوي $3$",
+              "$U(4,6,3)$ هو الرأس المقابل للأصل، فالأبعاد: الطول على $x$ يساوي $4$ ، وعلى $y$ يساوي $6$ ، والارتفاع $3$",
               "## ثانيًا: الرأسان",
-              "$P$ على المحور $x$: $P(4,0,0)$",
-              "$V$ فوق $R$ ($R$ على المحور $y$): $V(0,6,3)$",
+              "$P$ على المحور $x$: $P(4,\\,0,\\,0)$",
+              "$V$ فوق $R(0,6,0)$ بارتفاع $3$: $V(0,\\,6,\\,3)$",
               "## ثالثًا: المنتصف",
               "منتصف القطعة بين نقطتين = متوسط إحداثياتهما: $\\left(\\frac{x_1+x_2}{2},\\frac{y_1+y_2}{2},\\frac{z_1+z_2}{2}\\right)$",
-              "$\\left(\\frac{4+0}{2},\\ \\frac{0+6}{2},\\ \\frac{0+3}{2}\\right)=\\left(2,\\ 3,\\ \\frac32\\right)$"
+              "$\\left(\\dfrac{4+0}{2},\\ \\dfrac{0+6}{2},\\ \\dfrac{0+3}{2}\\right)=\\left(2,\\ 3,\\ \\dfrac32\\right)$"
             ],
             "wrong": [
               null,
@@ -541,12 +564,13 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\sqrt{c^2+4+16}=6 \\Rightarrow c^2+20=36 \\Rightarrow c^2=16 \\Rightarrow c=\\pm4$",
           "explain": {
-            "idea": "مربّع المقدار = مجموع مربّعات المركبات ← معادلة في $c^2$ ، ولها حلّان لأن لا شرط على إشارة $c$.",
+            "idea": "نكتب المقدار بدلالة $c$ ونساويه بـ $6$ ، ثم نحلّ (توجد قيمتان).",
             "steps": [
               "مقدار المتجه $\\langle a,b,c\\rangle$ هو $\\sqrt{a^2+b^2+c^2}$",
-              "$\\sqrt{c^2+(-2)^2+4^2}=6$ ، نربّع: $c^2+4+16=36$",
-              "$c^2=36-20=16$ ، إذن $c=\\pm4$",
-              "لا يوجد شرط على إشارة $c$ ، فالقيمتان مقبولتان"
+              "$\\sqrt{c^2+(-2)^2+4^2}=6 \\Rightarrow \\sqrt{c^2+20}=6$",
+              "نربّع: $c^2+20=36 \\Rightarrow c^2=16$",
+              "$c=\\pm4$",
+              "تحقّق: $16+4+16=36$ وجذرها $6$ ✔"
             ],
             "wrong": [
               null,
@@ -570,11 +594,16 @@ const unit: Unit = {
           "answer": 0,
           "solution": "متجه الاتجاه $\\overrightarrow{AB}=\\langle 5-3,\\,2+1,\\,-2-2\\rangle=\\langle 2,\\,3,\\,-4\\rangle$ ، والمستقيم يمرّ بـ $A$:\n$\\vec{\\mathbf{r}}=\\langle 3,-1,2\\rangle+t\\langle 2,3,-4\\rangle$",
           "explain": {
-            "idea": "مستقيم يمرّ بنقطتين ← متجه الاتجاه هو $\\overrightarrow{AB}$ ، والنقطة $A$ (أو $B$).",
+            "idea": "المعادلة المتجهة للمستقيم: $\\vec{\\mathbf{r}}=\\vec{\\mathbf{r}}_0+t\\vec{\\mathbf{v}}$ ، حيث $\\vec{\\mathbf{r}}_0$ متجه موقع نقطة على المستقيم، و $\\vec{\\mathbf{v}}$ متجه اتجاهه. متجه الاتجاه هو المتجه بين النقطتين.",
             "steps": [
-              "المعادلة المتجهة للمستقيم: $\\vec{\\mathbf{r}}=\\vec{\\mathbf{r}}_0+t\\vec{\\mathbf{v}}$ ، حيث $\\vec{\\mathbf{r}}_0$ متجه موقع نقطة على المستقيم، و $\\vec{\\mathbf{v}}$ متجه اتجاهه",
-              "$\\overrightarrow{AB}=\\langle 5-3,\\ 2-(-1),\\ -2-2\\rangle=\\langle 2,3,-4\\rangle$",
-              "$\\vec{\\mathbf{r}}=\\langle 3,-1,2\\rangle+t\\langle 2,3,-4\\rangle$"
+              "## أولًا: الاتجاه",
+              "المتجه من النقطة $A$ إلى النقطة $B$: $\\overrightarrow{AB}=B-A$ (إحداثيات النهاية ناقص إحداثيات البداية)",
+              "$\\overrightarrow{AB}=\\langle 5-3,\\ 2-(-1),\\ -2-2\\rangle=\\langle 2,\\ 3,\\ -4\\rangle$",
+              "## ثانيًا: النقطة",
+              "نأخذ $A(3,-1,2)$",
+              "## ثالثًا: المعادلة",
+              "$\\vec{\\mathbf{r}}=\\langle 3,-1,2\\rangle+t\\langle 2,3,-4\\rangle$",
+              "تحقّق: عند $t=1$ نحصل على $(5,2,-2)$ وهي $B$ ✔"
             ],
             "wrong": [
               null,
@@ -598,18 +627,18 @@ const unit: Unit = {
           "answer": 0,
           "solution": "على المستوى $yz$ يكون $x=0$: $6+3t=0 \\Rightarrow t=-2$",
           "explain": {
-            "idea": "المستوى $yz$ هو المستوى الذي فيه $x=0$ ← نساوي المركبة الأولى بالصفر.",
+            "idea": "المستوى $yz$ هو المستوى الذي فيه $x=0$ ← نساوي الإحداثي $x$ للمستقيم بالصفر.",
             "steps": [
-              "نقاط المستقيم: $(6+3t,\\ -2+t,\\ 5-2t)$",
-              "على المستوى $yz$: $x=0$ ، أي $6+3t=0$ ، إذن $t=-2$"
+              "الإحداثي $x$ لأيّ نقطة على المستقيم: $6+3t$",
+              "على المستوى $yz$: $6+3t=0 \\Rightarrow 3t=-6 \\Rightarrow t=-2$",
+              "النقطة: $\\langle 6-6,\\ -2-2,\\ 5+4\\rangle=(0,\\,-4,\\,9)$ وإحداثيها $x$ صفر ✔"
             ],
             "wrong": [
               null,
               "خطأ إشارة: $3t=-6$.",
               "هذه قيمة $t$ عند $z=0$ ، أي التقاطع مع المستوى $xy$.",
               "تحقّقي: $t=-3$ يعطي $x=-3\\neq0$."
-            ],
-            "tip": "المستوى $xy$: $z=0$ ، المستوى $xz$: $y=0$ ، المستوى $yz$: $x=0$ (الإحداثي الغائب من الاسم يساوي صفرًا)."
+            ]
           }
         },
         {
@@ -626,23 +655,26 @@ const unit: Unit = {
           "answer": 0,
           "solution": "متجها الاتجاه غير متوازيين، فالمستقيمان إمّا متقاطعان أو متخالفان. نساوي الإحداثيات:\n$1+t=2+2s$ ، $t=3-s$ ، $2+t=1+s$\nمن الثانية والثالثة: $2+3-s=1+s \\Rightarrow s=2,\\ t=1$ ، وبالتعويض في الأولى: $2\\ne6$\nلا يوجد حلّ مشترك، إذن المستقيمان متخالفان.",
           "explain": {
-            "idea": "اتجاهان غير متوازيين ← متقاطعان أو متخالفان، فنحلّ معادلات الإحداثيات.",
+            "idea": "العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات).",
             "steps": [
-              "العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات)",
-              "## أولًا: التوازي",
-              "$\\langle 1,1,1\\rangle$ و $\\langle 2,-1,1\\rangle$: لو كان $\\langle 2,-1,1\\rangle=k\\langle 1,1,1\\rangle$ لكانت كل المركبات متساوية، وهذا غير صحيح ← غير متوازيين",
-              "## ثانيًا: البحث عن نقطة مشتركة",
+              "## أولًا: الاتجاهان",
+              "$\\langle 1,1,1\\rangle$ و $\\langle 2,-1,1\\rangle$: النسب $\\frac21\\neq\\frac{-1}{1}$ ، فهما غير متوازيين",
+              "إذن المستقيمان متقاطعان أو متخالفان",
+              "## ثانيًا: نساوي الإحداثيات",
               "$x$: $1+t=2+2s$ ، $y$: $t=3-s$ ، $z$: $2+t=1+s$",
-              "نعوّض $t=3-s$ في $z$: $5-s=1+s$ ، إذن $s=2$ و $t=1$",
-              "نختبر $x$: الطرف الأيسر $1+1=2$ والأيمن $2+4=6$ ، و $2\\neq6$",
-              "لا حلّ مشترك وهما غير متوازيين ← متخالفان"
+              "من $y$ و $z$: نعوّض $t=3-s$ في $z$: $2+3-s=1+s \\Rightarrow 4=2s \\Rightarrow s=2$ ، و $t=1$",
+              "## ثالثًا: التحقّق في المعادلة الباقية",
+              "معادلة $x$: $1+1=2$ ، و $2+2(2)=6$ ، و $2\\neq6$ ✗",
+              "## النتيجة",
+              "لا توجد نقطة مشتركة والاتجاهان غير متوازيين، فالمستقيمان متخالفان"
             ],
             "wrong": [
               null,
               "متجها الاتجاه غير متوازيين.",
               "قيم $t$ و $s$ لا تحقّق المعادلة الثالثة، فلا نقطة مشتركة.",
               "المنطبقان متوازيان، وهذان غير متوازيين."
-            ]
+            ],
+            "tip": "الحالات الأربع: متوازيان (اتجاهان متوازيان ولا نقطة مشتركة)، منطبقان (اتجاهان متوازيان ونقطة مشتركة)، متقاطعان (اتجاهان غير متوازيين ونقطة مشتركة)، متخالفان (اتجاهان غير متوازيين ولا نقطة مشتركة)"
           }
         },
         {
@@ -659,16 +691,17 @@ const unit: Unit = {
           "answer": 0,
           "solution": "نفرض المسقط $Q=(1+t,\\ 2t,\\ 2-t)$ ، فيكون $\\overrightarrow{PQ}=\\langle t-3,\\ 2t-5,\\ -t-1\\rangle$ عموديًّا على $\\langle 1,2,-1\\rangle$:\n$(t-3)+2(2t-5)-(-t-1)=0 \\Rightarrow 6t-12=0 \\Rightarrow t=2$ ، إذن $Q=(3,\\,4,\\,0)$",
           "explain": {
-            "idea": "مسقط العمود من $P$ على مستقيم هو النقطة $Q$ عليه التي تجعل $\\overrightarrow{PQ}$ عموديًّا على متجه اتجاه المستقيم (ضربهما القياسي صفر). نكتب $Q$ بدلالة $t$ ، ونطبّق شرط التعامد.",
+            "idea": "مسقط العمود من $P$ على مستقيم هو النقطة $Q$ عليه التي تجعل $\\overrightarrow{PQ}$ عموديًّا على متجه اتجاه المستقيم (ضربهما القياسي صفر).",
             "steps": [
-              "## أولًا: النقطة العامة",
+              "## أولًا: نقطة عامة على المستقيم",
               "$Q=(1+t,\\ 2t,\\ 2-t)$",
+              "## ثانيًا: المتجه PQ",
               "$\\overrightarrow{PQ}=Q-P=\\langle t-3,\\ 2t-5,\\ -t-1\\rangle$",
-              "## ثانيًا: شرط التعامد",
-              "$\\overrightarrow{PQ}\\cdot\\langle 1,2,-1\\rangle=(t-3)+2(2t-5)-(-t-1)=t-3+4t-10+t+1=6t-12$",
-              "$6t-12=0$ ، إذن $t=2$",
-              "## ثالثًا: المسقط",
-              "$Q=(3,\\ 4,\\ 0)$ ، وتحقّق: $\\overrightarrow{PQ}=\\langle -1,-1,-3\\rangle$ و $-1-2+3=0$ ✔"
+              "## ثالثًا: شرط التعامد",
+              "$\\overrightarrow{PQ}\\cdot\\langle 1,2,-1\\rangle=(t-3)+2(2t-5)-(-t-1)=0$",
+              "$t-3+4t-10+t+1=0 \\Rightarrow 6t-12=0 \\Rightarrow t=2$",
+              "## رابعًا: المسقط",
+              "$Q=(1+2,\\ 4,\\ 2-2)=(3,\\ 4,\\ 0)$"
             ],
             "wrong": [
               null,
@@ -692,10 +725,11 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\vec{\\mathbf{a}}\\cdot\\vec{\\mathbf{b}}=|\\vec{\\mathbf{a}}||\\vec{\\mathbf{b}}|\\cos\\theta=4(5)\\cos120^\\circ=20\\left(-\\frac12\\right)=-10$",
           "explain": {
-            "idea": "معطى المقداران والزاوية ← الصيغة الهندسية للضرب القياسي: $|\\vec{\\mathbf{a}}||\\vec{\\mathbf{b}}|\\cos\\theta$.",
+            "idea": "المعطى المقداران والزاوية ← نستعمل الصيغة الهندسية للضرب القياسي.",
             "steps": [
+              "الضرب القياسي: $\\langle a_1,a_2,a_3\\rangle\\cdot\\langle b_1,b_2,b_3\\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|\\cos\\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا",
               "$\\vec{\\mathbf{a}}\\cdot\\vec{\\mathbf{b}}=|\\vec{\\mathbf{a}}||\\vec{\\mathbf{b}}|\\cos\\theta=4\\times5\\times\\cos120^\\circ$",
-              "$120^\\circ$ في الربع الثاني، وزاوية الإسناد $60^\\circ$ ، و $\\cos$ سالب في الربع الثاني: $\\cos120^\\circ=-\\frac12$",
+              "$120^\\circ$ في الربع الثاني، وزاوية الإسناد $60^\\circ$ ، فـ $\\cos120^\\circ=-\\cos60^\\circ=-\\frac12$",
               "$20\\times\\left(-\\frac12\\right)=-10$"
             ],
             "wrong": [
@@ -720,11 +754,11 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$12=6|\\vec{\\mathbf{b}}|\\cos60^\\circ=3|\\vec{\\mathbf{b}}| \\Rightarrow |\\vec{\\mathbf{b}}|=4$",
           "explain": {
-            "idea": "نعوّض المعطيات في $\\vec{\\mathbf{a}}\\cdot\\vec{\\mathbf{b}}=|\\vec{\\mathbf{a}}||\\vec{\\mathbf{b}}|\\cos\\theta$ ونحلّ لـ $|\\vec{\\mathbf{b}}|$.",
+            "idea": "الصيغة الهندسية للضرب القياسي فيها مجهول واحد $|\\vec{\\mathbf{b}}|$.",
             "steps": [
-              "$12=6\\times|\\vec{\\mathbf{b}}|\\times\\cos60^\\circ$",
-              "$\\cos60^\\circ=\\frac12$ ، فـ $12=6\\times\\frac12\\times|\\vec{\\mathbf{b}}|=3|\\vec{\\mathbf{b}}|$",
-              "$|\\vec{\\mathbf{b}}|=\\frac{12}{3}=4$"
+              "$\\vec{\\mathbf{a}}\\cdot\\vec{\\mathbf{b}}=|\\vec{\\mathbf{a}}||\\vec{\\mathbf{b}}|\\cos\\theta$",
+              "$12=6\\times|\\vec{\\mathbf{b}}|\\times\\cos60^\\circ=6\\times|\\vec{\\mathbf{b}}|\\times\\frac12=3|\\vec{\\mathbf{b}}|$",
+              "$|\\vec{\\mathbf{b}}|=\\dfrac{12}{3}=4$"
             ],
             "wrong": [
               null,
@@ -748,12 +782,13 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\vec{\\mathbf{v}}\\cdot\\vec{\\mathbf{w}}=6-c+2d=0 \\Rightarrow c-2d=6$",
           "explain": {
-            "idea": "التعامد ← الضرب القياسي صفر، فتظهر علاقة بين $c$ و $d$ نرتّبها على صورة المطلوب.",
+            "idea": "التعامد يعطي معادلة واحدة فيها $c$ و $d$ ، ونرتّبها على صورة $c-2d$ دون حاجة لإيجاد كلٍّ منهما.",
             "steps": [
               "الضرب القياسي: $\\langle a_1,a_2,a_3\\rangle\\cdot\\langle b_1,b_2,b_3\\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|\\cos\\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا",
-              "$\\langle 3,c,2\\rangle\\cdot\\langle 2,-1,d\\rangle=6-c+2d$",
-              "$6-c+2d=0$ ، ننقل: $6=c-2d$",
-              "إذن $c-2d=6$"
+              "$\\vec{\\mathbf{v}}=\\langle 3,c,2\\rangle$ ، $\\vec{\\mathbf{w}}=\\langle 2,-1,d\\rangle$",
+              "$\\vec{\\mathbf{v}}\\cdot\\vec{\\mathbf{w}}=3(2)+c(-1)+2(d)=6-c+2d$",
+              "التعامد: $6-c+2d=0$",
+              "ننقل: $6=c-2d$ ، إذن $c-2d=6$"
             ],
             "wrong": [
               null,
@@ -785,10 +820,10 @@ const unit: Unit = {
           "explain": {
             "idea": "منتصف القطعة بين نقطتين = متوسط إحداثياتهما: $\\left(\\frac{x_1+x_2}{2},\\frac{y_1+y_2}{2},\\frac{z_1+z_2}{2}\\right)$.",
             "steps": [
-              "$x$: $\\frac{-2+4}{2}=1$",
-              "$y$: $\\frac{5+(-1)}{2}=2$",
-              "$z$: $\\frac{1+7}{2}=4$",
-              "المنتصف $(1,2,4)$"
+              "$x$: $\\dfrac{-2+4}{2}=\\dfrac22=1$",
+              "$y$: $\\dfrac{5+(-1)}{2}=\\dfrac42=2$",
+              "$z$: $\\dfrac{1+7}{2}=\\dfrac82=4$",
+              "المنتصف $(1,\\ 2,\\ 4)$"
             ],
             "wrong": [
               null,
@@ -812,10 +847,11 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{BA}=A-B=\\langle 3+1,\\,-2-4,\\,5-2\\rangle=\\langle 4,\\,-6,\\,3\\rangle$ (لاحظ الترتيب: نهاية المتجه ناقص بدايته)",
           "explain": {
-            "idea": "$\\overrightarrow{BA}$ يبدأ من $B$ وينتهي عند $A$ ← $A-B$ (النهاية − البداية).",
+            "idea": "المتجه من النقطة $A$ إلى النقطة $B$: $\\overrightarrow{AB}=B-A$ (إحداثيات النهاية ناقص إحداثيات البداية). انتبهي للترتيب: $\\overrightarrow{BA}$ يبدأ من $B$.",
             "steps": [
-              "المتجه من النقطة $A$ إلى النقطة $B$: $\\overrightarrow{AB}=B-A$ (إحداثيات النهاية ناقص إحداثيات البداية)",
-              "$\\overrightarrow{BA}=A-B=\\langle 3-(-1),\\ -2-4,\\ 5-2\\rangle=\\langle 4,\\ -6,\\ 3\\rangle$"
+              "البداية $B(-1,4,2)$ والنهاية $A(3,-2,5)$",
+              "$\\overrightarrow{BA}=A-B=\\langle 3-(-1),\\ -2-4,\\ 5-2\\rangle$",
+              "$\\overrightarrow{BA}=\\langle 4,\\ -6,\\ 3\\rangle$"
             ],
             "wrong": [
               null,
@@ -839,12 +875,15 @@ const unit: Unit = {
           "answer": 0,
           "solution": "في متوازي الأضلاع $\\overrightarrow{AD}=\\overrightarrow{BC}=\\langle -1,\\,3,\\,2\\rangle$\n$D=A+\\overrightarrow{BC}=(2-1,\\ -1+3,\\ 3+2)=(1,\\,2,\\,5)$",
           "explain": {
-            "idea": "في متوازي الأضلاع $ABCD$ (الرؤوس بالترتيب) الضلعان المتقابلان متساويان ومتوازيان: $\\overrightarrow{AD}=\\overrightarrow{BC}$.",
+            "idea": "في متوازي الأضلاع $ABCD$ الضلعان المتقابلان متساويان ومتوازيان: $\\overrightarrow{AD}=\\overrightarrow{BC}$.",
             "steps": [
-              "$\\overrightarrow{BC}=C-B=\\langle 4-5,\\ 4-1,\\ 2-0\\rangle=\\langle -1,3,2\\rangle$",
-              "$D=A+\\overrightarrow{BC}=(2-1,\\ -1+3,\\ 3+2)=(1,2,5)$",
+              "## أولًا: المتجه BC",
+              "$\\overrightarrow{BC}=C-B=\\langle 4-5,\\ 4-1,\\ 2-0\\rangle=\\langle -1,\\ 3,\\ 2\\rangle$",
+              "## ثانيًا: الرأس D",
+              "$\\overrightarrow{AD}=\\overrightarrow{BC} \\Rightarrow D=A+\\overrightarrow{BC}$",
+              "$D=(2-1,\\ -1+3,\\ 3+2)=(1,\\ 2,\\ 5)$",
               "## تحقّق",
-              "القطران ينصّف كلٌّ منهما الآخر: منتصف $\\overline{AC}$ هو $(3,1.5,2.5)$ ، ومنتصف $\\overline{BD}$ هو $\\left(\\frac{5+1}{2},\\frac{1+2}{2},\\frac{0+5}{2}\\right)=(3,1.5,2.5)$ ✔"
+              "منتصف $\\overline{AC}$: $(3,\\frac32,\\frac52)$ ، ومنتصف $\\overline{BD}$: $(3,\\frac32,\\frac52)$ ✔ (القطران ينصّف كلٌّ منهما الآخر)"
             ],
             "wrong": [
               null,
@@ -868,17 +907,18 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{OM}=\\overrightarrow{OC}+\\frac12\\overrightarrow{CB}=3\\vec{\\mathbf{c}}+\\frac12(2\\vec{\\mathbf{a}})=\\vec{\\mathbf{a}}+3\\vec{\\mathbf{c}}$\n$\\overrightarrow{OP}=\\frac23\\overrightarrow{OB}=\\frac23(2\\vec{\\mathbf{a}}+3\\vec{\\mathbf{c}})=\\frac43\\vec{\\mathbf{a}}+2\\vec{\\mathbf{c}}$\n$\\overrightarrow{PM}=\\overrightarrow{OM}-\\overrightarrow{OP}=-\\frac13\\vec{\\mathbf{a}}+\\vec{\\mathbf{c}}$",
           "explain": {
-            "idea": "$\\overrightarrow{PM}=\\overrightarrow{OM}-\\overrightarrow{OP}$ ← نعبّر عن كلٍّ منهما بدلالة $\\vec{\\mathbf{a}}$ و $\\vec{\\mathbf{c}}$.",
+            "idea": "نكتب متجهَي موقع $M$ و $P$ من $O$ ، ثم $\\overrightarrow{PM}=\\overrightarrow{OM}-\\overrightarrow{OP}$.",
             "steps": [
-              "## أولًا: أضلاع متوازي الأضلاع",
-              "$\\overrightarrow{CB}=\\overrightarrow{OA}=2\\vec{\\mathbf{a}}$ (ضلعان متقابلان)",
+              "## أولًا: متجه موقع M",
+              "في متوازي الأضلاع $\\overrightarrow{CB}=\\overrightarrow{OA}=2\\vec{\\mathbf{a}}$",
+              "$\\overrightarrow{OM}=\\overrightarrow{OC}+\\frac12\\overrightarrow{CB}=3\\vec{\\mathbf{c}}+\\vec{\\mathbf{a}}$",
+              "## ثانيًا: متجه موقع P",
               "$\\overrightarrow{OB}=\\overrightarrow{OA}+\\overrightarrow{AB}=2\\vec{\\mathbf{a}}+3\\vec{\\mathbf{c}}$",
-              "## ثانيًا: OM",
-              "$M$ منتصف $\\overline{CB}$: $\\overrightarrow{OM}=\\overrightarrow{OC}+\\frac12\\overrightarrow{CB}=3\\vec{\\mathbf{c}}+\\vec{\\mathbf{a}}$",
-              "## ثالثًا: OP",
-              "$OP:PB=2:1$ ، فـ $OP$ ثلثا $OB$: $\\overrightarrow{OP}=\\frac23(2\\vec{\\mathbf{a}}+3\\vec{\\mathbf{c}})=\\frac43\\vec{\\mathbf{a}}+2\\vec{\\mathbf{c}}$",
-              "## رابعًا: PM",
-              "$\\overrightarrow{PM}=(\\vec{\\mathbf{a}}+3\\vec{\\mathbf{c}})-\\left(\\frac43\\vec{\\mathbf{a}}+2\\vec{\\mathbf{c}}\\right)=-\\frac13\\vec{\\mathbf{a}}+\\vec{\\mathbf{c}}$"
+              "$OP:PB=2:1$ ، فـ $\\overrightarrow{OP}=\\frac23\\overrightarrow{OB}=\\frac43\\vec{\\mathbf{a}}+2\\vec{\\mathbf{c}}$",
+              "## ثالثًا: الطرح",
+              "$\\overrightarrow{PM}=(\\vec{\\mathbf{a}}+3\\vec{\\mathbf{c}})-\\left(\\frac43\\vec{\\mathbf{a}}+2\\vec{\\mathbf{c}}\\right)$",
+              "معامل $\\vec{\\mathbf{a}}$: $1-\\frac43=-\\frac13$ ، ومعامل $\\vec{\\mathbf{c}}$: $3-2=1$",
+              "$\\overrightarrow{PM}=-\\frac13\\vec{\\mathbf{a}}+\\vec{\\mathbf{c}}$"
             ],
             "wrong": [
               null,
@@ -903,13 +943,16 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{PQ}=\\langle 2,\\,h-2,\\,4\\rangle$ ، $\\overrightarrow{PR}=\\langle 3,\\,6,\\,k-3\\rangle$ ، ويجب أن يكون $\\overrightarrow{PQ}=\\frac23\\overrightarrow{PR}$\n$h-2=4 \\Rightarrow h=6$ ، و $4=\\frac23(k-3) \\Rightarrow k=9$ ، إذن $h+k=15$",
           "explain": {
-            "idea": "النقاط على مستقيم واحد ⟺ $\\overrightarrow{PQ}$ مضاعف لـ $\\overrightarrow{PR}$ ، ونجد المضاعف من المركبة الأولى.",
+            "idea": "تقع ثلاث نقاط على استقامة واحدة إذا كان المتجهان المنطلقان من إحداها إلى الأخريين متوازيين (أحدهما مضاعف للآخر).",
             "steps": [
-              "$\\overrightarrow{PQ}=\\langle 2,\\ h-2,\\ 4\\rangle$ ، $\\overrightarrow{PR}=\\langle 3,\\ 6,\\ k-3\\rangle$",
-              "المتجهان متوازيان إذا كان أحدهما مضاعفًا للآخر: $\\vec{\\mathbf{u}}=k\\vec{\\mathbf{v}}$ لعدد حقيقي $k$",
-              "الأولى: $2=3m$ ، إذن $m=\\frac23$",
-              "الثانية: $h-2=\\frac23\\times6=4$ ، إذن $h=6$",
-              "الثالثة: $4=\\frac23(k-3)$ ، إذن $k-3=6$ و $k=9$",
+              "## أولًا: المتجهان",
+              "$\\overrightarrow{PQ}=\\langle 3-1,\\ h-2,\\ 7-3\\rangle=\\langle 2,\\ h-2,\\ 4\\rangle$",
+              "$\\overrightarrow{PR}=\\langle 4-1,\\ 8-2,\\ k-3\\rangle=\\langle 3,\\ 6,\\ k-3\\rangle$",
+              "## ثانيًا: النسبة",
+              "من المركبتين الأوليين المعلومتين: $2=\\frac23\\times3$ ، فـ $\\overrightarrow{PQ}=\\frac23\\overrightarrow{PR}$",
+              "## ثالثًا: المجهولان",
+              "الثانية: $h-2=\\frac23\\times6=4 \\Rightarrow h=6$",
+              "الثالثة: $4=\\frac23(k-3) \\Rightarrow k-3=6 \\Rightarrow k=9$",
               "$h+k=6+9=15$"
             ],
             "wrong": [
@@ -934,12 +977,12 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$y=4-t=1 \\Rightarrow t=3$ ، فالنقطة $(-1+6,\\ 1,\\ 2+9)=(5,\\,1,\\,11)$",
           "explain": {
-            "idea": "نقطة على المستقيم ← نكتب إحداثياتها العامة بدلالة $t$ ، ونستعمل المعلومة المعطاة لإيجاد $t$ ، ثم نعوّض في باقي الإحداثيات. هنا نعرف $y$.",
+            "idea": "نقطة على المستقيم ← نكتب إحداثياتها العامة بدلالة $t$ ، ونستعمل المعلومة المعطاة لإيجاد $t$ ، ثم نعوّض في باقي الإحداثيات.",
             "steps": [
-              "نقاط المستقيم: $(-1+2t,\\ 4-t,\\ 2+3t)$",
-              "$y=1$: $4-t=1$ ، إذن $t=3$",
-              "$x=-1+6=5$ ، $z=2+9=11$",
-              "النقطة $(5,1,11)$"
+              "الإحداثيات العامة: $x=-1+2t$ ، $y=4-t$ ، $z=2+3t$",
+              "$y=1$: $4-t=1 \\Rightarrow t=3$",
+              "$x=-1+2(3)=5$ ، $z=2+3(3)=11$",
+              "النقطة $(5,\\ 1,\\ 11)$"
             ],
             "wrong": [
               null,
@@ -963,11 +1006,11 @@ const unit: Unit = {
           "answer": 0,
           "solution": "المستقيمان المتوازيان لهما متجه الاتجاه نفسه $\\langle 4,-2,1\\rangle$ ، والمستقيم المطلوب يمرّ بالنقطة $(1,-1,2)$",
           "explain": {
-            "idea": "المستقيمان المتوازيان لهما متجه الاتجاه نفسه؛ والنقطة هي النقطة المعطاة.",
+            "idea": "المستقيمان المتوازيان لهما متجه الاتجاه نفسه ← نأخذ اتجاه المستقيم المعطى والنقطة الجديدة.",
             "steps": [
               "المعادلة المتجهة للمستقيم: $\\vec{\\mathbf{r}}=\\vec{\\mathbf{r}}_0+t\\vec{\\mathbf{v}}$ ، حيث $\\vec{\\mathbf{r}}_0$ متجه موقع نقطة على المستقيم، و $\\vec{\\mathbf{v}}$ متجه اتجاهه",
-              "متجه الاتجاه من المستقيم المعطى: $\\langle 4,-2,1\\rangle$ (المضروب في $t$)",
-              "النقطة: $(1,-1,2)$",
+              "الاتجاه من المستقيم المعطى: $\\langle 4,-2,1\\rangle$ (المضروب في $t$)",
+              "النقطة المعطاة: $(1,-1,2)$",
               "$\\vec{\\mathbf{r}}=\\langle 1,-1,2\\rangle+t\\langle 4,-2,1\\rangle$"
             ],
             "wrong": [
@@ -992,20 +1035,23 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\langle -2,-6,4\\rangle=-2\\langle 1,3,-2\\rangle$ ، فمتجها الاتجاه متوازيان.\nالنقطة $(4,5,-4)$ تقع على $\\vec{\\mathbf{r}}_1$ عند $t=2$: $\\langle 2+2,\\,-1+6,\\,0-4\\rangle=\\langle 4,5,-4\\rangle$ ✔\nإذن المستقيمان منطبقان.",
           "explain": {
-            "idea": "اتجاهان متوازيان ← متوازيان أو منطبقان؛ نختبر نقطة من أحدهما على الآخر.",
+            "idea": "العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات).",
             "steps": [
-              "العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات)",
-              "$\\langle -2,-6,4\\rangle=-2\\langle 1,3,-2\\rangle$ ، فالاتجاهان متوازيان",
-              "هل $(4,5,-4)$ على $\\vec{\\mathbf{r}}_1$؟ من $x$: $2+t=4$ ، إذن $t=2$",
-              "$y=-1+3(2)=5$ ✔ ، $z=0-2(2)=-4$ ✔",
-              "النقطة على المستقيمين، فهما منطبقان"
+              "## أولًا: الاتجاهان",
+              "$\\langle -2,-6,4\\rangle=-2\\langle 1,3,-2\\rangle$ ، فهما متوازيان: متوازيان أو منطبقان",
+              "## ثانيًا: نختبر نقطة",
+              "النقطة $(4,5,-4)$ من $\\vec{\\mathbf{r}}_2$: هل تقع على $\\vec{\\mathbf{r}}_1$؟",
+              "$2+t=4 \\Rightarrow t=2$ ، وعندها $y=-1+6=5$ ✔ و $z=0-4=-4$ ✔",
+              "## النتيجة",
+              "النقطة مشتركة والاتجاهان متوازيان، فالمستقيمان منطبقان"
             ],
             "wrong": [
               null,
               "المتوازيان لا يشتركان في أيّ نقطة، وهنا $(4,5,-4)$ مشتركة.",
               "المتقاطعان اتجاهاهما غير متوازيين.",
               "المتخالفان اتجاهاهما غير متوازيين."
-            ]
+            ],
+            "tip": "الحالات الأربع: متوازيان (اتجاهان متوازيان ولا نقطة مشتركة)، منطبقان (اتجاهان متوازيان ونقطة مشتركة)، متقاطعان (اتجاهان غير متوازيين ونقطة مشتركة)، متخالفان (اتجاهان غير متوازيين ولا نقطة مشتركة)"
           }
         },
         {
@@ -1022,13 +1068,17 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$1+2t=-3+s$ ، $-t=-3+2s$ ، $-2+3t=-7+s$\nبطرح الأولى من الثالثة: $-3+t=-4 \\Rightarrow t=-1$ ، ومنه $s=2$ ، وتحقق في الثانية: $1=-3+4$ ✔\nنقطة التقاطع: $\\langle 1,0,-2\\rangle-\\langle 2,-1,3\\rangle=(-1,\\,1,\\,-5)$",
           "explain": {
-            "idea": "نساوي الإحداثيات ونحلّ معادلتين، ثم نتحقّق في الثالثة.",
+            "idea": "نساوي الإحداثيات الثلاثة، نحلّ معادلتين، ونتحقّق في الثالثة، ثم نعوّض لإيجاد النقطة.",
             "steps": [
+              "## أولًا: المعادلات",
               "$x$: $1+2t=-3+s$ ، $y$: $-t=-3+2s$ ، $z$: $-2+3t=-7+s$",
-              "نطرح معادلة $x$ من معادلة $z$ (فيُحذف $s$): $(-2+3t)-(1+2t)=-7-(-3)$ ، أي $-3+t=-4$ ، إذن $t=-1$",
-              "من $x$: $1-2=-3+s$ ، إذن $s=2$",
-              "تحقّق $y$: $-(-1)=1$ و $-3+4=1$ ✔",
-              "النقطة: $(1-2,\\ 0+1,\\ -2-3)=(-1,1,-5)$"
+              "## ثانيًا: الحلّ",
+              "نطرح معادلة $x$ من معادلة $z$ (لحذف $s$): $(-2+3t)-(1+2t)=(-7+s)-(-3+s)$",
+              "$-3+t=-4 \\Rightarrow t=-1$ ، ومن معادلة $x$: $1-2=-3+s \\Rightarrow s=2$",
+              "## ثالثًا: التحقّق",
+              "معادلة $y$: $-(-1)=1$ و $-3+2(2)=1$ ✔",
+              "## رابعًا: النقطة",
+              "$\\langle 1,0,-2\\rangle+(-1)\\langle 2,-1,3\\rangle=(-1,\\ 1,\\ -5)$"
             ],
             "wrong": [
               null,
@@ -1052,10 +1102,11 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\vec{\\mathbf{a}}\\cdot\\vec{\\mathbf{b}}=2(4)+(-3)(1)+1(-2)=8-3-2=3$",
           "explain": {
-            "idea": "الضرب القياسي: نضرب المركبات المتناظرة ونجمع (الناتج عدد لا متجه).",
+            "idea": "الضرب القياسي: $\\langle a_1,a_2,a_3\\rangle\\cdot\\langle b_1,b_2,b_3\\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|\\cos\\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا",
             "steps": [
-              "الضرب القياسي: $\\langle a_1,a_2,a_3\\rangle\\cdot\\langle b_1,b_2,b_3\\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|\\cos\\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا",
-              "$2(4)+(-3)(1)+1(-2)=8-3-2=3$"
+              "نضرب المركبات المتناظرة ونجمع:",
+              "$2(4)=8$ ، $(-3)(1)=-3$ ، $1(-2)=-2$",
+              "$8-3-2=3$"
             ],
             "wrong": [
               null,
@@ -1081,10 +1132,13 @@ const unit: Unit = {
           "explain": {
             "idea": "الزاوية بين متجهين: $\\cos\\theta=\\dfrac{\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}}{|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|}$ ، و $0\\le\\theta\\le\\pi$ (إشارة الضرب القياسي السالبة تعني زاوية منفرجة).",
             "steps": [
-              "الضرب القياسي: $1(0)+(-1)(1)+0(-1)=-1$",
-              "المقداران: $\\sqrt{1+1+0}=\\sqrt2$ و $\\sqrt{0+1+1}=\\sqrt2$",
-              "$\\cos\\theta=\\dfrac{-1}{\\sqrt2\\times\\sqrt2}=-\\frac12$",
-              "جيب التمام سالب ← الزاوية منفرجة، وزاوية الإسناد $\\frac{\\pi}{3}$ ، إذن $\\theta=\\pi-\\frac{\\pi}{3}=\\frac{2\\pi}{3}$"
+              "## الضرب القياسي",
+              "$1(0)+(-1)(1)+0(-1)=-1$",
+              "## المقداران",
+              "$\\sqrt{1+1+0}=\\sqrt2$ و $\\sqrt{0+1+1}=\\sqrt2$",
+              "## الزاوية",
+              "$\\cos\\theta=\\dfrac{-1}{\\sqrt2\\times\\sqrt2}=-\\dfrac12$",
+              "الزاوية منفرجة (جيب التمام سالب)، و $\\cos\\frac{2\\pi}{3}=-\\frac12$ ، إذن $\\theta=\\frac{2\\pi}{3}$"
             ],
             "wrong": [
               null,
@@ -1108,11 +1162,12 @@ const unit: Unit = {
           "answer": 0,
           "solution": "$\\overrightarrow{MP}=\\overrightarrow{MN}+\\overrightarrow{NP}=\\overrightarrow{MN}-\\overrightarrow{PN}=\\langle -2,\\,5,\\,-4\\rangle$\n$\\overrightarrow{MN}\\cdot\\overrightarrow{MP}=-2+20+8=26$",
           "explain": {
-            "idea": "نعبّر عن $\\overrightarrow{MP}$ بالمعطيين: من $M$ إلى $N$ ثم من $N$ إلى $P$ ، و $\\overrightarrow{NP}=-\\overrightarrow{PN}$.",
+            "idea": "نكتب $\\overrightarrow{MP}$ بطريق يمرّ بـ $N$ ، مع الانتباه لاتجاه $\\overrightarrow{PN}$.",
             "steps": [
-              "$\\overrightarrow{NP}=-\\overrightarrow{PN}=\\langle -3,1,-2\\rangle$",
-              "$\\overrightarrow{MP}=\\overrightarrow{MN}+\\overrightarrow{NP}=\\langle 1-3,\\ 4+1,\\ -2-2\\rangle=\\langle -2,5,-4\\rangle$",
-              "الضرب القياسي: $\\langle a_1,a_2,a_3\\rangle\\cdot\\langle b_1,b_2,b_3\\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\\vec{\\mathbf{u}}\\cdot\\vec{\\mathbf{v}}=|\\vec{\\mathbf{u}}||\\vec{\\mathbf{v}}|\\cos\\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا",
+              "## أولًا: المتجه MP",
+              "$\\overrightarrow{MP}=\\overrightarrow{MN}+\\overrightarrow{NP}$ ، و $\\overrightarrow{NP}=-\\overrightarrow{PN}=\\langle -3,\\ 1,\\ -2\\rangle$",
+              "$\\overrightarrow{MP}=\\langle 1-3,\\ 4+1,\\ -2-2\\rangle=\\langle -2,\\ 5,\\ -4\\rangle$",
+              "## ثانيًا: الضرب القياسي",
               "$\\overrightarrow{MN}\\cdot\\overrightarrow{MP}=1(-2)+4(5)+(-2)(-4)=-2+20+8=26$"
             ],
             "wrong": [

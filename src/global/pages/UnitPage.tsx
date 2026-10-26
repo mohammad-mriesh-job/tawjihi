@@ -21,8 +21,6 @@ import { getUnit } from '../data';
 import { bestPercent, storage } from '../lib/storage';
 import { examMinutes, formatMinutes } from '../lib/timing';
 
-const LEVEL = { easy: 'سهل', medium: 'متوسط', hard: 'صعب' } as const;
-
 export default function UnitPage() {
   const { unitId = '' } = useParams();
   const unit = getUnit(unitId);
@@ -73,8 +71,7 @@ export default function UnitPage() {
               const best = bestPercent(exam.id);
               const attempts = storage.attempts(exam.id).length;
               const inProgress = storage.session(exam.id) !== null;
-              const counts = { easy: 0, medium: 0, hard: 0 };
-              exam.questions.forEach((q) => counts[q.difficulty]++);
+              // the difficulty mix is shown only in the review after the exam, not here
               return (
                 <Card key={exam.id}>
                   <CardContent>
@@ -88,11 +85,6 @@ export default function UnitPage() {
                         <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1, mt: 1 }}>
                           <Chip size="small" icon={<QuizOutlinedIcon />} label={`${exam.questions.length} سؤالًا`} />
                           <Chip size="small" icon={<TimerOutlinedIcon />} label={formatMinutes(minutes)} />
-                          {(Object.keys(counts) as (keyof typeof counts)[])
-                            .filter((k) => counts[k])
-                            .map((k) => (
-                              <Chip key={k} size="small" variant="outlined" label={`${LEVEL[k]}: ${counts[k]}`} />
-                            ))}
                         </Stack>
                         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
                           {attempts
@@ -115,8 +107,8 @@ export default function UnitPage() {
               );
             })}
             <Typography variant="body2" color="text.secondary">
-              زمن كل اختبار محسوب حسب حجم أسئلته (سهل 2.5 دقيقة، متوسط 3.5 دقيقة، صعب 5 دقائق)، وهو نفس معدّل الامتحان
-              الوزاري تقريبًا: 50 سؤالًا في 180 دقيقة.
+              زمن كل اختبار محسوب حسب حجم أسئلته، وهو نفس معدّل الامتحان الوزاري تقريبًا: 50 سؤالًا في 180 دقيقة. الدرس
+              ومستوى صعوبة كل سؤال يظهران في المراجعة بعد التسليم، لا أثناء الحل.
             </Typography>
           </Stack>
         </Grid>

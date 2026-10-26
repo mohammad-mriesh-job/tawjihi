@@ -18,6 +18,8 @@ src/
     semester-N/
       index.ts                 the semester's units + mock set
       unit-M/                  uM.py (questions) · explain_uM.py (explanations) · uM.ts (GENERATED) · fig/
+                               (unit-5: exams 5–10 in u5_exams_5_10.py, helpers in u5_helpers.py, explanations split
+                               into explain_u5_e5…e10.py with shared wording in explain_u5_common.py)
       mock-exams/              mock_sN.py (entry) · sN_papers_*.py · sN_helpers.py · explain_sN*.py · sN.ts (GENERATED) · fig/
       previous-ministry/       official past papers (PDF), README.md index, ANALYSIS.md (semester 1)
 ```
@@ -50,6 +52,8 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
   not replayed against the new ones.
 - Do not modify published papers when asked to improve "new" ones (the user's explicit rule: e.g. restyle semester-1
   papers 6–10 only, never 1–5).
+- While a student is solving (unit exams, the comprehensive exam, mock papers) never show the question's lesson or
+  difficulty, nor the difficulty mix of an exam; both belong to the review after submission (the user's explicit rule).
 - Every `.py` file name under `src/` must be unique (explanation files import each other across units; `run.py`
   puts all question-bank folders on one import path and stops on duplicates).
 

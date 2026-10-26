@@ -7,9 +7,15 @@ EXPLAIN = {
 'm10q1': E(
     idea=r"نجعل الطرف الأيمن صفرًا ونقسم على $(x-3)$ ، والتربيعي الناتج معامله الرئيس $2$.",
     steps=[
-        r"$2x^3-3=3x^2+8x \Rightarrow 2x^3-3x^2-8x-3=0$",
+        "## أولًا: تجهيز المعادلة",
+        r"$2x^3-3=3x^2+8x \Rightarrow 2x^3-3x^2-8x-3=0$ ، والمعاملات $2,\ -3,\ -8,\ -3$",
+        FAC + r" والحلّ $x=3$ يعني أن $(x-3)$ عامل.",
+        "## ثانيًا: القسمة التركيبية على (x − 3)",
         SYNTH_HOW + synth(3, [2, -3, -8, -3]),
-        r"$2x^2+3x+1=(2x+1)(x+1)=0 \Rightarrow x=-\frac12,\ x=-1$",
+        r"ناتج القسمة $2x^2+3x+1$ والباقي $0$ ✔",
+        "## ثالثًا: حلّ التربيعي",
+        r"$2\times1=2$ ، وعددان ضربهما $2$ ومجموعهما $3$: $2$ و $1$: $2x^2+2x+x+1=2x(x+1)+(x+1)=(2x+1)(x+1)$",
+        r"$2x+1=0 \Rightarrow x=-\frac12$ ، و $x+1=0 \Rightarrow x=-1$",
     ],
     quick=r"عوّضي $x=-1$: $-2-3=-5$ و $3-8=-5$ ✔.",
     wrong={
@@ -21,9 +27,16 @@ EXPLAIN = {
 'm10q2': E(
     idea=r"$\dfrac{A}{x+2}+\dfrac{B}{(x+2)^2}$ ، و $A$ معامل $x$ ، و $B$ قيمة البسط عند $x=-2$.",
     steps=[
+        "## أولًا: شكل التجزئة",
+        r"العامل المكرّر $(x+2)^2$ له كسران: $\dfrac{A}{x+2}+\dfrac{B}{(x+2)^2}$",
         MULT + r" $5x+2=A(x+2)+B$",
-        r"معامل $x$: $A=5$",
-        r"عند $x=-2$: $-10+2=B \Rightarrow B=-8$",
+        "## ثانيًا: الثابتان",
+        r"عند $x=-2$ (يختفي حدّ $A$): $5(-2)+2=B \Rightarrow B=-8$",
+        r"مقارنة معاملات $x$: $5=A$",
+        "## ثالثًا: التجزئة",
+        r"$\dfrac{5}{x+2}-\dfrac{8}{(x+2)^2}$",
+        "## تحقّق",
+        r"$\dfrac{5(x+2)-8}{(x+2)^2}=\dfrac{5x+2}{(x+2)^2}$ ✔",
     ],
     wrong={
         1: r"إشارة $B$ خاطئة: $5(-2)+2=-8$.",
@@ -34,10 +47,13 @@ EXPLAIN = {
 'm10q3': E(
     idea=r"تساوي الباقيين: $f(-1)=f(3)$.",
     steps=[
+        "## أولًا: الباقيان",
         REM,
-        r"$f(-1)=(-1)^3-2(-1)^2-p+4=-1-2-p+4=1-p$",
-        r"$f(3)=27-18+3p+4=13+3p$",
-        r"$1-p=13+3p \Rightarrow -4p=12 \Rightarrow p=-3$",
+        r"القسمة على $(x+1)$: $f(-1)=(-1)^3-2(-1)^2+p(-1)+4=-1-2-p+4=1-p$",
+        r"القسمة على $(x-3)$: $f(3)=27-2(9)+3p+4=27-18+3p+4=13+3p$",
+        "## ثانيًا: المساواة",
+        r"$1-p=13+3p \Rightarrow 1-13=3p+p \Rightarrow -12=4p \Rightarrow p=-3$",
+        r"تحقّق: $f(-1)=4$ و $f(3)=13-9=4$ ✔",
     ],
     wrong={
         1: r"خطأ إشارة عند القسمة على $-4$.",
@@ -48,8 +64,14 @@ EXPLAIN = {
 'm10q4': E(
     idea=r"$(2x-1)$ عامل يعني أنّ $f\left(\frac12\right)=0$.",
     steps=[
+        "## أولًا: صفر العامل",
         FAC,
-        r"$f\left(\frac12\right)=2\cdot\frac18+k\cdot\frac14-\frac52+2=\frac14+\frac k4-\frac12$",
+        r"$2x-1=0 \Rightarrow x=\frac12$ ، فالشرط $f\left(\frac12\right)=0$",
+        "## ثانيًا: التعويض",
+        r"$\left(\frac12\right)^3=\frac18$ و $\left(\frac12\right)^2=\frac14$",
+        r"$f\left(\frac12\right)=2\left(\frac18\right)+k\left(\frac14\right)-5\left(\frac12\right)+2=\frac14+\frac k4-\frac52+2$",
+        r"$\frac14-\frac52+2=\frac14-\frac12=-\frac14$ ، إذن $f\left(\frac12\right)=\frac k4-\frac14$",
+        "## ثالثًا: المعادلة",
         r"$\frac k4-\frac14=0 \Rightarrow k=1$",
     ],
     wrong={
@@ -61,9 +83,15 @@ EXPLAIN = {
 'm10q5': E(
     idea=r"نجد $\cos\theta$ من $\tan\theta$ ($\sec^2\theta=1+\tan^2\theta$) ، ثم صيغة $\cos\frac{\theta}{2}$ بإشارة ربعها.",
     steps=[
-        r"$\sec^2\theta=1+8=9$ ، وفي الربع الثاني $\sec\theta=-3$ ، أي $\cos\theta=-\frac13$",
-        r"$\frac{\pi}{4}<\frac{\theta}{2}<\frac{\pi}{2}$ (الربع الأول) فجيب التمام موجب",
-        r"$\cos\frac{\theta}{2}=\sqrt{\dfrac{1+\cos\theta}{2}}=\sqrt{\dfrac{2/3}{2}}=\dfrac{1}{\sqrt3}$",
+        "## أولًا: cos θ",
+        r"$\sec^2\theta=1+\tan^2\theta=1+(2\sqrt2)^2=1+8=9 \Rightarrow \sec\theta=\pm3$",
+        r"$\theta$ في الربع الثاني حيث $\cos$ (و $\sec$) سالب: $\sec\theta=-3$ ، فـ $\cos\theta=-\frac13$",
+        "## ثانيًا: ربع نصف الزاوية",
+        r"$\frac{\pi}{2}<\theta<\pi \Rightarrow \frac{\pi}{4}<\frac{\theta}{2}<\frac{\pi}{2}$ (الربع الأول) ، فجيب التمام موجب",
+        "## ثالثًا: القانون",
+        r"$\cos\dfrac{\theta}{2}=\sqrt{\dfrac{1+\cos\theta}{2}}$",
+        r"$1+\cos\theta=1-\frac13=\frac23$ ، و $\dfrac{2/3}{2}=\dfrac13$",
+        r"$\cos\dfrac{\theta}{2}=\sqrt{\dfrac13}=\dfrac{1}{\sqrt3}$",
     ],
     wrong={
         1: r"الإشارة خاطئة: $\frac{\theta}{2}$ في الربع الأول.",
@@ -74,9 +102,12 @@ EXPLAIN = {
 'm10q6': E(
     idea=r"نفكّ الحدّين ونطرح، فيُحذف $\cos x$.",
     steps=[
-        r"$\cos\left(x-\frac{\pi}{6}\right)=\frac{\sqrt3}{2}\cos x+\frac12\sin x$",
-        r"$\cos\left(x+\frac{\pi}{6}\right)=\frac{\sqrt3}{2}\cos x-\frac12\sin x$",
-        r"الفرق: $\sin x$",
+        "## أولًا: فكّ الحدّين",
+        r"$\cos\frac{\pi}{6}=\frac{\sqrt3}{2}$ و $\sin\frac{\pi}{6}=\frac12$",
+        r"$\cos\left(x-\frac{\pi}{6}\right)=\cos x\cos\frac{\pi}{6}+\sin x\sin\frac{\pi}{6}=\frac{\sqrt3}{2}\cos x+\frac12\sin x$",
+        r"$\cos\left(x+\frac{\pi}{6}\right)=\cos x\cos\frac{\pi}{6}-\sin x\sin\frac{\pi}{6}=\frac{\sqrt3}{2}\cos x-\frac12\sin x$",
+        "## ثانيًا: الطرح",
+        r"حدّا $\cos x$ يُحذفان، و $\frac12\sin x-\left(-\frac12\sin x\right)=\sin x$",
     ],
     wrong={
         1: r"حدّا $\cos x$ هما اللذان يُحذفان.",
@@ -87,8 +118,12 @@ EXPLAIN = {
 'm10q7': E(
     idea=r"نوحّد المقامات ونستعمل $\sin^2x+\cos^2x=1$.",
     steps=[
-        r"$\dfrac{\sin x}{\cos x}+\dfrac{\cos x}{\sin x}=\dfrac{\sin^2x+\cos^2x}{\sin x\cos x}=\dfrac{1}{\sin x\cos x}$",
-        r"وبما أنّ $\frac{1}{\cos x}=\sec x$ و $\frac{1}{\sin x}=\csc x$ فالناتج $\sec x\csc x$",
+        "## أولًا: الكتابة بدلالة sin و cos",
+        r"$\tan x+\cot x=\dfrac{\sin x}{\cos x}+\dfrac{\cos x}{\sin x}$",
+        "## ثانيًا: توحيد المقامات",
+        r"$\dfrac{\sin^2x}{\sin x\cos x}+\dfrac{\cos^2x}{\sin x\cos x}=\dfrac{\sin^2x+\cos^2x}{\sin x\cos x}=\dfrac{1}{\sin x\cos x}$",
+        "## ثالثًا: المقلوبات",
+        r"$\dfrac{1}{\sin x\cos x}=\dfrac{1}{\cos x}\times\dfrac{1}{\sin x}=\sec x\csc x$",
     ],
     wrong={
         1: r"الكسر مقلوب.",
@@ -99,8 +134,13 @@ EXPLAIN = {
 'm10q8': E(
     idea=r"$2\sin A\cos B=\sin(A+B)+\sin(A-B)$.",
     steps=[
-        r"$A+B=\frac{6\pi}{12}=\frac{\pi}{2}$ ، $A-B=\frac{4\pi}{12}=\frac{\pi}{3}$",
-        r"$\sin\frac{\pi}{2}+\sin\frac{\pi}{3}=1+\frac{\sqrt3}{2}=\frac{2+\sqrt3}{2}$",
+        "## أولًا: متطابقة الضرب إلى مجموع",
+        r"$2\sin A\cos B=\sin(A+B)+\sin(A-B)$",
+        "## ثانيًا: الزاويتان",
+        r"$A+B=\frac{5\pi}{12}+\frac{\pi}{12}=\frac{6\pi}{12}=\frac{\pi}{2}$",
+        r"$A-B=\frac{4\pi}{12}=\frac{\pi}{3}$",
+        "## ثالثًا: القيمة",
+        r"$\sin\frac{\pi}{2}+\sin\frac{\pi}{3}=1+\frac{\sqrt3}{2}=\frac{2}{2}+\frac{\sqrt3}{2}=\frac{2+\sqrt3}{2}$",
     ],
     wrong={
         1: r"الحدّان يُجمعان: $\sin(A+B)+\sin(A-B)$.",
@@ -111,10 +151,14 @@ EXPLAIN = {
 'm10q9': E(
     idea=r"معادلة تربيعية في $\cos x$ ، نرفض $\cos x=-2$ ، ثم نحدّد أرباع $\cos x$ الموجب.",
     steps=[
+        "## أولًا: التحليل",
+        r"معادلة تربيعية في $\cos x$: $2\cos^2x+4\cos x-\cos x-2=2\cos x(\cos x+2)-(\cos x+2)$",
         r"$(2\cos x-1)(\cos x+2)=0$",
-        r"$\cos x=-2$ مرفوض لأنّ $-1\le\cos x\le1$ ، و $\cos x=\frac12$: زاوية الإسناد $\frac{\pi}{3}$",
-        SIGNS,
-        r"الربع الأول: $\frac{\pi}{3}$ ، الرابع: $2\pi-\frac{\pi}{3}=\frac{5\pi}{3}$",
+        "## ثانيًا: نرفض المستحيل",
+        r"$\cos x=-2$ مرفوض لأن $-1\le\cos x\le1$",
+        r"$\cos x=\frac12$: زاوية الإسناد $\frac{\pi}{3}$",
+        "## ثالثًا: الزوايا",
+        r"$\cos$ موجب في الربعين الأول والرابع: $x=\frac{\pi}{3}$ و $x=2\pi-\frac{\pi}{3}=\frac{5\pi}{3}$",
     ],
     wrong={
         1: r"هذه حلول $\cos x=-\frac12$ (خطأ إشارة في التحليل).",
@@ -125,8 +169,13 @@ EXPLAIN = {
 'm10q10': E(
     idea=r"$\sin2x=\cos2x \Rightarrow \tan2x=1$ ، ونحلّ لـ $2x$ في $[0,2\pi)$ ثم نقسم.",
     steps=[
-        r"$\tan2x=1$: $2x=\frac{\pi}{4}$ أو $2x=\pi+\frac{\pi}{4}=\frac{5\pi}{4}$",
-        r"$x=\frac{\pi}{8},\ \frac{5\pi}{8}$",
+        "## أولًا: التحويل إلى ظل",
+        r"$\sin2x=\cos2x$ ، نقسم على $\cos2x$ (لا يساوي صفرًا هنا، وإلا لكان $\sin2x=0$ أيضًا وهذا مستحيل معًا): $\tan2x=1$",
+        "## ثانيًا: فترة 2x",
+        r"$0\le x<\pi \Rightarrow 0\le2x<2\pi$",
+        r"$\tan$ موجب في الربعين الأول والثالث، وزاوية الإسناد $\frac{\pi}{4}$: $2x=\frac{\pi}{4}$ أو $2x=\pi+\frac{\pi}{4}=\frac{5\pi}{4}$",
+        "## ثالثًا: القسمة على 2",
+        r"$x=\frac{\pi}{8}$ و $x=\frac{5\pi}{8}$",
     ],
     wrong={
         1: r"هذه قيم $2x$ ولم تُقسم على $2$.",
@@ -137,9 +186,12 @@ EXPLAIN = {
 'm10q11': E(
     idea=DER,
     steps=[
-        r"$f'(x)=-3\sin(x-\pi)+\dfrac{2x}{2\pi}=-3\sin(x-\pi)+\dfrac{x}{\pi}$",
-        r"$\sin\left(\frac{\pi}{2}-\pi\right)=\sin\left(-\frac{\pi}{2}\right)=-1$",
-        r"$f'\left(\frac{\pi}{2}\right)=3+\frac12=\frac72$",
+        "## أولًا: المشتقة",
+        r"$\left(\cos(x-\pi)\right)'=-\sin(x-\pi)$ ، و $\left(\dfrac{x^2}{2\pi}\right)'=\dfrac{2x}{2\pi}=\dfrac{x}{\pi}$",
+        r"$f'(x)=-3\sin(x-\pi)+\dfrac{x}{\pi}$",
+        "## ثانيًا: التعويض x = π/2",
+        r"$\frac{\pi}{2}-\pi=-\frac{\pi}{2}$ ، و $\sin\left(-\frac{\pi}{2}\right)=-1$",
+        r"$f'\left(\frac{\pi}{2}\right)=-3(-1)+\dfrac{\pi/2}{\pi}=3+\frac12=\frac72$",
     ],
     wrong={
         1: r"مشتقة $\cos$ هي $-\sin$ ؛ أُخذت موجبة: $-3+\frac12$.",
@@ -150,8 +202,12 @@ EXPLAIN = {
 'm10q12': E(
     idea=r"$\left(3^{u}\right)'=3^u\ln3\cdot u'$ ، ونساوي بالمعطى.",
     steps=[
-        r"$f'(a)=3^{2a-1}\ln3\cdot2=6\ln3$",
-        r"$3^{2a-1}=3=3^1 \Rightarrow 2a-1=1 \Rightarrow a=1$",
+        "## أولًا: المشتقة",
+        r"$\left(3^{u}\right)'=3^u\ln3\cdot u'$ ، و $u=2x-1$ فـ $u'=2$",
+        r"$f'(x)=2\cdot3^{2x-1}\ln3$",
+        "## ثانيًا: المعادلة",
+        r"$2\cdot3^{2a-1}\ln3=6\ln3$ ، نقسم على $2\ln3$: $3^{2a-1}=3=3^1$",
+        r"الأساسان متساويان، فالأسّان متساويان: $2a-1=1 \Rightarrow a=1$",
     ],
     wrong={
         1: r"بالتعويض: $f'(0)=2\ln3\cdot3^{-1}=\frac23\ln3\ne6\ln3$.",
@@ -162,8 +218,14 @@ EXPLAIN = {
 'm10q13': E(
     idea=r"نجد اللحظة التي يعود فيها الموقع إلى $s(0)$ ، ثم نعوّضها في $v(t)$.",
     steps=[
-        r"$s(0)=5$ ، و $t^3-6t^2+5=5 \Rightarrow t^2(t-6)=0 \Rightarrow t=6$",
-        r"$v(t)=3t^2-12t$ ، $v(6)=108-72=36\ \text{m/s}$",
+        "## أولًا: الموقع الابتدائي",
+        r"$s(0)=0-0+5=5$",
+        "## ثانيًا: متى يعود إليه؟",
+        r"$t^3-6t^2+5=5 \Rightarrow t^3-6t^2=0 \Rightarrow t^2(t-6)=0$",
+        r"$t=0$ (لحظة الانطلاق) أو $t=6$ ، فالعودة عند $t=6$",
+        "## ثالثًا: السرعة عندها",
+        r"$v(t)=s'(t)=3t^2-12t$",
+        r"$v(6)=3(36)-12(6)=108-72=36\ \text{m/s}$",
     ],
     wrong={
         1: r"هذه سرعة الانطلاق $v(0)$ ، لا لحظة العودة.",
@@ -174,10 +236,14 @@ EXPLAIN = {
 'm10q14': E(
     idea=r"مشتقة $\sec x\tan x$ بقاعدة الضرب، و $\pi^2$ ثابت.",
     steps=[
-        r"$f'(x)=\sec x\tan x$",
+        "## أولًا: المشتقة الأولى",
+        r"$\pi^2$ عدد ثابت مشتقته صفر، و $(\sec x)'=\sec x\tan x$: $f'(x)=\sec x\tan x$",
+        "## ثانيًا: المشتقة الثانية بقاعدة الضرب",
         PROD,
-        r"$f''(x)=\sec x\tan x\cdot\tan x+\sec x\cdot\sec^2x=\sec x\tan^2x+\sec^3x$",
-        r"$\sec\frac{\pi}{3}=2$ ، $\tan^2\frac{\pi}{3}=3$: $f''=2(3)+8=14$",
+        r"$f''(x)=(\sec x\tan x)\tan x+\sec x(\sec^2x)=\sec x\tan^2x+\sec^3x$",
+        "## ثالثًا: التعويض x = π/3",
+        r"$\sec\frac{\pi}{3}=2$ و $\tan\frac{\pi}{3}=\sqrt3$ فـ $\tan^2\frac{\pi}{3}=3$",
+        r"$f''\left(\frac{\pi}{3}\right)=2(3)+2^3=6+8=14$",
     ],
     wrong={
         1: r"هذا الحدّ الأول وحده ($\sec x\tan^2x=6$).",
@@ -188,9 +254,13 @@ EXPLAIN = {
 'm10q15': E(
     idea=r"$\dfrac{dy}{dt}=\dfrac{dy}{dx}\cdot\dfrac{dx}{dt}$ (قاعدة السلسلة).",
     steps=[
-        r"$y=12(1+\sqrt x)^{-1} \Rightarrow \dfrac{dy}{dx}=-12(1+\sqrt x)^{-2}\cdot\dfrac{1}{2\sqrt x}$",
-        r"عند $x=4$: $-\dfrac{12}{9}\cdot\dfrac14=-\dfrac13$",
-        r"$\dfrac{dy}{dt}=-\dfrac13\cdot3=-1\ \text{cm/s}$",
+        "## القاعدة",
+        r"$\dfrac{dy}{dt}=\dfrac{dy}{dx}\cdot\dfrac{dx}{dt}$",
+        "## أولًا: dy/dx",
+        r"$y=12(1+\sqrt x)^{-1}$ ، وبالسلسلة: $\dfrac{dy}{dx}=-12(1+\sqrt x)^{-2}\times\dfrac{1}{2\sqrt x}$",
+        r"عند $x=4$: $\sqrt4=2$ ، فـ $\dfrac{dy}{dx}=-\dfrac{12}{(3)^2}\times\dfrac{1}{4}=-\dfrac{12}{36}=-\dfrac13$",
+        "## ثانيًا: المعدّل",
+        r"$\dfrac{dy}{dt}=-\dfrac13\times3=-1\ \text{cm/s}$",
     ],
     wrong={
         1: r"إشارة خاطئة؛ $y$ يتناقص كلّما زاد $x$.",
@@ -201,9 +271,13 @@ EXPLAIN = {
 'm10q16': E(
     idea=r"$\left(\dfrac{4}{g}\right)'=-\dfrac{4g'}{g^2}$ ، والقيم من الشكل.",
     steps=[
-        r"$f$ من $(0,2)$ إلى $(4,4)$: $f'(2)=\frac12$",
-        r"$g$ من $(0,1)$ إلى $(3,4)$: $g'(2)=1$ ، $g(2)=3$",
-        r"$u'(2)=\frac12-\frac{4(1)}{9}=\frac{1}{18}$",
+        "## أولًا: من الشكل",
+        r"$f$ من $(0,2)$ إلى $(4,4)$: ميلها $\frac{4-2}{4}=\frac12$ ، فـ $f'(2)=\frac12$",
+        r"$g$ من $(0,1)$ إلى $(3,4)$: ميلها $\frac{4-1}{3}=1$ ، فـ $g'(2)=1$ ، و $g(2)=1+2=3$",
+        "## ثانيًا: مشتقة 4/g",
+        r"$\dfrac4g=4g^{-1}$ ، فمشتقته $-4g^{-2}g'=-\dfrac{4g'}{g^2}$",
+        "## ثالثًا: التعويض",
+        r"$u'(2)=f'(2)-\dfrac{4g'(2)}{g(2)^2}=\frac12-\dfrac{4(1)}{9}=\frac{9}{18}-\frac{8}{18}=\frac{1}{18}$",
     ],
     wrong={
         1: r"مشتقة $\frac4g$ سالبة: $-\dfrac{4g'}{g^2}$.",
@@ -214,8 +288,12 @@ EXPLAIN = {
 'm10q17': E(
     idea=r"$\left(e^u\right)'=e^u\cdot u'$ مع $u=x^{\frac23}$.",
     steps=[
-        r"$u'=\frac23x^{-\frac13}=\dfrac{2}{3\sqrt[3]{x}}$",
-        r"$f'(x)=\dfrac{2}{3\sqrt[3]{x}}e^{\sqrt[3]{x^2}}$",
+        "## أولًا: الأس",
+        r"$\sqrt[3]{x^2}=x^{\frac23}$ ، فـ $f(x)=e^{u}$ حيث $u=x^{\frac23}$",
+        "## ثانيًا: مشتقة الأس",
+        r"$u'=\frac23x^{\frac23-1}=\frac23x^{-\frac13}=\dfrac{2}{3\sqrt[3]{x}}$",
+        "## ثالثًا: السلسلة",
+        r"$\left(e^u\right)'=e^u\cdot u'$ ، إذن $f'(x)=\dfrac{2}{3\sqrt[3]{x}}e^{\sqrt[3]{x^2}}$",
     ],
     wrong={
         1: r"المعامل $\frac23$ (الأس) لا $\frac32$.",
@@ -226,7 +304,13 @@ EXPLAIN = {
 'm10q18': E(
     idea=CHAIN,
     steps=[
-        r"$\left(\sin(\pi x^2)\right)'=\cos(\pi x^2)\cdot2\pi x$",
+        "## أولًا: الحدّ الأول",
+        r"$(3x)'=3$",
+        "## ثانيًا: الحدّ الثاني بالسلسلة",
+        CHAIN,
+        r"الخارجي $\sin$ مشتقته $\cos(\pi x^2)$ ، والداخلي $\pi x^2$ مشتقته $2\pi x$",
+        r"$\left(\sin(\pi x^2)\right)'=\cos(\pi x^2)\times2\pi x$",
+        "## المجموع",
         r"$f'(x)=3+2\pi x\cos(\pi x^2)$",
     ],
     wrong={
@@ -238,8 +322,13 @@ EXPLAIN = {
 'm10q19': E(
     idea=PARAM,
     steps=[
-        r"$\dfrac{dy}{dt}=e^t-1$ ، $\dfrac{dx}{dt}=2e^{2t}$",
-        r"عند $t=\ln2$: $e^t=2$ ، $e^{2t}=4$: $\dfrac{dy}{dt}=1$ ، $\dfrac{dx}{dt}=8$",
+        "## القاعدة",
+        PARAM,
+        "## المشتقتان",
+        r"$y=e^t-t \Rightarrow \dfrac{dy}{dt}=e^t-1$ ، و $x=e^{2t} \Rightarrow \dfrac{dx}{dt}=2e^{2t}$",
+        "## التعويض t = ln 2",
+        r"$e^{\ln2}=2$ و $e^{2\ln2}=e^{\ln4}=4$",
+        r"$\dfrac{dy}{dt}=2-1=1$ ، و $\dfrac{dx}{dt}=2(4)=8$",
         r"$\dfrac{dy}{dx}=\dfrac18$",
     ],
     wrong={
@@ -251,9 +340,14 @@ EXPLAIN = {
 'm10q20': E(
     idea=r"نجد $x$ من $y=0$ ، ثم نشتق ضمنيًّا (قاعدة الضرب في $xe^y$).",
     steps=[
-        r"$y=0$: $x\cdot1+0=2x-1 \Rightarrow x=1$",
+        "## أولًا: النقطة",
+        r"عند $y=0$: $x\cdot e^0+0=2x-1 \Rightarrow x=2x-1 \Rightarrow x=1$ ، فالنقطة $(1,0)$",
+        "## ثانيًا: الاشتقاق الضمني",
         IMPL,
-        r"$e^y+xe^y\dfrac{dy}{dx}+\dfrac{dy}{dx}=2$ ، وعند $(1,0)$: $1+y'+y'=2 \Rightarrow y'=\frac12$",
+        r"$xe^y$ حاصل ضرب: $(1)e^y+x\cdot e^y\dfrac{dy}{dx}$",
+        r"$e^y+xe^y\dfrac{dy}{dx}+\dfrac{dy}{dx}=2$",
+        "## ثالثًا: التعويض (1, 0)",
+        r"$1+y'+y'=2 \Rightarrow 2y'=1 \Rightarrow y'=\frac12$",
     ],
     wrong={
         1: r"نُسي الحدّ $xe^y\dfrac{dy}{dx}$: $1+y'=2$.",
@@ -264,8 +358,12 @@ EXPLAIN = {
 'm10q21': E(
     idea=r"$\ln y=x\ln(\sin x)$ ، ثم قاعدة الضرب.",
     steps=[
-        r"$\dfrac{d}{dx}(\ln y)=1\cdot\ln(\sin x)+x\cdot\dfrac{\cos x}{\sin x}$",
-        r"أي $\ln(\sin x)+x\cot x$",
+        "## أولًا: نأخذ ln",
+        r"$\ln y=\ln(\sin x)^x=x\ln(\sin x)$",
+        "## ثانيًا: قاعدة الضرب",
+        PROD,
+        r"$u=x \Rightarrow u'=1$ ، و $v=\ln(\sin x) \Rightarrow v'=\dfrac{\cos x}{\sin x}=\cot x$",
+        r"$\dfrac{d}{dx}(\ln y)=1\cdot\ln(\sin x)+x\cot x$",
     ],
     wrong={
         1: r"مشتقة $\sin x$ هي $+\cos x$.",
@@ -277,8 +375,13 @@ EXPLAIN = {
     idea=r"مساحة المثلث $\frac12ab\sin\theta$ ، ثم نشتق بالنسبة إلى $t$.",
     steps=[
         RATES,
-        r"$A=\frac12(8)(8)\sin\theta=32\sin\theta$",
-        r"$\dfrac{dA}{dt}=32\cos\theta\dfrac{d\theta}{dt}=32\cdot\dfrac{\sqrt3}{2}\cdot\dfrac{\pi}{90}=\dfrac{8\sqrt3\pi}{45}$",
+        "## أولًا: العلاقة",
+        r"مساحة المثلث بمعلومية ضلعين والزاوية بينهما: $A=\frac12ab\sin\theta=\frac12(8)(8)\sin\theta=32\sin\theta$",
+        "## ثانيًا: الاشتقاق",
+        r"$\dfrac{dA}{dt}=32\cos\theta\dfrac{d\theta}{dt}$",
+        "## ثالثًا: التعويض",
+        r"$\cos\frac{\pi}{6}=\frac{\sqrt3}{2}$ ، و $\dfrac{d\theta}{dt}=\dfrac{\pi}{90}$",
+        r"$\dfrac{dA}{dt}=32\times\dfrac{\sqrt3}{2}\times\dfrac{\pi}{90}=\dfrac{16\sqrt3\pi}{90}=\dfrac{8\sqrt3\pi}{45}\ \text{cm}^2/\text{min}$",
     ],
     wrong={
         1: r"استُعمل $\sin\theta$ بدل مشتقته $\cos\theta$.",
@@ -289,8 +392,13 @@ EXPLAIN = {
 'm10q23': E(
     idea=r"$\text{Arg}(\bar z)=-\text{Arg}(z)$ ، ثم $z=r(\cos\theta+i\sin\theta)$.",
     steps=[
-        r"$\text{Arg}(z)=\frac{\pi}{6}$",
-        r"$z=6\cos\frac{\pi}{6}+6i\sin\frac{\pi}{6}=3\sqrt3+3i$",
+        "## أولًا: سعة z",
+        r"المرافق انعكاس حول المحور الحقيقي، فسعته سالب سعة العدد: $\text{Arg}(z)=-\text{Arg}(\bar z)=\frac{\pi}{6}$",
+        "## ثانيًا: الصورة المثلثية",
+        r"$z=6\left(\cos\frac{\pi}{6}+i\sin\frac{\pi}{6}\right)$",
+        "## ثالثًا: الصورة القياسية",
+        r"$6\cos\frac{\pi}{6}=6\times\frac{\sqrt3}{2}=3\sqrt3$ ، و $6\sin\frac{\pi}{6}=6\times\frac12=3$",
+        r"$z=3\sqrt3+3i$",
     ],
     wrong={
         1: r"هذا $\bar z$ (استُعملت سعة $\bar z$ مباشرة).",
@@ -301,7 +409,13 @@ EXPLAIN = {
 'm10q24': E(
     idea=r"المقام تخيّلي بحت، فنضرب البسط والمقام في $i$.",
     steps=[
-        r"$\dfrac{(2+6i)i}{-2i\cdot i}=\dfrac{2i+6i^2}{-2i^2}=\dfrac{-6+2i}{2}=-3+i$",
+        "## أولًا: الضرب في i",
+        r"المقام $-2i$ تخيلي بحت، فنضرب البسط والمقام في $i$ ليصبح المقام حقيقيًّا",
+        r"المقام: $-2i\times i=-2i^2=2$",
+        "## ثانيًا: البسط",
+        r"$(2+6i)i=2i+6i^2=-6+2i$",
+        "## ثالثًا: القسمة",
+        r"$\dfrac{-6+2i}{2}=-3+i$",
     ],
     wrong={
         1: r"إشارة المقام: $-2i^2=+2$.",
@@ -312,8 +426,11 @@ EXPLAIN = {
 'm10q25': E(
     idea=r"$|z^2|=|z|^2$.",
     steps=[
+        "## الخاصية",
+        r"$|z^2|=|z|^2$ (مقياس القوة = قوة المقياس)",
         MOD,
-        r"$|z|^2=4+36=40$",
+        r"$|z|^2=2^2+6^2=4+36=40$",
+        r"لا حاجة لأخذ الجذر ثم التربيع",
     ],
     wrong={
         1: r"هذا $|z|$ نفسه.",
@@ -324,9 +441,13 @@ EXPLAIN = {
 'm10q26': E(
     idea=IPOW,
     steps=[
-        r"$35=4(8)+3 \Rightarrow i^{35}=i^3=-i$",
-        r"$\sqrt{-18}=\sqrt{18}\,i=3\sqrt2\,i$",
-        r"$(-i)(3\sqrt2\,i)=-3\sqrt2\,i^2=3\sqrt2$",
+        "## أولًا: قوة i",
+        IPOW,
+        r"$35=4(8)+3$ ، فالباقي $3$: $i^{35}=i^3=-i$",
+        "## ثانيًا: الجذر التربيعي لعدد سالب",
+        r"$\sqrt{-18}=\sqrt{18}\times\sqrt{-1}=3\sqrt2\,i$",
+        "## ثالثًا: الضرب",
+        r"$(-i)(3\sqrt2\,i)=-3\sqrt2\,i^2=-3\sqrt2(-1)=3\sqrt2$",
     ],
     wrong={
         1: r"أُخذ $i^{35}=i$.",
@@ -337,8 +458,12 @@ EXPLAIN = {
 'm10q27': E(
     idea=r"نربّع ثم نضرب، مع $i^2=-1$.",
     steps=[
-        r"$(1+2i)^2=1+4i+4i^2=-3+4i$",
-        r"$(-3+4i)(1+2i)=-3-6i+4i+8i^2=-11-2i$",
+        "## أولًا: المربّع",
+        r"$(1+2i)^2=1+4i+4i^2=1+4i-4=-3+4i$",
+        "## ثانيًا: الضرب مرة ثالثة",
+        r"$(-3+4i)(1+2i)=-3-6i+4i+8i^2$",
+        r"$8i^2=-8$ ، والحقيقي $-3-8=-11$ ، والتخيلي $-6i+4i=-2i$",
+        r"$(1+2i)^3=-11-2i$",
     ],
     wrong={
         1: r"أُخذ $i^2=1$ و $i^3=i$.",
@@ -349,8 +474,11 @@ EXPLAIN = {
 'm10q28': E(
     idea=MOD,
     steps=[
-        r"$\left(\dfrac4k\right)^2+(\sqrt5)^2=9 \Rightarrow \dfrac{16}{k^2}=4 \Rightarrow k^2=4$",
-        r"$k>0 \Rightarrow k=2$",
+        "## المقياس",
+        MOD,
+        r"$\sqrt{\left(\dfrac4k\right)^2+(\sqrt5)^2}=3$ ، نربّع: $\dfrac{16}{k^2}+5=9$",
+        r"$\dfrac{16}{k^2}=4 \Rightarrow k^2=4 \Rightarrow k=\pm2$",
+        r"الشرط $k>0$ يعطي $k=2$",
     ],
     wrong={
         1: r"بالتعويض: $1+5=6\ne9$.",
@@ -361,8 +489,11 @@ EXPLAIN = {
 'm10q29': E(
     idea=CONJ,
     steps=[
-        r"من الشكل: $z=-2-i$",
-        r"$\bar z=-2+i$",
+        "## أولًا: قراءة الشكل",
+        r"النقطة الممثّلة لـ $z$ هي $(-2,-1)$ ، أي $z=-2-i$",
+        "## ثانيًا: المرافق",
+        CONJ,
+        r"$\bar z=-2+i$ (نغيّر إشارة الجزء التخيلي فقط)",
     ],
     wrong={
         1: r"هذا $-\bar z$: غُيّرت إشارة الجزء الحقيقي أيضًا.",
@@ -373,10 +504,13 @@ EXPLAIN = {
 'm10q30': E(
     idea=r"نقرأ المركز ونصف القطر، ونكتب $|z-z_0|\le r$ لأنّ الدائرة متصلة والداخل مظلّل.",
     steps=[
-        CIRCLE,
-        r"المركز $(-2,1)$ ، نصف القطر $2$",
+        "## أولًا: قراءة الدائرة",
+        r"المركز $(-2,1)$ يمثّل $-2+i$ ، ونصف القطر $2$",
+        "## ثانيًا: الكتابة",
         FORM,
-        r"$|z+2-i|\le2$",
+        r"$|z-(-2+i)|=|z+2-i|$",
+        "## ثالثًا: نوع المنطقة",
+        r"الداخل مظلّل والدائرة متصلة: $|z+2-i|\le2$",
     ],
     wrong={
         1: r"إشارتا المركز معكوستان.",
