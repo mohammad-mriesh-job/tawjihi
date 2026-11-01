@@ -20,8 +20,8 @@ src/
       unit-M/                  uM.py (questions) · explain_uM.py (explanations) · uM.ts (GENERATED) · fig/
                                (unit-5: exams 5–10 in u5_exams_5_10.py, helpers in u5_helpers.py, explanations split
                                into explain_u5_e5…e10.py with shared wording in explain_u5_common.py;
-                               unit-6 the same: exams 4–8 in u6_exams_4_8.py, helpers and figure drawers in
-                               u6_helpers.py, explain_u6_e4…e8.py + explain_u6_common.py)
+                               units 6 and 7 the same: exams 4–8 in uN_exams_4_8.py, helpers and figure
+                               drawers in uN_helpers.py, explain_uN_e4…e8.py + explain_uN_common.py)
       mock-exams/              mock_sN.py (entry) · sN_papers_*.py · sN_helpers.py · explain_sN*.py · sN.ts (GENERATED) · fig/
       previous-ministry/       official past papers (PDF), README.md index, ANALYSIS.md (semester 1)
 ```

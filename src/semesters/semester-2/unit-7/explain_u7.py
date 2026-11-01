@@ -1,14 +1,8 @@
 """Teaching explanations for unit 7 (attached by build() in qb.py).
-wrong: {original option index: reason}; option 0 is the correct one as written in u7.py."""
+wrong: {original option index: reason}; option 0 is the correct one as written in u7.py.
+Exams 1-3 are here; exams 4-8 live in explain_u7_e4 ... explain_u7_e8 and are merged at the end."""
 from explain_common import E
-
-GEO = r"التوزيع الهندسي $X\sim Geo(p)$: $X$ رقم المحاولة التي يحدث فيها أول نجاح، و $P(X=x)=(1-p)^{x-1}p$ (أي $x-1$ مرات فشل ثم نجاح)، والتوقّع $E(X)=\dfrac1p$"
-BIN = r"توزيع ذي الحدين $X\sim B(n,p)$: $P(X=x)=\binom nx p^x(1-p)^{n-x}$ ، والتوقّع $E(X)=np$ ، والتباين $\text{Var}(X)=np(1-p)$"
-STD = r"التحويل إلى المتغيّر المعياري: $z=\dfrac{x-\mu}{\sigma}$ ، وفي $N(\mu,\sigma^2)$ العدد الثاني هو **التباين**، فالانحراف المعياري جذره"
-SYM = r"خصائص المنحنى المعياري (متماثل حول $0$ ، ومساحته الكلية $1$): $P(Z>a)=1-P(Z<a)$ ، و $P(Z<-a)=1-P(Z<a)$ ، و $P(a<Z<b)=P(Z<b)-P(Z<a)$"
-TABLE = r"الجدول يعطي دائمًا المساحة على **يسار** قيمة موجبة: $P(Z<z)$. أيّ شيء آخر (يمين، أو قيمة سالبة، أو بين قيمتين) نحوّله إلى هذه الصورة."
-EMP = r"القاعدة التجريبية للتوزيع الطبيعي: نحو $68\%$ من القيم ضمن انحراف معياري واحد من الوسط، ونحو $95\%$ ضمن انحرافين، ونحو $99.7\%$ ضمن ثلاثة"
-SYMINT = r"لفترة متماثلة حول الصفر: $P(-c<Z<c)=P(Z<c)-P(Z<-c)=P(Z<c)-\big(1-P(Z<c)\big)=2P(Z<c)-1$"
+from explain_u7_common import *
 
 EXPLAIN = {
 # ============================================================ الاختبار الأول
@@ -674,3 +668,12 @@ EXPLAIN = {
     },
 ),
 }
+
+from explain_u7_e4 import EXPLAIN as _X4
+from explain_u7_e5 import EXPLAIN as _X5
+from explain_u7_e6 import EXPLAIN as _X6
+from explain_u7_e7 import EXPLAIN as _X7
+from explain_u7_e8 import EXPLAIN as _X8
+for _part in (_X4, _X5, _X6, _X7, _X8):
+    assert not set(_part) & set(EXPLAIN), set(_part) & set(EXPLAIN)
+    EXPLAIN.update(_part)

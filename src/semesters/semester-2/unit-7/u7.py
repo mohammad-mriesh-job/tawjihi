@@ -1,47 +1,10 @@
 from qb import *
+from u7_helpers import *
 
 L1, L2 = 'u7-l1', 'u7-l2'
 meta = dict(id='u7', number=7, semester=2, title='الإحصاء والاحتمالات',
     description='التوزيع الهندسي وتوزيع ذي الحدّين: الاحتمالات والتوقّع والتباين، والتوزيع الطبيعي والتوزيع الطبيعي المعياري واستعمال جدوله.',
     lessons=[dict(id=L1, title='التوزيع الهندسي وتوزيع ذي الحدَّين'), dict(id=L2, title='التوزيع الطبيعي')])
-R = Rational
-
-def Phi4(z0):
-    """standard normal CDF rounded to 4 decimals, exactly as printed in the ministry table"""
-    z0 = nsimplify(z0)
-    val = N((1 + erf(z0/sqrt(2)))/2, 30)
-    return R(str(round(float(val), 4)))
-def Ph(z0):
-    z0 = nsimplify(z0)
-    return Phi4(z0) if z0 >= 0 else 1 - Phi4(-z0)
-def ztable(*zs):
-    zs = sorted({nsimplify(q_) for q_ in zs})
-    head = ' & '.join(f'{float(q_):g}' for q_ in zs)
-    row = ' & '.join(f'{float(Phi4(q_)):.4f}' for q_ in zs)
-    return ("\n" r"يمكنك الاستفادة من الجدول الآتي الذي يُمثّل بعضًا من قيم جدول التوزيع الطبيعي المعياري:" "\n"
-            r"$$\begin{array}{|c|" + 'c|'*len(zs) + r"}\hline z & " + head + r"\\ \hline P(Z<z) & " + row + r"\\ \hline\end{array}$$")
-def binom(n_, p_, k_): return binomial(n_, k_)*p_**k_*(1-p_)**(n_-k_)
-def geo(p_, k_): return (1-p_)**(k_-1)*p_
-def r4(v_): return R(str(round(float(v_), 4)))
-
-def bell(a_, b_, labels):
-    import numpy as np
-    def draw(fig, ax):
-        xs = np.linspace(-3.6, 3.6, 400)
-        ys = np.exp(-xs**2/2)/np.sqrt(2*np.pi)
-        ax.plot(xs, ys, color='#1f5fbf', lw=1.8)
-        xr = np.linspace(a_, b_, 200)
-        ax.fill_between(xr, np.exp(-xr**2/2)/np.sqrt(2*np.pi), color='#9cc3ef', alpha=0.9)
-        ax.axhline(0, color='black', lw=0.8)
-        for xv in (a_, b_):
-            ax.plot([xv, xv], [0, np.exp(-xv**2/2)/np.sqrt(2*np.pi)], color='#1f5fbf', lw=1, ls='--')
-        ax.set_yticks([]); ax.set_xticks(labels); ax.set_xticklabels([f'{q_:g}' for q_ in labels])
-        for side in ('top', 'right', 'left'):
-            ax.spines[side].set_visible(False)
-        ax.text(3.4, -0.05, '$z$', fontsize=12)
-        ax.set_ylim(-0.02, 0.45)
-    return draw
-
 NONBIN = r"أيّ التجارب الآتية **لا** تُمثّل تجربة احتمالية ذات حدّين؟"
 
 # ============================================================== Exam 1
@@ -254,7 +217,8 @@ Q('u7e3q12', L2, 'medium',
   truth=Ph(2)-Ph(-1)),
 ]
 
-exams = [dict(id='u7-e1', title='الاختبار الأول', questions=E1),
-         dict(id='u7-e2', title='الاختبار الثاني', questions=E2),
-         dict(id='u7-e3', title='الاختبار الثالث', questions=E3)]
+from u7_exams_4_8 import EXAMS_4_8
+
+exams = [dict(id=f'u7-e{i+1}', title=tt, questions=qq) for i, (tt, qq) in enumerate(
+    [('الاختبار الأول', E1), ('الاختبار الثاني', E2), ('الاختبار الثالث', E3)] + EXAMS_4_8)]
 build(meta, exams, 'u7')
