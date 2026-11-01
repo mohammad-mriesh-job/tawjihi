@@ -1,20 +1,8 @@
 """Teaching explanations for unit 6 (attached by build() in qb.py).
-wrong: {original option index: reason}; option 0 is the correct one as written in u6.py."""
+wrong: {original option index: reason}; option 0 is the correct one as written in u6.py.
+Exams 1-3 are here; exams 4-8 live in explain_u6_e4 ... explain_u6_e8 and are merged at the end."""
 from explain_common import E
-
-VEC = r"المتجه من النقطة $A$ إلى النقطة $B$: $\overrightarrow{AB}=B-A$ (إحداثيات النهاية ناقص إحداثيات البداية)"
-MAG = r"مقدار المتجه $\langle a,b,c\rangle$ هو $\sqrt{a^2+b^2+c^2}$"
-PAR = r"المتجهان متوازيان إذا كان أحدهما مضاعفًا للآخر: $\vec{\mathbf{u}}=k\vec{\mathbf{v}}$ لعدد حقيقي $k$"
-LINE = r"المعادلة المتجهة للمستقيم: $\vec{\mathbf{r}}=\vec{\mathbf{r}}_0+t\vec{\mathbf{v}}$ ، حيث $\vec{\mathbf{r}}_0$ متجه موقع نقطة على المستقيم، و $\vec{\mathbf{v}}$ متجه اتجاهه"
-REL = r"العلاقة بين مستقيمين: إذا توازى متجها الاتجاه فهما متوازيان أو منطبقان (نختبر نقطة من أحدهما على الآخر)، وإلّا فهما متقاطعان أو متخالفان (نحلّ معادلات تساوي الإحداثيات)"
-DOT = r"الضرب القياسي: $\langle a_1,a_2,a_3\rangle\cdot\langle b_1,b_2,b_3\rangle=a_1b_1+a_2b_2+a_3b_3$ ، وأيضًا $\vec{\mathbf{u}}\cdot\vec{\mathbf{v}}=|\vec{\mathbf{u}}||\vec{\mathbf{v}}|\cos\theta$ ، والمتجهان متعامدان إذا كان ضربهما القياسي صفرًا"
-UNIT = r"متجه الوحدة في اتجاه $\vec{\mathbf{v}}$ هو $\dfrac{\vec{\mathbf{v}}}{|\vec{\mathbf{v}}|}$ (نقسم كل مركبة على المقدار)، ومقداره دائمًا $1$"
-MID = r"منتصف القطعة بين نقطتين = متوسط إحداثياتهما: $\left(\frac{x_1+x_2}{2},\frac{y_1+y_2}{2},\frac{z_1+z_2}{2}\right)$"
-ANGLE = r"الزاوية بين متجهين: $\cos\theta=\dfrac{\vec{\mathbf{u}}\cdot\vec{\mathbf{v}}}{|\vec{\mathbf{u}}||\vec{\mathbf{v}}|}$ ، و $0\le\theta\le\pi$ (إشارة الضرب القياسي السالبة تعني زاوية منفرجة)"
-PT = r"نقطة على المستقيم ← نكتب إحداثياتها العامة بدلالة $t$ ، ونستعمل المعلومة المعطاة لإيجاد $t$ ، ثم نعوّض في باقي الإحداثيات"
-FOOT = r"مسقط العمود من $P$ على مستقيم هو النقطة $Q$ عليه التي تجعل $\overrightarrow{PQ}$ عموديًّا على متجه اتجاه المستقيم (ضربهما القياسي صفر)"
-COLL = r"تقع ثلاث نقاط على استقامة واحدة إذا كان المتجهان المنطلقان من إحداها إلى الأخريين متوازيين (أحدهما مضاعف للآخر)"
-REL4 = r"الحالات الأربع: متوازيان (اتجاهان متوازيان ولا نقطة مشتركة)، منطبقان (اتجاهان متوازيان ونقطة مشتركة)، متقاطعان (اتجاهان غير متوازيين ونقطة مشتركة)، متخالفان (اتجاهان غير متوازيين ولا نقطة مشتركة)"
+from explain_u6_common import *
 
 EXPLAIN = {
 # ============================================================ الاختبار الأول
@@ -618,3 +606,12 @@ EXPLAIN = {
     },
 ),
 }
+
+from explain_u6_e4 import EXPLAIN as _X4
+from explain_u6_e5 import EXPLAIN as _X5
+from explain_u6_e6 import EXPLAIN as _X6
+from explain_u6_e7 import EXPLAIN as _X7
+from explain_u6_e8 import EXPLAIN as _X8
+for _part in (_X4, _X5, _X6, _X7, _X8):
+    assert not set(_part) & set(EXPLAIN), set(_part) & set(EXPLAIN)
+    EXPLAIN.update(_part)

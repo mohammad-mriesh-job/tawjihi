@@ -261,3 +261,94 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 | u5e10q10 | 2023s #12: velocity-time graph starting above the axis, start given -> final position |
 | u5e10q11 | 2025 #3 family (figure): area between a parabola and a line; options = intersection sign slip x integral of x slip |
 | u5e10q12 | 2023s #13: dy/dx = trig + x e^(x^2) with an initial value; options = sign of ln\|cos x\| x the constant (e^0 = 1) |
+
+## الوحدة 6 (المتجهات) — الاختبارات 4–8
+
+**الشكل:** 12 فقرة في كل اختبار: 6 على المتجهات في الفضاء، و3 على المستقيمات في الفضاء، و3 على الضرب القياسي. الوزارة تميل إلى
+الدرس الأول (فقرات المتجهات 38–45 في ورقة 2026: 5 · 1 · 2)، واخترنا توزيعًا أعدل على الدروس الثلاثة. أصبح للوحدة 8 اختبارات
+(96 سؤالًا). الملف يسرد الفقرات درسًا درسًا، أمّا الطالبة فترى الأسئلة بترتيب جديد في كل محاولة (كل اختبارات الوحدات)،
+حتى لا يدلّ موضع السؤال على درسه.
+
+**طريقة الكتابة:** كل فقرة «أخت» لفقرة وزارية مسمّاة (المصدر مكتوب في تعليق فوق كل `Q(...)` في
+`src/semesters/semester-2/unit-6/u6_exams_4_8.py`)، والبدائل شبكة 2×2 من خطأين شائعين (ترتيب الطرح $B-A$ أو $A-B$ ، طرح عدد
+سالب، النسبة $k$ أو $\frac1k$ وإشارتها، المنتصف الخطأ $2A-B$ ، مكان المركبة الغائبة في $\hat{i},\hat{j},\hat{k}$ ، الجذر أو
+مربّعه، الوتر بدل ضلع القائمة، الجذر المرفوض…) أو قائمة قيم من النوع نفسه. النماذج المستعملة: 2026 — 17، 2025 — 7،
+2025 التكميلي — 8، 2024 التكميلي — 7، 2026 المعيدون — 6، 2023 — 6، 2024 — 5، 2023 التكميلي — 4. لا تتكرّر نقطة أو صيغة
+أو مجموعة بدائل من الاختبارات 1–3 أو من فقرات المتجهات في نماذج الفصل الثاني (فُحص ذلك آليًّا؛ المشترك فقط عبارات عامة مثل
+الشرط $\overrightarrow{AB}=\overrightarrow{BD}$ نفسه ومجموعة الزوايا الخاصة).
+
+**الأشكال:** 10 أشكال: متوازي مستطيلات ومكعّب برسم الوزارة (الرأس $O$ في الخلف وأحرفه الثلاثة منقّطة، $x$ إلى أسفل اليسار
+و $y$ إلى أسفل اليمين، والرؤوس $A$–$G$ كما في الفقرة 2026 #41)، ومتوازيات أضلاع ومثلث لمسائل النسبة مرسومة من معاملات
+$\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال، وأربعة أشكال صغيرة لإشارة الضرب القياسي.
+
+**الصعوبة:** 20 سهلًا · 25 متوسطًا · 15 صعبًا (4 · 5 · 3 في كل اختبار).
+
+**الشرح:** لكل سؤال شرح مفصّل بالطريقة المعتادة: مراحل معنونة، وكل خطوة حسابية مكتوبة، وتحقّق بالتعويض أو بمسار آخر في
+الشكل، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 9.4 خطوة لكل سؤال). العبارات المشتركة في `explain_u6_common.py`.
+
+**الصحة:** الفحوص الثلاثة لكل الأسئلة الـ60 الجديدة آليًّا (لا سؤال يدوي؛ أُضيف إلى `qb.py` نوع البديل `ijk` لفحص البدائل
+المكتوبة بـ $\hat{i},\hat{j},\hat{k}$)، وفُحصت 203 مساواة داخل الشرح آليًّا، وجميع صيغ الوحدة (3042 صيغة) تُعرض في KaTeX دون
+أخطاء، وأسئلة الاختبارات 1–3 لم تتغيّر.
+
+| الفقرة | النموذج الوزاري · شبكة البدائل |
+|---|---|
+| u6e4q1 | 2026r #17: displacement from A to B in context; options = order (B - A or A - B) x sign slip with a negative coordinate |
+| u6e4q2 | 2026 #39: AB = BD -> position vector of D; options = 2B - A, 2A - B, B - A (the vector AB itself), -(2B - A) |
+| u6e4q3 | 2026 #40: \|AC\| = sqrt(n) with alpha < 0; options = +-3, +-7 (the other root, and the (alpha + 2) sign slip) |
+| u6e4q4 | 2026 #41: cuboid in the ministry's drawing, vertex B given, midpoint of a segment joining two vertices; options = one vertex misread each time (A read as E, A read as D, G read as O) |
+| u6e4q5 | 2026 #42: collinear points, AB and AC given, the unknown inside AC; options = sign of the ratio x moving the constant |
+| u6e4q6 | 2026r #18: parallelogram, a point on a side in a given ratio, Z on a produced side, k from the given vector; options = k, 1/k (the ratio read the other way) and small values of the same kind |
+| u6e4q7 | 2023 #18: a point with one unknown coordinate lies on a line; options = t right or sign-slipped, x the line's point added or forgotten |
+| u6e4q8 | 2024s #18 (2026 #38 family): line parallel to v through a position vector with a missing component; options = point and direction swapped x the missing component put in the wrong place |
+| u6e4q9 | 2024 #19: point where a line meets the xz plane; options = the right plane, the yz plane, the xy plane, t sign slip |
+| u6e4q10 | 2026 #43 family: AB and CB given -> AB . AC; options = right AC, AC = AB + CB (sign slip), CB used as AC, sign |
+| u6e4q11 | 2025 #20: angle from the magnitudes and the dot product; options = cos = -sqrt3/2 or -1/2, x obtuse or acute |
+| u6e4q12 | 2026 #45: triangle from BA and BC (right angle not stated); options = 1/2\|BA\|\|BC\|, without 1/2, and the hypotenuse AC taken as a side (with and without 1/2) |
+| u6e5q1 | 2025s #14: 2f - g with i, j, k; options = 2f - g, 2f + g, sign slip in the k component, f - 2g |
+| u6e5q2 | 2026r #13: midpoint and one end -> the other end; options = 2N - A, 2A - N, and their negatives |
+| u6e5q3 | 2025 #14: unit vector in the direction of GH; options = GH or HG, x divided by \|GH\| or by \|GH\|^2 |
+| u6e5q4 | 2025 #18: parallel vectors with one unknown; options = the ratio or its reciprocal, x sign |
+| u6e5q5 | 2025 #15: point dividing a segment, TN = 1/3 NM; options = 1/4 or 1/3 of TM, x measured from T or from M |
+| u6e5q6 | 2025s #19: parallelogram, N on a diagonal in a given ratio, GN = k(...); options = k, -k, 1/k, -1/k |
+| u6e5q7 | 2024 #19 / 2025s #17: point where a line meets the xy plane; options = the right plane, the xz plane, the yz plane, t sign slip |
+| u6e5q8 | 2025 #19: cube in the ministry's drawing, line through a vertex and the centre; options = direction M - A or the position vector of M, x through A or through the misread vertex C |
+| u6e5q9 | 2024s #19: a point whose coordinates contain the unknown lies on a line; options = a, the parameter t, t = a - 3 sign slip, t taken equal to a |
+| u6e5q10 | 2026r #19: perpendicular vectors, quadratic in alpha; options = right factor pair or the other pair of 18, x sign |
+| u6e5q11 | 2026r #20: distance from a point to a line, foot given; options = \|PF\| or \|PF\|^2, x sign slip with a negative coordinate |
+| u6e5q12 | 2023s #19: u . c with u = AB; options = AB or BA, x A + B used instead of B - A |
+| u6e6q1 | 2023s #14: a point in a coordinate plane; options = points with the same numbers in the three planes |
+| u6e6q2 | 2025 #16: p a - q b equals a given vector -> p + q; options = right, q sign flipped, a and b swapped, same kind |
+| u6e6q3 | 2024s #15: \|PQ\| = \|QR\| -> values of k; options = right roots, (k + 3) sign slip, the other components of QR forgotten (x sign) |
+| u6e6q4 | 2026 #41: cuboid in the ministry's drawing, vertex B given, vector between two vertices; options = order x C misread as B |
+| u6e6q5 | 2026 #42: collinear points, AB and AC given, the unknown inside AB; options = sign of the ratio x moving the constant |
+| u6e6q6 | 2024s #16: triangle, P on AB in a given ratio, PO = k(...); options = k, -k, 1/k, -1/k (P's ratio 1:2 here, 2:1 there) |
+| u6e6q7 | 2024s #19: a point whose coordinates all contain the unknown lies on a line; options = a, the parameter t, t = 3a - 5 sign slip, t taken equal to a |
+| u6e6q8 | 2026 #38: line parallel to v through a position vector with a missing component (k); options as in 2026 #38 |
+| u6e6q9 | 2025s #17: point where a line meets the yz plane; options = right point, x merely set to 0, t sign slip (with and without x = 0) |
+| u6e6q10 | 2023 #19: perpendicular vectors, linear in c; options = +-3, +-1 (sign slip in one product) |
+| u6e6q11 | 2024s #20: \|b\| from the angle, the dot product and \|a\|; options = divide or multiply by cos, x cos 30 or 1/2 |
+| u6e6q12 | 2025s #20: distance from a point to a line (foot found first); options = \|PF\| or \|PF\|^2, x the line's own point used for the foot |
+| u6e7q1 | 2024s #14: magnitude of the position vector of a midpoint; options = \|OM\|, \|OA + OB\| (not halved), half of \|AB\|, \|AB\| |
+| u6e7q2 | 2025s #13: midpoint with unknowns in both points; options = n right or not doubled, x sign slip when moving -3 |
+| u6e7q3 | 2024 #20: parallel vectors with two unknowns -> a + b; options = sign of the ratio x moving the constants |
+| u6e7q4 | 2026 #44 (asked the other way): parallelogram, Y the midpoint of a diagonal, Z on a produced side in a given ratio -> YZ; options = MZ right or the ratio read the other way, x YZ or ZY |
+| u6e7q5 | 2024 #18: vector of a given magnitude opposite to a vector in i, j, k; options = opposite or same direction, x normalised or not |
+| u6e7q6 | 2023 #17: PF = 2/3 PQ -> F; options = 2/3 or 1/3 of PQ, x added to P or not |
+| u6e7q7 | 2026 #38: line parallel to v (v has a missing component, j) through a position vector; options = point and direction swapped x the zero of v put in the wrong place |
+| u6e7q8 | 2023 #18: a point with an unknown coordinate lies on a line; options = t right or slipped, x 2a divided by 2 or not |
+| u6e7q9 | 2023s #18: general point of a segment, PF = t PQ; options = start at P or at Q, x direction PQ or QP |
+| u6e7q10 | 2023 #20: which figure shows u . v > 0 (sign of the dot product from the angle); options = the four panels |
+| u6e7q11 | 2026 #43: three points, two side vectors given -> dot product; options = +-(right value), +-(KL . ML used directly) |
+| u6e7q12 | 2026 #45: right triangle from its vertices (the right angle is at C, not at B); options = 1/2 x the legs, without 1/2, and the hypotenuse AB taken as a leg (with and without 1/2) |
+| u6e8q1 | 2024 #17: position vector of a midpoint, given with i, j, k; options = sum or difference, x halved or not |
+| u6e8q2 | 2025s #16: GH = HD -> D; options = 2H - G, 2G - H and their negatives |
+| u6e8q3 | 2023s #15: \|AB\| = 13 with an unknown coordinate -> its values; options = right roots, (7 + k) slip, the other components forgotten (x sign) |
+| u6e8q4 | 2026 #42: collinear with AB and BC (not AC) given; options = sign of the ratio x the ratio inverted |
+| u6e8q5 | 2025s #18: parallel vectors with the unknown in two components; options = right root, the root that fails the first component, and their negatives |
+| u6e8q6 | 2026 #44: parallelogram, Y the midpoint of a diagonal, Z on a produced side, k from the given vector; options = k, 1/k (the ratio read the other way) and values of the same kind |
+| u6e8q7 | 2026 #38: line parallel to v through a position vector with a missing component (j); options as in 2026 #38 |
+| u6e8q8 | 2023 #18: a point with two unknown coordinates lies on a line -> a + b; options = t = -3 (right), 3, -2, 2 |
+| u6e8q9 | 2025 #19: cuboid in the ministry's drawing, line through two vertices; options = direction GA or GB (misread vertex), x point and direction in the right order or swapped |
+| u6e8q10 | 2026r #19: perpendicular vectors, quadratic in alpha; options = right factor pair or the other pair of 15, x sign |
+| u6e8q11 | 2025s #20: distance from a point to a line, foot given with fractions; options = \|PF\| or \|PF\|^2, x sign slip in y |
+| u6e8q12 | 2026 #43: three points, two side vectors given -> dot product; options = +-(right value), +-(RS . TS used directly) |

@@ -19,7 +19,9 @@ src/
       index.ts                 the semester's units + mock set
       unit-M/                  uM.py (questions) · explain_uM.py (explanations) · uM.ts (GENERATED) · fig/
                                (unit-5: exams 5–10 in u5_exams_5_10.py, helpers in u5_helpers.py, explanations split
-                               into explain_u5_e5…e10.py with shared wording in explain_u5_common.py)
+                               into explain_u5_e5…e10.py with shared wording in explain_u5_common.py;
+                               unit-6 the same: exams 4–8 in u6_exams_4_8.py, helpers and figure drawers in
+                               u6_helpers.py, explain_u6_e4…e8.py + explain_u6_common.py)
       mock-exams/              mock_sN.py (entry) · sN_papers_*.py · sN_helpers.py · explain_sN*.py · sN.ts (GENERATED) · fig/
       previous-ministry/       official past papers (PDF), README.md index, ANALYSIS.md (semester 1)
 ```
@@ -54,6 +56,9 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
   papers 6–10 only, never 1–5).
 - While a student is solving (unit exams, the comprehensive exam, mock papers) never show the question's lesson or
   difficulty, nor the difficulty mix of an exam; both belong to the review after submission (the user's explicit rule).
+  Unit exams also shuffle the question order and the options on every attempt (`pickQuestions` in
+  `src/global/data/index.ts`; sessions store question ids), so a position never hints at the lesson; keep the
+  generator files ordered lesson by lesson anyway (user's choice for unit 6 exams 4–8: 6 · 3 · 3 per exam).
 - Every `.py` file name under `src/` must be unique (explanation files import each other across units; `run.py`
   puts all question-bank folders on one import path and stops on duplicates).
 
@@ -87,12 +92,14 @@ Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or 
 7. **Explain like a teacher** (`explain_*.py`, Arabic, addressing the student in the feminine as the site does):
    `idea`, staged `steps` (`## ` headings), optional `quick` exam shortcut, `wrong` = one reason per wrong option
    that names the switch it was built from, optional `tip`. Formulas must not start with `=`/arrows and must not
-   contain Arabic (the build asserts this).
+   contain Arabic (the build asserts this). `## ` headings are shown as plain text: no `$…$` in them (write
+   "المتجه EC"), and write every string that holds LaTeX as a raw string (`"\vec"` silently becomes `\v` + `ec`).
 8. **Verify** — every item goes through `qb.verify` (truth computed independently matches only the correct option,
    each option's LaTeX parses to its value, stem formulas parse to the expression the truth came from). Use
    `IndexQ` + a property for interval/region answers; `manual=` only when nothing can be computed (avoid).
    Parser pitfalls: `\log` parses as `ln` (write a base-10 `log` stem as plain text, not through `F`), and
-   `2x\ln 10` loses the `x` (write `2x\cdot\ln 10`).
+   `2x\ln 10` loses the `x` (write `2x\cdot\ln 10`). Options written with `\hat{i},\hat{j},\hat{k}` need kind `'ijk'`
+   (`ijk_opt` in `u6_helpers.py`); kind `'expr'` would read `\hat{i}` as a product of letters.
 9. **Check before handing over**: generator passes; no repeated formula *or repeated context with new numbers* across
    papers and unit banks; KaTeX renders every formula; look at every new figure (render
    the SVG to PNG and view it); no formula/value duplicates the earlier mocks or the unit banks; answer key of each

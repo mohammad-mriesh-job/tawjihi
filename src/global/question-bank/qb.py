@@ -126,7 +126,7 @@ def _split_top(s, sep=','):
 # ----------------------------------------------------------------------------- options
 class O:
     """An option: LaTeX (without $) and the sympy value it denotes.
-    kind: 'expr' (default), 'anti' (+C antiderivative), 'tuple', 'set', 'vec', 'text'."""
+    kind: 'expr' (default), 'anti' (+C antiderivative), 'tuple', 'set', 'vec', 'ijk' (a i + b j + c k), 'text'."""
 
     def __init__(self, tex, val, kind=None, sym=None, units=''):
         self.tex, self.val, self.sym, self.units = tex, val, sym, units
@@ -165,6 +165,12 @@ class O:
             grp = _re.findall(r'\\langle(.*?)\\rangle', s)
             assert len(grp) == 2, s
             return Tuple(*[Tuple(*[parse_tex(q_, self.sym) for q_ in _split_top(_prep(g_))]) for g_ in grp])
+        if self.kind == 'ijk':  # "a\hat{i}+b\hat{j}+c\hat{k}" -> Tuple(a, b, c)
+            hats = symbols('xi eta zeta')
+            st = s.replace(r'\hat{i}', r'\xi ').replace(r'\hat{j}', r'\eta ').replace(r'\hat{k}', r'\zeta ')
+            ex = expand(parse_tex(st, self.sym).doit())   # doit: the parser leaves nested sums unevaluated
+            assert ex.free_symbols <= set(hats) and ex.subs({h_: 0 for h_ in hats}) == 0, s
+            return Tuple(*[ex.coeff(h_) for h_ in hats])
         if self.kind == 'tset':  # "(a,b),\ (c,d)" -> FiniteSet of Tuples
             parts = _split_top(_prep(s))
             return FiniteSet(*[Tuple(*[parse_tex(q_, self.sym) for q_ in _split_top(pt.strip()[1:-1])]) for pt in parts])

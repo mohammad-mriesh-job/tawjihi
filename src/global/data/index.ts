@@ -1,6 +1,6 @@
 import type { Question, Unit } from './types';
 import { examMinutes } from '../lib/timing';
-import { sample } from '../lib/random';
+import { sample, shuffle } from '../lib/random';
 import { semesters } from '../../semesters';
 
 export const units: Unit[] = semesters.flatMap((s) => s.units);
@@ -95,7 +95,9 @@ export function getExam(key: string): ExamDescriptor | undefined {
         title: exam.title,
         subtitle: `الوحدة ${u.number}: ${u.title}`,
         backTo: `/unit/${u.id}`,
-        pickQuestions: () => exam.questions,
+        // a new question order every attempt (the data lists them lesson by lesson, which would hint at the lesson);
+        // sessions and results store question ids, so saved attempts keep their own order
+        pickQuestions: () => shuffle(exam.questions),
       };
   }
   return undefined;

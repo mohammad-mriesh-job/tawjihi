@@ -1,58 +1,11 @@
 from qb import *
+from u6_helpers import *
 
 L1, L2, L3 = 'u6-l1', 'u6-l2', 'u6-l3'
 meta = dict(id='u6', number=6, semester=2, title='المتجهات',
     description='النقاط والمتجهات في الفضاء: المقدار ومتجه الوحدة والتوازي ونقطة المنتصف ومسائل النسبة، معادلة المستقيم في الفضاء والعلاقة بين مستقيمين ونقطة التقاطع، والضرب القياسي والزاوية بين متجهين.',
     lessons=[dict(id=L1, title='المتجهات في الفضاء'), dict(id=L2, title='المستقيمات في الفضاء'),
              dict(id=L3, title='الضرب القياسي')])
-R = Rational
-P = pi
-V = lambda *c_: Matrix(c_)
-T3 = lambda m_: Tuple(*list(m_))
-def vt(*c_):
-    return r'\langle ' + ',\,'.join(latex(sympify(q_)) for q_ in c_) + r'\rangle'
-def vec_opt(*c_):
-    return O(vt(*c_), Tuple(*[sympify(q_) for q_ in c_]), 'vec')
-def pt_opt(*c_):
-    return O('(' + ',\,'.join(latex(sympify(q_)) for q_ in c_) + ')', Tuple(*[sympify(q_) for q_ in c_]), 'tuple')
-def line_opt(p_, d_):
-    return O(r'\vec{\mathbf{r}}=' + vt(*p_) + '+t' + vt(*d_), Tuple(Tuple(*p_), Tuple(*d_)), 'line')
-def par(u_, v_): return Matrix(u_).cross(Matrix(v_)) == zeros(3, 1)
-def on_line(pt_, ln):
-    p0, d0 = Matrix(ln[0]), Matrix(ln[1])
-    return par(Matrix(pt_) - p0, d0)
-def classify(a1, d1, a2, d2):
-    a1, d1, a2, d2 = map(Matrix, (a1, d1, a2, d2))
-    if par(d1, d2):
-        return 'coincident' if par(a2 - a1, d1) else 'parallel'
-    s_, t_ = symbols('s_ t_')
-    return 'intersect' if solve(list(a1 + t_*d1 - a2 - s_*d2), [t_, s_], dict=True) else 'skew'
-def inter(a1, d1, a2, d2):
-    a1, d1, a2, d2 = map(Matrix, (a1, d1, a2, d2))
-    s_, t_ = symbols('s_ t_')
-    sol = solve(list(a1 + t_*d1 - a2 - s_*d2), [t_, s_], dict=True)[0]
-    return T3(a1 + sol[t_]*d1)
-REL = [('متوازيان', 'parallel'), ('متقاطعان', 'intersect'), ('متخالفان', 'skew'), ('منطبقان', 'coincident')]
-def rel_opts(first):
-    order = [r_ for r_ in REL if r_[1] == first] + [r_ for r_ in REL if r_[1] != first]
-    return [T(t_, v_) for t_, v_ in order]
-def ang(u_, v_):
-    u_, v_ = Matrix(u_), Matrix(v_)
-    return acos(u_.dot(v_)/(u_.norm()*v_.norm()))
-va, vb, vc = symbols('a b c')     # stand-ins for the vectors a, b, c in ratio problems
-def vtex(expr):
-    """LaTeX for a combination of the vector symbols a, b, c, written like the book: 4/3 a + b"""
-    expr = expand(expr)
-    out = ''
-    for sym_, name in ((va, 'a'), (vb, 'b'), (vc, 'c')):
-        cf = expr.coeff(sym_)
-        if cf == 0:
-            continue
-        sign = '-' if cf < 0 else ('+' if out else '')
-        mag = abs(cf)
-        coef = '' if mag == 1 else latex(mag)
-        out += f'{sign}{coef}' + r'\vec{\mathbf{' + name + '}}'
-    return out
 
 
 # ---------- figures
@@ -326,7 +279,8 @@ Q('u6e3q12', L3, 'hard',
   truth=V(1, 4, -2).dot(V(1, 4, -2)-V(3, -1, 2))),
 ]
 
-exams = [dict(id='u6-e1', title='الاختبار الأول', questions=E1),
-         dict(id='u6-e2', title='الاختبار الثاني', questions=E2),
-         dict(id='u6-e3', title='الاختبار الثالث', questions=E3)]
+from u6_exams_4_8 import EXAMS_4_8
+
+exams = [dict(id=f'u6-e{i+1}', title=tt, questions=qq) for i, (tt, qq) in enumerate(
+    [('الاختبار الأول', E1), ('الاختبار الثاني', E2), ('الاختبار الثالث', E3)] + EXAMS_4_8)]
 build(meta, exams, 'u6')
