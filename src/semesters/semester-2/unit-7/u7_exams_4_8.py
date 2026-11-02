@@ -93,14 +93,15 @@ Q('u7e4q10', L2, 'medium',
   r"المنطقة بين $z=-0.5$ و $z=1.25$:" "\n"
   r"$P(-0.5<Z<1.25)=P(Z<1.25)-P(Z<-0.5)=0.8944-(1-0.6915)=0.8944-0.3085=0.5859$",
   truth=Ph(R(125, 100)) - Ph(-R(1, 2)), figure=figure('u7e4q10', bell(-0.5, 1.25, [-0.5, 1.25]), 4.0, 2.4)),
-# 2024s #23 / 2023 #24: probability between two values by the empirical rule (figure); options = right sum and
-# misplaced bounds
+# 2023 #24: probability between mu - 2 sigma and mu + sigma by the empirical rule (figure): three bands, as in 2023 #24
+# and 2024s #23; options = the right sum, the interval taken as mu +- 2 sigma, mu +- sigma only, one side (mu - 2 sigma
+# to mu) only
 Q('u7e4q11', L2, 'medium',
-  r"إذا كان: $X\sim N(50,\,16)$ ، فإنّ $P(46<X<62)$ هو:" + EMPNOTE,
-  [D('0.8385'), D('0.815'), D('0.68'), D('0.9735')],
-  r"$\sigma=\sqrt{16}=4$ ، و $46=50-4=\mu-\sigma$ ، و $62=50+12=\mu+3\sigma$" "\n"
-  r"$P(46<X<62)=0.34+0.34+0.135+0.0235=0.8385$",
-  truth=emp(-1, 3), figure=figure('u7e4q11', emp_fig, 4.4, 2.4)),
+  r"إذا كان: $X\sim N(50,\,16)$ ، فإنّ $P(42<X<54)$ هو:" + EMPNOTE,
+  [D('0.815'), D('0.95'), D('0.68'), D('0.475')],
+  r"$\sigma=\sqrt{16}=4$ ، و $42=50-8=\mu-2\sigma$ ، و $54=50+4=\mu+\sigma$" "\n"
+  r"$P(42<X<54)=0.135+0.34+0.34=0.815$",
+  truth=emp(-2, 1), figure=figure('u7e4q11', emp_fig, 4.4, 2.4)),
 # 2025 #24: P(X < mu - k) given -> P(mu - k < X < mu + k); options = 1 - 2a, 1 - a, a, 2a
 Q('u7e4q12', L2, 'easy',
   r"إذا كان: $X\sim N(\mu,\,\sigma^2)$ ، وكان: $P(X<\mu-k)=0.18$ ، حيث $k$ ثابت موجب، فإنّ قيمة $P(\mu-k<X<\mu+k)$ هي:",
@@ -272,13 +273,14 @@ Q('u7e6q10', L2, 'easy',
   r"المنحنى متماثل حول $\mu$ ، والقيمتان $\mu-12$ و $\mu+12$ على البُعد نفسه منه:" "\n"
   r"$P(X<\mu-12)=P(X>\mu+12)=0.29$",
   truth=R(29, 100)),
-# 2023s #24: percentage between two values by the empirical rule (figure); options = mu..mu+3s, mu..mu+2s, mu..mu+s, 50%
+# 2023s #24: percentage between two values by the empirical rule (figure), a sum of two bands as in the model (the mean
+# to mu + 2 sigma here); options = mu..mu+2s, both sides mu +- 2s, mu..mu+s, 50%
 Q('u7e6q11', L2, 'easy',
-  r"تتوزّع كتل علب أحد المنتجات توزيعًا طبيعيًّا وسطه الحسابي $500\ \text{g}$ وانحرافه المعياري $20\ \text{g}$. النسبة المئوية للعلب التي تتراوح كتلها بين $500\ \text{g}$ و $560\ \text{g}$ هي:" + EMPNOTE,
-  [O(r'49.85\%', R(4985, 100)), O(r'47.5\%', R(475, 10)), O(r'34\%', 34), O(r'50\%', 50)],
-  r"$500=\mu$ ، و $560=500+3(20)=\mu+3\sigma$" "\n"
-  r"النسبة: $34\%+13.5\%+2.35\%=49.85\%$",
-  truth=100*emp(0, 3), figure=figure('u7e6q11', emp_fig, 4.4, 2.4)),
+  r"تتوزّع كتل علب أحد المنتجات توزيعًا طبيعيًّا وسطه الحسابي $500\ \text{g}$ وانحرافه المعياري $20\ \text{g}$. النسبة المئوية للعلب التي تتراوح كتلها بين $500\ \text{g}$ و $540\ \text{g}$ هي:" + EMPNOTE,
+  [O(r'47.5\%', R(475, 10)), O(r'95\%', 95), O(r'34\%', 34), O(r'50\%', 50)],
+  r"$500=\mu$ ، و $540=500+2(20)=\mu+2\sigma$" "\n"
+  r"النسبة: $34\%+13.5\%=47.5\%$",
+  truth=100*emp(0, 2), figure=figure('u7e6q11', emp_fig, 4.4, 2.4)),
 # 2024s #25: x from P(X < x) below the mean (closest table entry); options = mu - z sigma, mu + z sigma, mu - z, mu - z sigma^2
 Q('u7e6q12', L2, 'hard',
   r"إذا كان: $X\sim N(20,\,16)$ ، فإنّ قيمة $x$ التي تُحقّق $P(X<x)=0.2$ هي:" + ztable(0.84, 0.85),
@@ -313,13 +315,15 @@ IndexQ('u7e7q3', L1, 'easy',
   r"تجربة ذات الحدّين: عدد **ثابت** من المحاولات المستقلّة، لكلّ منها نتيجتان، واحتمال النجاح ثابت." "\n"
   r"الإلقاء حتى أوّل نجاح تجربة هندسية، والسحب معًا ليس محاولات مستقلّة، وقياس الارتفاعات ليس نجاحًا وفشلًا.",
   truth=lambda vals: only(vals, lambda v_: v_ == 'bin')),
-# 2023 #23: Var given with p > 0.5 -> E(X); options = E for each root x E or p
+# 2023 #23: Var given -> the two possible values of p (the model stops there; no E(X) asked); options = pairs p, 1 - p:
+# the right pair, the zero-product rule misapplied to p(1 - p) = 0.21 (p = 0.21 or 1 - p = 0.21), two pairs of tenths
 Q('u7e7q4', L1, 'hard',
-  r"إذا كان: $X\sim B(50,\,p)$ ، وكان: $\text{Var}(X)=10.5$ ، حيث $p>0.5$ ، فإنّ توقّع المتغيّر العشوائي $X$ هو:",
-  [O('35', 35), O('15', 15), D('0.7'), D('0.3')],
-  r"$50p(1-p)=10.5 \Rightarrow p^2-p+0.21=0 \Rightarrow (p-0.3)(p-0.7)=0$ ، وبما أن $p>0.5$ فإنّ $p=0.7$" "\n"
-  r"$E(X)=np=50(0.7)=35$",
-  truth=lambda: 50*[r_ for r_ in solve(50*x*(1 - x) - R(105, 10), x) if r_ > R(1, 2)][0]),
+  r"إذا كان: $X\sim B(50,\,p)$ ، وكان التباين للمتغيّر العشوائي $X$ يساوي $10.5$ ، فإنّ قيم الثابت $p$ الممكنة هي:",
+  [pair_opt(r'p=0.3,\ p=0.7', R(3, 10), R(7, 10)), pair_opt(r'p=0.21,\ p=0.79', R(21, 100), R(79, 100)),
+   pair_opt(r'p=0.2,\ p=0.8', R(2, 10), R(8, 10)), pair_opt(r'p=0.4,\ p=0.6', R(4, 10), R(6, 10))],
+  r"$50p(1-p)=10.5 \Rightarrow p^2-p+0.21=0 \Rightarrow (p-0.3)(p-0.7)=0$" "\n"
+  r"$p=0.3$ أو $p=0.7$",
+  truth=lambda: FiniteSet(*solve(50*x*(1 - x) - R(105, 10), x))),
 # 2024s #22: Var of a given binomial; options = Var, E, sigma, p(1 - p)
 Q('u7e7q5', L1, 'easy',
   r"إذا كان: $X\sim B\left(18,\,\dfrac13\right)$ ، فإنّ التباين للمتغيّر العشوائي $X$ هو:",
@@ -346,26 +350,29 @@ Q('u7e7q8', L2, 'easy',
   r"بالتماثل: $P(Z<-z)=P(Z>z)=0.0228$" "\n"
   r"$P(-z<Z<z)=1-2(0.0228)=0.9544$",
   truth=1 - 2*R('0.0228')),
-# 2025 #23: sigma from a curve whose 2.5% tails are marked (figure); options = sigma, 2 sigma, 4 sigma, sigma/2
+# 2025 #23: sigma from a curve whose 2.5% tails are marked, with the empirical-rule figure given as a note as in the
+# model (one figure: the item's curve on top, the note's curve below); options = sigma, 2 sigma, 4 sigma, sigma/2
 Q('u7e7q9', L2, 'medium',
-  r"يُمثّل منحنى التوزيع الطبيعي في الشكل الآتي نمذجة لكتل حبّات التفاح (بالغرام) في إحدى المزارع، فإنّ الانحراف المعياري لكتل حبّات التفاح هو:",
+  r"يُمثّل منحنى التوزيع الطبيعي العلوي في الشكل الآتي نمذجة لكتل حبّات التفاح (بالغرام) في إحدى المزارع، فإنّ الانحراف المعياري لكتل حبّات التفاح هو:"
+  "\n" r"ملحوظة: يمكنك الاستفادة من القاعدة التجريبية المبيّنة في المنحنى السفلي من الشكل.",
   [O('8', 8, units='g'), O('16', 16, units='g'), O('32', 32, units='g'), O('4', 4, units='g')],
-  r"في كل طرف $2.5\%$ ، فبين القيمتين $95\%$ من الكتل، وهي حسب القاعدة التجريبية من $\mu-2\sigma$ إلى $\mu+2\sigma$" "\n"
+  r"من شكل القاعدة التجريبية: فوق $\mu+2\sigma$ النسبة $2.35\%+0.15\%=2.5\%$ ، وكذلك تحت $\mu-2\sigma$ ، فالقيمتان $124$ و $156$ هما $\mu-2\sigma$ و $\mu+2\sigma$" "\n"
   r"$4\sigma=156-124=32 \Rightarrow \sigma=8\ \text{g}$ (والوسط $\mu=140\ \text{g}$)",
-  truth=R(156 - 124, 4), figure=figure('u7e7q9', tails_fig('124', r'$\mu$', '156', '2.5%'), 4.2, 2.4)),
+  truth=R(156 - 124, 4), figure=figure('u7e7q9', tails_emp_fig('124', r'$\mu$', '156', '2.5%'), 4.4, 4.6)),
 # 2024 #25: P(a < Z < b) with a < 0 < b; options = right, sign ignored, and their complements
 Q('u7e7q10', L2, 'medium',
   r"إذا كان $Z$ متغيّرًا عشوائيًّا طبيعيًّا معياريًّا، فإنّ $P(-1.5<Z<1)$ يساوي:" + ztable(1, 1.5),
   [D('0.7745'), D('0.0919'), D('0.2255'), D('0.9081')],
   r"$P(-1.5<Z<1)=P(Z<1)-P(Z<-1.5)=0.8413-(1-0.9332)=0.8413-0.0668=0.7745$",
   truth=Ph(1) - Ph(-R(3, 2))),
-# 2024 #24: X ~ N(mu, (2 mu)^2) and a z-score -> sigma; options = sigma, mu, sigma^2, x
-Q('u7e7q11', L2, 'hard',
-  r"إذا كان: $X\sim N(\mu,\,4\mu^2)$ ، حيث $\mu>0$ ، وكانت قيمة $z$ المعيارية المقابلة لقيمة $x=9$ هي $1$ ، فإنّ قيمة الانحراف المعياري لهذا التوزيع هي:",
-  [O('6', 6), O('3', 3), O('36', 36), O('9', 9)],
-  r"$\sigma=\sqrt{4\mu^2}=2\mu$ ، و $\dfrac{9-\mu}{2\mu}=1 \Rightarrow 9-\mu=2\mu \Rightarrow \mu=3$" "\n"
-  r"$\sigma=2\mu=6$",
-  truth=lambda: 2*solve((9 - x)/(2*x) - 1, x)[0]),
+# 2024 #24: X ~ N(mu, mu^2) (sigma = mu, as in the model) and the z-score of a given x -> sigma; options = sigma, the
+# variance mu^2 used in z (2 mu^2 + mu - 15 = 0 gives 2.5), sigma^2, x
+Q('u7e7q11', L2, 'medium',
+  r"إذا كان: $X\sim N(\mu,\,\mu^2)$ ، حيث $\mu>0$ ، وكانت قيمة $z$ المعيارية المقابلة لقيمة $x=15$ هي $2$ ، فإنّ قيمة الانحراف المعياري لهذا التوزيع هي:",
+  [O('5', 5), D('2.5'), O('25', 25), O('15', 15)],
+  r"$\sigma=\sqrt{\mu^2}=\mu$ ، و $\dfrac{15-\mu}{\mu}=2 \Rightarrow 15-\mu=2\mu \Rightarrow \mu=5$" "\n"
+  r"$\sigma=\mu=5$",
+  truth=lambda: solve((15 - x)/x - 2, x)[0]),
 # 2025 #25: x from P(x < X < mu); options = mu - z sigma, mu + z sigma, mu - z, mu - z sigma^2
 Q('u7e7q12', L2, 'medium',
   r"إذا كان: $X\sim N(70,\,16)$ ، وكان: $P(x<X<70)=0.4332$ ، فإنّ قيمة $x$ هي:" + ztable(1, 1.5, 2),

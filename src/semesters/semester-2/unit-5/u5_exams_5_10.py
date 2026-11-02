@@ -69,13 +69,13 @@ IndexQ('u5e5q4', L[1], 'medium',
    O(r'y=e^{x}+2e^{-2x}-2', exp(x)+2*exp(-2*x)-2, 'eq'), O(r'y=e^{x}+2e^{-2x}+2', exp(x)+2*exp(-2*x)+2, 'eq')],
   r"$y=\displaystyle\int(e^x+4e^{-2x})dx=e^x-2e^{-2x}+C$ ، و $y(0)=1 \Rightarrow 1-2+C=1 \Rightarrow C=2$",
   truth=lambda vals: only(vals, lambda Y_: ode_ok(Y_, exp(x)+4*exp(-2*x), 0, 1))),
-# 2026 #30: v = k sin(t), total distance over several arches; options = distance, displacement, arch-count and chain slips
-Q('u5e5q5', L[1], 'hard',
-  F(r"إذا تحرّك جُسيم في مسار مستقيم، وكانت سرعته تُعطى بالاقتران: $v(t)=«0»$ ، حيث $v$ سرعته بالمتر لكل ثانية، و $t$ الزمن بالثواني، فإنّ المسافة الكلية بالأمتار التي قطعها الجُسيم في الفترة $[0,\,\pi]$ هي:", (r'6\sin 3t', 6*sin(3*t))),
-  [O('12', 12), O('4', 4), O('8', 8), O('36', 36)],
-  r"$v=0$ عند $t=\frac{\pi}{3},\ \frac{2\pi}{3}$ ، وعلى كل فترة من الفترات الثلاث $\left|\displaystyle\int6\sin3t\,dt\right|=\left|\big[-2\cos3t\big]\right|=4$" "\n"
-  r"المسافة $=4+4+4=12\ \text{m}$",
-  truth=sum(Abs(ig(6*sin(3*t), (t, j*pi/3, (j+1)*pi/3))) for j in range(3))),
+# 2026 #30: v = k sin(mt), total distance over two equal arches (one interior zero, as in the model); options = distance, displacement, one arch only, chain factor not divided
+Q('u5e5q5', L[1], 'medium',
+  F(r"إذا تحرّك جُسيم في مسار مستقيم، وكانت سرعته تُعطى بالاقتران: $v(t)=«0»$ ، حيث $v$ سرعته بالمتر لكل ثانية، و $t$ الزمن بالثواني، فإنّ المسافة الكلية بالأمتار التي قطعها الجُسيم في الفترة $[0,\,\pi]$ هي:", (r'6\sin 2t', 6*sin(2*t))),
+  [O('12', 12), O('0', 0), O('6', 6), O('24', 24)],
+  r"$v=0$ عند $t=\frac{\pi}{2}$ ، وعلى كل من الفترتين $\left|\displaystyle\int6\sin2t\,dt\right|=\left|\big[-3\cos2t\big]\right|=6$" "\n"
+  r"المسافة $=6+6=12\ \text{m}$",
+  truth=sum(Abs(ig(6*sin(2*t), (t, j*pi/2, (j+1)*pi/2))) for j in range(2))),
 # 2026 #31: x^n (1 + c/x)^n simplifies to (x + c)^n; options = (x+c)^(n+1)/(n+1), (x+c)^n/n, term-by-term slips
 Q('u5e5q6', L[2], 'medium',
   F(r"ناتج: $\displaystyle\int «0»\,dx$ هو:", (r'x^{4}\left(1-\frac{2}{x}\right)^{4}', x**4*(1-2/x)**4)),
@@ -262,14 +262,14 @@ Q('u5e7q6', L[2], 'hard',
   r"$\sqrt{4x^2-x^4}=\sqrt{x^2}\sqrt{4-x^2}=|x|\sqrt{4-x^2}=-x\sqrt{4-x^2}$ في $[-2,0]$" "\n"
   r"$u=4-x^2$: $\displaystyle\int_{-2}^0-x\sqrt{4-x^2}\,dx=\left[\frac13(4-x^2)^{\frac32}\right]_{-2}^0=\frac83$",
   truth=num(Integral(sqrt(4*x**2-x**4), (x, -2, 0)))),
-# 2025 #2: improper fraction over a linear factor; options = quotient term halved or not x sign of the ln term
-Q('u5e7q7', L[3], 'medium',
-  F(r"ناتج: $\displaystyle\int «0»\,dx$ هو:", (r'\frac{x^{2}-3x+5}{x-1}', (x**2-3*x+5)/(x-1))),
-  [A(r'\frac{x^{2}}{2}-2x+3\ln|x-1|+C', x**2/2-2*x+3*log(x-1)), A(r'\frac{x^{2}}{2}-2x-3\ln|x-1|+C', x**2/2-2*x-3*log(x-1)),
-   A(r'x^{2}-2x+3\ln|x-1|+C', x**2-2*x+3*log(x-1)), A(r'x^{2}-2x-3\ln|x-1|+C', x**2-2*x-3*log(x-1))],
-  r"بالقسمة: $x^2-3x+5=(x-1)(x-2)+3$ ، إذن $\dfrac{x^2-3x+5}{x-1}=x-2+\dfrac{3}{x-1}$" "\n"
-  r"$\displaystyle\int\left(x-2+\frac{3}{x-1}\right)dx=\frac{x^2}{2}-2x+3\ln|x-1|+C$",
-  truth=(x**2-3*x+5)/(x-1)),
+# 2025 #2: improper fraction over a linear factor, the numerator's first two terms a multiple of it (one-step division, as in the model); options = quotient term halved or not x sign of the ln term
+Q('u5e7q7', L[3], 'easy',
+  F(r"ناتج: $\displaystyle\int «0»\,dx$ هو:", (r'\frac{x^{2}-x+3}{x-1}', (x**2-x+3)/(x-1))),
+  [A(r'\frac{x^{2}}{2}+3\ln|x-1|+C', x**2/2+3*log(x-1)), A(r'\frac{x^{2}}{2}-3\ln|x-1|+C', x**2/2-3*log(x-1)),
+   A(r'x^{2}+3\ln|x-1|+C', x**2+3*log(x-1)), A(r'x^{2}-3\ln|x-1|+C', x**2-3*log(x-1))],
+  r"$x^2-x=x(x-1)$ ، إذن $\dfrac{x^2-x+3}{x-1}=x+\dfrac{3}{x-1}$" "\n"
+  r"$\displaystyle\int\left(x+\frac{3}{x-1}\right)dx=\frac{x^2}{2}+3\ln|x-1|+C$",
+  truth=(x**2-x+3)/(x-1)),
 # 2023 #9: k x^n ln x by parts; options = power of x in the first term x sign of the second
 Q('u5e7q8', L[4], 'easy',
   F(r"ناتج: $\displaystyle\int «0»\,dx$ هو:", (r'8x^{3}\ln x', 8*x**3*log(x))),
@@ -340,12 +340,12 @@ IndexQ('u5e8q4', L[1], 'medium',
    O(r'N(t)=3e^{0.03t}+497', 3*exp(R(3, 100)*t)+497, 'eq'), O(r'N(t)=3e^{0.03t}+500', 3*exp(R(3, 100)*t)+500, 'eq')],
   r"$N(t)=\displaystyle\int0.9e^{0.03t}dt=\frac{0.9}{0.03}e^{0.03t}+C=30e^{0.03t}+C$ ، و $N(0)=30+C=500 \Rightarrow C=470$",
   truth=lambda vals: only(vals, lambda N_: ode_t_ok(N_, R(9, 10)*exp(R(3, 100)*t), 0, 500))),
-# 2024s #7: position after a time for v = k sin(t/n), given the start; options = start added or not x chain slip
+# 2024s #7: position after a time for v = k sin(t/n), starting from the origin as in the model (position = displacement); options = lower limit subtracted or not x chain slip (multiplied by 1/n)
 Q('u5e8q5', L[1], 'medium',
-  F(r"يتحرّك جسم في مسار مستقيم، وتُعطى سرعته بالاقتران: $v(t)=«0»$ ، حيث $t$ الزمن بالثواني، و $v$ سرعته بالمتر لكل ثانية. إذا بدأ الجسم حركته من الموقع $x=1$ ، فإنّ موقعه بعد $2\pi$ ثانية من بدء الحركة هو:", (r'2\sin\frac{t}{4}', 2*sin(t/4))),
-  [O('9', 9, units='m'), O('8', 8, units='m'), O(r'\frac{3}{2}', R(3, 2), units='m'), O(r'\frac{1}{2}', R(1, 2), units='m')],
-  r"$s(2\pi)=1+\displaystyle\int_0^{2\pi}2\sin\frac t4\,dt=1+\left[-8\cos\frac t4\right]_0^{2\pi}=1+(0+8)=9\ \text{m}$",
-  truth=1+ig(2*sin(t/4), (t, 0, 2*pi))),
+  F(r"يتحرّك جسم في مسار مستقيم، وتُعطى سرعته بالاقتران: $v(t)=«0»$ ، حيث $t$ الزمن بالثواني، و $v$ سرعته بالمتر لكل ثانية. إذا بدأ الجسم حركته من نقطة الأصل، فإنّ موقعه بعد $4\pi$ ثانية من بدء الحركة هو:", (r'2\sin\frac{t}{4}', 2*sin(t/4))),
+  [O('16', 16, units='m'), O('8', 8, units='m'), O('1', 1, units='m'), O(r'\frac{1}{2}', R(1, 2), units='m')],
+  r"بدأ من نقطة الأصل، فموقعه يساوي إزاحته: $s(4\pi)=\displaystyle\int_0^{4\pi}2\sin\frac t4\,dt=\left[-8\cos\frac t4\right]_0^{4\pi}=8+8=16\ \text{m}$",
+  truth=ig(2*sin(t/4), (t, 0, 4*pi))),
 # 2025 #7: e^(nx) times a power of (1 - c e^(-x)) becomes e^x (e^x - c)^k; options = which bracket x sign
 Q('u5e8q6', L[2], 'hard',
   F(r"ناتج: $\displaystyle\int «0»\,dx$ هو:", (r'e^{5x}\left(1-3e^{-x}\right)^{4}', exp(5*x)*(1-3*exp(-x))**4)),
@@ -442,7 +442,7 @@ Q('u5e9q6', L[2], 'medium',
   F(r"ناتج: $\displaystyle\int «0»\,dx$ هو:", (r'(3-6x)\sqrt[3]{9+3x-3x^{2}}', (3-6*x)*cbrt(9+3*x-3*x**2))),
   [A(r'\frac{3}{4}\sqrt[3]{(9+3x-3x^{2})^{4}}+C', R(3, 4)*cbrt((9+3*x-3*x**2)**4)), A(r'-\frac{3}{4}\sqrt[3]{(9+3x-3x^{2})^{4}}+C', -R(3, 4)*cbrt((9+3*x-3*x**2)**4)),
    A(r'\frac{3}{4}\sqrt[4]{(9+3x-3x^{2})^{3}}+C', R(3, 4)*((9+3*x-3*x**2)**3)**R(1, 4)), A(r'-\frac{3}{4}\sqrt[4]{(9+3x-3x^{2})^{3}}+C', -R(3, 4)*((9+3*x-3*x**2)**3)**R(1, 4))],
-  r"$u=4+3x-3x^2 \Rightarrow du=(3-6x)dx$: $\displaystyle\int u^{\frac13}du=\frac34u^{\frac43}+C=\frac34\sqrt[3]{(4+3x-3x^2)^4}+C$",
+  r"$u=9+3x-3x^2 \Rightarrow du=(3-6x)dx$: $\displaystyle\int u^{\frac13}du=\frac34u^{\frac43}+C=\frac34\sqrt[3]{(9+3x-3x^2)^4}+C$",
   truth=(3-6*x)*cbrt(9+3*x-3*x**2)),
 # 2023s #8: a power of a trig function times sin 2x; options = sign x the 2 of sin 2x
 Q('u5e9q7', L[2], 'medium',
@@ -538,12 +538,12 @@ Q('u5e10q7', L[3], 'medium',
   r"$\dfrac{x+3}{x(2-x)}=\dfrac{A}{x}+\dfrac{B}{2-x}$ ، عند $x=0$: $3=2A \Rightarrow A=\frac32$ ، عند $x=2$: $5=2B \Rightarrow B=\frac52$" "\n"
   r"و $\displaystyle\int\frac{\frac52}{2-x}dx=-\frac52\ln|2-x|$",
   truth=(x+3)/(2*x-x**2)),
-# 2025s #5: improper fraction integrated into a given form -> a constant; options = quotient coefficient slips
-Q('u5e10q8', L[3], 'medium',
-  F(r"إذا كان: $\displaystyle\int «0»\,dx=ax^{2}-x+2\ln|x+1|+C$ ، فإنّ قيمة الثابت $a$ هي:", (r'\frac{3x^{2}+2x+1}{x+1}', (3*x**2+2*x+1)/(x+1))),
+# 2025s #5: improper fraction, the numerator's first two terms a multiple of the denominator (one-step division, as in the model), integrated into a given form ax^2 + k ln|x + c| -> a; options = quotient coefficient slips
+Q('u5e10q8', L[3], 'easy',
+  F(r"إذا كان: $\displaystyle\int «0»\,dx=ax^{2}+2\ln|x+1|+C$ ، فإنّ قيمة الثابت $a$ هي:", (r'\frac{3x^{2}+3x+2}{x+1}', (3*x**2+3*x+2)/(x+1))),
   [O(r'\frac{3}{2}', R(3, 2)), O('3', 3), O(r'\frac{2}{3}', R(2, 3)), O(r'\frac{1}{2}', R(1, 2))],
-  r"بالقسمة: $3x^2+2x+1=(x+1)(3x-1)+2$ ، إذن التكامل $=\displaystyle\int\left(3x-1+\frac{2}{x+1}\right)dx=\frac32x^2-x+2\ln|x+1|+C$ ، و $a=\frac32$",
-  truth=lambda: solve((diff(a*x**2-x+2*log(x+1), x)-(3*x**2+2*x+1)/(x+1)).subs(x, 2), a)[0]),
+  r"$3x^2+3x=3x(x+1)$ ، إذن التكامل $=\displaystyle\int\left(3x+\frac{2}{x+1}\right)dx=\frac32x^2+2\ln|x+1|+C$ ، و $a=\frac32$",
+  truth=lambda: solve((diff(a*x**2+2*log(x+1), x)-(3*x**2+3*x+2)/(x+1)).subs(x, 2), a)[0]),
 # 2023s #9 family: definite integral of x trig x by parts; options = sign of the second term, lower limit
 Q('u5e10q9', L[4], 'medium',
   F(r"قيمة: $\displaystyle\int_{0}^{\pi/2}«0»\,dx$ هي:", (r'x\cos x', x*cos(x))),

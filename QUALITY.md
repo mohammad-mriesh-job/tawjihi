@@ -175,7 +175,14 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 2023 التكميلي — 9، 2026 المعيدون — 8، 2025 التكميلي — 7. سياقان جديدان (سعر قطعة، أعداد الأسماك) لم يُستعملا في أي بنك آخر،
 ولا تتكرّر أي صيغة من نصوص الأسئلة مع الاختبارات 1–4 أو نماذج الفصل الثاني.
 
-**الصعوبة:** 16 سهلًا · 41 متوسطًا · 15 صعبًا.
+**الصعوبة:** 18 سهلًا · 40 متوسطًا · 14 صعبًا.
+
+**لا سؤال أصعب من نموذجه الوزاري (2 تشرين الثاني 2026):** قورن كل سؤال من الأسئلة الـ72 بفقرته الوزارية، فكانت أربعة أسئلة
+أصعب منها بخطوة، وأُعيدت كتابتها لتطابقها: `u5e5q5` (ثلاثة أقواس للجيب وصفران داخليان، والنموذج 2026 #30 قوسان وصفر واضح؛ صار
+قوسين)، و `u5e7q7` و `u5e10q8` (قسمة مطوّلة على خطوتين، والنموذجان 2025 #2 و 2025 التكميلي #5 بسطهما ينقسم في خطوة واحدة؛ صارا
+كذلك)، و `u5e8q5` (يبدأ الجسم من $x=1$ ، والنموذج 2024 التكميلي #7 يبدأ من نقطة الأصل؛ صار كذلك). سؤالان بلا نموذج اختيار من متعدد
+تُرِكا كما هما: الحلقات بين منحنيين `u5e7q11` والمساحة بين منحنيين `u5e10q11`؛ المهارتان في الأسئلة المقالية للوزارة (2024 و 2025)
+بصورة أثقل، ونقاط التقاطع مقروءة من الشكل. والاختبارات 5 و 7 و 8 و 10 في `REVISION` في `src/global/lib/storage.ts`.
 
 **الشرح:** كل أسئلة الوحدة الـ120 (القديمة والجديدة) لها شرح مفصّل بالطريقة المعتادة في الكتاب: مراحل معنونة، وكل خطوة حسابية
 مكتوبة (التعويض بالحدود، توحيد المقامات، قيم $e^0$ و $\ln1$…)، وتحقّق بالاشتقاق أو بالتعويض، وسبب خطأ كل بديل باسم الخطأ الذي
@@ -184,7 +191,7 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 **العرض:** أثناء الحلّ لا يظهر اسم الدرس ولا مستوى الصعوبة (ولا توزيع الصعوبة في صفحة الوحدة)؛ يظهران في المراجعة بعد التسليم
 مع جدول النتيجة حسب الدرس وحسب مستوى السؤال.
 
-**الصحة:** الفحوص الثلاثة لكل الأسئلة الـ72 الجديدة آليًّا (لا سؤال يدوي)، وجميع صيغ الوحدة (3398 صيغة) تُعرض في KaTeX دون أخطاء،
+**الصحة:** الفحوص الثلاثة لكل الأسئلة الـ72 الجديدة آليًّا (لا سؤال يدوي)، وجميع صيغ الوحدة (3503 صيغ) تُعرض في KaTeX دون أخطاء،
 وأسئلة الاختبارات 1–4 لم تتغيّر (تغيّر شرحها فقط).
 
 | الفقرة | النموذج الوزاري · شبكة البدائل |
@@ -193,7 +200,7 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 | u5e5q2 | 2026 #27: a^(linear) divided by ln a; options = exponent (extra 1/2 or not) x ln a vs (ln a)^2 |
 | u5e5q3 | 2026 #28: integral of sin^2 over an interval = a pi; options = +-1/2, +-1/4 (power reduction, missing 1/2) |
 | u5e5q4 | 2026 #29: dy/dx = e^(kx) - e^(-x), curve through (0, c); options = sign of the e^(-x) term x sign of the constant |
-| u5e5q5 | 2026 #30: v = k sin(t), total distance over several arches; options = distance, displacement, arch-count and chain slips |
+| u5e5q5 | 2026 #30: v = k sin(mt), total distance over two equal arches (one interior zero, as in the model); options = distance, displacement, one arch only, chain factor not divided |
 | u5e5q6 | 2026 #31: x^n (1 + c/x)^n simplifies to (x + c)^n; options = (x+c)^(n+1)/(n+1), (x+c)^n/n, term-by-term slips |
 | u5e5q7 | 2026 #32: sin^2(kx)/cos^4(kx) = tan^2 sec^2; options = sign x cot vs csc (the cot/csc version) |
 | u5e5q8 | 2026 #33: (x^2 + a)/(x^3 + bx) = A/x + Bx/(x^2 + b); options = sign of A x the 1/2 from the ln(x^2 + b) term |
@@ -219,7 +226,7 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 | u5e7q4 | 2024 #6: displacement for v = k trig(t/n); options = sign x chain factor (multiplied instead of divided) |
 | u5e7q5 | 2025 #8: price rate p'(x) = k x / root(x^2 + c) and one price -> P(x); options = coefficient (1/2 slip) x sign of the constant |
 | u5e7q6 | 2025 #6: root(a x^2 - x^4) on a negative interval (\|x\| = -x); options = sign (\|x\| = x slip) x the missing 1/2 |
-| u5e7q7 | 2025 #2: improper fraction over a linear factor; options = quotient term halved or not x sign of the ln term |
+| u5e7q7 | 2025 #2: improper fraction over a linear factor that splits in one step (as in the model); options = quotient term halved or not x sign of the ln term |
 | u5e7q8 | 2023 #9: k x^n ln x by parts; options = power of x in the first term x sign of the second |
 | u5e7q9 | 2023 #10: k x trig(kx) by parts; options = sign of the first term x sign of the second |
 | u5e7q10 | 2025s #3: area under x(x - c)^2 between its zeros (figure); options = expansion slips |
@@ -229,7 +236,7 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 | u5e8q2 | 2024 #1: a^(-x) plus a trig function of -x; options = sign of each term |
 | u5e8q3 | 2025s #2: \|linear\| / (its negative) on an interval where the sign is fixed; options = sign x answering the integrand value |
 | u5e8q4 | 2024s #6: population changing at k e^(rt), initial count -> P(t); options = decimal slip in k/r x constant adjusted or not |
-| u5e8q5 | 2024s #7: position after a time for v = k sin(t/n), given the start; options = start added or not x chain slip |
+| u5e8q5 | 2024s #7: position after a time for v = k sin(t/n), starting from the origin as in the model; options = lower limit subtracted or not x chain slip |
 | u5e8q6 | 2025 #7: e^(nx) times a power of (1 - c e^(-x)) becomes e^x (e^x - c)^k; options = which bracket x sign |
 | u5e8q7 | 2024s #9: f'/f^n with a trig inner function; options = sign x 1/(n-1) vs (n-1) |
 | u5e8q8 | 2025 #10: 1/(x^2 (x - c)) with a repeated factor; options = sign of the logs x sign of 1/x |
@@ -256,7 +263,7 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 | u5e10q5 | 2023 #6: displacement for v = k t/(t^2 + c); options = sign x the 1/2 from du = 2t dt |
 | u5e10q6 | 2024 #8: definite integral of k x (1 - x)^n by substitution; options = sign (limits) x (x = 1 - u vs 1 + u) |
 | u5e10q7 | 2024s #11: (px + q)/(cx - x^2); options = sign of the second log, ln of the denominator |
-| u5e10q8 | 2025s #5: improper fraction integrated into a given form -> a constant; options = quotient coefficient slips |
+| u5e10q8 | 2025s #5: improper fraction that splits in one step (as in the model), integrated into a given form -> a constant; options = quotient coefficient slips |
 | u5e10q9 | 2023s #9 family: definite integral of x trig x by parts; options = sign of the second term, lower limit |
 | u5e10q10 | 2023s #12: velocity-time graph starting above the axis, start given -> final position |
 | u5e10q11 | 2025 #3 family (figure): area between a parabola and a line; options = intersection sign slip x integral of x slip |
@@ -370,20 +377,27 @@ $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال،
 التباين أو الانحراف المعياري، نسيان المتممة، القسمة على التباين بدل الانحراف المعياري، جهة $z$ ، إهمال إشارة القيمة السالبة،
 نسيان القسمة على $2$ في الفترة المتماثلة، القيمة الأقرب في الجدول…) أو قائمة قيم من النوع نفسه. قيم جدول التوزيع الطبيعي هي
 قيم الوزارة بأربع منازل، وتُعطى في نص السؤال كما تفعل الوزارة، وتُحسب الإجابة منها. النماذج المستعملة: 2026 — 14، 2025 — 9،
-2026 المعيدون — 8، 2024 التكميلي — 8، 2024 — 6، 2025 التكميلي — 5، 2023 — 5، 2023 التكميلي — 5. لا تتكرّر صيغة أو مجموعة
+2026 المعيدون — 8، 2024 التكميلي — 7، 2024 — 6، 2023 — 6، 2025 التكميلي — 5، 2023 التكميلي — 5. لا تتكرّر صيغة أو مجموعة
 بدائل من الاختبارات 1–3 أو من فقرات الوحدة في نماذج الفصل الثاني (فُحص ذلك آليًّا؛ المشترك فقط رموز عامة مثل
 $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 
 **الأشكال:** 8 أشكال: ثلاث مناطق مظلّلة أسفل المنحنى المعياري، وشكل القاعدة التجريبية كما تضعه الوزارة ملحوظةً
-($34\%$ ، $13.5\%$ ، $2.35\%$ ، $0.15\%$) في أربعة أسئلة، ومنحنى عليه طرفان نسبة كلّ منهما $2.5\%$.
+($34\%$ ، $13.5\%$ ، $2.35\%$ ، $0.15\%$) في أربعة أسئلة، ومنحنى عليه طرفان نسبة كلّ منهما $2.5\%$ وتحته شكل القاعدة
+التجريبية ملحوظةً كما في 2025 #23.
 
-**الصعوبة:** 20 سهلًا · 25 متوسطًا · 15 صعبًا (4 · 5 · 3 في كل اختبار).
+**الصعوبة:** 20 سهلًا · 26 متوسطًا · 14 صعبًا (4 · 5 · 3 في كل اختبار، و 4 · 6 · 2 في الاختبار السابع).
+
+**لا سؤال أصعب من نموذجه الوزاري (2 تشرين الثاني 2026):** قورن كل سؤال من الأسئلة الستين بفقرته الوزارية، فكانت خمسة أسئلة
+أصعب منها، وأُعيدت كتابتها لتطابقها: `u7e4q11` (كان يجمع أربع مناطق من القاعدة التجريبية، وأقصى ما في نماذج الوزارة ثلاث)،
+و `u7e6q11` (ثلاث مناطق ونموذجه 2023 التكميلي #24 منطقتان)، و `u7e7q4` (كان يطلب التوقّع بعد إيجاد $p$ ، والنموذج 2023 #23 يقف عند
+قيم $p$)، و `u7e7q9` (حُجب شكل القاعدة التجريبية الذي يضعه النموذج 2025 #23 ملحوظةً؛ أُضيف)، و `u7e7q11` (كان $N(\mu,4\mu^2)$ ،
+والنموذج 2024 #24 فيه $\sigma=\mu$ ؛ صار $N(\mu,\mu^2)$). والاختبارات 4 و 6 و 7 في `REVISION` في `src/global/lib/storage.ts`.
 
 **الشرح:** لكل سؤال شرح مفصّل بالطريقة المعتادة: مراحل معنونة، وكل خطوة حسابية مكتوبة (مع خمس منازل عشرية في الحسابات الوسيطة
-لذي الحدّين)، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 6.8 خطوة لكل سؤال). العبارات المشتركة في `explain_u7_common.py`.
+لذي الحدّين)، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 6.9 خطوة لكل سؤال). العبارات المشتركة في `explain_u7_common.py`.
 
 **الصحة:** الفحوص الثلاثة لكل الأسئلة الـ60 الجديدة آليًّا (لا سؤال يدوي؛ سؤالا «أيّ التجارب…» يُفحصان بخاصية تصنيف البدائل)،
-وفُحصت 171 مساواة داخل الشرح آليًّا، وجميع صيغ الوحدة (2651 صيغة) تُعرض في KaTeX دون أخطاء، وأسئلة الاختبارات 1–3 لم تتغيّر.
+وفُحصت 171 مساواة داخل الشرح آليًّا، وجميع صيغ الوحدة (2693 صيغة) تُعرض في KaTeX دون أخطاء، وأسئلة الاختبارات 1–3 لم تتغيّر.
 
 | الفقرة | النموذج الوزاري · شبكة البدائل |
 |---|---|
@@ -397,7 +411,7 @@ $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 | u7e4q8 | 2026 #49: P(-k/c < Z < k/c) given -> k; options = right table entry times c, neighbouring entries, z divided by c |
 | u7e4q9 | 2026 #50: sigma from the percentage above a value (closest table entry); options = sigma, z, d.z, z/d |
 | u7e4q10 | 2026r #23: shaded area between a negative and a positive z (figure); options = right, sign ignored, and their complements |
-| u7e4q11 | 2024s #23 / 2023 #24: probability between two values by the empirical rule (figure); options = right sum and misplaced bounds |
+| u7e4q11 | 2023 #24: probability between mu - 2 sigma and mu + sigma by the empirical rule (figure), three bands as in 2023 #24 and 2024s #23; options = right sum, mu +- 2 sigma, mu +- sigma, one side only |
 | u7e4q12 | 2025 #24: P(X < mu - k) given -> P(mu - k < X < mu + k); options = 1 - 2a, 1 - a, a, 2a |
 | u7e5q1 | 2025 #22: P(X > k) given -> E(X); options = 1/p, 1/(1 - p), p, 1 - p |
 | u7e5q2 | 2025s #22: E(X) and p -> Var(X); options = E(1 - p), Ep, p(1 - p), n(1 - p) |
@@ -421,19 +435,19 @@ $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 | u7e6q8 | 2026 #49: P(-k/c < Z < k/c) given -> k; options = right z or the unhalved one, x times c or divided by c |
 | u7e6q9 | 2024s #24: shaded area between two negative z (figure); options = right, sign slip, sum of the tails, complement |
 | u7e6q10 | 2025s #24: P(X > mu + k) given -> P(X < mu - k) by symmetry; options = a, 1 - a, 1 - 2a, 2a |
-| u7e6q11 | 2023s #24: percentage between two values by the empirical rule (figure); options = mu..mu+3s, mu..mu+2s, mu..mu+s, 50% |
+| u7e6q11 | 2023s #24: percentage between two values by the empirical rule (figure), two bands as in the model; options = mu..mu+2s, mu +- 2s, mu..mu+s, 50% |
 | u7e6q12 | 2024s #25: x from P(X < x) below the mean (closest table entry); options = mu - z sigma, mu + z sigma, mu - z, mu - z sigma^2 |
 | u7e7q1 | 2025 #22: P(X > k) given -> P(X = k); options = (1-p)p, (1-p)^2 p, p^2, 1 - p |
 | u7e7q2 | 2026 #47: reject when at least one is defective; options = P(X >= 1), P(X = 0), P(X = 1), P(X >= 2) |
 | u7e7q3 | 2025 #21: which experiment is binomial; options = binomial, geometric, drawing together, measuring |
-| u7e7q4 | 2023 #23: Var given with p > 0.5 -> E(X); options = E for each root x E or p |
+| u7e7q4 | 2023 #23: Var given -> the two possible values of p (the model stops there); options = the right pair, p(1 - p) = 0.21 misread as p = 0.21, two pairs of tenths |
 | u7e7q5 | 2024s #22: Var of a given binomial; options = Var, E, sigma, p(1 - p) |
 | u7e7q6 | 2023s #23: E(X) of a geometric variable; options = 1/p, 1/(1 - p), p, 1 - p (decimals) |
 | u7e7q7 | 2026 #50: sigma from the percentage below a value (closest table entry); options = sigma, z, d.z, z/d |
 | u7e7q8 | 2026r #24: P(Z > z) given -> P(-z < Z < z); options = 1 - 2a, 1 - a, a, 2a |
-| u7e7q9 | 2025 #23: sigma from a curve whose 2.5% tails are marked (figure); options = sigma, 2 sigma, 4 sigma, sigma/2 |
+| u7e7q9 | 2025 #23: sigma from a curve whose 2.5% tails are marked, the empirical-rule figure given as a note as in the model; options = sigma, 2 sigma, 4 sigma, sigma/2 |
 | u7e7q10 | 2024 #25: P(a < Z < b) with a < 0 < b; options = right, sign ignored, and their complements |
-| u7e7q11 | 2024 #24: X ~ N(mu, (2 mu)^2) and a z-score -> sigma; options = sigma, mu, sigma^2, x |
+| u7e7q11 | 2024 #24: X ~ N(mu, mu^2) (sigma = mu, as in the model) and a z-score -> sigma; options = sigma, the variance used in z, sigma^2, x |
 | u7e7q12 | 2025 #25: x from P(x < X < mu); options = mu - z sigma, mu + z sigma, mu - z, mu - z sigma^2 |
 | u7e8q1 | 2026 #46: ratio of geometric probabilities two apart -> E(X); options = 1/p, p, 1 - p, 1/(1 - p) (decimals) |
 | u7e8q2 | 2026r #21: testing chips until the first defective; options = (1-p)^3 p, (1-p)^4, p^3 (1-p), (1-p)^3 |

@@ -104,3 +104,15 @@ def tails_fig(lo_lab, mid_lab, hi_lab, pct):
             ax.spines[side].set_visible(False)
         ax.set_ylim(-0.01, 0.43); ax.set_xlim(-3.7, 3.7)
     return draw
+
+
+def tails_emp_fig(lo_lab, mid_lab, hi_lab, pct):
+    """2025 #23 as the ministry prints it, in one figure: on top the item's curve with both tails marked (tails_fig),
+    below it the empirical-rule figure given as a note (emp_fig)"""
+    def draw(fig, ax):
+        ax.remove()
+        top, bottom = fig.subplots(2, 1)
+        tails_fig(lo_lab, mid_lab, hi_lab, pct)(fig, top)
+        top.text(3.55, -0.045, '$X$', fontsize=12)
+        emp_fig(fig, bottom)
+    return draw

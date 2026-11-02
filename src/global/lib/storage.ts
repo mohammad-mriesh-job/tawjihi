@@ -54,7 +54,11 @@ export const raw = { get: read, set: write, del: remove };
 /** Unit exams with questions rewritten after publication (as REVISION in mockStore.ts): a saved session or result
  *  stores option indexes of the old questions, so those two keys get a revision suffix and old data is never applied
  *  to the new questions; the score history (attempts) is kept. */
-const REVISION: Record<string, number> = { 'u6-e6': 2, 'u6-e7': 2 };
+const REVISION: Record<string, number> = {
+  'u5-e5': 2, 'u5-e7': 2, 'u5-e8': 2, 'u5-e10': 2,
+  'u6-e6': 2, 'u6-e7': 2,
+  'u7-e4': 2, 'u7-e6': 2, 'u7-e7': 2,
+};
 const rev = (examKey: string) => `${examKey}${REVISION[examKey] ? `@${REVISION[examKey]}` : ''}`;
 
 export const storage = {
