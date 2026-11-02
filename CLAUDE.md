@@ -49,9 +49,10 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
   appended after existing ones; never insert, reorder or remove a published paper**, and never change a published
   question's options — a saved attempt stores the chosen option index. Before committing, confirm the old papers in
   the generated `sN.ts` are byte-identical to the previous commit.
-- If a published paper must be rewritten anyway (done once: semester-1 papers 6–10 on 2026-10-15), add it to
-  `REVISION` in `src/global/lib/mockStore.ts` (or bump its number) so saved sessions/results of the old questions are
-  not replayed against the new ones.
+- If a published paper or unit exam must be rewritten anyway (semester-1 papers 6–10 on 2026-10-15; unit-6 exams 6
+  and 7 on 2026-11-02), add it to `REVISION` in `src/global/lib/mockStore.ts` (papers) or `src/global/lib/storage.ts`
+  (unit exams), or bump its number, so saved sessions/results of the old questions are not replayed against the new
+  ones.
 - Do not modify published papers when asked to improve "new" ones (the user's explicit rule: e.g. restyle semester-1
   papers 6–10 only, never 1–5).
 - While a student is solving (unit exams, the comprehensive exam, mock papers) never show the question's lesson or
@@ -68,7 +69,10 @@ Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or 
 
 1. **Start from a specific ministry item, not from the textbook exercise.** Every new item is a *sibling* of one
    named official item: same skill, same stem structure, same kind of function and numbers, same difficulty and
-   option grid — only the function and numbers change. Write the model in a comment above the `Q(...)`
+   option grid — only the function and numbers change. **Never harder than the model** (the user's explicit rule,
+   2026-11-02): no extra step or twist the official item does not have; if the model hands over a value (the foot F,
+   a zero component that gives one unknown at once, the vectors at the right-angle vertex), the sibling hands it over
+   too (three unit-6 items were rewritten for this). Write the model in a comment above the `Q(...)`
    (e.g. `# 2026 #13: log base a of (c + ln x), f'(e); options = e vs 1/e x ln(a^n)`); ANALYSIS.md section 9
    lists the mapping for papers 6–10. Restyling options alone is NOT modelling (that was tried for papers 6–10
    and rejected). The blueprint is the 2026 paper (items 1–25 = semester 1: unit 1 → 1–3, unit 2 → 4–8, unit 3 →

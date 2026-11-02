@@ -273,7 +273,7 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 `src/semesters/semester-2/unit-6/u6_exams_4_8.py`)، والبدائل شبكة 2×2 من خطأين شائعين (ترتيب الطرح $B-A$ أو $A-B$ ، طرح عدد
 سالب، النسبة $k$ أو $\frac1k$ وإشارتها، المنتصف الخطأ $2A-B$ ، مكان المركبة الغائبة في $\hat{i},\hat{j},\hat{k}$ ، الجذر أو
 مربّعه، الوتر بدل ضلع القائمة، الجذر المرفوض…) أو قائمة قيم من النوع نفسه. النماذج المستعملة: 2026 — 17، 2025 — 7،
-2025 التكميلي — 8، 2024 التكميلي — 7، 2026 المعيدون — 6، 2023 — 6، 2024 — 5، 2023 التكميلي — 4. لا تتكرّر نقطة أو صيغة
+2025 التكميلي — 7، 2024 التكميلي — 7، 2026 المعيدون — 6، 2023 — 6، 2024 — 5، 2023 التكميلي — 5. لا تتكرّر نقطة أو صيغة
 أو مجموعة بدائل من الاختبارات 1–3 أو من فقرات المتجهات في نماذج الفصل الثاني (فُحص ذلك آليًّا؛ المشترك فقط عبارات عامة مثل
 الشرط $\overrightarrow{AB}=\overrightarrow{BD}$ نفسه ومجموعة الزوايا الخاصة).
 
@@ -281,13 +281,20 @@ $f(x)=\log_2(3+\ln x)$ عند $e$ ، وبدائلها من المفتاحين ن
 و $y$ إلى أسفل اليمين، والرؤوس $A$–$G$ كما في الفقرة 2026 #41)، ومتوازيات أضلاع ومثلث لمسائل النسبة مرسومة من معاملات
 $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال، وأربعة أشكال صغيرة لإشارة الضرب القياسي.
 
-**الصعوبة:** 20 سهلًا · 25 متوسطًا · 15 صعبًا (4 · 5 · 3 في كل اختبار).
+**الصعوبة:** 20 سهلًا · 27 متوسطًا · 13 صعبًا (4 · 5 · 3 في كل اختبار، و 4 · 7 · 1 في الاختبار السادس).
+
+**لا سؤال أصعب من نموذجه الوزاري (2 تشرين الثاني 2026):** قورن كل سؤال من الأسئلة الستين بفقرته الوزارية، فكانت ثلاثة أسئلة
+أصعب منها بخطوة، وأُعيدت كتابتها لتطابقها: `u6e6q2` (صار في $\vec{\mathbf{a}}$ مركبة صفرية كما في 2025 #16، فتظهر $q$ من معادلة
+واحدة)، و `u6e6q12` (كان يطلب المسقط ثم البُعد في سؤال واحد، وصار $\overrightarrow{PF}$ بدلالة $t$ كما في 2023 التكميلي #18)،
+و `u6e7q12` (كان يعطي الرؤوس الثلاثة والقائمة عند $C$ ، وصار يعطي $\overrightarrow{CA}$ و $\overrightarrow{CB}$ كما في 2026 #45).
+المعرّفات لم تتغيّر، والاختباران 6 و7 في `REVISION` في `src/global/lib/storage.ts` حتى لا تُطبَّق جلسة أو نتيجة محفوظة على
+الأسئلة الجديدة (سجلّ الدرجات باقٍ). الأسئلة الـ57 الأخرى بمستوى نماذجها.
 
 **الشرح:** لكل سؤال شرح مفصّل بالطريقة المعتادة: مراحل معنونة، وكل خطوة حسابية مكتوبة، وتحقّق بالتعويض أو بمسار آخر في
 الشكل، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 9.4 خطوة لكل سؤال). العبارات المشتركة في `explain_u6_common.py`.
 
 **الصحة:** الفحوص الثلاثة لكل الأسئلة الـ60 الجديدة آليًّا (لا سؤال يدوي؛ أُضيف إلى `qb.py` نوع البديل `ijk` لفحص البدائل
-المكتوبة بـ $\hat{i},\hat{j},\hat{k}$)، وفُحصت 203 مساواة داخل الشرح آليًّا، وجميع صيغ الوحدة (3042 صيغة) تُعرض في KaTeX دون
+المكتوبة بـ $\hat{i},\hat{j},\hat{k}$)، وفُحصت 203 مساواة داخل الشرح آليًّا، وجميع صيغ الوحدة (3050 صيغة) تُعرض في KaTeX دون
 أخطاء، وأسئلة الاختبارات 1–3 لم تتغيّر.
 
 | الفقرة | النموذج الوزاري · شبكة البدائل |
@@ -317,7 +324,7 @@ $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال،
 | u6e5q11 | 2026r #20: distance from a point to a line, foot given; options = \|PF\| or \|PF\|^2, x sign slip with a negative coordinate |
 | u6e5q12 | 2023s #19: u . c with u = AB; options = AB or BA, x A + B used instead of B - A |
 | u6e6q1 | 2023s #14: a point in a coordinate plane; options = points with the same numbers in the three planes |
-| u6e6q2 | 2025 #16: p a - q b equals a given vector -> p + q; options = right, q sign flipped, a and b swapped, same kind |
+| u6e6q2 | 2025 #16: p a - q b equals a given vector -> p + q, a has a zero component as in the model (q from one equation); options = +-(p + q), +-(p - q) (q sign slip, a and b swapped) |
 | u6e6q3 | 2024s #15: \|PQ\| = \|QR\| -> values of k; options = right roots, (k + 3) sign slip, the other components of QR forgotten (x sign) |
 | u6e6q4 | 2026 #41: cuboid in the ministry's drawing, vertex B given, vector between two vertices; options = order x C misread as B |
 | u6e6q5 | 2026 #42: collinear points, AB and AC given, the unknown inside AB; options = sign of the ratio x moving the constant |
@@ -327,7 +334,7 @@ $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال،
 | u6e6q9 | 2025s #17: point where a line meets the yz plane; options = right point, x merely set to 0, t sign slip (with and without x = 0) |
 | u6e6q10 | 2023 #19: perpendicular vectors, linear in c; options = +-3, +-1 (sign slip in one product) |
 | u6e6q11 | 2024s #20: \|b\| from the angle, the dot product and \|a\|; options = divide or multiply by cos, x cos 30 or 1/2 |
-| u6e6q12 | 2025s #20: distance from a point to a line (foot found first); options = \|PF\| or \|PF\|^2, x the line's own point used for the foot |
+| u6e6q12 | 2023s #18: F the foot of the perpendicular from P to a line -> PF in terms of t; options = F - P, F + P, the constant part reversed, P used as the line's point |
 | u6e7q1 | 2024s #14: magnitude of the position vector of a midpoint; options = \|OM\|, \|OA + OB\| (not halved), half of \|AB\|, \|AB\| |
 | u6e7q2 | 2025s #13: midpoint with unknowns in both points; options = n right or not doubled, x sign slip when moving -3 |
 | u6e7q3 | 2024 #20: parallel vectors with two unknowns -> a + b; options = sign of the ratio x moving the constants |
@@ -339,7 +346,7 @@ $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال،
 | u6e7q9 | 2023s #18: general point of a segment, PF = t PQ; options = start at P or at Q, x direction PQ or QP |
 | u6e7q10 | 2023 #20: which figure shows u . v > 0 (sign of the dot product from the angle); options = the four panels |
 | u6e7q11 | 2026 #43: three points, two side vectors given -> dot product; options = +-(right value), +-(KL . ML used directly) |
-| u6e7q12 | 2026 #45: right triangle from its vertices (the right angle is at C, not at B); options = 1/2 x the legs, without 1/2, and the hypotenuse AB taken as a leg (with and without 1/2) |
+| u6e7q12 | 2026 #45: triangle from the two side vectors at the right-angle vertex (C, not stated); options = 1/2 x the legs, without 1/2, and the hypotenuse AB taken as a leg (with and without 1/2) |
 | u6e8q1 | 2024 #17: position vector of a midpoint, given with i, j, k; options = sum or difference, x halved or not |
 | u6e8q2 | 2025s #16: GH = HD -> D; options = 2H - G, 2G - H and their negatives |
 | u6e8q3 | 2023s #15: \|AB\| = 13 with an unknown coordinate -> its values; options = right roots, (7 + k) slip, the other components forgotten (x sign) |

@@ -217,14 +217,15 @@ IndexQ('u6e6q1', L1, 'easy',
   [pt_opt(3, 0, -5), pt_opt(0, 3, -5), pt_opt(3, -5, 0), pt_opt(0, -5, 3)],
   r"النقاط الواقعة في المستوى $xz$ يكون الإحداثي $y$ لها صفرًا، وهذا متحقّق في النقطة $(3,\,0,\,-5)$ فقط.",
   truth=lambda vals: only(vals, lambda p_: p_[1] == 0)),
-# 2025 #16: p a - q b equals a given vector -> p + q; options = right, q sign flipped, a and b swapped, same kind
-Q('u6e6q2', L1, 'hard',
-  r"إذا كان: $\vec{\mathbf{a}}=\langle 2,\,1,\,-3\rangle$ ، $\vec{\mathbf{b}}=\langle 1,\,-2,\,4\rangle$ ، وكان: $p\vec{\mathbf{a}}-q\vec{\mathbf{b}}=\langle 9,\,2,\,-8\rangle$ ، حيث $p,\ q$ ثابتان، فإنّ قيمة $p+q$ هي:",
-  [O('3', 3), O('5', 5), O('-3', -3), O('-5', -5)],
-  r"نساوي المركبات: $2p-q=9$ ، $p+2q=2$ ، $-3p-4q=-8$" "\n"
-  r"من الأولى: $q=2p-9$ ، وبالتعويض في الثانية: $p+4p-18=2 \Rightarrow p=4$ ، $q=-1$" "\n"
-  r"تحقّق في الثالثة: $-12+4=-8$ ✔ ، إذن $p+q=3$",
-  truth=lambda: (lambda s_: s_[p] + s_[qq])(solve(list(p*V(2, 1, -3) - qq*V(1, -2, 4) - V(9, 2, -8)), [p, qq], dict=True)[0])),
+# 2025 #16: p a - q b equals a given vector -> p + q; a has a zero component (as in the model), so one equation gives
+# q at once; options = +-(p + q), +-(p - q): the q sign slip gives p - q, a and b swapped gives -(p + q)
+Q('u6e6q2', L1, 'medium',
+  r"إذا كان: $\vec{\mathbf{a}}=\langle 0,\,-1,\,3\rangle$ ، $\vec{\mathbf{b}}=\langle -1,\,1,\,2\rangle$ ، وكان: $p\vec{\mathbf{a}}-q\vec{\mathbf{b}}=\langle 2,\,-6,\,8\rangle$ ، حيث $p,\ q$ ثابتان، فإنّ قيمة $p+q$ هي:",
+  [O('6', 6), O('2', 2), O('-6', -6), O('-2', -2)],
+  r"نساوي المركبات: $q=2$ ، $-p-q=-6$ ، $3p-2q=8$" "\n"
+  r"من الأولى: $q=2$ ، وبالتعويض في الثانية: $-p-2=-6 \Rightarrow p=4$" "\n"
+  r"تحقّق في الثالثة: $12-4=8$ ✔ ، إذن $p+q=6$",
+  truth=lambda: (lambda s_: s_[p] + s_[qq])(solve(list(p*V(0, -1, 3) - qq*V(-1, 1, 2) - V(2, -6, 8)), [p, qq], dict=True)[0])),
 # 2024s #15: |PQ| = |QR| -> values of k; options = right roots, (k + 3) sign slip, the other components of QR forgotten (x sign)
 Q('u6e6q3', L1, 'medium',
   r"إذا كانت: $P(1,\,2,\,-1)$ ، $Q(3,\,0,\,1)$ ، $R(k,\,2,\,3)$ ، وكان: $|\overrightarrow{PQ}|=|\overrightarrow{QR}|$ ، فإنّ قيم الثابت $k$ هي:",
@@ -292,14 +293,17 @@ Q('u6e6q11', L3, 'medium',
   r"$\vec{\mathbf{a}}\cdot\vec{\mathbf{b}}=|\vec{\mathbf{a}}||\vec{\mathbf{b}}|\cos30^\circ \Rightarrow 9=3|\vec{\mathbf{b}}|\cdot\dfrac{\sqrt3}{2}=\dfrac{3\sqrt3}{2}|\vec{\mathbf{b}}|$" "\n"
   r"$|\vec{\mathbf{b}}|=\dfrac{9\times2}{3\sqrt3}=\dfrac{6}{\sqrt3}=2\sqrt3$",
   truth=9/(3*cos(pi/6))),
-# 2025s #20: distance from a point to a line (foot found first); options = |PF| or |PF|^2, x the line's own point used for the foot
-Q('u6e6q12', L3, 'hard',
-  r"إذا كانت $P(-4,\,-2,\,-3)$ نقطة غير واقعة على المستقيم: $\vec{\mathbf{r}}=\langle 2,\,0,\,-1\rangle+t\langle 2,\,1,\,-1\rangle$ ، فإنّ البُعد بين النقطة $P$ والمستقيم (بوحدات الطول) هو:",
-  [O(r'2\sqrt{5}', 2*sqrt(5)), O('20', 20), O(r'2\sqrt{11}', 2*sqrt(11)), O('44', 44)],
-  r"نفرض المسقط $F=(2+2t,\ t,\ -1-t)$ ، فيكون $\overrightarrow{PF}=\langle 6+2t,\ 2+t,\ 2-t\rangle$ عموديًّا على $\langle 2,1,-1\rangle$:" "\n"
-  r"$2(6+2t)+(2+t)-(2-t)=0 \Rightarrow 6t+12=0 \Rightarrow t=-2$ ، إذن $F=(-2,\,-2,\,1)$" "\n"
-  r"$\overrightarrow{PF}=\langle 2,\,0,\,4\rangle$ ، والبُعد $|\overrightarrow{PF}|=\sqrt{4+0+16}=\sqrt{20}=2\sqrt5$",
-  truth=lambda: (lambda tt: (V(2, 0, -1) + tt*V(2, 1, -1) - V(-4, -2, -3)).norm())(solve((V(2, 0, -1) + t*V(2, 1, -1) - V(-4, -2, -3)).dot(V(2, 1, -1)), t)[0])),
+# 2023s #18: F the foot of the perpendicular from P to the line -> PF in terms of t (the first step of finding F);
+# options = F - P, F + P, the constant part reversed (P - A + t v), P used as the line's point (P + t v)
+Q('u6e6q12', L3, 'medium',
+  r"إذا كانت: $\vec{\mathbf{r}}=\langle 2,\,0,\,-1\rangle+t\langle 2,\,1,\,-1\rangle$ معادلة متجهة للمستقيم $l$ ، و $P(-4,\,-2,\,-3)$ نقطة غير واقعة عليه، وكانت النقطة $F$ مسقط العمود من النقطة $P$ على المستقيم $l$ ، فإنّ $\overrightarrow{PF}$ هو:",
+  [O(r'\langle 6+2t,\,2+t,\,2-t\rangle', Tuple(6 + 2*t, 2 + t, 2 - t), 'vec'),
+   O(r'\langle -2+2t,\,-2+t,\,-4-t\rangle', Tuple(-2 + 2*t, -2 + t, -4 - t), 'vec'),
+   O(r'\langle -6+2t,\,-2+t,\,-2-t\rangle', Tuple(-6 + 2*t, -2 + t, -2 - t), 'vec'),
+   O(r'\langle -4+2t,\,-2+t,\,-3-t\rangle', Tuple(-4 + 2*t, -2 + t, -3 - t), 'vec')],
+  r"$F$ نقطة على المستقيم، فإحداثياتها $F=(2+2t,\ t,\ -1-t)$" "\n"
+  r"$\overrightarrow{PF}=F-P=\langle 2+2t+4,\ t+2,\ -1-t+3\rangle=\langle 6+2t,\ 2+t,\ 2-t\rangle$",
+  truth=T3(V(2, 0, -1) + t*V(2, 1, -1) - V(-4, -2, -3))),
 ]
 
 # ============================================================== Exam 7
@@ -393,14 +397,14 @@ Q('u6e7q11', L3, 'hard',
   r"$\overrightarrow{KM}=\overrightarrow{KL}+\overrightarrow{LM}=\overrightarrow{KL}-\overrightarrow{ML}=\langle -2,\,-4,\,3\rangle$" "\n"
   r"$\overrightarrow{KL}\cdot\overrightarrow{KM}=-4+12+3=11$",
   truth=V(2, -3, 1).dot(V(2, -3, 1) - V(4, 1, -2))),
-# 2026 #45: right triangle from its vertices (the right angle is at C, not at B); options = 1/2 x the legs, without 1/2,
-# and the hypotenuse AB taken as a leg (with and without 1/2)
+# 2026 #45: triangle from the two side vectors at the right-angle vertex (C here; the right angle is not stated);
+# options = 1/2 x the legs, without 1/2, and the hypotenuse AB taken as a leg (with and without 1/2)
 Q('u6e7q12', L3, 'hard',
-  r"إذا كانت: $A(1,\,6,\,5)$ ، $B(3,\,4,\,-3)$ ، $C(-1,\,2,\,1)$ رؤوس المثلث $ABC$ ، فإنّ مساحته بالوحدات المربعة تساوي:",
+  r"إذا كان $ABC$ مثلثًا فيه: $\overrightarrow{CA}=\langle 2,\,4,\,4\rangle$ ، $\overrightarrow{CB}=\langle 4,\,2,\,-4\rangle$ ، فإنّ مساحته بالوحدات المربعة تساوي:",
   [O('18', 18), O('36', 36), O(r'18\sqrt{2}', 18*sqrt(2)), O(r'36\sqrt{2}', 36*sqrt(2))],
-  r"$\overrightarrow{CA}=\langle 2,\,4,\,4\rangle$ ، $\overrightarrow{CB}=\langle 4,\,2,\,-4\rangle$ ، و $\overrightarrow{CA}\cdot\overrightarrow{CB}=8+8-16=0$ ، إذن الزاوية $C$ قائمة" "\n"
+  r"$\overrightarrow{CA}\cdot\overrightarrow{CB}=8+8-16=0$ ، إذن الزاوية $C$ قائمة" "\n"
   r"$|\overrightarrow{CA}|=6$ ، $|\overrightarrow{CB}|=6$ ، والمساحة تساوي $\frac12(6)(6)=18$",
-  truth=(lambda u_, w_: R(1, 2)*u_.norm()*w_.norm()*sin(ang(u_, w_)))(V(1, 6, 5) - V(-1, 2, 1), V(3, 4, -3) - V(-1, 2, 1))),
+  truth=R(1, 2)*V(2, 4, 4).norm()*V(4, 2, -4).norm()*sin(ang(V(2, 4, 4), V(4, 2, -4)))),
 ]
 
 # ============================================================== Exam 8

@@ -51,17 +51,23 @@ export interface Result {
 
 export const raw = { get: read, set: write, del: remove };
 
+/** Unit exams with questions rewritten after publication (as REVISION in mockStore.ts): a saved session or result
+ *  stores option indexes of the old questions, so those two keys get a revision suffix and old data is never applied
+ *  to the new questions; the score history (attempts) is kept. */
+const REVISION: Record<string, number> = { 'u6-e6': 2, 'u6-e7': 2 };
+const rev = (examKey: string) => `${examKey}${REVISION[examKey] ? `@${REVISION[examKey]}` : ''}`;
+
 export const storage = {
   attempts: (examKey: string) => read<Attempt[]>(`attempts:${examKey}`) ?? [],
   addAttempt(examKey: string, a: Attempt) {
     write(`attempts:${examKey}`, [...storage.attempts(examKey), a]);
   },
-  session: (examKey: string) => read<Session>(`session:${examKey}`),
-  saveSession: (examKey: string, s: Session) => write(`session:${examKey}`, s),
-  clearSession: (examKey: string) => remove(`session:${examKey}`),
-  result: (examKey: string) => read<Result>(`result:${examKey}`),
-  saveResult: (examKey: string, r: Result) => write(`result:${examKey}`, r),
-  clearResult: (examKey: string) => remove(`result:${examKey}`),
+  session: (examKey: string) => read<Session>(`session:${rev(examKey)}`),
+  saveSession: (examKey: string, s: Session) => write(`session:${rev(examKey)}`, s),
+  clearSession: (examKey: string) => remove(`session:${rev(examKey)}`),
+  result: (examKey: string) => read<Result>(`result:${rev(examKey)}`),
+  saveResult: (examKey: string, r: Result) => write(`result:${rev(examKey)}`, r),
+  clearResult: (examKey: string) => remove(`result:${rev(examKey)}`),
 };
 
 export function bestPercent(examKey: string): number | null {
