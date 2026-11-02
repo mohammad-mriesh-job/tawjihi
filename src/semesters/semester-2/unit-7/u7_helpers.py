@@ -116,3 +116,24 @@ def tails_emp_fig(lo_lab, mid_lab, hi_lab, pct):
         top.text(3.55, -0.045, '$X$', fontsize=12)
         emp_fig(fig, bottom)
     return draw
+
+
+def spinner_fig(labels, pointer_deg=100):
+    """2025s #21 as the ministry draws it: a disc split into congruent sectors carrying the labels (the first sector
+    starts at the top and they go anticlockwise), with a pointer from the centre"""
+    import numpy as np
+    from matplotlib.patches import Circle
+    def draw(fig, ax):
+        k_ = len(labels)
+        ax.add_patch(Circle((0, 0), 1, fill=False, color='#333', lw=1.5))
+        for i_, lab in enumerate(labels):
+            a_ = np.pi/2 + 2*np.pi*i_/k_
+            ax.plot([0, np.cos(a_)], [0, np.sin(a_)], color='#333', lw=1.2)
+            m_ = a_ + np.pi/k_
+            ax.text(0.66*np.cos(m_), 0.66*np.sin(m_), lab, ha='center', va='center', fontsize=14)
+        t_ = np.radians(pointer_deg)
+        ax.annotate('', xy=(0.5*np.cos(t_), 0.5*np.sin(t_)), xytext=(0, 0),
+                    arrowprops=dict(arrowstyle='-|>', color='#555', lw=2.2, mutation_scale=16))
+        ax.plot(0, 0, 'o', color='#555', ms=5)
+        ax.set_xlim(-1.08, 1.08); ax.set_ylim(-1.08, 1.08); ax.set_aspect('equal'); ax.axis('off')
+    return draw

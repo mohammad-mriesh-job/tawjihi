@@ -162,13 +162,14 @@ Q('u7e5q7', L2, 'easy',
   r"بالتماثل: $P(Z<-z)=P(Z>z)=0.2119$" "\n"
   r"$P(-z<Z<z)=1-2(0.2119)=1-0.4238=0.5762$",
   truth=1 - 2*R('0.2119')),
-# 2026r #25: x from P(X > x); options = mu + z sigma, mu - z sigma, z, mu + z sigma^2
+# 2026 #49: P(-k/c < Z < k/c) given -> k (replaced an x-from-P item on 2026-11-02: the exam had two, and no 2026 #49);
+# options = right z or the unhalved one (closest entry), x times c or divided by c
 Q('u7e5q8', L2, 'medium',
-  r"إذا كان: $X\sim N(40,\,36)$ ، فإنّ قيمة $x$ التي تُحقّق الاحتمال $P(X>x)=0.0808$ هي:" + ztable(1.3, 1.4, 1.5),
-  [D('48.4'), D('31.6'), D('1.4'), D('90.4')],
-  r"$P(X<x)=1-0.0808=0.9192=P(Z<1.4)$ ، إذن $z=1.4$" "\n"
-  r"$\dfrac{x-40}{6}=1.4 \Rightarrow x=40+6(1.4)=48.4$",
-  truth=lambda: 40 + 6*[z_ for z_ in (R(13, 10), R(14, 10), R(15, 10)) if Ph(z_) == 1 - R('0.0808')][0]),
+  r"إذا كان $Z$ متغيّرًا عشوائيًّا طبيعيًّا معياريًّا، وكان: $P\left(-\dfrac{k}{5}<Z<\dfrac{k}{5}\right)=0.2358$ ، حيث $k>0$ ، فإنّ قيمة الثابت $k$ هي:" + ztable(0.3, 0.63),
+  [D('1.5'), D('3.15'), D('0.06'), D('0.126')],
+  r"$2P\left(Z<\dfrac{k}{5}\right)-1=0.2358 \Rightarrow P\left(Z<\dfrac{k}{5}\right)=\dfrac{1.2358}{2}=0.6179$" "\n"
+  r"من الجدول: $\dfrac{k}{5}=0.3 \Rightarrow k=1.5$",
+  truth=lambda: 5*[z_ for z_ in (R(3, 10), R(63, 100)) if 2*Ph(z_) - 1 == R('0.2358')][0]),
 # 2025s #25: sigma from the interval holding 95% (empirical rule, figure); options = sigma, sigma^2, 2 sigma, 4 sigma
 Q('u7e5q9', L2, 'medium',
   r"يدلّ المتغيّر العشوائي الطبيعي: $X\sim N(7.6,\,\sigma^2)$ على أقطار ثمار البرتقال (بالسنتيمتر) في إحدى المزارع. إذا كانت أقطار $95\%$ منها تتراوح بين $6.8\ \text{cm}$ و $8.4\ \text{cm}$ ، فإنّ قيمة الانحراف المعياري $\sigma$ لأقطار الثمار هي:" + EMPNOTE,
@@ -201,12 +202,13 @@ Q('u7e5q12', L2, 'hard',
 
 # ============================================================== Exam 6
 E6 = [
-# 2023s #23: E(X) of a geometric variable; options = 1/p, 1/(1 - p), p, 1 - p (decimals)
+# 2023 #21: P(X > k) of a given geometric variable (replaced a third E(X) = 1/p item on 2026-11-02); options = (1-p)^2
+# or p^2 (p and 1 - p swapped), x P(X > 2) or its complement P(X <= 2)
 Q('u7e6q1', L1, 'easy',
-  r"إذا كان: $X\sim Geo\left(\dfrac49\right)$ ، فإنّ توقّع المتغيّر العشوائي $X$ هو:",
-  [D('2.25'), D('1.8'), D('0.444'), D('0.556')],
-  r"$E(X)=\dfrac1p=\dfrac{9}{4}=2.25$",
-  truth=1/R(4, 9)),
+  r"إذا كان: $X\sim Geo(0.1)$ ، فإنّ $P(X>2)$ يساوي:",
+  [D('0.81'), D('0.19'), D('0.01'), D('0.99')],
+  r"$X>2$ يعني أنّ المحاولتين الأوليين فشل: $P(X>2)=(1-p)^2=(0.9)^2=0.81$",
+  truth=(1 - R(1, 10))**2),
 # 2026 #47: acceptance with at most one defective; options = P(X <= 1), P(X = 0), 1 - P(X <= 1), P(X = 1)
 Q('u7e6q2', L1, 'hard',
   r"تختار شركة عيّنة عشوائية من $6$ عبوات من كل شحنة تصلها، وتقبل الشحنة إذا كانت في العيّنة عبوة تالفة واحدة على الأكثر. إذا كانت نسبة العبوات التالفة لدى المورّد $15\%$ ، فإنّ احتمال قبول الشحنة هو تقريبًا:",
@@ -215,13 +217,14 @@ Q('u7e6q2', L1, 'hard',
   r"$P(X=0)=(0.85)^6\approx0.37715$ ، $P(X=1)=\binom61(0.15)(0.85)^5\approx0.39934$" "\n"
   r"$P(X\le1)\approx0.37715+0.39934=0.77649\approx0.7765$",
   truth=r4(binom(6, R(15, 100), 0) + binom(6, R(15, 100), 1))),
-# 2026 #46: ratio of consecutive geometric probabilities -> E(X); options = 1/p, p, 1 - p, 1/(1 - p)
+# 2023s #22: binomial P(X = k) in context with a percentage, approximate value (replaced a 2026 #46 item on 2026-11-02:
+# exam 6 shared four of its six binomial/geometric ideas with exam 4); options = right, the coefficient C(6, 2) forgotten,
+# x the failure power n instead of n - k
 Q('u7e6q3', L1, 'medium',
-  r"إذا كان: $X\sim Geo(p)$ ، وكان: $\dfrac{P(X=2)}{P(X=3)}=\dfrac54$ ، فإنّ التوقّع للمتغيّر العشوائي $X$ هو:",
-  [O('5', 5), O(r'\frac{1}{5}', R(1, 5)), O(r'\frac{4}{5}', R(4, 5)), O(r'\frac{5}{4}', R(5, 4))],
-  r"$\dfrac{P(X=2)}{P(X=3)}=\dfrac{(1-p)p}{(1-p)^2p}=\dfrac{1}{1-p}=\dfrac54 \Rightarrow 1-p=\dfrac45 \Rightarrow p=\dfrac15$" "\n"
-  r"$E(X)=\dfrac1p=5$",
-  truth=lambda: 1/root01(1/(1 - p) - R(5, 4))),
+  r"نسبة الرحلات التي تتأخّر فيها حافلات إحدى الشركات عن موعدها $10\%$. إذا اختيرت $6$ رحلات عشوائيًّا، فإنّ احتمال أن يكون التأخّر في رحلتين منها بالضبط هو تقريبًا:",
+  [D('0.0984'), D('0.0066'), D('0.0797'), D('0.0053')],
+  r"$X\sim B(6,\,0.1)$ ، و $P(X=2)=\binom62(0.1)^2(0.9)^4=15(0.01)(0.6561)\approx0.0984$",
+  truth=r4(binom(6, R(1, 10), 2))),
 # 2023 #22: at least n - 1 successes, written in powers; options = the right sum, all successes, one term, the
 # coefficient n kept
 Q('u7e6q4', L1, 'medium',
@@ -252,13 +255,15 @@ Q('u7e6q7', L2, 'easy',
   r"$z=\dfrac{178.8-170}{8}=\dfrac{8.8}{8}=1.1$" "\n"
   r"$P(X>178.8)=P(Z>1.1)=1-0.8643=0.1357$",
   truth=1 - Ph(R(11, 10))),
-# 2026 #49: P(-k/c < Z < k/c) given -> k; options = right z or the unhalved one, x times c or divided by c
+# 2026 #50 asked for mu instead of sigma (the unified trial exam asks for mu and/or sigma; replaced a 2026 #49 item on
+# 2026-11-02): the percentage above a value with sigma known (in words: mock n3q30 already writes N(mu, 25)) -> mu;
+# options = x - z sigma or x + z sigma, x sigma multiplied or forgotten
 Q('u7e6q8', L2, 'medium',
-  r"إذا كان $Z$ متغيّرًا عشوائيًّا طبيعيًّا معياريًّا، وكان: $P\left(-\dfrac{k}{5}<Z<\dfrac{k}{5}\right)=0.3108$ ، حيث $k>0$ ، فإنّ قيمة الثابت $k$ هي:" + ztable(0.4, 0.88),
-  [O('2', 2), D('4.4'), D('0.08'), D('0.176')],
-  r"$2P\left(Z<\dfrac{k}{5}\right)-1=0.3108 \Rightarrow P\left(Z<\dfrac{k}{5}\right)=\dfrac{1.3108}{2}=0.6554$" "\n"
-  r"من الجدول: $\dfrac{k}{5}=0.4 \Rightarrow k=2$",
-  truth=lambda: 5*[z_ for z_ in (R(4, 10), R(88, 100)) if 2*Ph(z_) - 1 == R('0.3108')][0]),
+  r"تتوزّع سرعات السيارات على أحد الطرق توزيعًا طبيعيًّا وسطه الحسابي $\mu$ وانحرافه المعياري $5\ \text{km/h}$. إذا كانت سرعات $5.48\%$ من السيارات تزيد على $82\ \text{km/h}$ ، فإنّ قيمة $\mu$ هي:" + ztable(1.5, 1.6, 1.7),
+  [D('74', 'km/h'), D('90', 'km/h'), D('80.4', 'km/h'), D('83.6', 'km/h')],
+  r"$P(X>82)=0.0548 \Rightarrow P(X<82)=0.9452=P(Z<1.6)$ ، إذن $z=1.6$" "\n"
+  r"$\dfrac{82-\mu}{5}=1.6 \Rightarrow \mu=82-5(1.6)=74\ \text{km/h}$",
+  truth=lambda: 82 - 5*[z_ for z_ in (R(15, 10), R(16, 10), R(17, 10)) if Ph(z_) == 1 - R('0.0548')][0]),
 # 2024s #24: shaded area between two negative z (figure); options = right, sign slip, sum of the tails, complement
 Q('u7e6q9', L2, 'medium',
   SHADED + ztable(0.5, 2),
@@ -359,12 +364,14 @@ Q('u7e7q9', L2, 'medium',
   r"من شكل القاعدة التجريبية: فوق $\mu+2\sigma$ النسبة $2.35\%+0.15\%=2.5\%$ ، وكذلك تحت $\mu-2\sigma$ ، فالقيمتان $124$ و $156$ هما $\mu-2\sigma$ و $\mu+2\sigma$" "\n"
   r"$4\sigma=156-124=32 \Rightarrow \sigma=8\ \text{g}$ (والوسط $\mu=140\ \text{g}$)",
   truth=R(156 - 124, 4), figure=figure('u7e7q9', tails_emp_fig('124', r'$\mu$', '156', '2.5%'), 4.4, 4.6)),
-# 2024 #25: P(a < Z < b) with a < 0 < b; options = right, sign ignored, and their complements
+# 2024s #24: shaded area between two negative z (figure; replaced a 2024 #25 item on 2026-11-02, which exam 5 also
+# has); options = right, complement, -2.5 read as 2.5, sum of the two areas
 Q('u7e7q10', L2, 'medium',
-  r"إذا كان $Z$ متغيّرًا عشوائيًّا طبيعيًّا معياريًّا، فإنّ $P(-1.5<Z<1)$ يساوي:" + ztable(1, 1.5),
-  [D('0.7745'), D('0.0919'), D('0.2255'), D('0.9081')],
-  r"$P(-1.5<Z<1)=P(Z<1)-P(Z<-1.5)=0.8413-(1-0.9332)=0.8413-0.0668=0.7745$",
-  truth=Ph(1) - Ph(-R(3, 2))),
+  SHADED + ztable(0.5, 2.5),
+  [D('0.3023'), D('0.6977'), D('0.6853'), D('0.3147')],
+  r"المنطقة بين $z=-2.5$ و $z=-0.5$:" "\n"
+  r"$P(-2.5<Z<-0.5)=P(Z<-0.5)-P(Z<-2.5)=(1-0.6915)-(1-0.9938)=0.3085-0.0062=0.3023$",
+  truth=Ph(-R(1, 2)) - Ph(-R(5, 2)), figure=figure('u7e7q10', bell(-2.5, -0.5, [-2.5, -0.5]), 4.0, 2.4)),
 # 2024 #24: X ~ N(mu, mu^2) (sigma = mu, as in the model) and the z-score of a given x -> sigma; options = sigma, the
 # variance mu^2 used in z (2 mu^2 + mu - 15 = 0 gives 2.5), sigma^2, x
 Q('u7e7q11', L2, 'medium',
@@ -373,13 +380,14 @@ Q('u7e7q11', L2, 'medium',
   r"$\sigma=\sqrt{\mu^2}=\mu$ ، و $\dfrac{15-\mu}{\mu}=2 \Rightarrow 15-\mu=2\mu \Rightarrow \mu=5$" "\n"
   r"$\sigma=\mu=5$",
   truth=lambda: solve((15 - x)/x - 2, x)[0]),
-# 2025 #25: x from P(x < X < mu); options = mu - z sigma, mu + z sigma, mu - z, mu - z sigma^2
+# 2026 #50 asked for mu (as u7e6q8; replaced an x-from-P item on 2026-11-02), the percentage below a value: x is below
+# the mean, so mu = x + z sigma; options = x + z sigma or x - z sigma, x sigma or the variance used
 Q('u7e7q12', L2, 'medium',
-  r"إذا كان: $X\sim N(70,\,16)$ ، وكان: $P(x<X<70)=0.4332$ ، فإنّ قيمة $x$ هي:" + ztable(1, 1.5, 2),
-  [D('64'), D('76'), D('68.5'), D('46')],
-  r"$P(x<X<70)=P(-z<Z<0)=P(Z<z)-0.5=0.4332 \Rightarrow P(Z<z)=0.9332 \Rightarrow z=1.5$" "\n"
-  r"$x$ أقلّ من الوسط: $x=70-4(1.5)=64$",
-  truth=lambda: 70 - 4*[z_ for z_ in (1, R(3, 2), 2) if Ph(z_) - R(1, 2) == R('0.4332')][0]),
+  r"يدلّ المتغيّر العشوائي الطبيعي: $X\sim N(\mu,\,100)$ على كتل أرغفة الخبز (بالغرام) التي يُنتجها أحد المخابز. إذا كانت كتل $9.68\%$ من الأرغفة تقلّ عن $237\ \text{g}$ ، فإنّ قيمة $\mu$ هي:" + ztable(1.2, 1.3, 1.4),
+  [D('250', 'g'), D('224', 'g'), D('367', 'g'), D('107', 'g')],
+  r"$P(X<237)=0.0968<0.5$ ، فـ $237$ تحت الوسط: $P(Z<-z)=0.0968 \Rightarrow P(Z<z)=0.9032 \Rightarrow z=1.3$" "\n"
+  r"$\dfrac{237-\mu}{10}=-1.3 \Rightarrow \mu=237+10(1.3)=250\ \text{g}$",
+  truth=lambda: 237 + 10*[z_ for z_ in (R(12, 10), R(13, 10), R(14, 10)) if Ph(z_) == 1 - R('0.0968')][0]),
 ]
 
 # ============================================================== Exam 8
@@ -404,12 +412,14 @@ Q('u7e8q3', L1, 'medium',
   r"$P(X>2)=(1-p)^2=0.49 \Rightarrow 1-p=0.7$" "\n"
   r"$P(X\le3)=1-P(X>3)=1-(0.7)^3=1-0.343=0.657$",
   truth=lambda: 1 - (1 - root01((1 - p)**2 - R(49, 100)))**3),
-# 2025s #22: E(X) and p -> Var(X); options = E(1 - p), Ep, p(1 - p), n(1 - p)
+# 2024 #21: a fair die thrown n times, P(an outcome k times) (replaced a 2025s #22 item on 2026-11-02, which exam 5
+# also has); options = right, the coefficient C(3, 2) forgotten, x the failure factor forgotten
 Q('u7e8q4', L1, 'easy',
-  r"إذا كان: $X\sim B(n,\,0.4)$ ، وكان: $E(X)=8$ ، فإنّ التباين للمتغيّر العشوائي $X$ هو:",
-  [D('4.8'), D('3.2'), D('0.24'), O('12', 12)],
-  r"$\text{Var}(X)=np(1-p)=E(X)\,(1-p)=8(0.6)=4.8$ (وهنا $n=\dfrac{8}{0.4}=20$)",
-  truth=8*(1 - R(4, 10))),
+  r"في تجربة إلقاء حجر نرد منتظم $3$ مرّات، فإنّ احتمال ظهور العدد $6$ مرّتين هو:",
+  [O(r'\frac{5}{72}', R(5, 72)), O(r'\frac{5}{216}', R(5, 216)), O(r'\frac{1}{12}', R(1, 12)), O(r'\frac{1}{36}', R(1, 36))],
+  r"$p=\dfrac16$ ، و $X\sim B\left(3,\frac16\right)$" "\n"
+  r"$P(X=2)=\binom32\left(\dfrac16\right)^2\left(\dfrac56\right)=3\cdot\dfrac{1}{36}\cdot\dfrac56=\dfrac{15}{216}=\dfrac{5}{72}$",
+  truth=binom(3, R(1, 6), 2)),
 # 2023 #22: at least n - 1 successes, written in powers; options = the right sum, all successes, one term, the failure
 # power added
 Q('u7e8q5', L1, 'hard',
@@ -419,12 +429,14 @@ Q('u7e8q5', L1, 'hard',
   r"$X\sim B\left(6,\frac56\right)$ ، و $P(X\ge5)=P(X=5)+P(X=6)$" "\n"
   r"$P(X\ge5)=\binom65\left(\frac56\right)^5\left(\frac16\right)+\left(\frac56\right)^6=\left(\frac56\right)^5+\left(\frac56\right)^6$ (لأن $6\times\frac16=1$)",
   truth=binom(6, R(5, 6), 5) + binom(6, R(5, 6), 6)),
-# 2023s #23: E(X) of a geometric variable; options = 1/p, 1/(1 - p), p, 1 - p (decimals)
+# 2025s #21: a spinner of congruent sectors (figure), X = spins until a given outcome first -> E(X) (replaced a plain
+# E(X) = 1/p item on 2026-11-02); options = 1/p, p, 1/(1 - p), 1 - p
 Q('u7e8q6', L1, 'easy',
-  r"إذا كان: $X\sim Geo\left(\dfrac27\right)$ ، فإنّ توقّع المتغيّر العشوائي $X$ هو:",
-  [D('3.5'), D('1.4'), D('0.286'), D('0.714')],
-  r"$E(X)=\dfrac1p=\dfrac72=3.5$",
-  truth=1/R(2, 7)),
+  r"يُمثّل الشكل الآتي قرصًا مُقسّمًا إلى $8$ قطاعات دائرية متطابقة. إذا دلّ المتغيّر العشوائي $X$ على عدد مرّات تدوير مؤشّر القرص حتى يقف عند قطاع يحمل عددًا أكبر من $5$ أوّل مرّة، فإنّ قيمة $E(X)$ هي:",
+  [O(r'\frac{8}{3}', R(8, 3)), O(r'\frac{3}{8}', R(3, 8)), O(r'\frac{8}{5}', R(8, 5)), O(r'\frac{5}{8}', R(5, 8))],
+  r"القطاعات $6$ و $7$ و $8$ من $8$ قطاعات متطابقة: $p=\dfrac38$ ، و $X\sim Geo\left(\frac38\right)$" "\n"
+  r"$E(X)=\dfrac1p=\dfrac83$",
+  truth=1/R(3, 8), figure=figure('u7e8q6', spinner_fig([str(i_) for i_ in range(1, 9)], pointer_deg=80), 2.6, 2.6)),
 # 2026 #48: P(X > a) with a below the mean; options = P(Z<z), its complement, and both with the variance used in z
 Q('u7e8q7', L2, 'easy',
   r"إذا كان: $X\sim N(36,\,25)$ ، فإنّ $P(X>33)$ هو:" + ztable(0.12, 0.6),
@@ -446,13 +458,15 @@ Q('u7e8q9', L2, 'hard',
   r"$P(X>52)=0.0062 \Rightarrow P(X<52)=0.9938=P(Z<2.5)$ ، إذن $z=2.5$" "\n"
   r"$\dfrac{52-40}{\sigma}=2.5 \Rightarrow \sigma=\dfrac{12}{2.5}=4.8$ دقيقة",
   truth=lambda: 12/[z_ for z_ in (R(24, 10), R(25, 10), R(26, 10)) if Ph(z_) == 1 - R('0.0062')][0]),
-# 2024 #23: one-sided empirical-rule percentage, "above the mean by at most one sigma" (figure); options = 34%, 68%,
-# 16%, 50%
+# 2025s #25: sigma from the interval holding a percentage by the empirical rule (99.7% here, 95% in the model; figure;
+# replaced a 2024 #23 item on 2026-11-02 so that exams 4, 6 and 8 stop sharing their normal-distribution ideas);
+# options = sigma, the 95% rule used (width / 4), half the interval (3 sigma), sigma^2
 Q('u7e8q10', L2, 'medium',
-  r"اعتمادًا على القاعدة التجريبية في الشكل الآتي، إذا اتّخذ التمثيل البياني لكتل مجموعة من الطلبة شكل المنحنى الطبيعي بوسط حسابي $\mu$ وانحراف معياري $\sigma$ ، فإنّ النسبة المئوية للطلبة الذين تزيد كتلهم على الوسط الحسابي بمقدار لا يزيد على انحراف معياري واحد هي:",
-  [O(r'34\%', 34), O(r'68\%', 68), O(r'16\%', 16), O(r'50\%', 50)],
-  r"«تزيد على الوسط بمقدار لا يزيد على $\sigma$» يعني أن الكتلة بين $\mu$ و $\mu+\sigma$ ، ونسبتها في الشكل $34\%$",
-  truth=100*emp(0, 1), figure=figure('u7e8q10', emp_fig, 4.4, 2.4)),
+  r"يدلّ المتغيّر العشوائي الطبيعي: $X\sim N(50,\,\sigma^2)$ على أطوال الأسماك (بالسنتيمتر) في إحدى المزارع السمكية. إذا كانت أطوال $99.7\%$ منها تتراوح بين $38\ \text{cm}$ و $62\ \text{cm}$ ، فإنّ قيمة الانحراف المعياري $\sigma$ لأطوال الأسماك هي:" + EMPNOTE,
+  [D('4', 'cm'), D('6', 'cm'), D('12', 'cm'), D('16', 'cm')],
+  r"حسب القاعدة التجريبية تقع $99.7\%$ من القيم بين $\mu-3\sigma$ و $\mu+3\sigma$:" "\n"
+  r"$\mu+3\sigma=62 \Rightarrow 50+3\sigma=62 \Rightarrow 3\sigma=12 \Rightarrow \sigma=4\ \text{cm}$",
+  truth=R(62 - 50, 3), figure=figure('u7e8q10', emp_fig, 4.4, 2.4)),
 # 2024s #24: shaded area between two negative z (figure); options = right, sum of the two areas, and complements
 Q('u7e8q11', L2, 'medium',
   SHADED + ztable(0.25, 1.25),

@@ -57,7 +57,7 @@ export const raw = { get: read, set: write, del: remove };
 const REVISION: Record<string, number> = {
   'u5-e5': 2, 'u5-e7': 2, 'u5-e8': 2, 'u5-e10': 2,
   'u6-e6': 2, 'u6-e7': 2,
-  'u7-e4': 2, 'u7-e6': 2, 'u7-e7': 2,
+  'u7-e4': 2, 'u7-e5': 2, 'u7-e6': 3, 'u7-e7': 3, 'u7-e8': 2,
 };
 const rev = (examKey: string) => `${examKey}${REVISION[examKey] ? `@${REVISION[examKey]}` : ''}`;
 

@@ -297,6 +297,10 @@ $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال،
 المعرّفات لم تتغيّر، والاختباران 6 و7 في `REVISION` في `src/global/lib/storage.ts` حتى لا تُطبَّق جلسة أو نتيجة محفوظة على
 الأسئلة الجديدة (سجلّ الدرجات باقٍ). الأسئلة الـ57 الأخرى بمستوى نماذجها.
 
+**تكرار الأفكار (2 تشرين الثاني 2026):** سبع أفكار تتكرّر في 4–5 من الاختبارات الخمسة (34 سؤالًا من 60)، وتقاطع مستقيمين
+والعلاقة بينهما ومسقط العمود والرأس الرابع من تساوي متجهين غائبة عنها (موجودة في الاختبارات 1–3). لم تُعدَّل لأن الطالبات
+أنهين الوحدة، وعُدّلت الوحدة 7 بالطريقة نفسها بدلًا منها.
+
 **الشرح:** لكل سؤال شرح مفصّل بالطريقة المعتادة: مراحل معنونة، وكل خطوة حسابية مكتوبة، وتحقّق بالتعويض أو بمسار آخر في
 الشكل، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 9.4 خطوة لكل سؤال). العبارات المشتركة في `explain_u6_common.py`.
 
@@ -376,14 +380,14 @@ $\vec{\mathbf{a}}$ و $\vec{\mathbf{b}}$ نفسها التي في السؤال،
 `src/semesters/semester-2/unit-7/u7_exams_4_8.py`)، والبدائل شبكة 2×2 من خطأين شائعين ($p$ أو $1-p$ أو مقلوبهما، التوقّع بدل
 التباين أو الانحراف المعياري، نسيان المتممة، القسمة على التباين بدل الانحراف المعياري، جهة $z$ ، إهمال إشارة القيمة السالبة،
 نسيان القسمة على $2$ في الفترة المتماثلة، القيمة الأقرب في الجدول…) أو قائمة قيم من النوع نفسه. قيم جدول التوزيع الطبيعي هي
-قيم الوزارة بأربع منازل، وتُعطى في نص السؤال كما تفعل الوزارة، وتُحسب الإجابة منها. النماذج المستعملة: 2026 — 14، 2025 — 9،
-2026 المعيدون — 8، 2024 التكميلي — 7، 2024 — 6، 2023 — 6، 2025 التكميلي — 5، 2023 التكميلي — 5. لا تتكرّر صيغة أو مجموعة
+قيم الوزارة بأربع منازل، وتُعطى في نص السؤال كما تفعل الوزارة، وتُحسب الإجابة منها. النماذج المستعملة: 2026 — 15، 2025 — 8،
+2024 التكميلي — 8، 2026 المعيدون — 7، 2023 — 7، 2025 التكميلي — 6، 2024 — 5، 2023 التكميلي — 4. لا تتكرّر صيغة أو مجموعة
 بدائل من الاختبارات 1–3 أو من فقرات الوحدة في نماذج الفصل الثاني (فُحص ذلك آليًّا؛ المشترك فقط رموز عامة مثل
 $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 
-**الأشكال:** 8 أشكال: ثلاث مناطق مظلّلة أسفل المنحنى المعياري، وشكل القاعدة التجريبية كما تضعه الوزارة ملحوظةً
+**الأشكال:** 10 أشكال: أربع مناطق مظلّلة أسفل المنحنى المعياري، وشكل القاعدة التجريبية كما تضعه الوزارة ملحوظةً
 ($34\%$ ، $13.5\%$ ، $2.35\%$ ، $0.15\%$) في أربعة أسئلة، ومنحنى عليه طرفان نسبة كلّ منهما $2.5\%$ وتحته شكل القاعدة
-التجريبية ملحوظةً كما في 2025 #23.
+التجريبية ملحوظةً كما في 2025 #23، وقرص دوّار من $8$ قطاعات متطابقة كما في 2025 التكميلي #21.
 
 **الصعوبة:** 20 سهلًا · 26 متوسطًا · 14 صعبًا (4 · 5 · 3 في كل اختبار، و 4 · 6 · 2 في الاختبار السابع).
 
@@ -393,11 +397,21 @@ $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 قيم $p$)، و `u7e7q9` (حُجب شكل القاعدة التجريبية الذي يضعه النموذج 2025 #23 ملحوظةً؛ أُضيف)، و `u7e7q11` (كان $N(\mu,4\mu^2)$ ،
 والنموذج 2024 #24 فيه $\sigma=\mu$ ؛ صار $N(\mu,\mu^2)$). والاختبارات 4 و 6 و 7 في `REVISION` في `src/global/lib/storage.ts`.
 
+**تنويع الأفكار (2 تشرين الثاني 2026):** بعد أن لاحظت طالبة أن اختبارات الوحدة 6 الجديدة متشابهة الأفكار، صُنّفت أسئلة
+هذه الوحدة بحسب الفكرة: كان الاختباران 4 و 6 يشتركان في 9 أفكار من 12، و 6 و 8 وكذلك 5 و 7 في 8، وفي الاختبار الخامس سؤالان
+من فكرة واحدة (إيجاد $x$ من احتمال)، وكانت أفكار وزارية غائبة. أُعيدت كتابة 9 أسئلة بفكرة وزارية أخرى من الدرس نفسه وبالصعوبة
+نفسها: `u7e5q8` (فترة متماثلة، 2026 #49)، و `u7e6q1` ($P(X>2)$ لمتغيّر هندسي، 2023 #21)، و `u7e6q3` ($P(X=2)$ لذي الحدّين في
+سياق، 2023 التكميلي #22)، و `u7e6q8` و `u7e7q12` (إيجاد $\mu$ من نسبة مئوية: 2026 #50 يسأل عن $\mu$ بدل $\sigma$ كما في التجريبي
+الموحّد)، و `u7e7q10` (منطقة مظلّلة بين قيمتين سالبتين، 2024 التكميلي #24)، و `u7e8q4` (حجر نرد وذو الحدّين، 2024 #21)، و `u7e8q6`
+(قرص دوّار والتوقّع، 2025 التكميلي #21)، و `u7e8q10` ($\sigma$ من فترة تضمّ $99.7\%$ ، 2025 التكميلي #25). صار كل اختبارين يشتركان
+في 3 أفكار على الأكثر من الستّ في كل درس، ولا تتكرّر فكرة داخل اختبار، ولم يتغيّر الاختبار 4 (ورقة 2026). قيم الجدول في الأسئلة
+الجديدة لا تظهر في أيّ سؤال آخر من الوحدة أو من نماذج الفصل الثاني. الاختبارات 5–8 في `REVISION` (5 و 8: 2، و 6 و 7: 3).
+
 **الشرح:** لكل سؤال شرح مفصّل بالطريقة المعتادة: مراحل معنونة، وكل خطوة حسابية مكتوبة (مع خمس منازل عشرية في الحسابات الوسيطة
-لذي الحدّين)، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 6.9 خطوة لكل سؤال). العبارات المشتركة في `explain_u7_common.py`.
+لذي الحدّين)، وسبب خطأ كل بديل باسم الخطأ الذي بُني منه (متوسط 7.3 خطوة لكل سؤال). العبارات المشتركة في `explain_u7_common.py`.
 
 **الصحة:** الفحوص الثلاثة لكل الأسئلة الـ60 الجديدة آليًّا (لا سؤال يدوي؛ سؤالا «أيّ التجارب…» يُفحصان بخاصية تصنيف البدائل)،
-وفُحصت 171 مساواة داخل الشرح آليًّا، وجميع صيغ الوحدة (2693 صيغة) تُعرض في KaTeX دون أخطاء، وأسئلة الاختبارات 1–3 لم تتغيّر.
+وفُحصت 289 مساواة عددية داخل الشرح آليًّا (الفروق الوحيدة تقريبٌ مقصود في الحسابات الوسيطة)، وجميع صيغ الوحدة (2759 صيغة) تُعرض في KaTeX دون أخطاء، وأسئلة الاختبارات 1–3 لم تتغيّر.
 
 | الفقرة | النموذج الوزاري · شبكة البدائل |
 |---|---|
@@ -420,19 +434,19 @@ $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 | u7e5q5 | 2024s #22: Var of a given binomial; options = Var, E, sigma, p(1 - p) |
 | u7e5q6 | 2023 #23: Var given -> the two possible p; options = pairs p, 1 - p |
 | u7e5q7 | 2026r #24: P(Z > z) given -> P(-z < Z < z); options = 1 - 2a, 1 - a, a, 2a |
-| u7e5q8 | 2026r #25: x from P(X > x); options = mu + z sigma, mu - z sigma, z, mu + z sigma^2 |
+| u7e5q8 | 2026 #49: P(-k/c < Z < k/c) given -> k; options = right z or the unhalved one (closest entry), x times c or divided by c |
 | u7e5q9 | 2025s #25: sigma from the interval holding 95% (empirical rule, figure); options = sigma, sigma^2, 2 sigma, 4 sigma |
 | u7e5q10 | 2024 #25: P(a < Z < b) with a < 0 < b; options = right, sign ignored, and their complements |
 | u7e5q11 | 2025 #25: x from P(mu < X < x) (closest table entry); options = right, the other entry, P(Z < z) = 0.3 read, the probability used as z |
 | u7e5q12 | 2023s #25: X ~ N(mu, mu^2/9) -> P(X > 1.5 mu); options = 1 - P(Z<1.5), P(Z<1.5), and both with sigma = mu |
-| u7e6q1 | 2023s #23: E(X) of a geometric variable; options = 1/p, 1/(1 - p), p, 1 - p (decimals) |
+| u7e6q1 | 2023 #21: P(X > k) of a given geometric variable; options = (1-p)^2 or p^2 (p and 1 - p swapped), x P(X > 2) or its complement P(X <= 2) |
 | u7e6q2 | 2026 #47: acceptance with at most one defective; options = P(X <= 1), P(X = 0), 1 - P(X <= 1), P(X = 1) |
-| u7e6q3 | 2026 #46: ratio of consecutive geometric probabilities -> E(X); options = 1/p, p, 1 - p, 1/(1 - p) |
+| u7e6q3 | 2023s #22: binomial P(X = k) in context with a percentage, approximate value; options = right, the coefficient C(6, 2) forgotten, x the failure power n instead of n - k |
 | u7e6q4 | 2023 #22: at least n - 1 successes, written in powers; options = the right sum, all successes, one term, the coefficient n kept |
 | u7e6q5 | 2026r #22: n from E(X) and Var(X); options = n, E/(1 - p), E/(p(1 - p)), Var/p |
 | u7e6q6 | 2024 #22: P(X = 3) = P(X = 4) -> Var(X); options = Var, E, p(1 - p), p |
 | u7e6q7 | 2025s #23: probability above a value in context; options = 1 - P(Z<z), P(Z<z), P(Z<z) - 0.5, 0.5 + (1 - P(Z<z)) |
-| u7e6q8 | 2026 #49: P(-k/c < Z < k/c) given -> k; options = right z or the unhalved one, x times c or divided by c |
+| u7e6q8 | 2026 #50 asked for mu instead of sigma (the unified trial exam asks for mu and/or sigma): the percentage above a value with sigma known -> mu; options = x - z sigma or x + z sigma, x sigma multiplied or forgotten |
 | u7e6q9 | 2024s #24: shaded area between two negative z (figure); options = right, sign slip, sum of the tails, complement |
 | u7e6q10 | 2025s #24: P(X > mu + k) given -> P(X < mu - k) by symmetry; options = a, 1 - a, 1 - 2a, 2a |
 | u7e6q11 | 2023s #24: percentage between two values by the empirical rule (figure), two bands as in the model; options = mu..mu+2s, mu +- 2s, mu..mu+s, 50% |
@@ -446,18 +460,18 @@ $X\sim Geo(p)$ وجداول قيم $z$ المعتادة).
 | u7e7q7 | 2026 #50: sigma from the percentage below a value (closest table entry); options = sigma, z, d.z, z/d |
 | u7e7q8 | 2026r #24: P(Z > z) given -> P(-z < Z < z); options = 1 - 2a, 1 - a, a, 2a |
 | u7e7q9 | 2025 #23: sigma from a curve whose 2.5% tails are marked, the empirical-rule figure given as a note as in the model; options = sigma, 2 sigma, 4 sigma, sigma/2 |
-| u7e7q10 | 2024 #25: P(a < Z < b) with a < 0 < b; options = right, sign ignored, and their complements |
+| u7e7q10 | 2024s #24: shaded area between two negative z (figure); options = right, complement, -2.5 read as 2.5, sum of the two areas |
 | u7e7q11 | 2024 #24: X ~ N(mu, mu^2) (sigma = mu, as in the model) and a z-score -> sigma; options = sigma, the variance used in z, sigma^2, x |
-| u7e7q12 | 2025 #25: x from P(x < X < mu); options = mu - z sigma, mu + z sigma, mu - z, mu - z sigma^2 |
+| u7e7q12 | 2026 #50 asked for mu, the percentage below a value (x below the mean, so mu = x + z sigma); options = x + z sigma or x - z sigma, x sigma or the variance used |
 | u7e8q1 | 2026 #46: ratio of geometric probabilities two apart -> E(X); options = 1/p, p, 1 - p, 1/(1 - p) (decimals) |
 | u7e8q2 | 2026r #21: testing chips until the first defective; options = (1-p)^3 p, (1-p)^4, p^3 (1-p), (1-p)^3 |
 | u7e8q3 | 2025 #22: P(X > k) given -> P(X <= 3); options = 1 - (1-p)^3, (1-p)^3, (1-p)^2 p, 1 - (1-p)^2 |
-| u7e8q4 | 2025s #22: E(X) and p -> Var(X); options = E(1 - p), Ep, p(1 - p), n(1 - p) |
+| u7e8q4 | 2024 #21: a fair die thrown n times, P(an outcome k times); options = right, the coefficient C(3, 2) forgotten, x the failure factor forgotten |
 | u7e8q5 | 2023 #22: at least n - 1 successes, written in powers; options = the right sum, all successes, one term, the failure power added |
-| u7e8q6 | 2023s #23: E(X) of a geometric variable; options = 1/p, 1/(1 - p), p, 1 - p (decimals) |
+| u7e8q6 | 2025s #21: a spinner of congruent sectors (figure), X = spins until a given outcome first -> E(X); options = 1/p, p, 1/(1 - p), 1 - p |
 | u7e8q7 | 2026 #48: P(X > a) with a below the mean; options = P(Z<z), its complement, and both with the variance used in z |
 | u7e8q8 | 2026 #49: P(-k/c < Z < k/c) given -> k; options = right z or the unhalved one, x times c or divided by c |
 | u7e8q9 | 2026 #50: sigma from a small percentage above a value; options = sigma, z, d.z, z/d |
-| u7e8q10 | 2024 #23: one-sided empirical-rule percentage, "above the mean by at most one sigma" (figure); options = 34%, 68%, 16%, 50% |
+| u7e8q10 | 2025s #25: sigma from the interval holding a percentage by the empirical rule (99.7% here, 95% in the model; figure); options = sigma, the 95% rule used (width / 4), half the interval (3 sigma), sigma^2 |
 | u7e8q11 | 2024s #24: shaded area between two negative z (figure); options = right, sum of the two areas, and complements |
 | u7e8q12 | 2024s #25 / 2026r #25: x from P(X > x); options = mu + z sigma, mu - z sigma, mu + z, mu + z sigma^2 |
