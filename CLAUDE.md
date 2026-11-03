@@ -50,7 +50,7 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
   question's options — a saved attempt stores the chosen option index. Before committing, confirm the old papers in
   the generated `sN.ts` are byte-identical to the previous commit.
 - If a published paper or unit exam must be rewritten anyway (semester-1 papers 6–10 on 2026-10-15; exams of units
-  5–7 on 2026-11-02), add it to `REVISION` in `src/global/lib/mockStore.ts` (papers) or `src/global/lib/storage.ts`
+  5–7 on 2026-11-02; all ten semester-1 papers on 2026-11-03, at the user's request), add it to `REVISION` in `src/global/lib/mockStore.ts` (papers) or `src/global/lib/storage.ts`
   (unit exams), or bump its number, so saved sessions/results of the old questions are not replayed against the new
   ones.
 - Do not modify published papers when asked to improve "new" ones (the user's explicit rule: e.g. restyle semester-1
@@ -78,11 +78,14 @@ In short:
    of the unit; no two items of one pattern in one exam; any two exams share at most half of their patterns per
    lesson; a pattern appears in most exams only if the ministry asks it in most papers (unit-7 exams 5–8 were
    rebalanced this way; unit 6 was left as is because students had finished it). Write the model in a comment
-   above the `Q(...)` (e.g. `# 2026 #13: log base a of (c + ln x), f'(e); options = e vs 1/e x ln(a^n)`);
-   ANALYSIS.md section 9 lists the mapping for papers 6–10. Restyling options alone is NOT modelling (that was tried for papers 6–10
+   above the `Q(...)` (e.g. `# 2026 #13: log base a of (c + ln x), f'(e); options = e vs 1/e x ln(a^n)`), or for an
+   expected item `# E (expected: <skill>), template 2026 #6: …`; semester-1 ANALYSIS.md section 9 lists every
+   pattern by lesson and section 10 the mapping of all ten papers. Restyling options alone is NOT modelling (that was tried for papers 6–10
    and rejected). The blueprint is the 2026 paper (items 1–25 = semester 1: unit 1 → 1–3, unit 2 → 4–8, unit 3 →
-   9–18, unit 4 → 19–25); our 30-item semester-1 mocks scale this to 4 · 6 · 12 · 8 in the same order, cover
-   every 2026 pattern, and take the remaining slots from 2023–2025 and the 2026 repeaters paper. Semester 2 = items
+   9–18, unit 4 → 19–25); our 30-item semester-1 mocks scale this to 4 · 6 · 12 · 8 in the same order. Together the
+   ten papers cover every in-scope 2023–2026 pattern (each 2026 item directly in at most five papers) plus expected
+   items — 2008-book skills the ministry has not asked yet, mostly units 1–2, which only the 2026 paper covers —
+   written with a ministry template and no harder than the ministry items of their lesson (revised 2026-11-03). Semester 2 = items
    26–50 (unit 5 → 26–37, unit 6 → 38–45, unit 7 → 46–50); our semester-2 mocks follow the 19 May 2026 trial
    (16 · 9 · 5). Papers 6–10 model every 2026 item (most twice, directly or as the same pattern from another year) and
    spread the other 2023–2026 patterns over the five
@@ -99,7 +102,7 @@ In short:
    All four options must look like the same answer.
 5. **Regions in the complex plane**: options = centre sign × which boundary is strict; give the figure at least one
    dashed boundary so strictness matters. Encode every option as a predicate (`disk`, `outside`, `sector`,
-   `nearer`, `closer`, `bisector`, `both` in `s1_papers_6_10.py`); `region_truth` checks the options differ from the shaded
+   `nearer`, `closer`, `bisector`, `both` in `s1_helpers.py`); `region_truth` checks the options differ from the shaded
    region inside the plane and on its boundary, and the figure is shaded from the correct predicate.
 6. **Figures where the ministry uses them**: two piecewise-linear graphs on a grid, the graph of f or f′, an applied
    diagram for related rates (tank, ladder, kite, camera…), points in the complex plane, the shaded region.

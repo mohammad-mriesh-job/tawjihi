@@ -2,136 +2,34 @@
 U1 items 1-4, U2 items 5-10, U3 items 11-22, U4 items 23-30.
 Every item is modelled on a named official ministry item (the comment above each Q gives it: 2026 = paper of
 2 July 2026, gen 2008; 2025/2024 = summer paper 1; 2025s/2024s = supplementary; 2026r = 2026 repeaters; 2023 =
-summer paper 1): same skill, same stem structure, same kind of function and numbers, same option grid -- new
-function and numbers. Region items are checked by sampling: each option is a predicate, the shaded figure is drawn
+summer paper 1), or "E" for an expected item (a 2008-book skill not asked yet, ministry template, no harder than
+the ministry items of its lesson): same skill, same stem structure, same kind of function and numbers, same option
+grid -- new function and numbers. Region items are checked by sampling: each option is a predicate, the shaded figure is drawn
 from the correct predicate, and the distractors must differ from it inside the plane or on its boundary."""
 import cmath
 import math
 from s1_helpers import *
-
-# ------------------------------------------------------------------ algebra helpers
-def tangent_x_intercept(eq, pt):
-    m_ = imp(eq, pt)
-    return pt[0] - pt[1] / m_
-
-
-def smaller_angle(z1, z2):
-    return acos(re(expand(z1*conjugate(z2))) / (Abs(z1)*Abs(z2)))
-
-
-# ------------------------------------------------------------------ regions in the complex plane
-EPS = 1e-9
-
-
-def arg_of(w):
-    """principal argument in (-pi, pi]; None at 0 (Arg(0) is undefined)."""
-    if abs(w) < EPS:
-        return None
-    a_ = cmath.phase(w)
-    return math.pi if a_ <= -math.pi + 1e-12 else a_
-
-
-def disk(c, r, strict=False):
-    return (lambda z_: abs(z_ - c) < r - EPS) if strict else (lambda z_: abs(z_ - c) <= r + EPS)
-
-
-def outside(c, r, strict=False):
-    return (lambda z_: abs(z_ - c) > r + EPS) if strict else (lambda z_: abs(z_ - c) >= r - EPS)
-
-
-def sector(c, lo, hi, lo_open=False, hi_open=False):
-    def ok(z_):
-        a_ = arg_of(z_ - c)
-        if a_ is None:
-            return False
-        return (a_ > lo + EPS if lo_open else a_ >= lo - EPS) and (a_ < hi - EPS if hi_open else a_ <= hi + EPS)
-    return ok
-
-
-def nearer(p_, q_):
-    """|z - p| <= |z - q|"""
-    return lambda z_: abs(z_ - p_) <= abs(z_ - q_) + EPS
-
-
-def closer(p_, q_):
-    """|z - p| < |z - q| (dashed bisector, boundary not included)"""
-    return lambda z_: abs(z_ - p_) < abs(z_ - q_) - EPS
-
-
-def both(*preds):
-    return lambda z_: all(f_(z_) for f_ in preds)
-
-
-def region_points(prims, lim):
-    pts = [complex(a_, b_) for a_ in np.linspace(-lim, lim, 161) for b_ in np.linspace(-lim, lim, 161)]
-    for pr in prims:
-        if pr[0] == 'arc':
-            _, c_, r_, _, (t0, t1) = pr
-            pts += [c_ + r_*cmath.exp(1j*t_) for t_ in np.linspace(t0, t1, 400)]
-        elif pr[0] == 'seg':
-            _, p1, p2, _ = pr
-            pts += [p1 + (p2 - p1)*s_ for s_ in np.linspace(0, 1, 400)]
-        elif pr[0] == 'open':
-            pts.append(pr[1])
-    return pts
-
-
-def region_truth(true_pred, prims, lim):
-    """IndexQ truth: the only option whose predicate gives the shaded region, also on the boundary."""
-    pts = region_points(prims, lim)
-    return lambda vals: only(vals, lambda pred: all(pred(z_) == true_pred(z_) for z_ in pts))
-
-
-def fig_region2(pred, prims, lim, marks=()):
-    """shade exactly the points where pred holds; draw the boundary pieces (dashed = not included)."""
-    def draw(fig, ax):
-        complex_axes(ax, lim)
-        xs = np.linspace(-lim, lim, 520)
-        X_, Y_ = np.meshgrid(xs, xs)
-        mask = np.vectorize(lambda a_, b_: 1.0 if pred(complex(a_, b_)) else 0.0)(X_, Y_)
-        ax.contourf(X_, Y_, mask, levels=[0.5, 1.5], colors=[FILL], alpha=0.8)
-        for pr in prims:
-            if pr[0] == 'arc':
-                _, c_, r_, dashed, (t0, t1) = pr
-                ts = np.linspace(t0, t1, 300)
-                ax.plot(c_.real + r_*np.cos(ts), c_.imag + r_*np.sin(ts), color=LINE, lw=1.8, ls='--' if dashed else '-')
-            elif pr[0] == 'seg':
-                _, p1, p2, dashed = pr
-                ax.plot([p1.real, p2.real], [p1.imag, p2.imag], color=LINE, lw=1.8, ls='--' if dashed else '-')
-            elif pr[0] == 'line':        # reference line (not part of the region's boundary)
-                _, p1, p2 = pr
-                ax.plot([p1.real, p2.real], [p1.imag, p2.imag], color='#888888', lw=1.0, ls=':')
-            elif pr[0] == 'open':
-                ax.plot(pr[1].real, pr[1].imag, 'o', mfc='white', mec=LINE, ms=5, zorder=5)
-        for p_, txt in marks:
-            ax.plot(p_.real, p_.imag, 'x', color='#d04a1a', ms=7)
-            ax.text(p_.real + 0.15, p_.imag + 0.2, txt, fontsize=9, color='#d04a1a')
-        ax.set_xlim(-lim, lim); ax.set_ylim(-lim, lim)
-    return draw
-
-
-# ------------------------------------------------------------------ other figures
-def _sketch(fig, ax):
-    ax.set_aspect('equal'); ax.axis('off')
+from s1_helpers import _sketch
 
 
 # ================================================================== PAPER 6
 # Each item names the official item it is modelled on (2026 = 2 July 2026 paper, gen 2008; 2025/2024 = summer
-# paper 1; 2025s/2024s = supplementary; 2026r = 2026 repeaters). Same skill, same stem structure, same kind of
-# function and numbers, same option grid -- new function and numbers.
+# paper 1; 2025s/2024s = supplementary; 2026r = 2026 repeaters; E = a 2008-book skill the ministry has not asked yet,
+# written with a ministry template). Same skill, same stem structure, same kind of function and numbers, same option
+# grid -- new function and numbers.
 F6, G6 = [(0, 5), (4, 1), (6, 3)], [(0, 0), (2, 4), (6, 2)]
 _q6 = complex(1 - (math.sqrt(2) + math.sqrt(34))/2/math.sqrt(2), -1 + (math.sqrt(2) + math.sqrt(34))/2/math.sqrt(2))
 R6 = both(disk(-1j, 3), sector(1 - 1j, 0, 3*math.pi/4, hi_open=True))
 PR6 = [('arc', -1j, 3, False, (0.0, cmath.phase(_q6 + 1j))), ('seg', 1 - 1j, 3 - 1j, False), ('seg', 1 - 1j, _q6, True), ('open', 1 - 1j)]
 P6 = [
 # ---------------- unit 1
-# 2026 #1: one root given, equation not set to zero, options = signs of the other two roots
+# E (expected: factor theorem, (x + 2) is a factor -> the constant), template 2026 #3:
+# options = sign x magnitude (10 = the value of -2k, not divided by -2)
 Q('m6q1', U1[1], 'easy',
-  F(r"إذا كان $x=2$ حلًّا للمعادلة: $«0»=«1»$ ، فإنّ لها حلَّين آخرين هما:", (r'x^{3}+24', x**3+24), (r'3x^{2}+10x', 3*x**2+10*x)),
-  [O(st('4', '-3'), S_(4, -3), 'set'), O(st('-4', '3'), S_(-4, 3), 'set'), O(st('-4', '-3'), S_(-4, -3), 'set'), O(st('4', '3'), S_(4, 3), 'set')],
-  r"$x^3-3x^2-10x+24=0$ ، وبالقسمة التركيبية على $(x-2)$: $1,\ -3,\ -10,\ 24 \to 1,\ -1,\ -12,\ 0$" "\n"
-  r"$x^2-x-12=(x-4)(x+3)=0 \Rightarrow x=4,\ x=-3$",
-  truth=lambda: other_roots(x**3-3*x**2-10*x+24, 2), tag='حل معادلة كثير حدود بمعلومية أحد جذورها'),
+  F(r"إذا كان $(x+2)$ أحد عوامل الاقتران: $f(x)=«0»$ ، فإنّ قيمة الثابت $k$ هي:", (r'x^{3}-x^{2}+kx+2', x**3-x**2+k*x+2)),
+  [O('-5', -5), O('5', 5), O('-10', -10), O('10', 10)],
+  r"$(x+2)$ عامل $\Rightarrow f(-2)=0$: $-8-4-2k+2=0$" "\n" r"$-10-2k=0 \Rightarrow -2k=10 \Rightarrow k=-5$",
+  truth=lambda: solve(rem(x**3-x**2+k*x+2, -2), k)[0], tag='نظرية العوامل وإيجاد ثابت'),
 # 2026 #2: repeated linear factor, "which is the decomposition", options = numerators swapped x sign
 Q('m6q2', U1[2], 'easy',
   F(r"أيُّ الآتية يُمثِّل تجزئة المقدار النسبي $«0»$ إلى كسور جزئية؟", (r'\frac{4x-5}{(x-2)^{2}}', (4*x-5)/(x-2)**2)),
@@ -146,7 +44,8 @@ Q('m6q3', U1[1], 'medium',
   [O('-8', -8), O('8', 8), O('2', 2), O('-2', -2)],
   r"$f(2)=16+8+2p-20=4+2p$ ، $f(-1)=1-1-p-20=-20-p$" "\n" r"$4+2p=-20-p \Rightarrow 3p=-24 \Rightarrow p=-8$",
   truth=lambda: solve(rem(x**4+x**3+p*x-20, 2)-rem(x**4+x**3+p*x-20, -1), p)[0], tag='نظرية الباقي وإيجاد ثابت'),
-# 2026 #2 (distinct linear factors version): which is the decomposition, options = numerators swapped x factor signs
+# E (expected: decomposition with distinct linear factors), template 2026 #2: which is the decomposition;
+# options = numerators swapped x signs of the factors
 Q('m6q4', U1[2], 'easy',
   F(r"أيُّ الآتية يُمثِّل تجزئة المقدار النسبي $«0»$ إلى كسور جزئية؟", (r'\frac{5x+1}{(x-1)(x+2)}', (5*x+1)/((x-1)*(x+2)))),
   [O(r'\frac{2}{x-1}+\frac{3}{x+2}', 2/(x-1)+3/(x+2)), O(r'\frac{3}{x-1}+\frac{2}{x+2}', 3/(x-1)+2/(x+2)),
@@ -161,30 +60,33 @@ Q('m6q5', U2[2], 'medium',
   r"$\frac{\pi}{2}<\frac{\theta}{2}<\frac{3\pi}{4}$ (الربع الثاني) فالظل سالب" "\n"
   r"$\tan\frac{\theta}{2}=-\sqrt{\dfrac{1-\cos\theta}{1+\cos\theta}}=-\sqrt{\dfrac{4/3}{2/3}}=-\sqrt2$",
   truth=tan((pi+acos(R(1, 3)))/2), tag='نصف الزاوية مع تحديد الربع'),
-# 2026 #5: simplest form with a sum identity, options = coefficient x sin/cos
+# 2026 #5: simplest form with a sum identity (cos(x + pi/3) + k sin x, the sin terms cancel); options = coefficient x cos/sin
 Q('m6q6', U2[1], 'easy',
-  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\sin(x+\frac{\pi}{3})-\frac{\sqrt{3}}{2}\cos x', sin(x+pi/3)-sqrt(3)/2*cos(x))),
-  [O(r'\frac{1}{2}\sin x', sin(x)/2), O(r'\frac{\sqrt{3}}{2}\sin x', sqrt(3)/2*sin(x)), O(r'\frac{1}{2}\cos x', cos(x)/2), O(r'\frac{\sqrt{3}}{2}\cos x', sqrt(3)/2*cos(x))],
-  r"$\sin\left(x+\frac{\pi}{3}\right)=\frac12\sin x+\frac{\sqrt3}{2}\cos x$ ، وبطرح $\frac{\sqrt3}{2}\cos x$ يبقى $\frac12\sin x$",
-  truth=sin(x+pi/3)-sqrt(3)/2*cos(x), tag='تبسيط باستعمال متطابقات المجموع والفرق'),
-# 2026 #6: equivalent expression (one reciprocal ratio), options = csc/sec/2sin/2cos
-Q('m6q7', U2[1], 'easy',
-  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\sin x+\cos x\cot x', sin(x)+cos(x)*cot(x))),
-  [O(r'\csc x', csc(x)), O(r'\sec x', sec(x)), O(r'2\sin x', 2*sin(x)), O(r'2\cos x', 2*cos(x))],
-  r"$\sin x+\cos x\cdot\dfrac{\cos x}{\sin x}=\dfrac{\sin^2x+\cos^2x}{\sin x}=\dfrac{1}{\sin x}=\csc x$",
-  truth=sin(x)+cos(x)*cot(x), tag='المتطابقات الأساسية'),
-# 2026 #4 sibling (double angle from one ratio and a quadrant), options = sign x sin/cos value
+  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\cos(x+\frac{\pi}{3})+\frac{\sqrt{3}}{2}\sin x', cos(x+pi/3)+sqrt(3)/2*sin(x))),
+  [O(r'\frac{1}{2}\cos x', cos(x)/2), O(r'\frac{\sqrt{3}}{2}\cos x', sqrt(3)/2*cos(x)), O(r'\frac{1}{2}\sin x', sin(x)/2), O(r'\frac{\sqrt{3}}{2}\sin x', sqrt(3)/2*sin(x))],
+  r"$\cos\left(x+\frac{\pi}{3}\right)=\frac12\cos x-\frac{\sqrt3}{2}\sin x$ ، وبإضافة $\frac{\sqrt3}{2}\sin x$ يبقى $\frac12\cos x$",
+  truth=cos(x+pi/3)+sqrt(3)/2*sin(x), tag='تبسيط باستعمال متطابقات المجموع والفرق'),
+# E (expected: simplest form with related angles pi + x, pi/2 - x and the even function cos), template 2026 #5 grid:
+# options = sign of sin(pi + x) x cofunction cos(pi/2 - x) = sin x right or wrong (cos vs sin survives)
+Q('m6q7', U2[1], 'medium',
+  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\dfrac{\sin(\pi+x)\cos(-x)}{\cos(\frac{\pi}{2}-x)}', sin(pi+x)*cos(-x)/cos(pi/2-x))),
+  [O(r'-\cos x', -cos(x)), O(r'\cos x', cos(x)), O(r'-\sin x', -sin(x)), O(r'\sin x', sin(x))],
+  r"$\sin(\pi+x)=-\sin x$ ، $\cos(-x)=\cos x$ ، $\cos\left(\frac{\pi}{2}-x\right)=\sin x$" "\n" r"$\dfrac{(-\sin x)\cos x}{\sin x}=-\cos x$",
+  truth=sin(pi+x)*cos(-x)/cos(pi/2-x), tag='المتطابقات: الزوايا المنتسبة والزوجية والفردية'),
+# E (expected: double-angle exact value from 1 - 2sin^2 a = cos 2a), template 2026 #9 grid (double angle):
+# options = sign (quadrant of 2a) x cos 2a vs sin 2a
 Q('m6q8', U2[2], 'easy',
-  r"إذا كان: $\sin\theta=\frac{3}{5}$ ، $\frac{\pi}{2}<\theta<\pi$ ، فإنّ قيمة $\sin 2\theta$ تساوي:",
-  [O(r'-\frac{24}{25}', -R(24, 25)), O(r'\frac{24}{25}', R(24, 25)), O(r'-\frac{7}{25}', -R(7, 25)), O(r'\frac{7}{25}', R(7, 25))],
-  r"في الربع الثاني: $\cos\theta=-\frac45$" "\n" r"$\sin2\theta=2\sin\theta\cos\theta=2\left(\frac35\right)\left(-\frac45\right)=-\frac{24}{25}$",
-  truth=sin(2*(pi-asin(R(3, 5)))), tag='ضعف الزاوية بمعلومية نسبة'),
-# 2026 #7: quadratic in a trig ratio, one root rejected, single quadrantal answer
+  F(r"قيمة المقدار: $«0»$ هي:", (r'1-2\sin^{2}\frac{7\pi}{12}', 1-2*sin(7*pi/12)**2)),
+  [O(r'-\frac{\sqrt{3}}{2}', -sqrt(3)/2), O(r'\frac{\sqrt{3}}{2}', sqrt(3)/2), O(r'-\frac{1}{2}', -R(1, 2)), O(r'\frac{1}{2}', R(1, 2))],
+  r"$1-2\sin^2a=\cos2a$ ، فالمقدار $\cos\frac{7\pi}{6}$" "\n" r"$\frac{7\pi}{6}$ في الربع الثالث: $\cos\frac{7\pi}{6}=-\cos\frac{\pi}{6}=-\frac{\sqrt3}{2}$",
+  truth=1-2*sin(7*pi/12)**2, tag='قيم دقيقة بمتطابقات ضعف الزاوية'),
+# 2026 #7: quadratic in sin x factoring as (sin x - 2)(sin x + 1), one root rejected, single quadrantal answer;
+# options = the four quadrantal angles (sign slip in the factors / sin-cos confusion)
 Q('m6q9', U2[3], 'easy',
-  F(r"حلّ المعادلة: $«0»=0$ في الفترة $[0,\,2\pi)$ هو:", (r'\sin^{2}x+2\sin x-3', sin(x)**2+2*sin(x)-3)),
-  [O(st(r'\frac{\pi}{2}'), S_(P/2), 'set'), O(st(r'\frac{3\pi}{2}'), S_(3*P/2), 'set'), O(st('0'), S_(0), 'set'), O(st(r'\pi'), S_(P), 'set')],
-  r"$(\sin x+3)(\sin x-1)=0$ ، و $\sin x=-3$ مرفوض لأنّ $-1\le\sin x\le1$" "\n" r"$\sin x=1 \Rightarrow x=\frac{\pi}{2}$",
-  truth=lambda: sols(sin(x)**2+2*sin(x)-3, 0, 2*pi), tag='معادلة تربيعية في نسبة مثلثية مع رفض حل'),
+  F(r"حلّ المعادلة: $«0»=0$ في الفترة $[0,\,2\pi)$ هو:", (r'\sin^{2}x-\sin x-2', sin(x)**2-sin(x)-2)),
+  [O(st(r'\frac{3\pi}{2}'), S_(3*P/2), 'set'), O(st(r'\frac{\pi}{2}'), S_(P/2), 'set'), O(st(r'\pi'), S_(P), 'set'), O(st('0'), S_(0), 'set')],
+  r"$(\sin x-2)(\sin x+1)=0$ ، و $\sin x=2$ مرفوض لأنّ $-1\le\sin x\le1$" "\n" r"$\sin x=-1 \Rightarrow x=\frac{3\pi}{2}$",
+  truth=lambda: sols(sin(x)**2-sin(x)-2, 0, 2*pi), tag='معادلة تربيعية في نسبة مثلثية مع رفض حل'),
 # 2026 #8: reciprocal ratio -> double angle, interval (pi, 2pi); options = halved or not x shifted or not
 Q('m6q10', U2[3], 'hard',
   F(r"حُلول المعادلة: $«0»=0$ في الفترة $(\pi,\,2\pi)$ هي:", (r'4\sin x-\sec x', 4*sin(x)-sec(x))),
@@ -200,7 +102,7 @@ Q('m6q11', U3[1], 'easy',
   [O(r'-\cos 2x', -cos(2*x)), O(r'\cos 2x', cos(2*x)), O(r'-\sin 2x', -sin(2*x)), O(r'\sin 2x', sin(2*x))],
   r"$f'(x)=\cos x+\sin x$" "\n" r"$f'(x)f(x)=(\sin x+\cos x)(\sin x-\cos x)=\sin^2x-\cos^2x=-\cos2x$",
   truth=Dx(sin(x)-cos(x))*(sin(x)-cos(x)), tag='مشتقات الاقترانات المثلثية'),
-# 2025 #5 / 2025s #5: slope of the normal to an exponential a^(linear); options = sign x slope/normal slope
+# 2025s #5 (also 2025 #5): slope of the normal to a^(linear) at a point; options = tangent vs normal slope x sign (2025s #5 grid)
 Q('m6q12', U3[1], 'medium',
   F(r"إذا كان: $f(x)=«0»$ ، فإنّ ميل العمودي على المماس لمنحنى الاقتران $f(x)$ عندما $x=1$ هو:", (r'3^{1-2x}', 3**(1-2*x))),
   [O(r'\frac{3}{2\ln 3}', 3/(2*log(3))), O(r'-\frac{3}{2\ln 3}', -3/(2*log(3))), O(r'-\frac{2\ln 3}{3}', -2*log(3)/3), O(r'\frac{2\ln 3}{3}', 2*log(3)/3)],
@@ -218,13 +120,15 @@ Q('m6q14', U3[2], 'medium',
   [O(r'4e^{x}', 4*exp(x)), O(r'-4e^{x}', -4*exp(x)), O(r'4e^{-3x}', 4*exp(-3*x)), O(r'-4e^{-3x}', -4*exp(-3*x))],
   r"$f'(x)=e^x-3e^{-3x}$ ، $f''(x)=e^x+9e^{-3x}$" "\n" r"$f''+3f'=e^x+9e^{-3x}+3e^x-9e^{-3x}=4e^x$",
   truth=diff(exp(x)+exp(-3*x), x, 2)+3*Dx(exp(x)+exp(-3*x)), tag='المشتقات العليا وتراكيبها'),
-# 2026 #12 (temperature after sunset): a cooling model in context, units in stem and options; sign x power slip
+# 2026 #12 (temperature after sunset -> a patient's temperature after a fever reducer): c + k/(t + 1)^2, rate at t = 1,
+# units in stem and options; options = sign x the factor 2 of the power dropped (2026 #12 grid)
 Q('m6q15', U3[3], 'medium',
-  F(r"إذا أمكن التعبير عن درجة حرارة كوب من الشاي بعد سكبه بالاقتران: $T(t)=«0»$ ، حيث $t$ الزمن بالدقائق، و $T$ درجة الحرارة بالسيلسيوس، فإنّ معدّل تغيّر درجة حرارة الشاي عندما $t=1$ هو:", (r'20+\frac{60}{(t+1)^{2}}', 20+60/(t+1)**2)),
-  [O('-15', -15, units='°C/min'), O('15', 15, units='°C/min'), O('-30', -30, units='°C/min'), O('30', 30, units='°C/min')],
-  r"$T(t)=20+60(t+1)^{-2} \Rightarrow T'(t)=-120(t+1)^{-3}$" "\n" r"$T'(1)=-\dfrac{120}{8}=-15\ ^\circ\text{C/min}$",
-  truth=diff(20+60/(t+1)**2, t).subs(t, 1), tag='معدل التغير في سياق حياتي'),
-# 2026 #14 / 2024s #5: two piecewise-linear graphs, h built from f and g; options = sign x magnitude
+  F(r"إذا أمكن التعبير عن درجة حرارة جسم مريض بالحُمّى بعد تناوله دواءً خافضًا للحرارة بالاقتران: $T(t)=«0»$ ، حيث $t$ الزمن بالساعات، و $T$ درجة الحرارة بالسيلسيوس، فإنّ معدّل تغيّر درجة حرارة جسم المريض عندما $t=1$ هو:", (r'37+\frac{3}{(t+1)^{2}}', 37+3/(t+1)**2)),
+  [O(r'-\frac{3}{4}', -R(3, 4), units='°C/h'), O(r'\frac{3}{4}', R(3, 4), units='°C/h'), O(r'-\frac{3}{8}', -R(3, 8), units='°C/h'), O(r'\frac{3}{8}', R(3, 8), units='°C/h')],
+  r"$T(t)=37+3(t+1)^{-2} \Rightarrow T'(t)=-6(t+1)^{-3}$" "\n" r"$T'(1)=-\dfrac{6}{8}=-\dfrac34\ ^\circ\text{C/h}$",
+  truth=diff(37+3/(t+1)**2, t).subs(t, 1), tag='معدل التغير في سياق حياتي'),
+# 2024s #5: h = f g read from two graphs (product rule), graphs and options in the 2026 #14 format
+# (two piecewise-linear graphs on a grid; options = sign x magnitude)
 Q('m6q16', U3[2], 'medium',
   r"يُبيّن الشكل الآتي منحنيي الاقترانين $f(x)$ و $g(x)$. إذا كان: $h(x)=f(x)\,g(x)$ ، فإنّ $h'(1)$ هي:",
   [O('6', 6), O('-6', -6), O('10', 10), O('-10', -10)],
@@ -237,7 +141,7 @@ Q('m6q17', U3[3], 'medium',
   [O(r'\frac{1}{e\ln 16}', 1/(E*log(16))), O(r'\frac{1}{e\ln 8}', 1/(E*log(8))), O(r'\frac{e}{\ln 16}', E/log(16)), O(r'\frac{e}{\ln 8}', E/log(8))],
   r"$f'(x)=\dfrac{1}{(3+\ln x)\ln2}\cdot\dfrac1x$" "\n" r"$f'(e)=\dfrac{1}{(3+1)\ln2\cdot e}=\dfrac{1}{e\cdot4\ln2}=\dfrac{1}{e\ln16}$",
   truth=Dx(log(3+log(x), 2)).subs(x, E), tag='مشتقة اللوغاريتم لأساس غير e'),
-# 2025 #9 / 2026r #6: h = root of an expression in f, values f(a), f'(a) given; options = sign x missing 1/2
+# 2025 #9: h = root of (c + f^m) from the values f(a), f'(a); options = sign x missing 1/2 (model: sign x missing inner factor)
 Q('m6q18', U3[3], 'medium',
   r"إذا كان: $h(x)=\sqrt{5+(f(x))^{3}}$ ، وكان: $f(2)=-1$ ، $f'(2)=4$ ، فإنّ $h'(2)$ هي:",
   [O('3', 3), O('-3', -3), O('6', 6), O('-6', -6)],
@@ -264,7 +168,7 @@ Q('m6q21', U3[4], 'medium',
   r"$\dfrac13x^{-\frac23}+\dfrac13y^{-\frac23}\dfrac{dy}{dx}=0 \Rightarrow \dfrac{dy}{dx}=-\left(\dfrac yx\right)^{\frac23}=-\left(\dfrac18\right)^{\frac23}=-\dfrac14$" "\n"
   r"$l$: $y-1=-\dfrac14(x-8)$ ، وعند $x=0$: $y=1+2=3$",
   truth=lambda: 1-8*imp(x**R(1, 3)+y**R(1, 3)-3, (8, 1)), tag='مماس منحنى علاقة ضمنية'),
-# 2024s #12 (ripples): area rate given, rate of the circumference; options = factor 2 x pi slip
+# 2024s #12 (ripples -> an oil spill): dA/dt given -> dC/dt at a radius; options = factor 2 x pi slip (3/pi = dr/dt, as the model)
 Q('m6q22', U3[5], 'medium',
   r"تنتشر بقعة زيت على سطح الماء على شكل دائرة، وتزداد مساحتها بمعدّل $24\ \text{cm}^2/\text{s}$ ، فإنّ معدّل تغيّر محيط البقعة عندما يكون طول نصف قطرها $4\ \text{cm}$ هو:",
   [O('6', 6, units='cm/s'), O('3', 3, units='cm/s'), O(r'\frac{6}{\pi}', 6/pi, units='cm/s'), O(r'\frac{3}{\pi}', 3/pi, units='cm/s')],
@@ -280,7 +184,7 @@ Q('m6q23', U4[1], 'medium',
   r"$a^2+4=16 \Rightarrow a=-2\sqrt3$ (لأنّ $a<0$) ، فـ $z=-2\sqrt3+2i$ في الربع الثاني" "\n"
   r"زاوية الإسناد: $\tan\theta=\dfrac{2}{2\sqrt3}=\dfrac{1}{\sqrt3} \Rightarrow \theta=\frac{\pi}{6}$ ، و $\text{Arg}(z)=\pi-\frac{\pi}{6}=\frac{5\pi}{6}$",
   truth=lambda: [r_ for r_ in solve(X**2+4-16, X) if r_ < 0][0]+2*I, tag='الصورة المثلثية بشروط', lead=NOTE_I(23, 30)),
-# 2026 #20-21: one shared stem, two operations; options = real part x imaginary part slips
+# 2026 #20: first item of a shared stem (z + iw + k -> 2z - iw); options = i^2 = +1 slip x sign slip in the imaginary part
 Q('m6q24', U4[2], 'easy',
   r"ناتج $2z-iw$ هو:",
   [O('10-5i', 10-5*I), O('2-5i', 2-5*I), O('10-3i', 10-3*I), O('2-3i', 2-3*I)],
@@ -292,12 +196,12 @@ Q('m6q25', U4[2], 'easy',
   [O('11+10i', 11+10*I), O('-5+10i', -5+10*I), O('11+14i', 11+14*I), O('-5+14i', -5+14*I)],
   r"$zw=(3-2i)(1+4i)=3+12i-2i-8i^2=3+10i+8=11+10i$",
   truth=expand((3-2*I)*(1+4*I)), tag='العمليات على الأعداد المركبة (نص مشترك)'),
-# 2026r #19 / 2025 #19: equation in z and its conjugate; options = sign of each part
-Q('m6q26', U4[1], 'easy',
-  r"إذا كان $z$ عددًا مركّبًا، وكان: $z+2\bar{z}=9-2i$ ، فإنّ $z$ هو:",
-  [O('3+2i', 3+2*I), O('3-2i', 3-2*I), O('-3+2i', -3+2*I), O('-3-2i', -3-2*I)],
-  r"نفرض $z=a+bi$: $a+bi+2(a-bi)=3a-bi=9-2i$" "\n" r"$3a=9 \Rightarrow a=3$ ، $-b=-2 \Rightarrow b=2$ ، إذن $z=3+2i$",
-  truth=lambda: (lambda s_: s_[X]+s_[Y]*I)(solve([re(expand(X+Y*I+2*(X-Y*I)-9+2*I)), im(expand(X+Y*I+2*(X-Y*I)-9+2*I))], [X, Y])),
+# 2025 #19: z - k conj(z) = a + bi -> z; options = sign of the imaginary part (z vs conj z) x real and imaginary parts swapped
+Q('m6q26', U4[1], 'medium',
+  r"إذا كان $z$ عددًا مركّبًا، وكان: $z-3\bar{z}=-4+12i$ ، فإنّ $z$ هو:",
+  [O('2+3i', 2+3*I), O('2-3i', 2-3*I), O('3+2i', 3+2*I), O('3-2i', 3-2*I)],
+  r"نفرض $z=a+bi$: $a+bi-3(a-bi)=-2a+4bi=-4+12i$" "\n" r"$-2a=-4 \Rightarrow a=2$ ، $4b=12 \Rightarrow b=3$ ، إذن $z=2+3i$",
+  truth=lambda: (lambda s_: s_[X]+s_[Y]*I)(solve([re(expand(X+Y*I-3*(X-Y*I)+4-12*I)), im(expand(X+Y*I-3*(X-Y*I)+4-12*I))], [X, Y])),
   tag='معادلة فيها العدد ومرافقه'),
 # 2026 #22: two values of a constant making a quotient real; options = +-k list
 Q('m6q27', U4[2], 'medium',
@@ -307,18 +211,19 @@ Q('m6q27', U4[2], 'medium',
   truth=lambda: FiniteSet(*solve(im(expand((X+8*I)*(2-X*I))), X)), tag='قيمة ثابت تجعل العدد حقيقيًا أو تخيليًا'),
 # 2026 #23: quadratic with a given complex root; options = sign of the sum x sum/product swapped
 Q('m6q28', U4[2], 'easy',
-  r"المعادلة التربيعية التي أحد جذريها العدد المركّب $(2-3i)$ هي:",
-  [O(r'x^{2}-4x+13=0', x**2-4*x+13, 'rel'), O(r'x^{2}+4x+13=0', x**2+4*x+13, 'rel'),
-   O(r'x^{2}-13x+4=0', x**2-13*x+4, 'rel'), O(r'x^{2}+13x+4=0', x**2+13*x+4, 'rel')],
-  r"الجذر الآخر هو المرافق $2+3i$ ، المجموع $4$ والضرب $(2-3i)(2+3i)=4+9=13$" "\n" r"$x^2-Sx+P=0 \Rightarrow x^2-4x+13=0$",
-  truth=expand((x-(2-3*I))*(x-(2+3*I))), tag='معادلة تربيعية بمعلومية جذر مركب'),
-# 2026 #24: smaller angle between two numbers in different quadrants (difference > pi)
+  r"المعادلة التربيعية التي أحد جذريها العدد المركّب $(3-2i)$ هي:",
+  [O(r'x^{2}-6x+13=0', x**2-6*x+13, 'rel'), O(r'x^{2}+6x+13=0', x**2+6*x+13, 'rel'),
+   O(r'x^{2}-13x+6=0', x**2-13*x+6, 'rel'), O(r'x^{2}+13x+6=0', x**2+13*x+6, 'rel')],
+  r"الجذر الآخر هو المرافق $3+2i$ ، المجموع $6$ والضرب $(3-2i)(3+2i)=9+4=13$" "\n" r"$x^2-Sx+P=0 \Rightarrow x^2-6x+13=0$",
+  truth=expand((x-(3-2*I))*(x-(3+2*I))), tag='معادلة تربيعية بمعلومية جذر مركب'),
+# 2026 #24: smaller angle between two numbers in the lower half-plane (difference of the arguments < pi);
+# options = the difference / the sizes added / one argument alone / reference angles subtracted
 Q('m6q29', U4[1], 'medium',
-  r"إذا كان: $z_1=1+i\sqrt{3}$ ، $z_2=-\sqrt{3}-i$ ، فإنّ قياس الزاوية الصغرى المحصورة بين $z_1$ و $z_2$ هو:",
-  [O(r'\frac{5\pi}{6}', 5*P/6), O(r'\frac{7\pi}{6}', 7*P/6), O(r'\frac{\pi}{2}', P/2), O(r'\frac{\pi}{6}', P/6)],
-  r"$\text{Arg}(z_1)=\frac{\pi}{3}$ ، $\text{Arg}(z_2)=-\pi+\frac{\pi}{6}=-\frac{5\pi}{6}$" "\n"
-  r"الفرق $\frac{\pi}{3}+\frac{5\pi}{6}=\frac{7\pi}{6}>\pi$ ، فالزاوية الصغرى $2\pi-\frac{7\pi}{6}=\frac{5\pi}{6}$",
-  truth=smaller_angle(1+sqrt(3)*I, -sqrt(3)-I), tag='الزاوية بين عددين مركبين'),
+  r"إذا كان: $z_1=3-i\sqrt{3}$ ، $z_2=-2-2i\sqrt{3}$ ، فإنّ قياس الزاوية الصغرى المحصورة بين $z_1$ و $z_2$ هو:",
+  [O(r'\frac{\pi}{2}', P/2), O(r'\frac{5\pi}{6}', 5*P/6), O(r'\frac{2\pi}{3}', 2*P/3), O(r'\frac{\pi}{6}', P/6)],
+  r"$\text{Arg}(z_1)=-\frac{\pi}{6}$ (الربع الرابع) ، $\text{Arg}(z_2)=-\pi+\frac{\pi}{3}=-\frac{2\pi}{3}$ (الربع الثالث)" "\n"
+  r"الزاوية الصغرى $\left|-\frac{\pi}{6}+\frac{2\pi}{3}\right|=\frac{\pi}{2}$ (وهي أقل من $\pi$)",
+  truth=smaller_angle(3-sqrt(3)*I, -2-2*sqrt(3)*I), tag='الزاوية بين عددين مركبين'),
 # 2026 #25: disc (solid) cut by a wedge whose vertex is not the centre, one ray dashed; options = vertex sign x strictness
 IndexQ('m6q30', U4[3], 'hard',
   r"نظام المتباينات (بدلالة $z$) الذي يُمثِّل المحل الهندسي المُمثَّل بالمنطقة المُظلَّلة في الشكل الآتي هو:",
@@ -331,29 +236,16 @@ IndexQ('m6q30', U4[3], 'hard',
   truth=region_truth(R6, PR6, 4), figure=figure('m6q30', fig_region2(R6, PR6, 4), 3.4, 3.4), tag='منطقة في المستوى المركب من الشكل'),
 ]
 
+
 # ================================================================== PAPER 7
 F7, G7 = [(0, 1), (3, 4), (6, 1)], [(0, 5), (2, 1), (6, 3)]
 C7 = -2 + 1j
 R7 = both(outside(C7, 1), disk(C7, 3, strict=True))
 PR7 = [('arc', C7, 3, True, (0.0, 2*math.pi)), ('arc', C7, 1, False, (0.0, 2*math.pi))]
-N_ = Symbol('N')
+N7_ = Symbol('N')
 
 
-def fig_point(px, py, xtxt, ytxt, name, lim):
-    """one complex number as a point with dashed projections and its coordinates on the axes (2025 #18 style)."""
-    def draw(fig, ax):
-        complex_axes(ax, lim)
-        ax.set_xticks([]); ax.set_yticks([])
-        ax.plot([0, px], [0, py], color=LINE, lw=1.8)
-        ax.plot([px, px], [0, py], color='#555555', lw=1, ls='--'); ax.plot([0, px], [py, py], color='#555555', lw=1, ls='--')
-        ax.plot(px, py, 'o', color=LINE, ms=5, zorder=5)
-        ax.text(px - 0.2, -0.75 if py > 0 else 0.35, xtxt, fontsize=10)
-        ax.text(0.2 if px < 0 else -1.1, py - 0.15, ytxt, fontsize=10)
-        ax.text(px + (0.25 if px > 0 else -0.7), py + 0.2, f'${name}$', fontsize=12, color=LINE)
-    return draw
-
-
-def fig_drone():
+def fig_drone7():
     """drone rising vertically, watched from a point 40 m away (m7q22)."""
     def draw(fig, ax):
         _sketch(fig, ax)
@@ -380,54 +272,55 @@ Q('m7q1', U1[1], 'medium',
   r"$2x^3-3x^2-11x+6=0$ ، وبالقسمة التركيبية على $\left(x-\frac12\right)$: $2,\ -3,\ -11,\ 6 \to 2,\ -2,\ -12,\ 0$" "\n"
   r"$2x^2-2x-12=2(x-3)(x+2)=0 \Rightarrow x=3,\ x=-2$",
   truth=lambda: other_roots(2*x**3-3*x**2-11*x+6, R(1, 2)), tag='حل معادلة كثير حدود بمعلومية أحد جذورها'),
-# 2026 #2 (irreducible quadratic factor version); options = A halved or not x sign of the linear numerator
+# E (expected: decomposition with an irreducible quadratic factor), template 2026 #2: which is the decomposition; options = A halved or not x sign of the linear numerator
 Q('m7q2', U1[2], 'medium',
   F(r"أيُّ الآتية يُمثِّل تجزئة المقدار النسبي $«0»$ إلى كسور جزئية؟", (r'\frac{3x^{2}+1}{(x-1)(x^{2}+1)}', (3*x**2+1)/((x-1)*(x**2+1)))),
   [O(r'\frac{2}{x-1}+\frac{x+1}{x^{2}+1}', 2/(x-1)+(x+1)/(x**2+1)), O(r'\frac{4}{x-1}+\frac{x+1}{x^{2}+1}', 4/(x-1)+(x+1)/(x**2+1)),
    O(r'\frac{2}{x-1}+\frac{x-1}{x^{2}+1}', 2/(x-1)+(x-1)/(x**2+1)), O(r'\frac{4}{x-1}+\frac{x-1}{x^{2}+1}', 4/(x-1)+(x-1)/(x**2+1))],
   r"$3x^2+1=A(x^2+1)+(Bx+C)(x-1)$" "\n" r"عند $x=1$: $4=2A \Rightarrow A=2$ ، معامل $x^2$: $3=A+B \Rightarrow B=1$ ، الحدّ الثابت: $1=A-C \Rightarrow C=1$",
   truth=(3*x**2+1)/((x-1)*(x**2+1)), tag='تجزئة: عامل تربيعي غير قابل للتحليل'),
-# 2026 #3 extended to two constants (factor + remainder); options = sign of each constant
+# E (expected: factor theorem then remainder theorem), template 2026 #3: the factor (x - 2) gives a at once, then the remainder on (x + 1) is f(-1); options = sign slip in a x zero of (x + 1) taken as 1
 Q('m7q3', U1[1], 'medium',
-  F(r"إذا كان $(x-2)$ أحد عوامل الاقتران: $f(x)=«0»$ ، وكان باقي قسمة $f(x)$ على $(x+1)$ يساوي $6$ ، فإنّ قيمتي الثابتين $a$ و $b$ هما:", (r'x^{3}+ax^{2}-4x+b', x**3+a*x**2-4*x+b)),
-  [O(r'a=-1,\ b=4', Tuple(-1, 4), 'pairs'), O(r'a=1,\ b=-4', Tuple(1, -4), 'pairs'), O(r'a=-1,\ b=-4', Tuple(-1, -4), 'pairs'), O(r'a=1,\ b=4', Tuple(1, 4), 'pairs')],
-  r"$f(2)=8+4a-8+b=0 \Rightarrow 4a+b=0$" "\n" r"$f(-1)=-1+a+4+b=6 \Rightarrow a+b=3$ ، بالطرح: $3a=-3 \Rightarrow a=-1$ ، $b=4$",
-  truth=lambda: (lambda s_: Tuple(s_[a], s_[b]))(solve([rem(x**3+a*x**2-4*x+b, 2), rem(x**3+a*x**2-4*x+b, -1)-6], [a, b])),
-  tag='نظرية العوامل وإيجاد ثابتين'),
-# 2026 #3 (remainder theorem) with high powers of a negative number; options = the parity slips
+  F(r"إذا كان $(x-2)$ أحد عوامل الاقتران: $f(x)=«0»$ ، وكان باقي قسمة $f(x)$ على $(x+1)$ يساوي $b$ ، فإنّ قيمتي الثابتين $a$ و $b$ هما:", (r'x^{3}+ax^{2}-4x+4', x**3+a*x**2-4*x+4)),
+  [O(r'a=-1,\ b=6', Tuple(-1, 6), 'pairs'), O(r'a=-1,\ b=0', Tuple(-1, 0), 'pairs'), O(r'a=1,\ b=8', Tuple(1, 8), 'pairs'), O(r'a=1,\ b=2', Tuple(1, 2), 'pairs')],
+  r"$f(2)=8+4a-8+4=0 \Rightarrow 4a=-4 \Rightarrow a=-1$" "\n" r"$b=f(-1)=-1+a+4+4=7+a=6$",
+  truth=lambda: (lambda a_: Tuple(a_, rem((x**3+a*x**2-4*x+4).subs(a, a_), -1)))(solve(rem(x**3+a*x**2-4*x+4, 2), a)[0]),
+  tag='نظرية الباقي والعوامل معًا'),
+# E (expected: remainder theorem with high powers of -1), template 2026 #3: remainder on (x + 1) = f(-1); options = the parity slips
 Q('m7q4', U1[1], 'easy',
   F(r"باقي قسمة الاقتران: $f(x)=«0»$ على $(x+1)$ هو:", (r'x^{20}-3x^{9}+2', x**20-3*x**9+2)),
   [O('6', 6), O('4', 4), O('0', 0), O('-2', -2)],
   r"الباقي $f(-1)=(-1)^{20}-3(-1)^9+2=1+3+2=6$",
   truth=rem(x**20-3*x**9+2, -1), tag='نظرية الباقي: قوى عالية'),
 # ---------------- unit 2
-# 2026 #4 with cos(theta/2) from tan theta; options = sign x sin/cos of the half angle
-Q('m7q5', U2[2], 'medium',
-  r"إذا كان: $\tan\theta=\frac{3}{4}$ ، $\pi<\theta<\frac{3\pi}{2}$ ، فإنّ قيمة $\cos\frac{\theta}{2}$ تساوي:",
-  [O(r'-\frac{1}{\sqrt{10}}', -1/sqrt(10)), O(r'\frac{1}{\sqrt{10}}', 1/sqrt(10)), O(r'-\frac{3}{\sqrt{10}}', -3/sqrt(10)), O(r'\frac{3}{\sqrt{10}}', 3/sqrt(10))],
-  r"في الربع الثالث $\cos\theta=-\frac45$ ، و $\frac{\pi}{2}<\frac{\theta}{2}<\frac{3\pi}{4}$ فجيب التمام سالب" "\n"
-  r"$\cos\frac{\theta}{2}=-\sqrt{\dfrac{1+\cos\theta}{2}}=-\sqrt{\dfrac{1/5}{2}}=-\dfrac{1}{\sqrt{10}}$",
-  truth=cos((pi+atan(R(3, 4)))/2), tag='نصف الزاوية مع تحديد الربع'),
+# E (expected: product to sum, exact value), template 2026 #5 (special values): cos A cos B with A - B = pi/6, A + B = pi/4; options = + vs - between the cosines x factor 1/2 kept/lost
+Q('m7q5', U2[2], 'easy',
+  F(r"قيمة المقدار: $«0»$ هي:", (r'\cos\frac{5\pi}{24}\cos\frac{\pi}{24}', cos(5*pi/24)*cos(pi/24))),
+  [O(r'\frac{\sqrt{3}+\sqrt{2}}{4}', (sqrt(3)+sqrt(2))/4), O(r'\frac{\sqrt{3}-\sqrt{2}}{4}', (sqrt(3)-sqrt(2))/4),
+   O(r'\frac{\sqrt{3}+\sqrt{2}}{2}', (sqrt(3)+sqrt(2))/2), O(r'\frac{\sqrt{3}-\sqrt{2}}{2}', (sqrt(3)-sqrt(2))/2)],
+  r"$\cos A\cos B=\frac12\left[\cos(A-B)+\cos(A+B)\right]$" "\n"
+  r"$\frac12\left[\cos\frac{\pi}{6}+\cos\frac{\pi}{4}\right]=\frac12\left[\frac{\sqrt3}{2}+\frac{\sqrt2}{2}\right]=\frac{\sqrt3+\sqrt2}{4}$",
+  truth=cos(5*pi/24)*cos(pi/24), tag='تحويل الضرب إلى مجموع'),
 # 2026 #5 with a difference identity; options = coefficient x sin/cos
 Q('m7q6', U2[1], 'easy',
   F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\cos(x-\frac{\pi}{4})-\frac{\sqrt{2}}{2}\sin x', cos(x-pi/4)-sqrt(2)/2*sin(x))),
   [O(r'\frac{\sqrt{2}}{2}\cos x', sqrt(2)/2*cos(x)), O(r'\frac{\sqrt{2}}{2}\sin x', sqrt(2)/2*sin(x)), O(r'\sqrt{2}\cos x', sqrt(2)*cos(x)), O(r'\sqrt{2}\sin x', sqrt(2)*sin(x))],
   r"$\cos\left(x-\frac{\pi}{4}\right)=\cos x\cdot\frac{\sqrt2}{2}+\sin x\cdot\frac{\sqrt2}{2}$ ، وبطرح $\frac{\sqrt2}{2}\sin x$ يبقى $\frac{\sqrt2}{2}\cos x$",
   truth=cos(x-pi/4)-sqrt(2)/2*sin(x), tag='تبسيط باستعمال متطابقات المجموع والفرق'),
-# 2026 #6 (equivalent expression)
-Q('m7q7', U2[1], 'easy',
-  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\sec x-\sin x\tan x', sec(x)-sin(x)*tan(x))),
-  [O(r'\cos x', cos(x)), O(r'\sin x', sin(x)), O(r'\sec x', sec(x)), O(r'\csc x', csc(x))],
-  r"$\dfrac{1}{\cos x}-\sin x\cdot\dfrac{\sin x}{\cos x}=\dfrac{1-\sin^2x}{\cos x}=\dfrac{\cos^2x}{\cos x}=\cos x$",
-  truth=sec(x)-sin(x)*tan(x), tag='المتطابقات الأساسية'),
-# 2026 #5 family: exact value from a difference of special angles; options = order of the surds x sign
-Q('m7q8', U2[1], 'medium',
+# E (expected: tan(pi/4 + x) = k -> tan x), template 2026 #4 grid: tangent-sum identity, then a linear equation; options = sign of tan x in the identity x numerator/denominator order (reciprocal)
+Q('m7q7', U2[1], 'medium',
+  F(r"إذا كان: $«0»=5$ ، فإنّ قيمة $\tan x$ هي:", (r'\tan\left(\frac{\pi}{4}+x\right)', tan(pi/4+x))),
+  [O(r'\frac{2}{3}', R(2, 3)), O(r'-\frac{2}{3}', -R(2, 3)), O(r'\frac{3}{2}', R(3, 2)), O(r'-\frac{3}{2}', -R(3, 2))],
+  r"$\tan\left(\frac{\pi}{4}+x\right)=\dfrac{1+\tan x}{1-\tan x}=5$" "\n" r"$1+\tan x=5-5\tan x \Rightarrow 6\tan x=4 \Rightarrow \tan x=\dfrac23$",
+  truth=tan(atan(5)-pi/4), tag='ظل المجموع والفرق: tan(π/4 ± x)'),
+# E (expected: exact value by a difference identity), template 2026 #5: sin(pi/3 - pi/4) with exact values; options = order of the surds x sum vs difference
+Q('m7q8', U2[1], 'easy',
   r"قيمة $\sin\frac{\pi}{12}$ هي:",
   [O(r'\frac{\sqrt{6}-\sqrt{2}}{4}', (sqrt(6)-sqrt(2))/4), O(r'\frac{\sqrt{2}-\sqrt{6}}{4}', (sqrt(2)-sqrt(6))/4),
    O(r'\frac{\sqrt{6}+\sqrt{2}}{4}', (sqrt(6)+sqrt(2))/4), O(r'-\frac{\sqrt{6}+\sqrt{2}}{4}', -(sqrt(6)+sqrt(2))/4)],
   r"$\frac{\pi}{12}=\frac{\pi}{3}-\frac{\pi}{4}$" "\n" r"$\sin\frac{\pi}{3}\cos\frac{\pi}{4}-\cos\frac{\pi}{3}\sin\frac{\pi}{4}=\frac{\sqrt3}{2}\cdot\frac{\sqrt2}{2}-\frac12\cdot\frac{\sqrt2}{2}=\frac{\sqrt6-\sqrt2}{4}$",
   truth=sin(pi/12), tag='قيم دقيقة بمتطابقات المجموع والفرق'),
-# 2026 #7 after a Pythagorean substitution (quadratic in cos x, three solutions); options = include 0 x sign of cos
+# E (expected: Pythagorean substitution -> quadratic in cos x), template 2026 #7: factorable quadratic in cos x, three solutions; options = include 0 x sign of cos
 Q('m7q9', U2[3], 'medium',
   F(r"حلول المعادلة: $«0»=0$ في الفترة $[0,\,2\pi)$ هي:", (r'2\sin^{2}x+3\cos x-3', 2*sin(x)**2+3*cos(x)-3)),
   [O(st('0', r'\frac{\pi}{3}', r'\frac{5\pi}{3}'), S_(0, P/3, 5*P/3), 'set'), O(st(r'\frac{\pi}{3}', r'\frac{5\pi}{3}'), S_(P/3, 5*P/3), 'set'),
@@ -435,14 +328,14 @@ Q('m7q9', U2[3], 'medium',
   r"$2(1-\cos^2x)+3\cos x-3=0 \Rightarrow 2\cos^2x-3\cos x+1=0 \Rightarrow (2\cos x-1)(\cos x-1)=0$" "\n"
   r"$\cos x=1 \Rightarrow x=0$ ، $\cos x=\frac12 \Rightarrow x=\frac{\pi}{3},\ \frac{5\pi}{3}$",
   truth=lambda: sols(2*sin(x)**2+3*cos(x)-3, 0, 2*pi), tag='معادلة تربيعية بعد استعمال متطابقة فيثاغورس'),
-# 2026 #8: reciprocal ratio -> sin 2x; options = halved or not x second period or not
-Q('m7q10', U2[3], 'medium',
-  F(r"حلول المعادلة: $«0»=0$ في الفترة $[0,\,2\pi)$ هي:", (r'2\cos x-\csc x', 2*cos(x)-csc(x))),
-  [O(st(r'\frac{\pi}{4}', r'\frac{5\pi}{4}'), S_(P/4, 5*P/4), 'set'), O(st(r'\frac{\pi}{2}', r'\frac{5\pi}{2}'), S_(P/2, 5*P/2), 'set'),
-   O(st(r'\frac{\pi}{4}'), S_(P/4), 'set'), O(st(r'\frac{\pi}{2}'), S_(P/2), 'set')],
-  r"نضرب في $\sin x\ne0$: $2\sin x\cos x=1 \Rightarrow \sin2x=1$" "\n"
-  r"$0\le2x<4\pi$: $2x=\frac{\pi}{2},\ \frac{5\pi}{2} \Rightarrow x=\frac{\pi}{4},\ \frac{5\pi}{4}$",
-  truth=lambda: sols(2*cos(x)-csc(x), 0, 2*pi), tag='معادلة فيها مقلوب نسبة وزاوية مضاعفة'),
+# 2026 #8: reciprocal ratio -> sin 2x = -1/2 on the half-period interval (pi, 2pi), doubled for 2x; options = halved or not x interval doubled or not
+Q('m7q10', U2[3], 'hard',
+  F(r"حلول المعادلة: $«0»=0$ في الفترة $(\pi,\,2\pi)$ هي:", (r'4\cos x+\csc x', 4*cos(x)+csc(x))),
+  [O(st(r'\frac{19\pi}{12}', r'\frac{23\pi}{12}'), S_(19*P/12, 23*P/12), 'set'), O(st(r'\frac{7\pi}{12}', r'\frac{11\pi}{12}'), S_(7*P/12, 11*P/12), 'set'),
+   O(st(r'\frac{19\pi}{6}', r'\frac{23\pi}{6}'), S_(19*P/6, 23*P/6), 'set'), O(st(r'\frac{7\pi}{6}', r'\frac{11\pi}{6}'), S_(7*P/6, 11*P/6), 'set')],
+  r"نضرب في $\sin x\ne0$: $4\sin x\cos x=-1 \Rightarrow 2\sin2x=-1 \Rightarrow \sin2x=-\frac12$" "\n"
+  r"$2\pi<2x<4\pi$: $2x=\frac{19\pi}{6},\ \frac{23\pi}{6} \Rightarrow x=\frac{19\pi}{12},\ \frac{23\pi}{12}$",
+  truth=lambda: sols(4*cos(x)+csc(x), pi, 2*pi, closed_lo=False), tag='معادلة فيها مقلوب نسبة وزاوية مضاعفة'),
 # ---------------- unit 3
 # 2025 #2 / 2026r #5: value of the derivative of a trig combination; options = sec^2 vs sec x sign of the cos term
 Q('m7q11', U3[1], 'easy',
@@ -450,7 +343,7 @@ Q('m7q11', U3[1], 'easy',
   [O(r'8+2\sqrt{3}', 8+2*sqrt(3)), O(r'8-2\sqrt{3}', 8-2*sqrt(3)), O(r'4+2\sqrt{3}', 4+2*sqrt(3)), O(r'4-2\sqrt{3}', 4-2*sqrt(3))],
   r"$f'(x)=2\sec^2x+4\sin x$" "\n" r"$f'\left(\frac{\pi}{3}\right)=2(2)^2+4\cdot\frac{\sqrt3}{2}=8+2\sqrt3$",
   truth=Dx(2*tan(x)-4*cos(x)).subs(x, pi/3), tag='مشتقات الاقترانات المثلثية'),
-# 2024 #6: x-coordinate where the tangent is parallel to a given line (exponential minus linear)
+# 2024 #6: x-coordinate where the tangent is parallel to a given line (exponential minus linear); options = chain factor 2 lost / slope sign / ln 4 not halved
 Q('m7q12', U3[1], 'medium',
   F(r"إذا كان: $f(x)=«0»$ ، فإنّ الإحداثي $x$ للنقطة التي يكون عندها المماس موازيًا للمستقيم الذي معادلته: $3x-y+1=0$ هو:", (r'e^{2x}-5x', exp(2*x)-5*x)),
   [O(r'\ln 2', log(2)), O(r'\frac{3}{2}\ln 2', R(3, 2)*log(2)), O('0', 0), O(r'\ln 4', log(4))],
@@ -461,14 +354,14 @@ Q('m7q13', U3[1], 'medium',
   r"إذا كان الاقتران: $A(t)=Ne^{0.5t}$ يُمثّل عدد الخلايا البكتيرية بعد $t$ ساعة في مجتمع بكتيري، وكان معدّل نموّ المجتمع بعد $4$ ساعات هو $(300e^{2})$ خلية لكلّ ساعة، فإنّ قيمة الثابت $N$ هي:",
   [O('600', 600), O('300', 300), O('150', 150), O('6000', 6000)],
   r"$A'(t)=0.5Ne^{0.5t}$ ، و $A'(4)=0.5Ne^{2}=300e^2 \Rightarrow N=600$",
-  truth=lambda: solve(diff(N_*exp(t/2), t).subs(t, 4)-300*E**2, N_)[0], tag='معدل التغير في سياق حياتي'),
+  truth=lambda: solve(diff(N7_*exp(t/2), t).subs(t, 4)-300*E**2, N7_)[0], tag='معدل التغير في سياق حياتي'),
 # 2024s #7: third derivative of a polynomial plus a reciprocal; options = sign x keeping a constant
 Q('m7q14', U3[2], 'easy',
   F(r"إذا كان: $f(x)=«0»$ ، $x\ne0$ ، فإنّ $f'''(x)$ هي:", (r'3x^{2}-\frac{2}{x}', 3*x**2-2/x)),
   [O(r'\frac{12}{x^{4}}', 12/x**4), O(r'-\frac{12}{x^{4}}', -12/x**4), O(r'6+\frac{12}{x^{4}}', 6+12/x**4), O(r'6-\frac{12}{x^{4}}', 6-12/x**4)],
   r"$f'(x)=6x+2x^{-2}$ ، $f''(x)=6-4x^{-3}$ ، $f'''(x)=12x^{-4}=\dfrac{12}{x^4}$",
   truth=diff(3*x**2-2/x, x, 3), tag='المشتقات العليا'),
-# 2026r #3 / 2025 #3: two graphs, h a quotient of f and g; options = numerator order x slope sign
+# 2026r #3 (h = f/(g + 1)) / 2024s #5 (both rule terms): two piecewise-linear graphs, h = f/g at a grid point; options = numerator order x slope sign
 Q('m7q15', U3[2], 'medium',
   r"يُبيّن الشكل الآتي منحنيي الاقترانين $f(x)$ و $g(x)$. إذا كان: $h(x)=\dfrac{f(x)}{g(x)}$ ، فإنّ $h'(1)$ هي:",
   [O(r'\frac{7}{9}', R(7, 9)), O(r'-\frac{7}{9}', -R(7, 9)), O(r'-\frac{1}{9}', -R(1, 9)), O(r'\frac{1}{9}', R(1, 9))],
@@ -481,12 +374,13 @@ Q('m7q16', U3[3], 'medium',
   [O('3', 3), O(r'\frac{3}{2}', R(3, 2)), O('0', 0), O('6', 6)],
   r"$f'(x)=3\left[2xe^{x^2}\sqrt{2x+1}+e^{x^2}\cdot\dfrac{2}{2\sqrt{2x+1}}\right]$" "\n" r"$f'(0)=3\left[0+1\cdot1\right]=3$",
   truth=Dx(3*exp(x**2)*sqrt(2*x+1)).subs(x, 0), tag='مشتقة الضرب'),
-# 2024s #11: log base a of a quadratic at a point; options = ln a missing / inverted x divided by u or not
+# 2026r #9: dy/dx of log (base 10, not written) of a polynomial, domain given; options = ln 10 below / above / missing, or the fraction inverted
 Q('m7q17', U3[3], 'medium',
-  F(r"إذا كان: $f(x)=«0»$ ، فإنّ $f'(3)$ هي:", (r'\log_{3}(x^{2}-5)', log(x**2-5, 3))),
-  [O(r'\frac{3}{2\ln 3}', 3/(2*log(3))), O(r'\frac{6}{\ln 3}', 6/log(3)), O(r'\frac{3}{2}', R(3, 2)), O(r'\frac{3\ln 3}{2}', 3*log(3)/2)],
-  r"$f'(x)=\dfrac{2x}{(x^2-5)\ln3}$ ، $f'(3)=\dfrac{6}{4\ln3}=\dfrac{3}{2\ln3}$",
-  truth=Dx(log(x**2-5, 3)).subs(x, 3), tag='مشتقة اللوغاريتم لأساس غير e'),
+  r"إذا كان: $y=\log(x^{3}+3x)$ ، $x>0$ ، فإنّ $\dfrac{dy}{dx}$ هي:",
+  [O(r'\frac{3x^{2}+3}{(x^{3}+3x)\ln 10}', (3*x**2+3)/((x**3+3*x)*log(10))), O(r'\frac{(3x^{2}+3)\ln 10}{x^{3}+3x}', (3*x**2+3)*log(10)/(x**3+3*x)),
+   O(r'\frac{3x^{2}+3}{x^{3}+3x}', (3*x**2+3)/(x**3+3*x)), O(r'\frac{x^{3}+3x}{3x^{2}+3}', (x**3+3*x)/(3*x**2+3))],
+  r"$\dfrac{d}{dx}\log u=\dfrac{u'}{u\ln10}$ ، و $u=x^3+3x$ ، $u'=3x^2+3$" "\n" r"$\dfrac{dy}{dx}=\dfrac{3x^2+3}{(x^3+3x)\ln10}$",
+  truth=Dx(log(x**3+3*x, 10)), tag='مشتقة اللوغاريتم لأساس غير e'),
 # 2025 #10: k^(trig x), f'(a) given as a logarithm -> k; options = k, its reciprocal, its square, negative
 IndexQ('m7q18', U3[3], 'hard',
   r"إذا كان: $f(x)=k^{\tan x}$ ، حيث $k>0$ ، وكان: $f'\left(\frac{\pi}{4}\right)=\ln 16$ ، فإنّ قيمة الثابت $k$ هي:",
@@ -500,55 +394,55 @@ Q('m7q19', U3[3], 'easy',
   [O(r'\frac{1}{6}', R(1, 6)), O('6', 6), O(r'\frac{1}{12}', R(1, 12)), O('12', 12)],
   r"$\dfrac{dy}{dt}=\dfrac{2t}{t^2+3}=\dfrac12$ ، $\dfrac{dx}{dt}=3t^2=3$ عندما $t=1$" "\n" r"$\dfrac{dy}{dx}=\dfrac{1/2}{3}=\dfrac16$",
   truth=(diff(log(t**2+3), t)/diff(t**3+1, t)).subs(t, 1), tag='مشتقة المعادلات الوسيطية'),
-# 2024 #9: y^2 and ln(xy) at a point; options = terms of d/dx ln(xy) dropped
+# E (expected: normal line to an implicit curve), template 2026 #17: a line at a lattice point of an implicit curve, one intercept asked; options = normal vs tangent x x- vs y-intercept
 Q('m7q20', U3[4], 'medium',
-  F(r"إذا كانت: $«0»=«1»$ ، فإنّ $\dfrac{dy}{dx}$ عند النقطة $(1,\,1)$ هي:", (r'y^{2}+\ln(xy)', y**2+log(x*y)), (r'2x-1', 2*x-1)),
-  [O(r'\frac{1}{3}', R(1, 3)), O(r'\frac{1}{2}', R(1, 2)), O(r'\frac{2}{3}', R(2, 3)), O('1', 1)],
-  r"$\ln(xy)=\ln x+\ln y$ ، فالاشتقاق: $2y\dfrac{dy}{dx}+\dfrac1x+\dfrac1y\dfrac{dy}{dx}=2$" "\n" r"عند $(1,1)$: $2y'+1+y'=2 \Rightarrow y'=\dfrac13$",
-  truth=imp(y**2+log(x*y)-2*x+1, (1, 1)), tag='الاشتقاق الضمني عند نقطة'),
-# 2024 #10 / 2023 #10: variable base and exponent, logarithmic differentiation; options = factor y x factor 2
-Q('m7q21', U3[4], 'hard',
+  F(r"إذا مثّل المستقيم $l$ العمودي على المماس لمنحنى العلاقة: $«0»=20$ عند النقطة $(4,\,2)$ ، فإنّ المقطع $x$ للمستقيم $l$ هو:", (r'xy+2x+y^{2}', x*y+2*x+y**2)),
+  [O('3', 3), O('-6', -6), O('8', 8), O('4', 4)],
+  r"$y+xy'+2+2yy'=0 \Rightarrow y'=-\dfrac{y+2}{x+2y}=-\dfrac48=-\dfrac12$ عند $(4,2)$" "\n" r"ميل العمودي $2$: $y-2=2(x-4)$ ، وعند $y=0$: $x=3$",
+  truth=lambda: (lambda m_: 4 - 2/(-1/m_))(imp(x*y+2*x+y**2-20, (4, 2))), tag='العمودي على المماس لمنحنى علاقة ضمنية'),
+# 2024 #10: dy/dx (slope at any point) of x^(ln x) by logarithmic differentiation, answer in x and y; options = factor y kept/forgotten x factor 2 of (ln x)^2
+Q('m7q21', U3[4], 'medium',
   F(r"إذا كانت: $y=«0»$ ، $x>0$ ، فإنّ ميل المماس لمنحنى العلاقة عند أيّ نقطة تقع عليها هو:", (r'x^{\ln x}', x**log(x))),
   [O(r'\frac{2y\ln x}{x}', 2*x**log(x)*log(x)/x, sym={'y': x**log(x)}), O(r'\frac{2\ln x}{x}', 2*log(x)/x),
    O(r'\frac{y\ln x}{x}', x**log(x)*log(x)/x, sym={'y': x**log(x)}), O(r'\frac{\ln x}{x}', log(x)/x)],
   r"$\ln y=\ln x\cdot\ln x=(\ln x)^2$" "\n" r"$\dfrac1y\dfrac{dy}{dx}=\dfrac{2\ln x}{x} \Rightarrow \dfrac{dy}{dx}=\dfrac{2y\ln x}{x}$",
   truth=Dx(x**log(x)), tag='الاشتقاق اللوغاريتمي'),
-# 2024 #11 / 2025 #12: angle of elevation of a rising object, with a figure; options = sign x missing cos^2
+# 2024 #11: angle of elevation of an object rising vertically, watched from a point a fixed distance away (figure); dtheta/dt at a given height; options = sign x sec^2 kept/forgotten
 Q('m7q22', U3[5], 'hard',
   r"يُبيّن الشكل الآتي طائرة مُسيّرة ترتفع رأسيًّا بسرعة $15\ \text{m/min}$ ، ويرصدها شخص عند النقطة $A$ التي تبعد $40\ \text{m}$ عن نقطة إقلاعها. معدّل تغيّر زاوية الارتفاع $\theta$ عندما يكون ارتفاع الطائرة $30\ \text{m}$ هو:",
   [O(r'\frac{6}{25}', R(6, 25), units='rad/min'), O(r'\frac{3}{8}', R(3, 8), units='rad/min'), O(r'-\frac{6}{25}', -R(6, 25), units='rad/min'), O(r'-\frac{3}{8}', -R(3, 8), units='rad/min')],
   r"$\tan\theta=\dfrac{h}{40} \Rightarrow \sec^2\theta\dfrac{d\theta}{dt}=\dfrac{1}{40}\dfrac{dh}{dt}$" "\n"
   r"عندما $h=30$: الوتر $50$ ، $\cos\theta=\frac45$ ، $\dfrac{d\theta}{dt}=\dfrac{15}{40}\cdot\dfrac{16}{25}=\dfrac{6}{25}\ \text{rad/min}$",
-  truth=(diff(atan(s/40), s)*15).subs(s, 30), figure=figure('m7q22', fig_drone(), 3.4, 2.8), tag='معدلات مرتبطة: معدل تغير زاوية'),
+  truth=(diff(atan(s/40), s)*15).subs(s, 30), figure=figure('m7q22', fig_drone7(), 3.4, 2.8), tag='معدلات مرتبطة: معدل تغير زاوية'),
 # ---------------- unit 4
-# 2025 #18: trigonometric form of a number shown as a point; options = quadrant x reference angle
+# 2025 #18: trigonometric form of a number shown as a point (here in the third quadrant); options = sign of the argument (quadrant III vs II) x reference angle pi/6 vs pi/3
 Q('m7q23', U4[1], 'easy',
   r"الصورة المثلثية للعدد المركّب $w$ المُمثَّل في المستوى المركّب الآتي هي:",
-  [O(trig('4', r'\frac{2\pi}{3}'), pol(4, 2*P/3)), O(trig('4', r'\frac{\pi}{3}'), pol(4, P/3)),
-   O(trig('4', r'\frac{5\pi}{6}'), pol(4, 5*P/6)), O(trig('4', r'\frac{\pi}{6}'), pol(4, P/6))],
-  r"$w=-2+2\sqrt3\,i$ ، $|w|=\sqrt{4+12}=4$ ، وهو في الربع الثاني" "\n" r"زاوية الإسناد $\tan\theta=\dfrac{2\sqrt3}{2}=\sqrt3 \Rightarrow \theta=\frac{\pi}{3}$ ، و $\text{Arg}(w)=\pi-\frac{\pi}{3}=\frac{2\pi}{3}$",
-  truth=-2+2*sqrt(3)*I, figure=figure('m7q23', fig_point(-2, 2*math.sqrt(3), r'$-2$', r'$2\sqrt{3}$', 'w', 5), 3.0, 3.0),
+  [O(trig('2', r'-\frac{5\pi}{6}'), pol(2, -5*P/6)), O(trig('2', r'\frac{5\pi}{6}'), pol(2, 5*P/6)),
+   O(trig('2', r'-\frac{2\pi}{3}'), pol(2, -2*P/3)), O(trig('2', r'\frac{2\pi}{3}'), pol(2, 2*P/3))],
+  r"$w=-\sqrt3-i$ ، $|w|=\sqrt{3+1}=2$ ، وهو في الربع الثالث" "\n" r"زاوية الإسناد $\tan\theta=\dfrac{1}{\sqrt3} \Rightarrow \theta=\frac{\pi}{6}$ ، و $\text{Arg}(w)=-\left(\pi-\frac{\pi}{6}\right)=-\frac{5\pi}{6}$",
+  truth=-sqrt(3)-I, figure=figure('m7q23', fig_point(-math.sqrt(3), -1, r'$-\sqrt{3}$', r'$-1$', 'w', 3), 3.0, 3.0),
   tag='الصورة المثلثية بشروط', lead=NOTE_I(23, 30)),
-# 2025 #21-22 / 2025s #21-22: shared stem, Arg of a difference then a quotient
+# 2025 #21: first item of a shared stem, Arg(z - w) on a diagonal (reference angle pi/4); options = the four angles with reference pi/4
 Q('m7q24', U4[1], 'easy',
   r"قيمة $\text{Arg}(z-w)$ هي:",
   [O(r'-\frac{\pi}{4}', -P/4), O(r'\frac{\pi}{4}', P/4), O(r'-\frac{3\pi}{4}', -3*P/4), O(r'\frac{3\pi}{4}', 3*P/4)],
   r"$z-w=(4-1)+(-1-2)i=3-3i$ في الربع الرابع، وزاوية الإسناد $\frac{\pi}{4}$ ، إذن $\text{Arg}(z-w)=-\frac{\pi}{4}$",
   truth=arg(3-3*I), tag='العمليات على الأعداد المركبة (نص مشترك)', lead=shared(r"إذا كان: $z=4-i$ ، $w=1+2i$", 24, 25)),
-# 2026r #21: second item of the shared stem (quotient z/w); options = i^2 slip x conjugate slip
+# 2026r #21: the quotient z/w of the shared numbers (there it is the first item of the stem); options = i^2 slip x conjugate slip
 Q('m7q25', U4[2], 'medium',
   r"ناتج $\dfrac{z}{w}$ هو:",
   [O(r'\frac{2}{5}-\frac{9}{5}i', R(2, 5)-R(9, 5)*I), O(r'\frac{6}{5}-\frac{9}{5}i', R(6, 5)-R(9, 5)*I),
    O(r'\frac{2}{5}+\frac{9}{5}i', R(2, 5)+R(9, 5)*I), O(r'\frac{6}{5}+\frac{7}{5}i', R(6, 5)+R(7, 5)*I)],
   r"$\dfrac{4-i}{1+2i}\cdot\dfrac{1-2i}{1-2i}=\dfrac{4-8i-i+2i^2}{1+4}=\dfrac{2-9i}{5}$",
   truth=(4-I)/(1+2*I), tag='العمليات على الأعداد المركبة (نص مشترك)'),
-# 2025 #24 / 2025s #25: modulus of a product given -> two values of a constant
+# 2025s #25: |z1 z2| given -> the two values of p in z1 = a + pi (|z2| = 5 from 3 + 4i); options = +-k pairs (+-10 = |z1| itself)
 Q('m7q26', U4[1], 'medium',
   r"إذا كان: $z_1=8+pi$ ، $z_2=3+4i$ ، وكان: $|z_1z_2|=50$ ، فإنّ القيمتين المُمكنتين للثابت $p$ هما:",
   [O(r'\pm 6', S_(6, -6), 'set'), O(r'\pm 2', S_(2, -2), 'set'), O(r'\pm 8', S_(8, -8), 'set'), O(r'\pm 10', S_(10, -10), 'set')],
   r"$|z_1z_2|=|z_1||z_2|=5|z_1|=50 \Rightarrow |z_1|=10$" "\n" r"$64+p^2=100 \Rightarrow p^2=36 \Rightarrow p=\pm6$",
   truth=lambda: FiniteSet(*solve(5*sqrt(64+X**2)-50, X)), tag='إيجاد ثابت بمعلومية المقياس'),
-# 2026r #24 / 2025s #24: a complex root of a quadratic with unknown real coefficients
+# 2026r #24 / 2025s #24: complex root with one unknown part of a real quadratic -> a + b; options = sign of b x a vs a^2
 Q('m7q27', U4[2], 'medium',
   r"إذا كان: $z=-2+ai$ ، $a>0$ أحد جذري المعادلة: $x^{2}+bx+13=0$ ، حيث $a$ و $b$ عددان حقيقيان، فإنّ قيمة $a+b$ هي:",
   [O('7', 7), O('-1', -1), O('13', 13), O('5', 5)],
@@ -561,7 +455,7 @@ IndexQ('m7q28', U4[1], 'medium',
   [O('4', 4), O('-10', -10), O('10', 10), O('-4', -4)],
   r"$z+3-2i=(a+3)-7i$ ، والسعة $-\frac{\pi}{4}$ تعني الربع الرابع مع تساوي الجزأين في القيمة المطلقة" "\n" r"$a+3=7 \Rightarrow a=4$",
   truth=lambda vals: only(vals, lambda v_: simplify(arg(v_+3-7*I)+pi/4) == 0), tag='السعة الرئيسة'),
-# 2023 #24: greatest Arg of points on a circle
+# 2023 #24: greatest Arg of the points on a circle |z - c| = r with |c| = 2r; options = multiples of pi/6 (pi/6 = Arg of the centre, 0 = least value)
 Q('m7q29', U4[3], 'hard',
   r"القيمة العظمى لسعة الأعداد المركّبة $z$ التي تحقّق المعادلة: $|z-\sqrt{3}-i|=1$ هي:",
   [O(r'\frac{\pi}{3}', P/3), O(r'\frac{\pi}{6}', P/6), O('0', 0), O(r'\frac{\pi}{2}', P/2)],
@@ -579,6 +473,7 @@ IndexQ('m7q30', U4[3], 'medium',
   truth=region_truth(R7, PR7, 5), figure=figure('m7q30', fig_region2(R7, PR7, 5), 3.4, 3.4), tag='منطقة في المستوى المركب من الشكل'),
 ]
 
+
 # ================================================================== PAPER 8
 F8 = [(0, 3), (2, 1), (5, 4)]                # graph of f for m8q16
 A8, B8 = 3j, 4 + 1j                          # m8q29: the bisected segment
@@ -587,21 +482,7 @@ R8 = sector(V8, -math.pi/2, math.pi/4, hi_open=True)
 PR8 = [('seg', V8, V8 - 7j, False), ('seg', V8, V8 + 7*cmath.exp(1j*math.pi/4), True), ('open', V8)]
 
 
-def bisector(p_, q_):
-    return lambda z_: abs(abs(z_ - p_) - abs(z_ - q_)) < 1e-6
-
-
 L8 = [('seg', complex(-1.5, -5), complex(3.5, 5), False)]   # y = 2x - 2
-
-
-def fig_one(pts, xr, yr, label_pos, name='f(x)'):
-    """graph of one piecewise-linear function on a grid."""
-    def draw(fig, ax):
-        axes_style(ax, (xr[0] - 0.5, xr[1] + 0.5), (yr[0] - 0.5, yr[1] + 0.8), grid=True)
-        ax.set_xticks(range(xr[0], xr[1] + 1)); ax.set_yticks(range(yr[0], yr[1] + 1)); ax.tick_params(labelsize=8)
-        ax.plot(*zip(*pts), color='#1f5fbf', lw=2)
-        ax.text(*label_pos, f'${name}$', color='#1f5fbf', fontsize=12)
-    return draw
 
 
 def fig_cylinder():
@@ -638,13 +519,16 @@ def fig_bisector():
 
 P8 = [
 # ---------------- unit 1
-# 2026 #1 phrased with a given factor; options = signs of the other two zeros
-Q('m8q1', U1[1], 'easy',
-  F(r"إذا كان $(x+3)$ أحد عوامل الاقتران: $f(x)=«0»$ ، فإنّ الصفرين الآخرين للاقتران $f(x)$ هما:", (r'x^{3}+2x^{2}-5x-6', x**3+2*x**2-5*x-6)),
-  [O(st('2', '-1'), S_(2, -1), 'set'), O(st('-2', '1'), S_(-2, 1), 'set'), O(st('-2', '-1'), S_(-2, -1), 'set'), O(st('2', '1'), S_(2, 1), 'set')],
-  r"القسمة التركيبية على $(x+3)$ (نعوّض $-3$): $1,\ 2,\ -5,\ -6 \to 1,\ -1,\ -2,\ 0$" "\n" r"$x^2-x-2=(x-2)(x+1) \Rightarrow x=2,\ x=-1$",
-  truth=lambda: other_roots(x**3+2*x**2-5*x-6, -3), tag='حل معادلة كثير حدود بمعلومية أحد جذورها'),
-# 2026 #2 (improper fraction): quotient kept or dropped x constants swapped
+# E (expected: factor theorem in an application), template 2026 #1: volume of a cylindrical can and its height (x + 3)
+# given -> divide, the quotient is r^2 = (x + 2)^2; options = sign x radius vs diameter
+Q('m8q1', U1[1], 'medium',
+  F(r"يُمثّل الاقتران: $V(x)=«0»$ حجم علبة على شكل أسطوانة دائرية قائمة بالسنتيمتر المكعب. إذا كان ارتفاع العلبة $(x+3)\ \text{cm}$ ، فإنّ طول قُطر قاعدتها هو:", (r'\pi(x^{3}+7x^{2}+16x+12)', pi*(x**3+7*x**2+16*x+12))),
+  [O('2x+4', 2*x+4, units='cm'), O('x+2', x+2, units='cm'), O('2x-4', 2*x-4, units='cm'), O('x-2', x-2, units='cm')],
+  r"$V=\pi r^2h$ ، وبالقسمة التركيبية على $(x+3)$: $1,\ 7,\ 16,\ 12 \to 1,\ 4,\ 4,\ 0$" "\n"
+  r"$r^2=x^2+4x+4=(x+2)^2 \Rightarrow r=x+2$ ، فطول القُطر $2r=2x+4\ \text{cm}$",
+  truth=lambda: (lambda p_: (2*sqrt(factor(cancel(pi*(x**3+7*x**2+16*x+12)/(pi*(x+3)))).subs(x, p_))).subs(p_, x))(Symbol('p8', positive=True)),
+  tag='تطبيق حياتي على نظرية العوامل'),
+# E (expected: improper fraction, divide first), template 2026 #2: quotient kept or dropped x constants swapped
 Q('m8q2', U1[2], 'medium',
   F(r"أيُّ الآتية يُمثِّل تجزئة المقدار النسبي $«0»$ إلى كسور جزئية؟", (r'\frac{x^{2}+2x+3}{x^{2}-1}', (x**2+2*x+3)/(x**2-1))),
   [O(r'1+\frac{3}{x-1}-\frac{1}{x+1}', 1+3/(x-1)-1/(x+1)), O(r'\frac{3}{x-1}-\frac{1}{x+1}', 3/(x-1)-1/(x+1)),
@@ -657,46 +541,52 @@ Q('m8q3', U1[1], 'medium',
   [O('7', 7), O('-7', -7), O('3', 3), O('-3', -3)],
   r"$f(1)=1+k-4=k-3$ ، $f(-1)=-1+k-4=k-5$" "\n" r"$k-3=2(k-5) \Rightarrow k-3=2k-10 \Rightarrow k=7$",
   truth=lambda: solve(rem(x**3+k*x**2-4, 1)-2*rem(x**3+k*x**2-4, -1), k)[0], tag='نظرية الباقي وإيجاد ثابت'),
-# remainder theorem with a quadratic divisor from two given remainders (2026 #3 extension)
-Q('m8q4', U1[1], 'hard',
-  r"إذا كان باقي قسمة كثير الحدود $f(x)$ على $(x-1)$ يساوي $3$ ، وباقي قسمته على $(x+2)$ يساوي $-6$ ، فإنّ باقي قسمة $f(x)$ على $(x-1)(x+2)$ هو:",
-  [O('3x', 3*x), O('-3x', -3*x), O('3x+6', 3*x+6), O('x+2', x+2)],
-  r"الباقي من الدرجة الأولى على الأكثر: $r(x)=ax+b$ ، و $f(x)=(x-1)(x+2)q(x)+ax+b$" "\n"
-  r"$f(1)=a+b=3$ ، $f(-2)=-2a+b=-6$ ، بالطرح: $3a=9 \Rightarrow a=3$ ، $b=0$ ، فالباقي $3x$",
-  truth=lambda: (lambda s_: s_[a]*x+s_[b])(solve([a+b-3, -2*a+b+6], [a, b])), tag='باقي القسمة على مقدار تربيعي'),
+# E (expected: remainder on a quadratic divisor, the remainder on x gives b at once), template 2026 #3: r(x) = ax + b
+# with f(0) = b, f(-3) = -3a + b; options = sign of a (the zero of x + 3 taken as 3) x remainder written bx + a
+Q('m8q4', U1[1], 'medium',
+  r"إذا كان باقي قسمة كثير الحدود $f(x)$ على $x$ يساوي $5$ ، وباقي قسمته على $(x+3)$ يساوي $-4$ ، فإنّ باقي قسمة $f(x)$ على $x(x+3)$ هو:",
+  [O('3x+5', 3*x+5), O('-3x+5', -3*x+5), O('5x+3', 5*x+3), O('5x-3', 5*x-3)],
+  r"الباقي من الدرجة الأولى على الأكثر: $r(x)=ax+b$ ، و $f(x)=x(x+3)q(x)+ax+b$" "\n"
+  r"$f(0)=b=5$ ، و $f(-3)=-3a+b=-4 \Rightarrow -3a=-9 \Rightarrow a=3$ ، فالباقي $3x+5$",
+  truth=lambda: (lambda s_: s_[a]*x+s_[b])(solve([b-5, -3*a+b+4], [a, b])), tag='باقي القسمة على مقدار تربيعي'),
 # ---------------- unit 2
-# 2026 #4 with sec theta given, asking sin(theta/2); options = sign x sin/cos half-angle formula
+# 2026 #4: sin(theta/2) from sec theta and a quadrant; options = sign x sin/cos half-angle formula
 Q('m8q5', U2[2], 'medium',
   r"إذا كان: $\sec\theta=-3$ ، $\frac{\pi}{2}<\theta<\pi$ ، فإنّ قيمة $\sin\frac{\theta}{2}$ تساوي:",
   [O(r'\frac{\sqrt{6}}{3}', sqrt(6)/3), O(r'-\frac{\sqrt{6}}{3}', -sqrt(6)/3), O(r'\frac{\sqrt{3}}{3}', sqrt(3)/3), O(r'-\frac{\sqrt{3}}{3}', -sqrt(3)/3)],
   r"$\cos\theta=-\frac13$ ، و $\frac{\pi}{4}<\frac{\theta}{2}<\frac{\pi}{2}$ فالجيب موجب" "\n" r"$\sin\frac{\theta}{2}=\sqrt{\dfrac{1-\cos\theta}{2}}=\sqrt{\dfrac{4/3}{2}}=\sqrt{\dfrac23}=\dfrac{\sqrt6}{3}$",
   truth=sin(acos(-R(1, 3))/2), tag='نصف الزاوية مع تحديد الربع'),
-# 2026 #5: simplest form (sum of two sines); options = coefficient x sin/cos
-Q('m8q6', U2[1], 'easy',
-  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\sin(\frac{\pi}{6}-x)+\sin(\frac{\pi}{6}+x)', sin(pi/6-x)+sin(pi/6+x))),
-  [O(r'\cos x', cos(x)), O(r'\sin x', sin(x)), O(r'\sqrt{3}\cos x', sqrt(3)*cos(x)), O(r'\sqrt{3}\sin x', sqrt(3)*sin(x))],
-  r"$\sin\left(\frac{\pi}{6}\mp x\right)=\frac12\cos x\mp\frac{\sqrt3}{2}\sin x$ ، وبالجمع: $2\cdot\frac12\cos x=\cos x$",
-  truth=sin(pi/6-x)+sin(pi/6+x), tag='تبسيط باستعمال متطابقات المجموع والفرق'),
-# 2026 #6: equivalent expression (Pythagorean identities in a quotient)
+# E (expected: related angles and the odd identity), template 2026 #5 ("أبسط صورة", two terms combine into one):
+# cos(pi/2 + x) = -sin x, sin(-x) = -sin x; options = sign of the first reduction x sign of the odd identity (k sin x)
+Q('m8q6', U2[1], 'medium',
+  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\cos\left(\frac{\pi}{2}+x\right)-2\sin(-x)', cos(pi/2+x)-2*sin(-x))),
+  [O(r'\sin x', sin(x)), O(r'3\sin x', 3*sin(x)), O(r'-3\sin x', -3*sin(x)), O(r'-\sin x', -sin(x))],
+  r"$\cos\left(\frac{\pi}{2}+x\right)=-\sin x$ ، و $\sin(-x)=-\sin x$ (اقتران فردي) ، إذن $-2\sin(-x)=2\sin x$" "\n"
+  r"المقدار $-\sin x+2\sin x=\sin x$",
+  truth=cos(pi/2+x)-2*sin(-x), tag='المتطابقات: الزوايا المنتسبة والزوجية والفردية'),
+# 2026 #6: equivalent expression (common denominator, Pythagorean and reciprocal identities); options = factor 2 kept
+# or lost x sec vs csc
 Q('m8q7', U2[1], 'easy',
-  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\frac{1+\tan^{2}x}{1+\cot^{2}x}', (1+tan(x)**2)/(1+cot(x)**2))),
-  [O(r'\tan^{2}x', tan(x)**2), O(r'\cot^{2}x', cot(x)**2), O(r'\sec^{2}x', sec(x)**2), O(r'\csc^{2}x', csc(x)**2)],
-  r"$\dfrac{1+\tan^2x}{1+\cot^2x}=\dfrac{\sec^2x}{\csc^2x}=\dfrac{\sin^2x}{\cos^2x}=\tan^2x$",
-  truth=(1+tan(x)**2)/(1+cot(x)**2), tag='المتطابقات الأساسية'),
-# double angle from a squared relation (2026 #4 family); options = sign x 1 -/+ (1/2)^2
+  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\dfrac{1}{1-\sin x}+\dfrac{1}{1+\sin x}', 1/(1-sin(x))+1/(1+sin(x)))),
+  [O(r'2\sec^{2}x', 2*sec(x)**2), O(r'2\csc^{2}x', 2*csc(x)**2), O(r'\sec^{2}x', sec(x)**2), O(r'\csc^{2}x', csc(x)**2)],
+  r"$\dfrac{(1+\sin x)+(1-\sin x)}{(1-\sin x)(1+\sin x)}=\dfrac{2}{1-\sin^2x}=\dfrac{2}{\cos^2x}=2\sec^2x$",
+  truth=1/(1-sin(x))+1/(1+sin(x)), tag='المتطابقات الأساسية'),
+# E (expected: double angle by squaring), template 2026 #4 (one given value -> another ratio): sin x - cos x = 2/3;
+# options = sign x 1 -/+ (2/3)^2
 Q('m8q8', U2[2], 'medium',
-  r"إذا كان: $\sin x-\cos x=\frac{1}{2}$ ، فإنّ قيمة $\sin 2x$ هي:",
-  [O(r'\frac{3}{4}', R(3, 4)), O(r'-\frac{3}{4}', -R(3, 4)), O(r'\frac{5}{4}', R(5, 4)), O(r'-\frac{5}{4}', -R(5, 4))],
-  r"بتربيع الطرفين: $\sin^2x-2\sin x\cos x+\cos^2x=\frac14$" "\n" r"$1-\sin2x=\frac14 \Rightarrow \sin2x=\frac34$",
-  truth=(lambda xs: sin(2*xs))(nsolve(sin(x)-cos(x)-R(1, 2), x, 1)), tag='ضعف الزاوية بالتربيع'),
-# 2026 #7: quadratic in cos with one solution rejected by an OPEN interval; options = single angles
-Q('m8q9', U2[3], 'medium',
+  F(r"إذا كان: $«0»=\frac{2}{3}$ ، فإنّ قيمة $\sin 2x$ هي:", (r'\sin x-\cos x', sin(x)-cos(x))),
+  [O(r'\frac{5}{9}', R(5, 9)), O(r'-\frac{5}{9}', -R(5, 9)), O(r'\frac{13}{9}', R(13, 9)), O(r'-\frac{13}{9}', -R(13, 9))],
+  r"بتربيع الطرفين: $\sin^2x-2\sin x\cos x+\cos^2x=\frac49$" "\n" r"$1-\sin2x=\frac49 \Rightarrow \sin2x=\frac59$",
+  truth=(lambda xs: sin(2*xs))(nsolve(sin(x)-cos(x)-R(2, 3), x, 1)), tag='ضعف الزاوية بالتربيع'),
+# 2026 #7: quadratic in cos with one solution rejected (here by the OPEN interval); options = single angles
+Q('m8q9', U2[3], 'easy',
   F(r"حلّ المعادلة: $«0»=0$ في الفترة $(0,\,\pi)$ هو:", (r'2\cos^{2}x+\cos x-1', 2*cos(x)**2+cos(x)-1)),
   [O(st(r'\frac{\pi}{3}'), S_(P/3), 'set'), O(st(r'\pi'), S_(P), 'set'), O(st(r'\frac{2\pi}{3}'), S_(2*P/3), 'set'), O(st(r'\frac{\pi}{6}'), S_(P/6), 'set')],
   r"$(2\cos x-1)(\cos x+1)=0$" "\n" r"$\cos x=-1 \Rightarrow x=\pi$ خارج الفترة المفتوحة، و $\cos x=\frac12 \Rightarrow x=\frac{\pi}{3}$",
   truth=lambda: sols(2*cos(x)**2+cos(x)-1, 0, pi, closed_lo=False), tag='معادلة تربيعية في نسبة مثلثية مع رفض حل'),
-# 2026 #8 family: double angle against a single angle, factor (do not divide by cos x)
-Q('m8q10', U2[3], 'hard',
+# E (expected: equation with a double-angle identity), template 2026 #8 (solutions in an interval): factor, do not
+# divide by cos x; options = cos x = 0 kept or lost x sin/cos angles
+Q('m8q10', U2[3], 'medium',
   F(r"حلول المعادلة: $«0»=«1»$ في الفترة $[0,\,\pi]$ هي:", (r'\sin 2x', sin(2*x)), (r'\cos x', cos(x))),
   [O(st(r'\frac{\pi}{6}', r'\frac{\pi}{2}', r'\frac{5\pi}{6}'), S_(P/6, P/2, 5*P/6), 'set'), O(st(r'\frac{\pi}{6}', r'\frac{5\pi}{6}'), S_(P/6, 5*P/6), 'set'),
    O(st(r'\frac{\pi}{3}', r'\frac{\pi}{2}', r'\frac{2\pi}{3}'), S_(P/3, P/2, 2*P/3), 'set'), O(st(r'\frac{\pi}{3}', r'\frac{2\pi}{3}'), S_(P/3, 2*P/3), 'set')],
@@ -709,7 +599,7 @@ Q('m8q11', U3[1], 'easy',
   [O(r'-\pi', -pi), O(r'\pi', pi), O('-2', -2), O('2', 2)],
   r"$f'(x)=-2\sin x+\pi\cos x$" "\n" r"$f'(\pi)=-2(0)+\pi(-1)=-\pi$",
   truth=Dx(2*cos(x)+pi*sin(x)).subs(x, pi), tag='مشتقات الاقترانات المثلثية'),
-# 2026r #2: slope of the normal for ln plus reciprocal; options = sign x slope/normal slope
+# 2026r #2: slope of the normal for a ln x + b/x; options = sign x slope/normal slope
 Q('m8q12', U3[1], 'easy',
   F(r"إذا كان: $f(x)=«0»$ ، $x>0$ ، فإنّ ميل العمودي على المماس لمنحنى الاقتران $f(x)$ عندما $x=2$ هو:", (r'3\ln x-\frac{6}{x}', 3*log(x)-6/x)),
   [O(r'-\frac{1}{3}', -R(1, 3)), O(r'\frac{1}{3}', R(1, 3)), O('3', 3), O('-3', -3)],
@@ -721,8 +611,8 @@ Q('m8q13', U3[2], 'medium',
   [O('-12', -12, units='m/s'), O('12', 12, units='m/s'), O('-9', -9, units='m/s'), O('15', 15, units='m/s')],
   r"$v(t)=3t^2-18t+15$ ، $a(t)=6t-18=0 \Rightarrow t=3$" "\n" r"$v(3)=27-54+15=-12\ \text{m/s}$",
   truth=diff(t**3-9*t**2+15*t, t).subs(t, solve(diff(t**3-9*t**2+15*t, t, 2), t)[0]), tag='الحركة: السرعة والتسارع'),
-# 2023 #5: f' given, a higher derivative asked; options = sign x one derivative too many
-Q('m8q14', U3[2], 'medium',
+# 2023 #5: f' given (a rational expression to split first), f''' asked; options = sign x one derivative too many
+Q('m8q14', U3[2], 'easy',
   F(r"إذا كان: $f'(x)=«0»$ ، $x\ne0$ ، فإنّ $f'''(x)$ هي:", (r'\frac{x^{2}-4}{x^{2}}', (x**2-4)/x**2)),
   [O(r'-\frac{24}{x^{4}}', -24/x**4), O(r'\frac{24}{x^{4}}', 24/x**4), O(r'\frac{96}{x^{5}}', 96/x**5), O(r'-\frac{96}{x^{5}}', -96/x**5)],
   r"$f'(x)=1-4x^{-2}$ ، $f''(x)=8x^{-3}$ ، $f'''(x)=-24x^{-4}=-\dfrac{24}{x^4}$",
@@ -733,7 +623,7 @@ Q('m8q15', U3[2], 'medium',
   [O('5', 5, units='cm/week'), O('90', 90, units='cm/week'), O('-5', -5, units='cm/week'), O('-90', -90, units='cm/week')],
   r"$h'(t)=\dfrac{60t(t^2+9)-30t^2(2t)}{(t^2+9)^2}=\dfrac{540t}{(t^2+9)^2}$" "\n" r"$h'(3)=\dfrac{1620}{324}=5\ \text{cm/week}$",
   truth=diff(30*t**2/(t**2+9), t).subs(t, 3), tag='معدل التغير في سياق حياتي'),
-# 2025s #3 / 2024 #4: one graph, h = exponential times f; options = sign x f -/+ f'
+# 2025s #3: one graph, h = an exponential times f (product rule), h'(1); options = sign x f(1) -/+ f'(1)
 Q('m8q16', U3[2], 'medium',
   r"يُبيّن الشكل الآتي منحنى الاقتران $f(x)$. إذا كان: $h(x)=e^{x}f(x)$ ، فإنّ $h'(1)$ هي:",
   [O('e', E), O('-e', -E), O('3e', 3*E), O('-3e', -3*E)],
@@ -746,25 +636,28 @@ Q('m8q17', U3[3], 'medium',
   [O(r'\frac{4}{9\ln 3}', 4/(9*log(3))), O(r'\frac{4\ln 3}{9}', 4*log(3)/9), O(r'\frac{2}{9\ln 3}', 2/(9*log(3))), O(r'\frac{2\ln 3}{9}', 2*log(3)/9)],
   r"$f'(x)=2\log_3(x+1)\cdot\dfrac{1}{(x+1)\ln3}$ ، و $\log_39=2$" "\n" r"$f'(8)=2(2)\cdot\dfrac{1}{9\ln3}=\dfrac{4}{9\ln3}$",
   truth=Dx(log(x+1, 3)**2).subs(x, 8), tag='مشتقة اللوغاريتم لأساس غير e'),
-# 2025s #9: composite from tables of values; options = sign x evaluating g' at the wrong point
-Q('m8q18', U3[3], 'medium',
+# 2025s #9: composite from a list of values (one decoy value); options = sign x g' evaluated at the wrong point
+Q('m8q18', U3[3], 'easy',
   r"إذا كان: $h(x)=g(f(x))$ ، وكان: $f(3)=2$ ، $f'(3)=-4$ ، $g'(2)=\frac{1}{2}$ ، $g'(3)=7$ ، فإنّ $h'(3)$ هي:",
   [O('-2', -2), O('2', 2), O('-28', -28), O('28', 28)],
   r"$h'(x)=g'(f(x))\cdot f'(x)$" "\n" r"$h'(3)=g'(f(3))\cdot f'(3)=g'(2)\cdot(-4)=\frac12(-4)=-2$",
   truth=R(1, 2)*(-4), tag='قاعدة السلسلة من قيم معطاة'),
-# 2026 #15: parametric (cos/sin) at a special angle; options = sign x reciprocal
-Q('m8q19', U3[3], 'easy',
-  F(r"إذا أُعطي منحنى بالمعادلتين الوسيطيتين: $x=«0»$ ، $y=«1»$ ، فإنّ $\dfrac{dy}{dx}$ عندما $t=\frac{\pi}{3}$ هو:", (r'2\cos t', 2*cos(t)), (r'3\sin t', 3*sin(t))),
-  [O(r'-\frac{\sqrt{3}}{2}', -sqrt(3)/2), O(r'\frac{\sqrt{3}}{2}', sqrt(3)/2), O(r'-\frac{2\sqrt{3}}{3}', -2*sqrt(3)/3), O(r'\frac{2\sqrt{3}}{3}', 2*sqrt(3)/3)],
-  r"$\dfrac{dx}{dt}=-2\sin t=-\sqrt3$ ، $\dfrac{dy}{dt}=3\cos t=\dfrac32$" "\n" r"$\dfrac{dy}{dx}=\dfrac{3/2}{-\sqrt3}=-\dfrac{\sqrt3}{2}$",
-  truth=(diff(3*sin(t), t)/diff(2*cos(t), t)).subs(t, pi/3), tag='مشتقة المعادلات الوسيطية'),
-# 2023 #9 / 2026 #16: implicit with a trig term at a lattice point; options = sign of cos(pi) x moving a term
+# 2026r #6: h = (c - k f(x))^n with f(a), f'(a) given (here (5 - 2f)^3 at x = 2); options = the inner factor -2 kept or
+# lost x sign
+Q('m8q19', U3[3], 'medium',
+  r"إذا كان: $h(x)=\big(5-2f(x)\big)^{3}$ ، وكان: $f(2)=1$ ، $f'(2)=-1$ ، فإنّ $h'(2)$ هي:",
+  [O('54', 54), O('-54', -54), O('27', 27), O('-27', -27)],
+  r"$h'(x)=3\big(5-2f(x)\big)^2\cdot\big(-2f'(x)\big)$" "\n" r"$h'(2)=3(5-2)^2\cdot(-2)(-1)=3(9)(2)=54$",
+  truth=lambda: (lambda f_: diff((5-2*f_(x))**3, x).subs(Derivative(f_(x), x), -1).subs(f_(x), 1))(Function('f')),
+  tag='قاعدة السلسلة من قيم معطاة'),
+# 2023 #9: implicit relation with a trig term (pi coefficient) at a lattice point; options = sign of cos(pi) x a term
+# moved with the wrong sign
 Q('m8q20', U3[4], 'hard',
   F(r"إذا كان: $«0»=«1»$ ، فإنّ $\dfrac{dy}{dx}$ عند النقطة $(1,\,1)$ هي:", (r'x^{2}y+\sin(\pi y)', x**2*y+sin(pi*y)), (r'4x-3', 4*x-3)),
   [O(r'\frac{2}{1-\pi}', 2/(1-pi)), O(r'\frac{2}{1+\pi}', 2/(1+pi)), O(r'\frac{6}{1-\pi}', 6/(1-pi)), O(r'\frac{6}{1+\pi}', 6/(1+pi))],
   r"$2xy+x^2\dfrac{dy}{dx}+\pi\cos(\pi y)\dfrac{dy}{dx}=4$" "\n" r"عند $(1,1)$: $2+\dfrac{dy}{dx}-\pi\dfrac{dy}{dx}=4 \Rightarrow (1-\pi)\dfrac{dy}{dx}=2 \Rightarrow \dfrac{dy}{dx}=\dfrac{2}{1-\pi}$",
   truth=imp(x**2*y+sin(pi*y)-4*x+3, (1, 1)), tag='الاشتقاق الضمني عند نقطة'),
-# 2026 #17: tangent to an implicit curve, x-intercept; options = slope slips
+# 2026 #17: tangent to an implicit curve at a lattice point, here its x-intercept; options = slope slips
 Q('m8q21', U3[4], 'medium',
   F(r"إذا مثّل المستقيم $l$ مماسًّا لمنحنى العلاقة: $«0»=1$ عند النقطة $(1,\,2)$ ، فإنّ المقطع $x$ للمستقيم $l$ هو:", (r'x^{2}+2xy-y^{2}', x**2+2*x*y-y**2)),
   [O(r'\frac{1}{3}', R(1, 3)), O('-1', -1), O('-5', -5), O(r'\frac{5}{3}', R(5, 3))],
@@ -777,52 +670,55 @@ Q('m8q22', U3[5], 'hard',
   r"$V=\pi r^2h=4\pi h$ (نصف القطر $2$) ، و $\dfrac{dV}{dt}=-400\ \text{L/min}=-0.4\ \text{m}^3/\text{min}$" "\n" r"$-0.4=4\pi\dfrac{dh}{dt} \Rightarrow \dfrac{dh}{dt}=-\dfrac{1}{10\pi}\ \text{m/min}$",
   truth=-R(4, 10)/diff(pi*2**2*s, s), figure=figure('m8q22', fig_cylinder(), 2.8, 3.2), tag='معدلات مرتبطة مع تحويل الوحدات'),
 # ---------------- unit 4
-# 2026r #18: trigonometric form of a product written as i-multiple; options = quadrant x reference angle
+# 2026r #18: trigonometric form of k i (a + bi); options = quadrant x reference angle
 Q('m8q23', U4[1], 'medium',
   r"الصورة المثلثية للعدد المركّب $w=-2i(\sqrt{3}+i)$ هي:",
   [O(trig('4', r'-\frac{\pi}{3}'), pol(4, -P/3)), O(trig('4', r'\frac{\pi}{3}'), pol(4, P/3)),
    O(trig('4', r'-\frac{\pi}{6}'), pol(4, -P/6)), O(trig('4', r'\frac{2\pi}{3}'), pol(4, 2*P/3))],
   r"$w=-2\sqrt3\,i-2i^2=2-2\sqrt3\,i$ ، $|w|=\sqrt{4+12}=4$ (الربع الرابع)" "\n" r"زاوية الإسناد $\frac{\pi}{3}$ ، و $\text{Arg}(w)=-\frac{\pi}{3}$",
   truth=expand(-2*I*(sqrt(3)+I)), tag='الصورة المثلثية بشروط', lead=NOTE_I(23, 30)),
-# 2026r #21-22: shared stem (conjugate and modulus of a product)
+# 2025s #22 (and 2026r #22, a linear combination): shared stem, conj(z) + 2w; options = which number is conjugated
 Q('m8q24', U4[2], 'easy',
   r"ناتج $\bar{z}+2w$ هو:",
   [O('9-7i', 9-7*I), O('9-5i', 9-5*I), O('9+5i', 9+5*I), O('9+7i', 9+7*I)],
   r"$\bar z=5-i$ ، $2w=4-6i$" "\n" r"$\bar z+2w=9-7i$",
   truth=conjugate(5+I)+2*(2-3*I), tag='العمليات على الأعداد المركبة (نص مشترك)', lead=shared(r"إذا كان: $z=5+i$ ، $w=2-3i$", 24, 25)),
-# 2026r #25: second item of the shared stem (|zw|); options = add vs multiply moduli
+# 2026r #25: |z1 z2| for two given numbers (here the second item of the shared stem); options = moduli added vs
+# multiplied, |z|^2
 Q('m8q25', U4[1], 'easy',
   r"قيمة $|zw|$ هي:",
   [O(r'13\sqrt{2}', 13*sqrt(2)), O(r'\sqrt{39}', sqrt(39)), O(r'\sqrt{26}+\sqrt{13}', sqrt(26)+sqrt(13)), O('26', 26)],
   r"$|z|=\sqrt{26}$ ، $|w|=\sqrt{13}$ ، و $|zw|=|z||w|=\sqrt{338}=13\sqrt2$",
   truth=Abs(expand((5+I)*(2-3*I))), tag='المقياس والعمليات (نص مشترك)'),
-# 2024 #22 / 2023 #21: equality with a quotient -> real constant; options = sign x answering b instead of a
+# 2024 #22: equality with a quotient -> the real constant a; options = sign x answering b instead of a
 Q('m8q26', U4[2], 'medium',
   r"إذا كان: $\dfrac{a+5i}{2+i}=b+3i$ ، حيث $a$ و $b$ ثابتان حقيقيان، فإنّ قيمة الثابت $a$ هي:",
   [O('-5', -5), O('5', 5), O('-1', -1), O('1', 1)],
   r"$a+5i=(b+3i)(2+i)=2b+bi+6i+3i^2=(2b-3)+(b+6)i$" "\n" r"$b+6=5 \Rightarrow b=-1$ ، و $a=2b-3=-5$",
   truth=lambda: solve([re(expand(X+5*I-(Y+3*I)*(2+I))), im(expand(X+5*I-(Y+3*I)*(2+I)))], [X, Y])[X], tag='معادلة فيها العدد ومرافقه'),
-# 2023 #23 / 2024 #24: one square root of a complex number has a given form
+# 2023 #23: one square root of a complex number has a given form (real part given) -> b; options = sign x b vs b^2
 Q('m8q27', U4[2], 'medium',
   r"إذا كان: $3+bi$ أحد الجذرين التربيعيين للعدد المركّب $5-12i$ ، فإنّ قيمة الثابت الحقيقي $b$ هي:",
   [O('-2', -2), O('2', 2), O('-4', -4), O('4', 4)],
   r"$(3+bi)^2=9-b^2+6bi=5-12i$" "\n" r"$6b=-12 \Rightarrow b=-2$ (وتحقّق $9-b^2=5$)",
   truth=lambda: [r_ for r_ in solve(im(expand((3+X*I)**2))+12, X) if (9-r_**2) == 5][0], tag='الجذور التربيعية للعدد المركب'),
-# 2024 #20: Arg of a related number in terms of alpha (multiplication by i rotates by pi/2)
+# 2024 #20: Arg of a related number in terms of alpha (here -3 + 2i = i(2 + 3i), a rotation by pi/2); options =
+# pi/2 vs pi x order/sign
 Q('m8q28', U4[1], 'medium',
   r"إذا كان: $\text{Arg}(2+3i)=\alpha$ ، فإنّ $\text{Arg}(-3+2i)$ هي:",
   [O(r'\alpha+\frac{\pi}{2}', atan(R(3, 2))+pi/2, sym={'alpha': atan(R(3, 2))}), O(r'\frac{\pi}{2}-\alpha', pi/2-atan(R(3, 2)), sym={'alpha': atan(R(3, 2))}),
    O(r'\pi-\alpha', pi-atan(R(3, 2)), sym={'alpha': atan(R(3, 2))}), O(r'\alpha-\frac{\pi}{2}', atan(R(3, 2))-pi/2, sym={'alpha': atan(R(3, 2))})],
   r"$-3+2i=i(2+3i)$ ، والضرب في $i$ يدوّر العدد بزاوية $\frac{\pi}{2}$ عكس عقارب الساعة" "\n" r"$\text{Arg}(-3+2i)=\alpha+\frac{\pi}{2}$ (وهي أقل من $\pi$ لأنّ $\alpha<\frac{\pi}{2}$)",
   truth=arg(-3+2*I), tag='السعة الرئيسة'),
-# 2024 #25 / 2023 #25: perpendicular bisector shown with its two points; options = sign of A x sign of B
-IndexQ('m8q29', U4[3], 'medium',
+# 2023 #25: perpendicular bisector drawn with its two points (the line does not pass through O); options = sign of
+# each point's term
+IndexQ('m8q29', U4[3], 'easy',
   r"معتمدًا الشكل الآتي، ما معادلة المستقيم $l$ المُمثَّل بيانيًّا (بدلالة $z$)؟",
   [T(r'$|z-3i|=|z-4-i|$', bisector(A8, B8)), T(r'$|z+3i|=|z+4+i|$', bisector(-A8, -B8)),
    T(r'$|z-3i|=|z+4+i|$', bisector(A8, -B8)), T(r'$|z+3i|=|z-4-i|$', bisector(-A8, B8))],
   r"$l$ عمود منصّف للقطعة $AB$ ، حيث $A(0,3)$ أي $3i$ ، و $B(4,1)$ أي $4+i$" "\n" r"$|z-3i|=|z-(4+i)|=|z-4-i|$",
   truth=region_truth(bisector(A8, B8), L8, 5), figure=figure('m8q29', fig_bisector(), 3.2, 3.2), tag='كتابة معادلة محل هندسي'),
-# 2025s #23 / 2026r #23: a wedge from a point, one ray dashed; options = vertex sign x strictness
+# 2025s #23: a wedge from a point (open vertex), one ray dashed; options = vertex sign x strictness
 IndexQ('m8q30', U4[3], 'medium',
   r"متباينة المحل الهندسي (بدلالة $z$) التي تُمثِّل المنطقة المُظلَّلة في الشكل الآتي هي:",
   [T(r'$-\frac{\pi}{2}\le\text{Arg}(z+1-2i)<\frac{\pi}{4}$', R8),
@@ -833,11 +729,26 @@ IndexQ('m8q30', U4[3], 'medium',
   truth=region_truth(R8, PR8, 5), figure=figure('m8q30', fig_region2(R8, PR8, 5), 3.4, 3.4), tag='منطقة في المستوى المركب من الشكل'),
 ]
 
+
 # ================================================================== PAPER 9
 F9, G9 = [(0, 1), (2, 5), (6, 3)], [(0, 5), (4, 1), (6, 3)]
 _h9 = math.sqrt(3)
 R9 = both(disk(2j, 2, strict=True), nearer(0, 2))
 PR9 = [('arc', 2j, 2, True, (math.pi/3, 5*math.pi/3)), ('seg', complex(1, 2 - _h9), complex(1, 2 + _h9), False)]
+F9_4 = 4*x**3 - 8*x**2 + x + 3
+
+
+def ratzeros9(f_):
+    """possible rational zeros +-p/q of a polynomial: p | constant term, q | leading coefficient."""
+    P_ = Poly(f_, x)
+    return {sg*R(pp, qq) for pp in divisors(abs(P_.TC())) for qq in divisors(abs(P_.LC())) for sg in (1, -1)}
+
+
+def htan9(rel):
+    """a of the only point (a, b) with b > 0 where rel(x, y) = 0 has a horizontal tangent (F_x = 0, F_y != 0)."""
+    pts = [s_ for s_ in solve([rel, diff(rel, x)], [x, y], dict=True) if diff(rel, y).subs(s_) != 0 and s_[y] > 0]
+    assert len(pts) == 1, pts
+    return pts[0][x]
 
 
 def fig_square():
@@ -858,102 +769,106 @@ def fig_square():
 
 P9 = [
 # ---------------- unit 1
-# 2026 #1: one negative root given, equation not set to zero
+# E (expected: division algorithm f(x) = (x - a)q(x) + r), template 2026 #3: remainder on division by (x - 1) given -> the constant; options = +-2, +-6 (zero sign, term moved, k taken as that remainder)
 Q('m9q1', U1[1], 'easy',
-  F(r"إذا كان $x=-2$ حلًّا للمعادلة: $«0»=«1»$ ، فإنّ لها حلَّين آخرين هما:", (r'x^{3}', x**3), (r'2x^{2}+13x+10', 2*x**2+13*x+10)),
-  [O(st('5', '-1'), S_(5, -1), 'set'), O(st('-5', '1'), S_(-5, 1), 'set'), O(st('-5', '-1'), S_(-5, -1), 'set'), O(st('5', '1'), S_(5, 1), 'set')],
-  r"$x^3-2x^2-13x-10=0$ ، وبالقسمة التركيبية على $(x+2)$: $1,\ -2,\ -13,\ -10 \to 1,\ -4,\ -5,\ 0$" "\n" r"$x^2-4x-5=(x-5)(x+1)=0 \Rightarrow x=5,\ x=-1$",
-  truth=lambda: other_roots(x**3-2*x**2-13*x-10, -2), tag='حل معادلة كثير حدود بمعلومية أحد جذورها'),
-# 2026 #2 with a repeated factor and a distinct factor; options = B,C swapped x sign of A
-Q('m9q2', U1[2], 'medium',
-  F(r"أيُّ الآتية يُمثِّل تجزئة المقدار النسبي $«0»$ إلى كسور جزئية؟", (r'\frac{2x^{2}-x+1}{x(x-1)^{2}}', (2*x**2-x+1)/(x*(x-1)**2))),
-  [O(r'\frac{1}{x}+\frac{1}{x-1}+\frac{2}{(x-1)^{2}}', 1/x+1/(x-1)+2/(x-1)**2), O(r'\frac{1}{x}+\frac{2}{x-1}+\frac{1}{(x-1)^{2}}', 1/x+2/(x-1)+1/(x-1)**2),
-   O(r'-\frac{1}{x}+\frac{1}{x-1}+\frac{2}{(x-1)^{2}}', -1/x+1/(x-1)+2/(x-1)**2), O(r'-\frac{1}{x}+\frac{2}{x-1}+\frac{1}{(x-1)^{2}}', -1/x+2/(x-1)+1/(x-1)**2)],
-  r"$2x^2-x+1=A(x-1)^2+Bx(x-1)+Cx$" "\n" r"$x=0$: $A=1$ ، $x=1$: $C=2$ ، معامل $x^2$: $2=A+B \Rightarrow B=1$",
-  truth=(2*x**2-x+1)/(x*(x-1)**2), tag='تجزئة: عامل خطي مكرر'),
-# 2026 #3 with a divisor (ax + b); options = right zero x sign slips
+  F(r"إذا كان: $f(x)=«0»$ ، وكان باقي قسمة $f(x)$ على $(x-1)$ يساوي $2$ ، فإنّ قيمة الثابت $k$ هي:", (r'(x-3)(x^{2}+2x-1)+k', (x-3)*(x**2+2*x-1)+k)),
+  [O('6', 6), O('-6', -6), O('-2', -2), O('2', 2)],
+  r"الصورة المعطاة خوارزمية القسمة على $(x-3)$ ، فـ $k$ باقي القسمة على $(x-3)$ لا على $(x-1)$" "\n"
+  r"نظرية الباقي: $f(1)=(1-3)(1+2-1)+k=-4+k=2 \Rightarrow k=6$",
+  truth=lambda: solve(rem((x-3)*(x**2+2*x-1)+k, 1)-2, k)[0], tag='الباقي من صورة خوارزمية القسمة'),
+# 2026 #2: repeated linear factor, "which is the decomposition"; options as the model = A, B swapped and two wrong forms (linear numerator over the square, + and -)
+Q('m9q2', U1[2], 'easy',
+  F(r"أيُّ الآتية يُمثِّل تجزئة المقدار النسبي $«0»$ إلى كسور جزئية؟", (r'\frac{2x-5}{(x-3)^{2}}', (2*x-5)/(x-3)**2)),
+  [O(r'\frac{2}{x-3}+\frac{1}{(x-3)^{2}}', 2/(x-3)+1/(x-3)**2), O(r'\frac{1}{x-3}+\frac{2}{(x-3)^{2}}', 1/(x-3)+2/(x-3)**2),
+   O(r'\frac{1}{x-3}+\frac{x+2}{(x-3)^{2}}', 1/(x-3)+(x+2)/(x-3)**2), O(r'\frac{1}{x-3}-\frac{x+2}{(x-3)^{2}}', 1/(x-3)-(x+2)/(x-3)**2)],
+  r"$\dfrac{2x-5}{(x-3)^2}=\dfrac{A}{x-3}+\dfrac{B}{(x-3)^2} \Rightarrow 2x-5=A(x-3)+B$" "\n" r"معامل $x$: $A=2$ ، وعند $x=3$: $B=6-5=1$",
+  truth=(2*x-5)/(x-3)**2, tag='تجزئة: عامل خطي مكرر'),
+# 2026 #3 (remainder theorem -> constant) with one remainder and a divisor (ax + b); options = the right zero -1/2, the zeros +1/2 and -2, a sign slip
 Q('m9q3', U1[1], 'medium',
   F(r"إذا كان باقي قسمة الاقتران: $f(x)=«0»$ على $(2x+1)$ يساوي $3$ ، فإنّ قيمة الثابت $k$ هي:", (r'4x^{3}+kx^{2}-2x+1', 4*x**3+k*x**2-2*x+1)),
   [O('6', 6), O('10', 10), O(r'\frac{15}{2}', R(15, 2)), O('-6', -6)],
   r"صفر المقسوم عليه $x=-\frac12$" "\n" r"$f\left(-\frac12\right)=-\frac12+\frac k4+1+1=\frac32+\frac k4=3 \Rightarrow k=6$",
   truth=lambda: solve(rem(4*x**3+k*x**2-2*x+1, -R(1, 2))-3, k)[0], tag='نظرية الباقي: القسمة على (ax−b)'),
-# 2026 #1 family: complete factorisation (find a zero by trial, then factor); options = sign patterns
-Q('m9q4', U1[1], 'medium',
-  F(r"التحليل الكامل للاقتران: $f(x)=«0»$ هو:", (r'x^{3}-7x-6', x**3-7*x-6)),
-  [O('(x+1)(x+2)(x-3)', (x+1)*(x+2)*(x-3)), O('(x-1)(x-2)(x+3)', (x-1)*(x-2)*(x+3)),
-   O('(x+1)(x-2)(x+3)', (x+1)*(x-2)*(x+3)), O('(x-1)(x+2)(x-3)', (x-1)*(x+2)*(x-3))],
-  r"$f(-1)=-1+7-6=0$ ، فـ $(x+1)$ عامل، وبالقسمة: $x^2-x-6=(x-3)(x+2)$" "\n" r"$f(x)=(x+1)(x+2)(x-3)$",
-  truth=x**3-7*x-6, tag='التحليل الكامل لكثير حدود'),
+# E (expected: rational zeros theorem, a value that is not a possible zero), template «أيُّ الآتية …؟» (2026 #2, #6); options = fractions p/q, the answer is the swapped fraction 4/3
+IndexQ('m9q4', U1[1], 'easy',
+  F(r"أيُّ الآتية ليس من الأصفار النسبية المُحتملة للاقتران: $f(x)=«0»$ ؟", (r'4x^{3}-8x^{2}+x+3', F9_4)),
+  [O(r'\frac{4}{3}', R(4, 3)), O(r'\frac{3}{4}', R(3, 4)), O(r'-\frac{3}{2}', -R(3, 2)), O(r'\frac{1}{4}', R(1, 4))],
+  r"الأصفار النسبية المحتملة $\pm\frac{p}{q}$: $p$ من عوامل الحدّ الثابت $3$ ، و $q$ من عوامل المعامل الرئيس $4$" "\n"
+  r"فهي: $\pm1,\ \pm3,\ \pm\frac12,\ \pm\frac32,\ \pm\frac14,\ \pm\frac34$ ، و $\frac43$ ليس منها ($4$ لا يقسم $3$)",
+  truth=lambda vals: only(vals, lambda v_: v_ not in ratzeros9(F9_4)), tag='الأصفار النسبية المحتملة'),
 # ---------------- unit 2
-# 2026 #4 from sin theta in the 4th quadrant; options = sign x reciprocal
+# E (expected: double angle by squaring), template 2026 #4 (a given relation -> a value): sin x + cos x = 1/3 -> sin 2x; options = sign (1 moved the wrong way) x halved (sin x cos x)
 Q('m9q5', U2[2], 'medium',
-  r"إذا كان: $\sin\theta=-\frac{5}{13}$ ، $\frac{3\pi}{2}<\theta<2\pi$ ، فإنّ قيمة $\tan\frac{\theta}{2}$ تساوي:",
-  [O(r'-\frac{1}{5}', -R(1, 5)), O(r'\frac{1}{5}', R(1, 5)), O('-5', -5), O('5', 5)],
-  r"$\cos\theta=\frac{12}{13}$ ، و $\frac{3\pi}{4}<\frac{\theta}{2}<\pi$ فالظل سالب" "\n" r"$\tan\frac{\theta}{2}=\dfrac{\sin\theta}{1+\cos\theta}=\dfrac{-5/13}{25/13}=-\dfrac15$",
-  truth=tan((2*pi-asin(R(5, 13)))/2), tag='نصف الزاوية مع تحديد الربع'),
-# 2026 #5: simplest form; options = coefficient x sin/cos
+  F(r"إذا كان: $«0»=\frac{1}{3}$ ، فإنّ قيمة $\sin 2x$ تساوي:", (r'\sin x+\cos x', sin(x)+cos(x))),
+  [O(r'-\frac{8}{9}', -R(8, 9)), O(r'\frac{8}{9}', R(8, 9)), O(r'-\frac{4}{9}', -R(4, 9)), O(r'\frac{4}{9}', R(4, 9))],
+  r"نربّع الطرفين: $\sin^2x+2\sin x\cos x+\cos^2x=\frac19$" "\n" r"$1+\sin2x=\frac19 \Rightarrow \sin2x=\frac19-1=-\frac89$",
+  truth=lambda: nsimplify(N(sin(2*(asin(sqrt(2)/6)-pi/4)), 60)), tag='ضعف الزاوية بالتربيع'),
+# 2026 #5: simplest form, ONE difference formula sin(x - pi/6) plus k cos x, the cos terms cancel; options = coefficient x sin/cos
 Q('m9q6', U2[1], 'medium',
-  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\sin(x+\frac{\pi}{4})-\cos(x+\frac{\pi}{4})', sin(x+pi/4)-cos(x+pi/4))),
-  [O(r'\sqrt{2}\sin x', sqrt(2)*sin(x)), O(r'\sqrt{2}\cos x', sqrt(2)*cos(x)), O(r'\frac{\sqrt{2}}{2}\sin x', sqrt(2)/2*sin(x)), O(r'\frac{\sqrt{2}}{2}\cos x', sqrt(2)/2*cos(x))],
-  r"$\sin\left(x+\frac{\pi}{4}\right)=\frac{\sqrt2}{2}(\sin x+\cos x)$ ، $\cos\left(x+\frac{\pi}{4}\right)=\frac{\sqrt2}{2}(\cos x-\sin x)$" "\n" r"بالطرح: $\frac{\sqrt2}{2}(2\sin x)=\sqrt2\sin x$",
-  truth=sin(x+pi/4)-cos(x+pi/4), tag='تبسيط باستعمال متطابقات المجموع والفرق'),
-# 2026 #6: equivalent expression (fraction minus a ratio)
+  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\sin(x-\frac{\pi}{6})+\frac{1}{2}\cos x', sin(x-pi/6)+cos(x)/2)),
+  [O(r'\frac{\sqrt{3}}{2}\sin x', sqrt(3)/2*sin(x)), O(r'\frac{1}{2}\sin x', sin(x)/2), O(r'\frac{\sqrt{3}}{2}\cos x', sqrt(3)/2*cos(x)), O(r'\frac{1}{2}\cos x', cos(x)/2)],
+  r"$\sin\left(x-\frac{\pi}{6}\right)=\sin x\cos\frac{\pi}{6}-\cos x\sin\frac{\pi}{6}=\frac{\sqrt3}{2}\sin x-\frac12\cos x$" "\n" r"بإضافة $\frac12\cos x$ يُحذف حدّا $\cos x$ ، فيبقى $\frac{\sqrt3}{2}\sin x$",
+  truth=sin(x-pi/6)+cos(x)/2, tag='تبسيط باستعمال متطابقات المجموع والفرق'),
+# E (expected: cos(A - B) from one ratio of each angle in given quadrants), template 2026 #4 (ratio + quadrant -> value); options = difference vs sum formula x sign of cos B (+-77/85, +-13/85)
 Q('m9q7', U2[1], 'medium',
-  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\frac{\cos x}{1-\sin x}-\tan x', cos(x)/(1-sin(x))-tan(x))),
-  [O(r'\sec x', sec(x)), O(r'\csc x', csc(x)), O(r'2\sec x', 2*sec(x)), O(r'2\csc x', 2*csc(x))],
-  r"$\dfrac{\cos x}{1-\sin x}-\dfrac{\sin x}{\cos x}=\dfrac{\cos^2x-\sin x+\sin^2x}{(1-\sin x)\cos x}=\dfrac{1-\sin x}{(1-\sin x)\cos x}=\dfrac{1}{\cos x}$",
-  truth=cos(x)/(1-sin(x))-tan(x), tag='المتطابقات الأساسية'),
-# sum-to-product exact value (2026 #5 family); options = surd slips
-Q('m9q8', U2[2], 'medium',
-  r"قيمة المقدار: $\cos\frac{5\pi}{12}+\cos\frac{\pi}{12}$ هي:",
-  [O(r'\frac{\sqrt{6}}{2}', sqrt(6)/2), O(r'\frac{\sqrt{2}}{2}', sqrt(2)/2), O(r'\frac{\sqrt{6}}{4}', sqrt(6)/4), O(r'\frac{\sqrt{3}}{2}', sqrt(3)/2)],
-  r"$\cos A+\cos B=2\cos\dfrac{A+B}{2}\cos\dfrac{A-B}{2}$" "\n" r"$=2\cos\frac{\pi}{4}\cos\frac{\pi}{6}=2\cdot\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}=\frac{\sqrt6}{2}$",
-  truth=cos(5*pi/12)+cos(pi/12), tag='تحويل المجموع إلى ضرب'),
-# 2026 #7 family: Pythagorean identity gives a perfect square in tan; options = second quadrant vs third x one solution
+  r"إذا كان: $\cos A=-\frac{4}{5}$ ، $\frac{\pi}{2}<A<\pi$ ، و $\sin B=-\frac{15}{17}$ ، $\frac{3\pi}{2}<B<2\pi$ ، فإنّ قيمة $\cos(A-B)$ تساوي:",
+  [O(r'-\frac{77}{85}', -R(77, 85)), O(r'\frac{77}{85}', R(77, 85)), O(r'\frac{13}{85}', R(13, 85)), O(r'-\frac{13}{85}', -R(13, 85))],
+  r"$\sin A=\frac35$ (الربع الثاني: الجيب موجب) ، و $\cos B=\frac{8}{17}$ (الربع الرابع: جيب التمام موجب)" "\n"
+  r"$\cos(A-B)=\cos A\cos B+\sin A\sin B=-\frac{32}{85}-\frac{45}{85}=-\frac{77}{85}$",
+  truth=lambda: nsimplify(N(cos(acos(-R(4, 5)) - (2*pi - asin(R(15, 17)))), 60)), tag='المجموع والفرق بمعلومية نسب في أرباع مختلفة'),
+# E (expected: sum to product, exact value), template 2026 #5: cos A - cos B at multiples of pi/12; options = sign of -2 sin sin x sin(pi/6) vs cos(pi/6)
+Q('m9q8', U2[2], 'easy',
+  F(r"قيمة المقدار: $«0»$ هي:", (r'\cos\frac{5\pi}{12}-\cos\frac{\pi}{12}', cos(5*pi/12)-cos(pi/12))),
+  [O(r'-\frac{\sqrt{2}}{2}', -sqrt(2)/2), O(r'\frac{\sqrt{2}}{2}', sqrt(2)/2), O(r'-\frac{\sqrt{6}}{2}', -sqrt(6)/2), O(r'\frac{\sqrt{6}}{2}', sqrt(6)/2)],
+  r"$\cos A-\cos B=-2\sin\dfrac{A+B}{2}\sin\dfrac{A-B}{2}$" "\n" r"$-2\sin\frac{\pi}{4}\sin\frac{\pi}{6}=-2\cdot\frac{\sqrt2}{2}\cdot\frac12=-\frac{\sqrt2}{2}$",
+  truth=cos(5*pi/12)-cos(pi/12), tag='تحويل المجموع إلى ضرب'),
+# E (expected: equation with a double-angle identity), template 2026 #8 (solutions in an interval): cos 2x = cos x on [0, pi]; options = signs of the factors x the quadrantal root kept or dropped
 Q('m9q9', U2[3], 'medium',
-  F(r"حلول المعادلة: $«0»=0$ في الفترة $[0,\,2\pi)$ هي:", (r'\sec^{2}x-2\tan x', sec(x)**2-2*tan(x))),
-  [O(st(r'\frac{\pi}{4}', r'\frac{5\pi}{4}'), S_(P/4, 5*P/4), 'set'), O(st(r'\frac{\pi}{4}', r'\frac{3\pi}{4}'), S_(P/4, 3*P/4), 'set'),
-   O(st(r'\frac{\pi}{4}'), S_(P/4), 'set'), O(st(r'\frac{3\pi}{4}', r'\frac{7\pi}{4}'), S_(3*P/4, 7*P/4), 'set')],
-  r"$1+\tan^2x-2\tan x=0 \Rightarrow (\tan x-1)^2=0 \Rightarrow \tan x=1$" "\n" r"الظل موجب في الربعين الأول والثالث: $x=\frac{\pi}{4},\ \frac{5\pi}{4}$",
-  truth=lambda: sols(sec(x)**2-2*tan(x), 0, 2*pi), tag='معادلة تربيعية بعد استعمال متطابقة فيثاغورس'),
-# 2026 #8: double angle in the interval (pi, 2pi); options = shifted or not x halved or not
-Q('m9q10', U2[3], 'hard',
+  F(r"حلول المعادلة: $«0»=«1»$ في الفترة $[0,\,\pi]$ هي:", (r'\cos 2x', cos(2*x)), (r'\cos x', cos(x))),
+  [O(st('0', r'\frac{2\pi}{3}'), S_(0, 2*P/3), 'set'), O(st(r'\frac{2\pi}{3}'), S_(2*P/3), 'set'),
+   O(st(r'\frac{\pi}{3}', r'\pi'), S_(P/3, P), 'set'), O(st(r'\frac{\pi}{3}'), S_(P/3), 'set')],
+  r"$\cos2x=2\cos^2x-1$: $2\cos^2x-\cos x-1=0 \Rightarrow (2\cos x+1)(\cos x-1)=0$" "\n"
+  r"$\cos x=1 \Rightarrow x=0$ ، و $\cos x=-\frac12 \Rightarrow x=\frac{2\pi}{3}$ (الحلّ الوحيد في $[0,\pi]$)",
+  truth=lambda: sols(cos(2*x)-cos(x), 0, pi, closed_hi=True), tag='معادلة باستعمال متطابقة ضعف الزاوية'),
+# 2026 #8 without the reciprocal ratio: cos 2x = -1/2 on (pi, 2pi), interval doubled for 2x; options = interval doubled or not x halved or not
+Q('m9q10', U2[3], 'medium',
   F(r"حلول المعادلة: $«0»=0$ في الفترة $(\pi,\,2\pi)$ هي:", (r'2\cos 2x+1', 2*cos(2*x)+1)),
   [O(st(r'\frac{4\pi}{3}', r'\frac{5\pi}{3}'), S_(4*P/3, 5*P/3), 'set'), O(st(r'\frac{\pi}{3}', r'\frac{2\pi}{3}'), S_(P/3, 2*P/3), 'set'),
    O(st(r'\frac{8\pi}{3}', r'\frac{10\pi}{3}'), S_(8*P/3, 10*P/3), 'set'), O(st(r'\frac{2\pi}{3}', r'\frac{4\pi}{3}'), S_(2*P/3, 4*P/3), 'set')],
   r"$\cos2x=-\frac12$ ، و $2\pi<2x<4\pi$" "\n" r"$2x=2\pi+\frac{2\pi}{3}=\frac{8\pi}{3}$ أو $2x=2\pi+\frac{4\pi}{3}=\frac{10\pi}{3}$ ، إذن $x=\frac{4\pi}{3},\ \frac{5\pi}{3}$",
   truth=lambda: sols(2*cos(2*x)+1, pi, 2*pi, closed_lo=False), tag='معادلة بزاوية مضاعفة في فترة'),
 # ---------------- unit 3
-# 2025 #1 / 2025s #1: ln of a quotient with a power of e; options = constant kept x 1/(2x) vs 1/sqrt x
+# 2025s #1: ln of a power of x over a power of e, log laws first; options = constant kept x chain factor of sqrt x (1/(2x) vs 1/sqrt x)
 Q('m9q11', U3[1], 'easy',
   F(r"إذا كان: $f(x)=«0»$ ، $x>0$ ، فإنّ $f'(x)$ هي:", (r'\ln(\frac{\sqrt{x}}{e^{3}})', log(sqrt(x)/E**3))),
   [O(r'\frac{1}{2x}', 1/(2*x)), O(r'\frac{1}{2x}-3', 1/(2*x)-3), O(r'\frac{1}{\sqrt{x}}', 1/sqrt(x)), O(r'\frac{1}{\sqrt{x}}-3', 1/sqrt(x)-3)],
-  r"$f(x)=\ln\sqrt x-\ln e^3=\frac12\ln x-3$" "\n" r"$f'(x)=\dfrac{1}{2x}$",
+  r"$f(x)=\ln\sqrt x-\ln e^3=\frac12\ln x-3$" "\n"
+  r"$f'(x)=\dfrac{1}{2x}$",
   truth=Dx(log(sqrt(x)/E**3)), tag='مشتقة الاقتران اللوغاريتمي'),
-# 2024s #6 / 2025s #6: tan/cot of a multiple of x at a point; options = chain factor pi x squared or not
+# 2025s #6 (cot pi x at 1/4) / 2024s #6: tan of a multiple of x at a point; options = chain factor pi kept or dropped x sec squared or not
 Q('m9q12', U3[1], 'easy',
   F(r"إذا كان: $f(x)=«0»$ ، فإنّ $f'\left(\frac{1}{3}\right)$ هي:", (r'2\tan(\pi x)', 2*tan(pi*x))),
   [O(r'8\pi', 8*pi), O('8', 8), O(r'4\pi', 4*pi), O('4', 4)],
   r"$f'(x)=2\pi\sec^2(\pi x)$ ، و $\sec\frac{\pi}{3}=2$" "\n" r"$f'\left(\frac13\right)=2\pi(4)=8\pi$",
   truth=Dx(2*tan(pi*x)).subs(x, R(1, 3)), tag='مشتقات الاقترانات المثلثية'),
-# 2025s #10 / 2025 #4: position at the first instant of momentary rest; options = positions at other instants
+# 2025s #10: s = c - k sin t, position at the first instant of momentary rest (the first zero of v); options = the start s(0), the second rest, the amplitude
 Q('m9q13', U3[1], 'medium',
-  F(r"إذا كان الاقتران: $s(t)=«0»$ ، $t\ge0$ يُمثّل موقع جُسيم يتحرّك في مسار مستقيم، حيث $s$ الموقع بالأمتار و $t$ الزمن بالثواني، فإنّ موقع الجُسيم عندما كان في حالة سكون لحظي أوّل مرة بعد انطلاقه هو:", (r'4+2\cos(\pi t)', 4+2*cos(pi*t))),
-  [O('2', 2, units='m'), O('6', 6, units='m'), O('4', 4, units='m'), O('0', 0, units='m')],
-  r"$v(t)=-2\pi\sin(\pi t)=0 \Rightarrow t=0,\ 1,\ 2,\ \dots$ ، وأوّل سكون بعد الانطلاق عند $t=1$" "\n" r"$s(1)=4+2\cos\pi=2\ \text{m}$",
-  truth=(4+2*cos(pi*t)).subs(t, [r_ for r_ in solve(diff(4+2*cos(pi*t), t), t) if r_ > 0][0]), tag='الحركة: اتجاه الحركة والسكون'),
-# 2026 #11: combination of derivatives of a trig sum; options = sign x sin/cos
+  F(r"إذا كان الاقتران: $s(t)=«0»$ ، $t\ge0$ يُمثّل موقع جُسيم يتحرّك في مسار مستقيم، حيث $s$ الموقع بالأمتار و $t$ الزمن بالثواني، فإنّ موقع الجُسيم عندما كان في حالة سكون لحظي أوّل مرة بعد انطلاقه هو:", (r'8-3\sin t', 8-3*sin(t))),
+  [O('5', 5, units='m'), O('8', 8, units='m'), O('11', 11, units='m'), O('3', 3, units='m')],
+  r"$v(t)=-3\cos t=0 \Rightarrow t=\frac{\pi}{2},\ \frac{3\pi}{2},\ \dots$ ، وأوّل سكون بعد الانطلاق عند $t=\frac{\pi}{2}$" "\n" r"$s\left(\frac{\pi}{2}\right)=8-3\sin\frac{\pi}{2}=5\ \text{m}$",
+  truth=(8-3*sin(t)).subs(t, min(r_ for r_ in solve(diff(8-3*sin(t), t), t) if r_ > 0)), tag='الحركة: اتجاه الحركة والسكون'),
+# 2026 #11: f'' + 2f' for sin 2x + cos 2x (2026: e^(2x) + e^(-2x)), one function cancels; options = sign x surviving function
 Q('m9q14', U3[2], 'medium',
   F(r"إذا كان: $f(x)=«0»$ ، فإنّ $f''(x)+2f'(x)$ هي:", (r'\sin 2x+\cos 2x', sin(2*x)+cos(2*x))),
   [O(r'-8\sin 2x', -8*sin(2*x)), O(r'8\sin 2x', 8*sin(2*x)), O(r'-8\cos 2x', -8*cos(2*x)), O(r'8\cos 2x', 8*cos(2*x))],
   r"$f'(x)=2\cos2x-2\sin2x$ ، $f''(x)=-4\sin2x-4\cos2x$" "\n" r"$f''+2f'=-4\sin2x-4\cos2x+4\cos2x-4\sin2x=-8\sin2x$",
   truth=diff(sin(2*x)+cos(2*x), x, 2)+2*Dx(sin(2*x)+cos(2*x)), tag='المشتقات العليا وتراكيبها'),
-# 2026r #11: bacteria with a fractional exponent base, units in options; options = sign x missing square
+# 2026r #11: growth model c a^(1/(t+m)) in a new context (fish; base 1/8, exponent 1/(t+2)), rate at t = 1, unit in the stem only; options = sign x missing square (40 vs 120)
 Q('m9q15', U3[3], 'hard',
-  F(r"إذا كان الاقتران: $N(t)=«0»$ ، $t\ge0$ يُمثّل عدد الخلايا البكتيرية بعد $t$ ساعة في مجتمع بكتيري، فإنّ معدّل نموّ المجتمع بعد ساعة واحدة (بالخلية لكلّ ساعة) هو:", (r'600(\frac{1}{4})^{\frac{1}{t+1}}', 600*R(1, 4)**(1/(t+1)))),
-  [O(r'75\ln 4', 75*log(4)), O(r'-75\ln 4', -75*log(4)), O(r'150\ln 4', 150*log(4)), O(r'-150\ln 4', -150*log(4))],
-  r"$N'(t)=600\left(\frac14\right)^{\frac{1}{t+1}}\ln\frac14\cdot\left(-\dfrac{1}{(t+1)^2}\right)$" "\n" r"$N'(1)=600\cdot\frac12\cdot(-\ln4)\cdot\left(-\frac14\right)=75\ln4$",
-  truth=diff(600*R(1, 4)**(1/(t+1)), t).subs(t, 1), tag='معدل التغير في سياق حياتي'),
+  F(r"إذا كان الاقتران: $N(t)=«0»$ ، $t\ge0$ يُمثّل عدد الأسماك في بحيرة بعد $t$ شهر من تزويدها بالأسماك، فإنّ معدّل نموّ عدد الأسماك بعد شهر واحد (بالسمكة لكلّ شهر) هو:", (r'720(\frac{1}{8})^{\frac{1}{t+2}}', 720*R(1, 8)**(1/(t+2)))),
+  [O(r'40\ln 8', 40*log(8)), O(r'-40\ln 8', -40*log(8)), O(r'120\ln 8', 120*log(8)), O(r'-120\ln 8', -120*log(8))],
+  r"$N'(t)=720\left(\frac18\right)^{\frac{1}{t+2}}\ln\frac18\cdot\left(-\dfrac{1}{(t+2)^2}\right)$" "\n" r"$N'(1)=720\cdot\frac12\cdot(-\ln8)\cdot\left(-\frac19\right)=40\ln8$",
+  truth=diff(720*R(1, 8)**(1/(t+2)), t).subs(t, 1), tag='معدل التغير في سياق حياتي'),
 # 2026 #14 with a composite: h = f(g(x)) read from two graphs; options = sign x evaluating f' at x instead of g(x)
 Q('m9q16', U3[3], 'medium',
   r"يُبيّن الشكل الآتي منحنيي الاقترانين $f(x)$ و $g(x)$. إذا كان: $h(x)=f(g(x))$ ، فإنّ $h'(1)$ هي:",
@@ -961,90 +876,92 @@ Q('m9q16', U3[3], 'medium',
   r"من الشكل: $g(1)=4$ ، $g'(1)=-1$ ، و $f'(4)=-\frac12$ (ميل قطعة $f$ من $(2,5)$ إلى $(6,3)$)" "\n" r"$h'(1)=f'(g(1))\cdot g'(1)=f'(4)\cdot(-1)=\frac12$",
   truth=lambda: (lambda fv, fs, gv, gs: fs(gv(1))*gs(1))(*pw(F9), *pw(G9)),
   figure=figure('m9q16', draw_two(F9, G9, 6, 5, (2.6, 5.2), (4.6, 1.3))), tag='المشتقة من التمثيل البياني'),
-# 2025 #11: log of a product of conjugate factors; options = ln 10 position x sign of the denominator
+# 2025 #11: log10 of a product (a - x)(a + x) on an interval; options = ln 10 up or down x sign (denominator written x^2 - 4)
 Q('m9q17', U3[3], 'medium',
   r"إذا كان: $f(x)=\log\big((2-x)(2+x)\big)$ ، $-2<x<2$ ، فإنّ $f'(x)$ هي:",
   [O(r'\frac{2x}{(x^{2}-4)\ln 10}', 2*x/((x**2-4)*log(10))), O(r'\frac{-2x}{(x^{2}-4)\ln 10}', -2*x/((x**2-4)*log(10))),
    O(r'\frac{2x\cdot\ln 10}{x^{2}-4}', 2*x*log(10)/(x**2-4)), O(r'\frac{-2x\cdot\ln 10}{x^{2}-4}', -2*x*log(10)/(x**2-4))],
   r"$f(x)=\log(4-x^2)$ ، $f'(x)=\dfrac{-2x}{(4-x^2)\ln10}=\dfrac{2x}{(x^2-4)\ln10}$",
   truth=Dx(log((2-x)*(2+x), 10)), tag='مشتقة اللوغاريتم لأساس غير e'),
-# 2024s #8: ln of a squared trig ratio at a special angle; options = sign x cot vs tan
+# 2024s #8: ln of a squared trig ratio (csc^2 here, sec^2 in 2024s) at a special angle; options = sign x cot vs tan
 Q('m9q18', U3[3], 'medium',
   F(r"إذا كان: $f(x)=«0»$ ، $0<x<\frac{\pi}{2}$ ، فإنّ $f'\left(\frac{\pi}{6}\right)$ هي:", (r'\ln(\csc^{2}x)', log(csc(x)**2))),
   [O(r'-2\sqrt{3}', -2*sqrt(3)), O(r'2\sqrt{3}', 2*sqrt(3)), O(r'-\frac{2\sqrt{3}}{3}', -2*sqrt(3)/3), O(r'\frac{2\sqrt{3}}{3}', 2*sqrt(3)/3)],
   r"$f(x)=2\ln(\csc x)$ ، $f'(x)=2\cdot\dfrac{-\csc x\cot x}{\csc x}=-2\cot x$" "\n" r"$f'\left(\frac{\pi}{6}\right)=-2\sqrt3$",
   truth=Dx(log(csc(x)**2)).subs(x, pi/6), tag='قاعدة السلسلة مع اللوغاريتم'),
-# 2023 #8: parametric derivative as a function of t; options = reciprocal x sign
+# 2026 #15 (x = a sec t, y = tan t) asked as a function of t, as 2023 #8 asks the derivative itself; options = reciprocal x sign
 Q('m9q19', U3[3], 'easy',
   F(r"إذا كان: $x=«0»$ ، $y=«1»$ ، $0<t<\frac{\pi}{2}$ ، فإنّ $\dfrac{dy}{dx}$ هي:", (r'\sec t', sec(t)), (r'\tan t', tan(t))),
   [O(r'\csc t', csc(t)), O(r'\sin t', sin(t)), O(r'-\csc t', -csc(t)), O(r'-\sin t', -sin(t))],
   r"$\dfrac{dy}{dx}=\dfrac{\sec^2t}{\sec t\tan t}=\dfrac{\sec t}{\tan t}=\dfrac{1/\cos t}{\sin t/\cos t}=\dfrac{1}{\sin t}=\csc t$",
   truth=diff(tan(t), t)/diff(sec(t), t), tag='مشتقة المعادلات الوسيطية'),
-# 2026 #16: a^(xy) relation, point from x = 0; options = sign x ln a dropped
+# 2026 #16: a^(xy) relation, the point from x = 0 (2026 finds x from y = 1); options = sign of ln 3 x sign of 1 (y' moved across)
 Q('m9q20', U3[4], 'hard',
   F(r"إذا كان: $«0»=«1»$ ، فإنّ $\dfrac{dy}{dx}$ عندما $x=0$ هو:", (r'3^{xy}', 3**(x*y)), (r'x+y', x+y)),
   [O(r'\ln 3-1', log(3)-1), O(r'1-\ln 3', 1-log(3)), O(r'\ln 3+1', log(3)+1), O(r'-\ln 3-1', -log(3)-1)],
   r"عندما $x=0$: $3^0=0+y \Rightarrow y=1$" "\n" r"$3^{xy}\ln3\left(y+x\dfrac{dy}{dx}\right)=1+\dfrac{dy}{dx}$ ، وعند $(0,1)$: $\ln3=1+\dfrac{dy}{dx} \Rightarrow \dfrac{dy}{dx}=\ln3-1$",
   truth=imp(3**(x*y)-x-y, (0, 1)), tag='الاشتقاق الضمني عند نقطة'),
-# 2026 #17: tangent to x y^2 = c at a lattice point, y-intercept; options = slope slips
+# E (expected: horizontal tangent of an implicit curve), template 2026 #17 (tangent to a relation): x^2 + xy + y^2 = 12 at (a, b), b > 0 -> a; options = numerator vs denominator of dy/dx = 0 (2 vs 4) x the sign of b
 Q('m9q21', U3[4], 'medium',
-  F(r"إذا مثّل المستقيم $l$ مماسًّا لمنحنى العلاقة: $«0»=12$ عند النقطة $(3,\,2)$ ، فإنّ المقطع $y$ للمستقيم $l$ هو:", (r'xy^{2}', x*y**2)),
-  [O('3', 3), O('9', 9), O('1', 1), O('11', 11)],
-  r"$y^2+2xy\dfrac{dy}{dx}=0$ ، وعند $(3,2)$: $4+12\dfrac{dy}{dx}=0 \Rightarrow \dfrac{dy}{dx}=-\frac13$" "\n" r"$l$: $y-2=-\frac13(x-3)$ ، وعند $x=0$: $y=2+1=3$",
-  truth=lambda: 2-3*imp(x*y**2-12, (3, 2)), tag='مماس منحنى علاقة ضمنية'),
-# 2023 #11: two perpendicular roads, distance to a fixed station; options = sign x wrong side in the ratio
+  F(r"إذا كان لمنحنى العلاقة: $«0»=12$ مماس أفقي عند النقطة $(a,\,b)$ ، حيث $b>0$ ، فإنّ قيمة $a$ هي:", (r'x^{2}+xy+y^{2}', x**2+x*y+y**2)),
+  [O('-2', -2), O('2', 2), O('-4', -4), O('4', 4)],
+  r"$2x+y+x\dfrac{dy}{dx}+2y\dfrac{dy}{dx}=0 \Rightarrow \dfrac{dy}{dx}=-\dfrac{2x+y}{x+2y}$" "\n"
+  r"المماس أفقي عندما $2x+y=0$ أي $y=-2x$: $x^2-2x^2+4x^2=12 \Rightarrow x=\pm2$" "\n"
+  r"النقطتان $(2,-4)$ و $(-2,4)$ ، والشرط $b>0$ يعطي $(-2,4)$ ، إذن $a=-2$",
+  truth=lambda: htan9(x**2+x*y+y**2-12), tag='مماس أفقي لمنحنى ضمني'),
+# 2023 #11: two perpendicular roads, fixed station, the car moving away; options = sign x divided by the fixed side 8 instead of the hypotenuse 10
 Q('m9q22', U3[5], 'medium',
   r"$l$ و $m$ طريقان مستقيمان متعامدان في النقطة $C$. تقع محطة شرطة على الطريق $m$ وتبعد $8\ \text{km}$ عن $C$. إذا تحرّكت سيارة على الطريق $l$ مبتعدةً عن $C$ بسرعة $60\ \text{km/h}$ ، فما معدّل تغيّر المسافة بين السيارة والمحطة عندما تكون السيارة على بُعد $6\ \text{km}$ من $C$ ؟",
   [O('36', 36, units='km/h'), O('-36', -36, units='km/h'), O('45', 45, units='km/h'), O('-45', -45, units='km/h')],
   r"$d^2=x^2+8^2 \Rightarrow 2d\dfrac{dd}{dt}=2x\dfrac{dx}{dt}$" "\n" r"عند $x=6$: $d=10$ ، $\dfrac{dd}{dt}=\dfrac{6}{10}(60)=36\ \text{km/h}$",
   truth=(diff(sqrt(s**2+64), s)*60).subs(s, 6), tag='معدلات مرتبطة: نظرية فيثاغورس'),
 # ---------------- unit 4
-# 2024 #23: power of a number given in a "minus" trig form; options = modulus power x sign of the angle
+# 2024 #23: a power of z given in a "minus" form r cos(theta) - i r sin(theta); options = modulus power (16 vs 8) x sign of the angle
 Q('m9q23', U4[2], 'medium',
   r"إذا كان: $z=2\cos\frac{\pi}{8}-2i\sin\frac{\pi}{8}$ ، فإنّ الصورة المثلثية للعدد $z^{4}$ هي:",
   [O(trig('16', r'-\frac{\pi}{2}'), pol(16, -P/2)), O(trig('16', r'\frac{\pi}{2}'), pol(16, P/2)),
    O(trig('8', r'-\frac{\pi}{2}'), pol(8, -P/2)), O(trig('8', r'\frac{\pi}{2}'), pol(8, P/2))],
   r"$z=2\left(\cos\left(-\frac{\pi}{8}\right)+i\sin\left(-\frac{\pi}{8}\right)\right)$" "\n" r"$z^4=2^4\left(\cos\left(-\frac{\pi}{2}\right)+i\sin\left(-\frac{\pi}{2}\right)\right)$ ، و $2^4=16$",
   truth=expand(pol(2, -pi/8)**4), tag='قوى العدد المركب', lead=NOTE_I(23, 30)),
-# 2024 #21 + 2025 #22: shared stem (difference of squares; 1/z + w/5)
+# 2024 #21: z^2 - w^2 as the FIRST item of a shared stem (the device of 2026 #20-21 / 2025 #21-22); options = i^2 slip x
+# order of subtraction
 Q('m9q24', U4[2], 'medium',
   r"قيمة المقدار $z^{2}-w^{2}$ هي:",
   [O('-6-8i', -6-8*I), O('2-8i', 2-8*I), O('6+8i', 6+8*I), O('-2+8i', -2+8*I)],
   r"$z^2=1-4i+4i^2=-3-4i$ ، $w^2=4+4i+i^2=3+4i$" "\n" r"$z^2-w^2=-6-8i$",
   truth=expand((1-2*I)**2-(2+I)**2), tag='العمليات على الأعداد المركبة (نص مشترك)', lead=shared(r"إذا كان: $z=1-2i$ ، $w=2+i$", 24, 25)),
-# 2025 #22: second item of the shared stem (1/z + w/5); options = conjugate slips
-Q('m9q25', U4[2], 'medium',
+# 2025 #22: second item of the shared stem, 1/z + w/|z|^2; options = conjugate forgotten in 1/z x w vs conj(w)
+Q('m9q25', U4[2], 'easy',
   r"ناتج $\dfrac{1}{z}+\dfrac{w}{5}$ هو:",
   [O(r'\frac{3}{5}+\frac{3}{5}i', R(3, 5)+R(3, 5)*I), O(r'\frac{3}{5}-\frac{1}{5}i', R(3, 5)-R(1, 5)*I), O(r'\frac{3}{5}+\frac{1}{5}i', R(3, 5)+R(1, 5)*I), O(r'\frac{3}{5}-\frac{3}{5}i', R(3, 5)-R(3, 5)*I)],
   r"$\dfrac1z=\dfrac{1}{1-2i}\cdot\dfrac{1+2i}{1+2i}=\dfrac{1+2i}{5}$" "\n" r"$\dfrac{1+2i}{5}+\dfrac{2+i}{5}=\dfrac{3+3i}{5}$",
   truth=1/(1-2*I)+(2+I)/5, tag='العمليات على الأعداد المركبة (نص مشترك)'),
-# 2024s #21: modulus and an Arg range fix a constant
+# 2024s #21: z = a + ik with |z| and an Arg interval -> k; options = sign (quadrant) x magnitude (k vs the modulus 4)
 Q('m9q26', U4[1], 'medium',
   r"إذا كان: $z=2\sqrt{3}+ik$ ، حيث: $|z|=4$ ، و $-\frac{\pi}{2}<\text{Arg}(z)<0$ ، فإنّ قيمة الثابت $k$ هي:",
   [O('-2', -2), O('2', 2), O('-4', -4), O('4', 4)],
   r"$12+k^2=16 \Rightarrow k=\pm2$" "\n" r"السعة بين $-\frac{\pi}{2}$ و $0$ تعني الربع الرابع، فالجزء التخيلي سالب: $k=-2$",
   truth=lambda: [r_ for r_ in solve(12+X**2-16, X) if r_ < 0][0], tag='إيجاد ثابت بمعلومية المقياس'),
-# 2024s #20 / 2023 #19: equal complex numbers with a quadratic real part condition
+# 2024s #20: x + y + (x^2 - c)i = a + bi with x > 0 -> y; options = sign slip x the rejected root x = -3
 Q('m9q27', U4[1], 'medium',
   r"قيمة $y$ الحقيقية التي تحقّق المعادلة: $2x+y+(x^{2}-4)i=5+5i$ ، حيث $x>0$ هي:",
   [O('-1', -1), O('1', 1), O('11', 11), O('-11', -11)],
   r"$x^2-4=5 \Rightarrow x=3$ (لأنّ $x>0$)" "\n" r"$2(3)+y=5 \Rightarrow y=-1$",
   truth=lambda: [5-2*r_ for r_ in solve(X**2-4-5, X) if r_ > 0][0], tag='تساوي عددين مركبين'),
-# 2023 #22: quotient in trigonometric form; options = divide/multiply moduli x subtract/add arguments
-Q('m9q28', U4[2], 'easy',
-  r"إذا كان: $z_1=8\left(\cos\frac{5\pi}{6}+i\sin\frac{5\pi}{6}\right)$ ، $z_2=2\left(\cos\frac{\pi}{4}+i\sin\frac{\pi}{4}\right)$ ، فإنّ $\dfrac{z_1}{z_2}$ هو:",
-  [O(trig('4', r'\frac{7\pi}{12}'), pol(4, 7*P/12)), O(trig('4', r'\frac{13\pi}{12}'), pol(4, 13*P/12)),
-   O(trig('16', r'\frac{7\pi}{12}'), pol(16, 7*P/12)), O(trig('16', r'\frac{13\pi}{12}'), pol(16, 13*P/12))],
-  r"عند القسمة نقسم المقياسين ونطرح السعتين: $\frac82=4$ ، $\frac{5\pi}{6}-\frac{\pi}{4}=\frac{10\pi-3\pi}{12}=\frac{7\pi}{12}$",
-  truth=expand(pol(8, 5*pi/6)/pol(2, pi/4)), tag='الضرب والقسمة بالصورة المثلثية'),
-# 2025 #23: a square in the complex plane, rotation by i; options = rotation direction x wrong vertex
-Q('m9q29', U4[2], 'hard',
+# 2023 #18: i^n x sqrt(-k^2) with n = 1 (mod 4) and a perfect square; options = sign (i^2025 = +-i) x real vs imaginary (sqrt(-25) = 5i vs 5)
+Q('m9q28', U4[1], 'easy',
+  F(r"قيمة المقدار: $«0»$ هي:", (r'i^{2025}\times\sqrt{-25}', I**2025*sqrt(-25))),
+  [O('-5', -5), O('5', 5), O('5i', 5*I), O('-5i', -5*I)],
+  r"$2025=4\times506+1$ ، فـ $i^{2025}=i$ ، و $\sqrt{-25}=5i$" "\n" r"$i\times5i=5i^2=-5$",
+  truth=I**2025*sqrt(-25), tag='قوى i'),
+# 2025 #23: square in the complex plane from two adjacent vertices (z3 on the real axis), here z4 only; options = rotation direction, the vertex z1, the side vector
+Q('m9q29', U4[2], 'medium',
   r"يظهر في المستوى المركّب الآتي مربّع رؤوسه الأعداد المركّبة $z_1,\ z_2,\ z_3,\ z_4$. إذا علمت أنّ: $z_2=-2+3i$ ، $z_3=1$ ، فإنّ $z_4$ هو:",
   [O('4+3i', 4+3*I), O('-2-3i', -2-3*I), O('1+6i', 1+6*I), O('3+3i', 3+3*I)],
   r"$\overrightarrow{z_3z_2}=z_2-z_3=-3+3i$ ، والضلع $\overrightarrow{z_3z_4}$ ناتج عن تدويره بزاوية $\frac{\pi}{2}$ مع عقارب الساعة (الضرب في $-i$)" "\n"
   r"$(-3+3i)(-i)=3i-3i^2=3+3i$ ، إذن $z_4=z_3+(3+3i)=4+3i$",
   truth=1+(-2+3*I-1)*(-I), figure=figure('m9q29', fig_square(), 3.0, 2.6), tag='تمثيل العمليات في المستوى المركب'),
-# 2026 #25 family: disc cut by a perpendicular bisector; options = centre sign x which boundary is strict
+# 2026 #25 family: a dashed disc cut by a solid perpendicular-bisector half-plane (2026: a wedge); options = centre sign x which boundary is strict
 IndexQ('m9q30', U4[3], 'hard',
   r"نظام المتباينات (بدلالة $z$) الذي يُمثِّل المحل الهندسي المُمثَّل بالمنطقة المُظلَّلة في الشكل الآتي هو:",
   [T(r'$|z-2i|<2$ ، $|z|\le|z-2|$', R9),
@@ -1055,6 +972,7 @@ IndexQ('m9q30', U4[3], 'hard',
   r"المستقيم المتصل $x=1$ هو العمود المنصّف للقطعة بين $0$ و $2$ ، والمنطقة في جهة الأصل: $|z|\le|z-2|$",
   truth=region_truth(R9, PR9, 5), figure=figure('m9q30', fig_region2(R9, PR9, 5), 3.4, 3.4), tag='منطقة في المستوى المركب من الشكل'),
 ]
+
 
 # ================================================================== PAPER 10
 F10, G10 = [(0, 2), (4, 4), (6, 1)], [(0, 1), (3, 4), (6, 1)]
@@ -1095,43 +1013,51 @@ Q('m10q2', U1[2], 'easy',
    O(r'-\frac{8}{x+2}+\frac{5}{(x+2)^{2}}', -8/(x+2)+5/(x+2)**2), O(r'\frac{8}{x+2}+\frac{5}{(x+2)^{2}}', 8/(x+2)+5/(x+2)**2)],
   r"$5x+2=A(x+2)+B$: معامل $x$: $A=5$ ، وعند $x=-2$: $B=-8$",
   truth=(5*x+2)/(x+2)**2, tag='تجزئة: عامل خطي مكرر'),
-# 2026 #3: equal remainders; options = sign x parity slip in f(-1)
+# E (expected: synthetic division by (ax - b): quotient and remainder), template 2026 #1 (synthetic division, "... هما:"):
+# divide by the zero -1/2 of (2x + 1), then halve the quotient; options = quotient halved or not x remainder halved or not
 Q('m10q3', U1[1], 'medium',
-  F(r"إذا كان: $f(x)=«0»$ ، وكان باقي قسمة $f(x)$ على $(x+1)$ مساويًا لباقي قسمته على $(x-3)$ ، فإنّ قيمة الثابت $p$ هي:", (r'x^{3}-2x^{2}+px+4', x**3-2*x**2+p*x+4)),
-  [O('-3', -3), O('3', 3), O('-2', -2), O('2', 2)],
-  r"$f(-1)=-1-2-p+4=1-p$ ، $f(3)=27-18+3p+4=13+3p$" "\n" r"$1-p=13+3p \Rightarrow -4p=12 \Rightarrow p=-3$",
-  truth=lambda: solve(rem(x**3-2*x**2+p*x+4, -1)-rem(x**3-2*x**2+p*x+4, 3), p)[0], tag='نظرية الباقي وإيجاد ثابت'),
-# factor theorem with (2x - 1) -> constant (2026 #3 family); options = the zero used
+  F(r"عند قسمة $f(x)=«0»$ على $(2x+1)$ ، فإنّ ناتج القسمة $q(x)$ والباقي $r$ هما:", (r'4x^{3}+4x^{2}-3x+1', 4*x**3+4*x**2-3*x+1)),
+  [O(r'q(x)=2x^{2}+x-2,\ r=3', Tuple(2*x**2+x-2, 3), 'pairs'), O(r'q(x)=4x^{2}+2x-4,\ r=3', Tuple(4*x**2+2*x-4, 3), 'pairs'),
+   O(r'q(x)=2x^{2}+x-2,\ r=\frac{3}{2}', Tuple(2*x**2+x-2, R(3, 2)), 'pairs'), O(r'q(x)=4x^{2}+2x-4,\ r=\frac{3}{2}', Tuple(4*x**2+2*x-4, R(3, 2)), 'pairs')],
+  r"صفر $(2x+1)$ هو $x=-\frac12$ ، وبالقسمة التركيبية: $4,\ 4,\ -3,\ 1 \to 4,\ 2,\ -4,\ 3$" "\n"
+  r"$f(x)=\left(x+\frac12\right)(4x^2+2x-4)+3=(2x+1)(2x^2+x-2)+3$ ، إذن $q(x)=2x^2+x-2$ و $r=3$",
+  truth=lambda: Tuple(*div(4*x**3+4*x**2-3*x+1, 2*x+1, x)), tag='القسمة التركيبية على (ax−b)'),
+# E (expected: factor theorem -> constant), template 2026 #3: (2x - 1) is a factor, so f(1/2) = 0; options = the zero
+# used (2 or -1/2 instead of 1/2), a sign slip
 Q('m10q4', U1[1], 'medium',
   F(r"إذا كان $(2x-1)$ أحد عوامل الاقتران: $f(x)=«0»$ ، فإنّ قيمة الثابت $k$ هي:", (r'2x^{3}+kx^{2}-5x+2', 2*x**3+k*x**2-5*x+2)),
   [O('1', 1), O('-2', -2), O('-17', -17), O('-1', -1)],
   r"$(2x-1)$ عامل $\Leftrightarrow f\left(\frac12\right)=0$" "\n" r"$\frac14+\frac k4-\frac52+2=0 \Rightarrow \frac k4=\frac14 \Rightarrow k=1$",
-  truth=lambda: solve(rem(2*x**3+k*x**2-5*x+2, R(1, 2)), k)[0], tag='نظرية العوامل وإيجاد ثابتين'),
+  truth=lambda: solve(rem(2*x**3+k*x**2-5*x+2, R(1, 2)), k)[0], tag='نظرية العوامل وإيجاد ثابت'),
 # ---------------- unit 2
-# 2026 #4 from tan theta in the 2nd quadrant, asking cos(theta/2); options = sign x sin/cos formula
+# 2026 #4: cos(theta/2) from cos theta and a quadrant (2nd); options = sign x cos/sin half-angle formula
 Q('m10q5', U2[2], 'medium',
-  r"إذا كان: $\tan\theta=-2\sqrt{2}$ ، $\frac{\pi}{2}<\theta<\pi$ ، فإنّ قيمة $\cos\frac{\theta}{2}$ تساوي:",
-  [O(r'\frac{1}{\sqrt{3}}', 1/sqrt(3)), O(r'-\frac{1}{\sqrt{3}}', -1/sqrt(3)), O(r'\frac{\sqrt{6}}{3}', sqrt(6)/3), O(r'-\frac{\sqrt{6}}{3}', -sqrt(6)/3)],
-  r"$\sec^2\theta=1+8=9$ ، وفي الربع الثاني $\cos\theta=-\frac13$" "\n" r"$\frac{\pi}{4}<\frac{\theta}{2}<\frac{\pi}{2}$: $\cos\frac{\theta}{2}=\sqrt{\dfrac{1-\frac13}{2}}=\sqrt{\dfrac13}=\dfrac{1}{\sqrt3}$",
-  truth=cos((pi-atan(2*sqrt(2)))/2), tag='نصف الزاوية مع تحديد الربع'),
-# 2026 #5: simplest form (difference of two cosines); options = coefficient x sin/cos
+  r"إذا كان: $\cos\theta=-\frac{1}{9}$ ، $\frac{\pi}{2}<\theta<\pi$ ، فإنّ قيمة $\cos\frac{\theta}{2}$ تساوي:",
+  [O(r'\frac{2}{3}', R(2, 3)), O(r'-\frac{2}{3}', -R(2, 3)), O(r'\frac{\sqrt{5}}{3}', sqrt(5)/3), O(r'-\frac{\sqrt{5}}{3}', -sqrt(5)/3)],
+  r"$\frac{\pi}{4}<\frac{\theta}{2}<\frac{\pi}{2}$ (الربع الأول)، فجيب التمام موجب" "\n" r"$\cos\frac{\theta}{2}=\sqrt{\dfrac{1+\cos\theta}{2}}=\sqrt{\dfrac{1-\frac19}{2}}=\sqrt{\dfrac49}=\dfrac23$",
+  truth=cos(acos(-R(1, 9))/2), tag='نصف الزاوية مع تحديد الربع'),
+# E (expected: compressed difference formula sin A cos B - cos A sin B -> exact value), template 2026 #5 (difference
+# identity with special angles, "... هي:"); options = special values (sum formula used, angles in reverse order, cos for sin)
 Q('m10q6', U2[1], 'easy',
-  F(r"أبسط صورة للمقدار: $«0»$ هي:", (r'\cos(x-\frac{\pi}{6})-\cos(x+\frac{\pi}{6})', cos(x-pi/6)-cos(x+pi/6))),
-  [O(r'\sin x', sin(x)), O(r'\cos x', cos(x)), O(r'\sqrt{3}\sin x', sqrt(3)*sin(x)), O(r'\sqrt{3}\cos x', sqrt(3)*cos(x))],
-  r"$\cos\left(x\mp\frac{\pi}{6}\right)=\frac{\sqrt3}{2}\cos x\pm\frac12\sin x$" "\n" r"بالطرح: $2\cdot\frac12\sin x=\sin x$",
-  truth=cos(x-pi/6)-cos(x+pi/6), tag='تبسيط باستعمال متطابقات المجموع والفرق'),
-# 2026 #6: equivalent expression for tan + cot
+  F(r"قيمة المقدار: $«0»$ هي:", (r'\sin\frac{5\pi}{12}\cos\frac{\pi}{12}-\cos\frac{5\pi}{12}\sin\frac{\pi}{12}', sin(5*pi/12)*cos(pi/12)-cos(5*pi/12)*sin(pi/12))),
+  [O(r'\frac{\sqrt{3}}{2}', sqrt(3)/2), O('1', 1), O(r'-\frac{\sqrt{3}}{2}', -sqrt(3)/2), O(r'\frac{1}{2}', R(1, 2))],
+  r"$\sin A\cos B-\cos A\sin B=\sin(A-B)$" "\n" r"$\sin\left(\frac{5\pi}{12}-\frac{\pi}{12}\right)=\sin\frac{4\pi}{12}=\sin\frac{\pi}{3}=\frac{\sqrt3}{2}$",
+  truth=sin(5*pi/12)*cos(pi/12)-cos(5*pi/12)*sin(pi/12), tag='قيم دقيقة بمتطابقات المجموع والفرق'),
+# 2026 #6: cos x + sin x tan x = sec x -> sin x + cos x cot x = csc x (quotient identity, common denominator,
+# Pythagorean, reciprocal); options = reciprocal vs double x sin vs cos (2 sin x = cot x taken as sin x / cos x)
 Q('m10q7', U2[1], 'easy',
-  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\tan x+\cot x', tan(x)+cot(x))),
-  [O(r'\sec x\csc x', sec(x)*csc(x)), O(r'\sin x\cos x', sin(x)*cos(x)), O(r'\sec^{2}x', sec(x)**2), O(r'\csc^{2}x', csc(x)**2)],
-  r"$\dfrac{\sin x}{\cos x}+\dfrac{\cos x}{\sin x}=\dfrac{\sin^2x+\cos^2x}{\sin x\cos x}=\dfrac{1}{\sin x\cos x}=\sec x\csc x$",
-  truth=tan(x)+cot(x), tag='المتطابقات الأساسية'),
-# product-to-sum exact value; options = sign x missing factor 2
+  F(r"أيُّ الآتية مكافئ للمقدار: $«0»$ ؟", (r'\sin x+\cos x\cot x', sin(x)+cos(x)*cot(x))),
+  [O(r'\csc x', csc(x)), O(r'\sec x', sec(x)), O(r'2\sin x', 2*sin(x)), O(r'2\cos x', 2*cos(x))],
+  r"$\sin x+\cos x\cdot\dfrac{\cos x}{\sin x}=\dfrac{\sin^2x+\cos^2x}{\sin x}=\dfrac{1}{\sin x}=\csc x$",
+  truth=sin(x)+cos(x)*cot(x), tag='المتطابقات الأساسية'),
+# E (expected: exact value by power reduction), template 2026 #4 (a value from a half-angle identity, "... تساوي:"):
+# cos^2(pi/8) = (1 + cos(pi/4))/2; options = sign (cos^2 vs sin^2 formula) x coefficient 1/2 kept or dropped
 Q('m10q8', U2[2], 'medium',
-  r"قيمة المقدار: $2\sin\frac{5\pi}{12}\cos\frac{\pi}{12}$ هي:",
-  [O(r'\frac{2+\sqrt{3}}{2}', (2+sqrt(3))/2), O(r'\frac{2-\sqrt{3}}{2}', (2-sqrt(3))/2), O(r'\frac{2+\sqrt{3}}{4}', (2+sqrt(3))/4), O(r'\frac{2-\sqrt{3}}{4}', (2-sqrt(3))/4)],
-  r"$2\sin A\cos B=\sin(A+B)+\sin(A-B)$" "\n" r"$=\sin\frac{\pi}{2}+\sin\frac{\pi}{3}=1+\frac{\sqrt3}{2}=\frac{2+\sqrt3}{2}$",
-  truth=2*sin(5*pi/12)*cos(pi/12), tag='تحويل الضرب إلى مجموع'),
+  F(r"قيمة المقدار: $«0»$ تساوي:", (r'\cos^{2}\frac{\pi}{8}', cos(pi/8)**2)),
+  [O(r'\frac{2+\sqrt{2}}{4}', (2+sqrt(2))/4), O(r'\frac{2-\sqrt{2}}{4}', (2-sqrt(2))/4), O(r'\frac{2+\sqrt{2}}{2}', (2+sqrt(2))/2), O(r'\frac{2-\sqrt{2}}{2}', (2-sqrt(2))/2)],
+  r"$\cos^2\theta=\dfrac{1+\cos2\theta}{2}$ ، ومع $\theta=\frac{\pi}{8}$: $\cos^2\frac{\pi}{8}=\dfrac{1+\cos\frac{\pi}{4}}{2}$" "\n"
+  r"$\dfrac{1+\frac{\sqrt2}{2}}{2}=\dfrac{2+\sqrt2}{4}$",
+  truth=cos(pi/8)**2, tag='تقليص القوة ونصف الزاوية'),
 # 2026 #7: quadratic in cos with one root rejected (|cos x| <= 1); options = sign x reference angle
 Q('m10q9', U2[3], 'medium',
   F(r"حلول المعادلة: $«0»=0$ في الفترة $[0,\,2\pi)$ هي:", (r'2\cos^{2}x+3\cos x-2', 2*cos(x)**2+3*cos(x)-2)),
@@ -1139,7 +1065,8 @@ Q('m10q9', U2[3], 'medium',
    O(st(r'\frac{\pi}{6}', r'\frac{11\pi}{6}'), S_(P/6, 11*P/6), 'set'), O(st(r'\frac{5\pi}{6}', r'\frac{7\pi}{6}'), S_(5*P/6, 7*P/6), 'set')],
   r"$(2\cos x-1)(\cos x+2)=0$ ، و $\cos x=-2$ مرفوض" "\n" r"$\cos x=\frac12$: الربعان الأول والرابع: $x=\frac{\pi}{3},\ \frac{5\pi}{3}$",
   truth=lambda: sols(2*cos(x)**2+3*cos(x)-2, 0, 2*pi), tag='معادلة تربيعية في نسبة مثلثية مع رفض حل'),
-# 2026 #8 family: tan 2x = 1 in [0, pi); options = halved or not x second solution
+# E (expected: multiple angle in an interval), template 2026 #8: sin 2x = cos 2x -> tan 2x = 1 in [0, pi), so 2x in
+# [0, 2pi); options = halved or not x second solution kept or lost
 Q('m10q10', U2[3], 'medium',
   F(r"حلول المعادلة: $«0»=0$ في الفترة $[0,\,\pi)$ هي:", (r'\sin 2x-\cos 2x', sin(2*x)-cos(2*x))),
   [O(st(r'\frac{\pi}{8}', r'\frac{5\pi}{8}'), S_(P/8, 5*P/8), 'set'), O(st(r'\frac{\pi}{4}', r'\frac{5\pi}{4}'), S_(P/4, 5*P/4), 'set'),
@@ -1147,25 +1074,28 @@ Q('m10q10', U2[3], 'medium',
   r"$\tan2x=1$ ، و $0\le2x<2\pi$: $2x=\frac{\pi}{4},\ \frac{5\pi}{4}$" "\n" r"$x=\frac{\pi}{8},\ \frac{5\pi}{8}$",
   truth=lambda: sols(sin(2*x)-cos(2*x), 0, pi), tag='معادلة بزاوية مضاعفة في فترة'),
 # ---------------- unit 3
-# 2024 #2: trig with a shifted angle plus a polynomial over pi; options = sign of sin(-pi/2) x sign of the result
+# 2024 #2: f'(pi/2) of a trig function of a shifted angle plus a polynomial over pi (2 sin(x + pi) - x^2/pi ->
+# 3 cos(x - pi) + x^2/(2pi)); options = sign x magnitude
 Q('m10q11', U3[1], 'easy',
   F(r"إذا كان: $f(x)=«0»$ ، فإنّ $f'\left(\frac{\pi}{2}\right)$ هي:", (r'3\cos(x-\pi)+\frac{x^{2}}{2\pi}', 3*cos(x-pi)+x**2/(2*pi))),
   [O(r'\frac{7}{2}', R(7, 2)), O(r'-\frac{5}{2}', -R(5, 2)), O(r'\frac{5}{2}', R(5, 2)), O(r'-\frac{7}{2}', -R(7, 2))],
   r"$f'(x)=-3\sin(x-\pi)+\dfrac{x}{\pi}$" "\n" r"$f'\left(\frac{\pi}{2}\right)=-3\sin\left(-\frac{\pi}{2}\right)+\frac12=3+\frac12=\frac72$",
   truth=Dx(3*cos(x-pi)+x**2/(2*pi)).subs(x, pi/2), tag='مشتقات الاقترانات المثلثية'),
-# 2024s #10 / 2024 #7: a^(linear), f'(a) given -> a
+# 2024s #10: b^(linear) with the value f'(a) given -> the point a (2^(-3x) -> 3^(2x - 1)); options = small integers
 Q('m10q12', U3[1], 'medium',
   F(r"إذا كان: $f(x)=«0»$ ، وكان: $f'(a)=6\ln 3$ ، فإنّ قيمة الثابت $a$ هي:", (r'3^{2x-1}', 3**(2*x-1))),
   [O('1', 1), O('0', 0), O('2', 2), O('-1', -1)],
   r"$f'(x)=3^{2x-1}\ln3\cdot2$" "\n" r"$2\ln3\cdot3^{2a-1}=6\ln3 \Rightarrow 3^{2a-1}=3 \Rightarrow 2a-1=1 \Rightarrow a=1$",
   truth=lambda: [r_ for r_ in solve(Dx(3**(2*x-1)).subs(x, X)-6*log(3), X) if r_.is_real][0], tag='إيجاد ثابت بمعلومية قيمة المشتقة'),
-# 2024 #3: velocity when the particle returns to its starting position
+# 2024 #3: velocity when the particle returns to its starting position (solve s(t) = s(0), t > 0); options = v(0), v(2),
+# sign
 Q('m10q13', U3[1], 'medium',
   F(r"يُمثّل الاقتران: $s(t)=«0»$ ، $t\ge0$ موقع جسم يتحرّك في مسار مستقيم، حيث $s$ الموقع بالأمتار، و $t$ الزمن بالثواني، فإنّ سرعة الجسم المتجهة في اللحظة التي يعود فيها إلى موقعه الابتدائي هي:", (r't^{3}-6t^{2}+5', t**3-6*t**2+5)),
   [O('36', 36, units='m/s'), O('0', 0, units='m/s'), O('-12', -12, units='m/s'), O('-36', -36, units='m/s')],
   r"$s(0)=5$ ، و $t^3-6t^2+5=5 \Rightarrow t^2(t-6)=0 \Rightarrow t=6$ (بعد الانطلاق)" "\n" r"$v(t)=3t^2-12t \Rightarrow v(6)=108-72=36\ \text{m/s}$",
   truth=diff(t**3-6*t**2+5, t).subs(t, [r_ for r_ in solve(t**3-6*t**2, t) if r_ > 0][0]), tag='الحركة: السرعة والتسارع'),
-# 2024 #5: second derivative of sec x plus a constant; options = one product-rule term missing x constant differentiated
+# 2024 #5: f'' at a special angle of a reciprocal trig function plus a constant (csc x + e^2 at pi/4 -> sec x - pi^2 at
+# pi/3); options = one product-rule term only (6, 8), the constant differentiated
 Q('m10q14', U3[2], 'medium',
   F(r"إذا كان: $f(x)=«0»$ ، فإنّ $f''\left(\frac{\pi}{3}\right)$ هي:", (r'\sec x-\pi^{2}', sec(x)-pi**2)),
   [O('14', 14), O('6', 6), O('8', 8), O(r'14-2\pi', 14-2*pi)],
@@ -1198,13 +1128,15 @@ Q('m10q18', U3[3], 'easy',
    O(r'3+\pi\cos(\pi x^{2})', 3+pi*cos(pi*x**2)), O(r'3-\pi\cos(\pi x^{2})', 3-pi*cos(pi*x**2))],
   r"$\left(\sin u\right)'=\cos u\cdot u'$ ، $u=\pi x^2 \Rightarrow u'=2\pi x$" "\n" r"$f'(x)=3+2\pi x\cos(\pi x^2)$",
   truth=Dx(3*x+sin(pi*x**2)), tag='قاعدة السلسلة مع الاقترانات المثلثية'),
-# 2026 #15: parametric with exponentials at t = ln 2; options = reciprocal x missing chain factor 2
+# 2026r #8: x of the horizontal tangent of a^(quadratic) (6^(1 - x^2) -> 4^(2x - x^2)); options = list (the zeros 0 and 2
+# of the exponent, the base 4 = f(1))
 Q('m10q19', U3[3], 'medium',
-  F(r"إذا أُعطي منحنى بالمعادلتين الوسيطيتين: $x=«0»$ ، $y=«1»$ ، فإنّ $\dfrac{dy}{dx}$ عندما $t=\ln 2$ هو:", (r'e^{2t}', exp(2*t)), (r'e^{t}-t', exp(t)-t)),
-  [O(r'\frac{1}{8}', R(1, 8)), O('8', 8), O(r'\frac{1}{4}', R(1, 4)), O('4', 4)],
-  r"$\dfrac{dy}{dt}=e^t-1=2-1=1$ ، $\dfrac{dx}{dt}=2e^{2t}=2(4)=8$" "\n" r"$\dfrac{dy}{dx}=\dfrac18$",
-  truth=(diff(exp(t)-t, t)/diff(exp(2*t), t)).subs(t, log(2)), tag='مشتقة المعادلات الوسيطية'),
-# 2026 #16: x e^y + y = 2x - 1, point from y = 0; options = unit fractions / slips
+  F(r"إذا كان: $f(x)=«0»$ ، فإنّ قيمة $x$ التي يكون عندها لمنحنى الاقتران $f(x)$ مماس أفقيّ هي:", (r'4^{2x-x^{2}}', 4**(2*x-x**2))),
+  [O('1', 1), O('0', 0), O('2', 2), O('4', 4)],
+  r"$f'(x)=4^{2x-x^2}\ln4\cdot(2-2x)$ ، و $4^{2x-x^2}\ln4\ne0$" "\n" r"$f'(x)=0 \Rightarrow 2-2x=0 \Rightarrow x=1$",
+  truth=lambda: solve(Dx(4**(2*x-x**2)), x)[0], tag='نقاط المماس الأفقي'),
+# 2026 #16: a^x ln y = x/y - 1 at y = 1 -> x e^y + y = 2x - 1 at y = 0 (the point found first); options = unit fractions
+# and slips
 Q('m10q20', U3[4], 'medium',
   F(r"إذا كان: $«0»=«1»$ ، فإنّ $\dfrac{dy}{dx}$ عندما $y=0$ هو:", (r'xe^{y}+y', x*exp(y)+y), (r'2x-1', 2*x-1)),
   [O(r'\frac{1}{2}', R(1, 2)), O('1', 1), O(r'\frac{1}{3}', R(1, 3)), O('2', 2)],
@@ -1231,13 +1163,15 @@ Q('m10q23', U4[1], 'medium',
   [O(r'3\sqrt{3}+3i', 3*sqrt(3)+3*I), O(r'3\sqrt{3}-3i', 3*sqrt(3)-3*I), O(r'3+3\sqrt{3}i', 3+3*sqrt(3)*I), O(r'3-3\sqrt{3}i', 3-3*sqrt(3)*I)],
   r"$\text{Arg}(z)=-\text{Arg}(\bar z)=\frac{\pi}{6}$" "\n" r"$z=6\left(\cos\frac{\pi}{6}+i\sin\frac{\pi}{6}\right)=6\left(\frac{\sqrt3}{2}+\frac12i\right)=3\sqrt3+3i$",
   truth=conjugate(pol(6, -pi/6)), tag='الصورة المثلثية بشروط', lead=NOTE_I(23, 30)),
-# 2025s #18-19: shared stem (quotient by a pure imaginary; modulus of a square)
+# 2025s #19: division by a pure imaginary number (a single item there), here the first item of a shared stem as in
+# 2026 #20-21; options = sign of the real part x sign of the imaginary part
 Q('m10q24', U4[2], 'easy',
   r"ناتج $\dfrac{z}{w}$ بالصورة القياسية هو:",
   [O('-3+i', -3+I), O('3-i', 3-I), O('-3-i', -3-I), O('3+i', 3+I)],
   r"$\dfrac{2+6i}{-2i}\cdot\dfrac{i}{i}=\dfrac{2i+6i^2}{-2i^2}=\dfrac{-6+2i}{2}=-3+i$",
   truth=(2+6*I)/(-2*I), tag='العمليات على الأعداد المركبة (نص مشترك)', lead=shared(r"إذا كان: $z=2+6i$ ، $w=-2i$", 24, 25)),
-# 2025s #18: second item of the shared stem (|z^2|); options = |z|, a part of z^2, |z|^4
+# 2025s #18: |z^2| for z = a + bi (a single item there), here the second item of the shared stem; options = |z|, a part
+# of z^2, |z|^4
 Q('m10q25', U4[1], 'easy',
   r"قيمة $|z^{2}|$ هي:",
   [O('40', 40), O(r'2\sqrt{10}', 2*sqrt(10)), O('32', 32), O('1600', 1600)],
