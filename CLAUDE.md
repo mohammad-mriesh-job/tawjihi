@@ -23,7 +23,7 @@ src/
                                units 6 and 7 the same: exams 4–8 in uN_exams_4_8.py, helpers and figure
                                drawers in uN_helpers.py, explain_uN_e4…e8.py + explain_uN_common.py)
       mock-exams/              mock_sN.py (entry) · sN_papers_*.py · sN_helpers.py · explain_sN*.py · sN.ts (GENERATED) · fig/
-      previous-ministry/       official past papers (PDF), README.md index, ANALYSIS.md (semester 1)
+      previous-ministry/       official past papers (PDF), README.md index, ANALYSIS.md (ministry item analysis)
 ```
 
 Nothing content-related lives outside `src/` (only `public/favicon.svg`). `previous-ministry/` PDFs are reference
@@ -65,7 +65,8 @@ change a figure, restore it with `git checkout -- <svg>` so diffs stay clean.
 
 ## How to write questions (process and mentality)
 
-Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or editing any item. In short:
+Read the semester's `previous-ministry/ANALYSIS.md` (semester 1 or semester 2) before writing or editing any item.
+In short:
 
 1. **Start from a specific ministry item, not from the textbook exercise.** Every new item is a *sibling* of one
    named official item: same skill, same stem structure, same kind of function and numbers, same difficulty and
@@ -81,7 +82,12 @@ Read `src/semesters/semester-1/previous-ministry/ANALYSIS.md` before writing or 
    ANALYSIS.md section 9 lists the mapping for papers 6–10. Restyling options alone is NOT modelling (that was tried for papers 6–10
    and rejected). The blueprint is the 2026 paper (items 1–25 = semester 1: unit 1 → 1–3, unit 2 → 4–8, unit 3 →
    9–18, unit 4 → 19–25); our 30-item semester-1 mocks scale this to 4 · 6 · 12 · 8 in the same order, cover
-   every 2026 pattern, and take the remaining slots from 2023–2025 and the 2026 repeaters paper.
+   every 2026 pattern, and take the remaining slots from 2023–2025 and the 2026 repeaters paper. Semester 2 = items
+   26–50 (unit 5 → 26–37, unit 6 → 38–45, unit 7 → 46–50); our semester-2 mocks follow the 19 May 2026 trial
+   (16 · 9 · 5). Papers 6–10 model every 2026 item (most twice, directly or as the same pattern from another year) and
+   spread the other 2023–2026 patterns over the five
+   (the variety rule above applied to mock papers; the few left out are in the unit exams; mapping in semester-2
+   ANALYSIS.md section 9).
 2. **Stay inside the 2008 curriculum.** Lesson ids are in each `uN.py` `meta`. Extrema, monotonicity, concavity,
    optimisation, limits/continuity appear in 2023–2025 papers but are NOT in the 2008 semester-1 units.
 3. **Phrase like the ministry**: `إذا كان: …، فإنّ … هو/هي:` · `أيُّ الآتية …؟` · `حلول المعادلة … في الفترة … هي:`;
